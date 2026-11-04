@@ -7,9 +7,9 @@
 
 > **English Overview** — Prism-Agent is a production-deployed LLM data agent for automotive product managers. It answers business questions across four dimensions (spec / owner reviews / sales / social sentiment) with one non-negotiable guarantee: **every number must be verifiable**. Instead of trusting the model's self-discipline, it enforces an *evidence gate* (`submit_conclusion` → CLAIM validation) and execution-layer guardrails (allowlists, fail-closed checks), and it is backed by a frozen 63-task golden eval set with adversarial trap questions (pass@1 = 95.2%, avg 4.78/5). Built on the [pi](https://github.com/badlogic/pi-mono) agent runtime: Python/FastAPI backends, React workbench, Langfuse observability, fully reproducible eval pipeline.
 
-**产品演示（72s）**
+**产品演示（72s，点击播放）**
 
-<video src="https://raw.githubusercontent.com/Trastio/Prism-Agent/main/docs/media/demo.mp4" poster="https://raw.githubusercontent.com/Trastio/Prism-Agent/main/docs/media/poster.jpg" controls muted preload="metadata" width="100%"></video>
+[![产品演示视频](docs/media/poster.jpg)](docs/media/demo.mp4)
 
 ---
 
