@@ -1,0 +1,169 @@
+# Prism 上云编排（5 常驻容器 + 1 可选 redis profile）
+# 用法：cd deploy && copy .env.example .env 填值 && docker compose up -d --build
+# 数据目录：默认 ./data（宿主机 deploy/data），云上用 PRISM_DATA_DIR=/data
+name: prism
+
+services:
+  # 前端静态 + 全部反代入口
+  prism-nginx:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.nginx
+    image: prism-nginx:local
+    restart: unless-stopped
+    ports:
+      - "${PRISM_HTTP_PORT:-80}:80"
+      # HTTPS：证书就位后启用（tls.d 为空目录时 443 无 server 块，不影响纯 HTTP 模式）
+      - "${PRISM_HTTPS_PORT:-443}:443"
+    depends_on:
+      - prism-api
+    environment:
+      TZ: Asia/Shanghai
+    volumes:
+      # 配置走挂载而非烧进镜像：改反代/加 HTTPS 只重启容器，不用重建镜像
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx/locations.inc:/etc/nginx/locations.inc:ro
+      - ./nginx/tls.d:/etc/nginx/tls.d:ro
+      - ./nginx/certs:/etc/nginx/certs:ro
+      # ACME HTTP-01 校验文件目录（certbot --webroot 写入）
+      - ./acme:/var/www/acme
+      # 前端产物挂载（本地用构建产物，改前端不必重建镜像）
+      - ../prism-web/dist:/usr/share/nginx/html:ro
+    networks: [prism-net]
+
+  # Agent API(8002) + pi 网关(9200) + pi 进程池
+  prism-api:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.api
+    image: prism-api:local
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+      PRISM_API_HOST: 0.0.0.0
+      PRISM_GATEWAY_PORT: "9200"
+      PI_SERVER: http://127.0.0.1:9200
+      # 跨容器地址必须用容器名（本机 127.0.0.1 在容器内指向自己）
+      SENTIMENT_BOARD: http://prism-sentiment:8000
+      PRISM_DASHBOARDS: http://prism-dashboards:8010
+      PRISM_DASHBOARDS_HTTP: http://prism-dashboards:8010
+      AUTOHOME_DB_PATH: /data/autohome.db
+      PRISM_SENTIMENT_DB: /data/vehicle_sentiment.db
+      PRISM_ALLOWED_ORIGIN: ${PRISM_ALLOWED_ORIGIN:-http://localhost:5173,http://127.0.0.1:5173}
+      # 护栏轨迹落点：显式注入，避免扩展走 FALLBACK 路径
+      PRISM_TRAJECTORY_FILE: ${PRISM_TRAJECTORY_FILE:-/app/.pi/sessions/trajectories.jsonl}
+      # 生产必设：PRISM_ENV=prod + PRISM_AUTH_SECRET（fail-closed 拒启）
+      PRISM_ENV: ${PRISM_ENV:-dev}
+      PRISM_AUTH_SECRET: ${PRISM_AUTH_SECRET:-}
+      PRISM_MANAGER_PASSWORD: ${PRISM_MANAGER_PASSWORD:-}
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      TIKHUB_KEY_PRISM: ${TIKHUB_KEY_PRISM:-}
+      # Langfuse 观测（2026-11-01 实测）：容器内 localhost:3300 拒连（指向容器自己），
+      # host.docker.internal:3300 可达（200）——baseUrl 用环境变量覆盖挂载进来的 langfuse.json
+      LANGFUSE_BASE_URL: ${LANGFUSE_BASE_URL:-http://host.docker.internal:3300}
+    volumes:
+      # 两库 + 7 json（api 只读 autocome 库，dashboards 可写）
+      - ${PRISM_DATA_DIR:-./data}:/data
+      # 登录门 users.json（共享口令/管理员白名单）落宿主机，重建容器不丢
+      - ${PRISM_DATA_DIR:-./data}/api:/app/prism-api/data
+      # .pi：sessions / trajectories / agent-minimal（含 auth.json，运行时挂载不进镜像）
+      - ${PRISM_DOTPI_DIR:-../.pi}:/app/.pi
+      # 埋点库（与 prism-ops 同一文件）
+      - ${PRISM_EVENTS_DB:-../prism_events.db}:/app/prism_events.db
+      # 提示词层：补齐通用层/分析框架层（A1a，2026-11-02）
+      - ../PRISM_GENERAL.md:/app/PRISM_GENERAL.md:ro
+      - ../PRISM_ANALYSIS.md:/app/PRISM_ANALYSIS.md:ro
+      # 热更新入口（A2：/health/report）
+      - ../prism-api/main.py:/app/prism-api/main.py:ro
+    depends_on:
+      - prism-sentiment
+      - prism-dashboards
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8002/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 60s
+    networks: [prism-net]
+
+  # 舆情看板查询面（数据由本地夜跑周同步上来）
+  prism-sentiment:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.sentiment
+    image: prism-sentiment:local
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+      HOST: 0.0.0.0
+      PORT: "8000"
+      TIKHUB_KEY: ${TIKHUB_KEY_PRISM:-}
+      # F1（2026-11-02）：云端采集/打标所需；缺失时打标会抛 DeepSeekPolarityError
+      DEEPSEEK_API_KEY: ${DEEPSEEK_API_KEY:-}
+      DS_POLARITY_MAX_PER_RUN: ${DS_POLARITY_MAX_PER_RUN:-5000}
+    volumes:
+      - ${PRISM_DATA_DIR:-./data}:/app/prism-sentiment/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import socket;socket.create_connection(('127.0.0.1',8000),3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 40s
+    networks: [prism-net]
+
+  # 口碑/配置/市场只读看板（由 prism-api /dash 反代，不对外）
+  prism-dashboards:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.dashboards
+    image: prism-dashboards:local
+    restart: unless-stopped
+    environment:
+      TZ: Asia/Shanghai
+      DASH_HOST: 0.0.0.0
+      DASH_PORT: "8010"
+    volumes:
+      - ${PRISM_DATA_DIR:-./data}:/app/prism-dashboards/data
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://127.0.0.1:8010/health', timeout=3)"]
+      interval: 30s
+      timeout: 5s
+      retries: 3
+      start_period: 30s
+    networks: [prism-net]
+
+  # 北极星运营看板：只绑宿主机 loopback + SSH 隧道访问（零公网暴露）
+  prism-ops:
+    build:
+      context: ..
+      dockerfile: deploy/Dockerfile.ops
+    image: prism-ops:local
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:${PRISM_OPS_PORT:-8020}:8020"
+    environment:
+      TZ: Asia/Shanghai
+      PRISM_OPS_HOST: 0.0.0.0
+      PRISM_OPS_EXCLUDE_TEST: ${PRISM_OPS_EXCLUDE_TEST:-1}
+    volumes:
+      - ${PRISM_EVENTS_DB:-../prism_events.db}:/app/prism_events.db:ro
+      - ${PRISM_DOTPI_DIR:-../.pi}:/app/.pi:ro
+      # E3/E4：每日巡检汇总 + ops 源码热更新
+      - ${PRISM_DATA_DIR:-./data}/health:/app/health:ro
+      - ../prism-ops/ops_server.py:/app/prism-ops/ops_server.py:ro
+      - ../prism-ops/static/index.html:/app/prism-ops/static/index.html:ro
+    networks: [prism-net]
+
+  # 可选：默认不启（D5 拍板「不上」）。需要时 docker compose --profile redis up -d
+  redis:
+    image: redis:7-alpine
+    profiles: [redis]
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    volumes:
+      - ${PRISM_DATA_DIR:-./data}/redis:/data
+    networks: [prism-net]
+
+networks:
+  prism-net:
+    driver: bridge

@@ -1,0 +1,133 @@
+{
+ "snapshot_id": "snap-20261012-1222",
+ "captured_at": "2026-11-02T18:08:01",
+ "note": "内容指纹基线：实验前后各算一次，用于证明 A/B 两臂读到同一份数据；字节漂移由挂载 WAL checkpoint 引起（manifest 有 first_mounted_at 留痕）",
+ "dbs": {
+  "autohome.db": {
+   "bytes": 312791040,
+   "manifest_bytes": 312791040,
+   "sha256": "0454cceb9992b29b4736f82bbff30c418bf85d8ebd4016498db5161097e7e693",
+   "manifest_sha256": "9b0a353a4b5f6fa673316b452cdea0b35d23db9510de8dcb54211f06bd75c308",
+   "tables": {
+    "collection_runs": {
+     "rows": 0,
+     "content_sha256_16": "e3b0c44298fc1c14"
+    },
+    "config_snapshots": {
+     "rows": 251,
+     "content_sha256_16": "159b9bcea06b8e61"
+    },
+    "conversations": {
+     "rows": 0,
+     "content_sha256_16": "e3b0c44298fc1c14"
+    },
+    "insight_cache": {
+     "rows": 11,
+     "content_sha256_16": "6c27b4fdeb31cddf"
+    },
+    "owner_reviews": {
+     "rows": 21396,
+     "content_sha256_16": "12939b0ca9c9a375"
+    },
+    "review_tags": {
+     "rows": 50696,
+     "content_sha256_16": "6569a0c7871a2706"
+    },
+    "sales_trim": {
+     "rows": 202114,
+     "content_sha256_16": "f45944d17ed9ee5c"
+    },
+    "series_summaries": {
+     "rows": 221,
+     "content_sha256_16": "e263d12672b23559"
+    },
+    "task_records": {
+     "rows": 0,
+     "content_sha256_16": "e3b0c44298fc1c14"
+    },
+    "user_preferences": {
+     "rows": 1,
+     "content_sha256_16": "c1706959f6688b1e"
+    }
+   },
+   "byte_drift": true
+  },
+  "vehicle_sentiment.db": {
+   "bytes": 67579904,
+   "manifest_bytes": 67563520,
+   "sha256": "a105f046c94b70e6adc7871000886ed20bc8177392eeb034bb1096171f2c4774",
+   "manifest_sha256": "0c92a5869b566dd9a5c468992dfc24fa002bed6352c67d7c73354804a807d638",
+   "tables": {
+    "analyzed_posts": {
+     "rows": 11967,
+     "content_sha256_16": "a778a1b957e4a214"
+    },
+    "anomaly_events": {
+     "rows": 32,
+     "content_sha256_16": "76295ab124d9ee15"
+    },
+    "collection_status": {
+     "rows": 21,
+     "content_sha256_16": "b429c10ea7fe63cf"
+    },
+    "defect_themes": {
+     "rows": 15,
+     "content_sha256_16": "8ed4985c96452fd1"
+    },
+    "dialog_conversations": {
+     "rows": 18,
+     "content_sha256_16": "a5d28501a81484ed"
+    },
+    "dialog_messages": {
+     "rows": 18,
+     "content_sha256_16": "e8154d737ec5fcf1"
+    },
+    "event_groups": {
+     "rows": 718,
+     "content_sha256_16": "37964091294864b6"
+    },
+    "heat_metrics": {
+     "rows": 1555,
+     "content_sha256_16": "dec8ae7eed2b1356"
+    },
+    "post_comments": {
+     "rows": 79129,
+     "content_sha256_16": "e2a8033221ceeff6"
+    },
+    "raw_posts": {
+     "rows": 13014,
+     "content_sha256_16": "3e32aed1fb0fbfc0"
+    },
+    "reports": {
+     "rows": 1,
+     "content_sha256_16": "8da003ba0140bb11"
+    },
+    "schema_migrations": {
+     "rows": 19,
+     "content_sha256_16": "12e897667d53039a"
+    },
+    "search_index_metrics": {
+     "rows": 2668,
+     "content_sha256_16": "5b27bd232f35fa5f"
+    },
+    "tikhub_daily_usage": {
+     "rows": 0,
+     "content_sha256_16": "e3b0c44298fc1c14"
+    },
+    "vehicle_groups": {
+     "rows": 0,
+     "content_sha256_16": "e3b0c44298fc1c14"
+    },
+    "vehicles": {
+     "rows": 25,
+     "content_sha256_16": "6c2c839647a91fc1"
+    },
+    "watch_items": {
+     "rows": 3,
+     "content_sha256_16": "1acd770eb877a0cd"
+    }
+   },
+   "byte_drift": true
+  }
+ }
+}

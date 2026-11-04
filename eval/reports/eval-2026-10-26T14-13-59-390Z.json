@@ -1,0 +1,1631 @@
+{
+  "run_id": "eval-2026-10-26T14-13-59-390Z",
+  "started_at": "2026-10-26T14:13:59.391Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+  "snapshot_id": null,
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "ca7c4f7cec8662d8abd07d5f958c226a",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-26T14:23:59.285Z",
+  "results": [
+    {
+      "task": "cross-01",
+      "sessionId": "01a1788f-ab1d-75df-b273-a969c384f059",
+      "dimension": "跨维度",
+      "question": "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_config",
+        "query_reviews",
+        "query_sales",
+        "query_sales"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 67.6,
+        "tool_calls": 11,
+        "tokens": {
+          "input": 47913,
+          "output": 16711,
+          "cacheRead": 476288,
+          "totalTokens": 540912,
+          "cost_usd": 0.012721
+        },
+        "partial": false
+      },
+      "replyLength": 1516,
+      "replyPreview": "## 结论\n\n**是结构性短板，但不是第一短板。** 银河E5 的舒适负面占比约 62%，在 8 个口碑维度中**仅好于智能化（约 68%）**；而且短板明确落在**底盘滤震与隔音（NVH）**两个工",
+      "reply_full": "## 结论\n\n**是结构性短板，但不是第一短板。** 银河E5 的舒适负面占比约 62%，在 8 个口碑维度中**仅好于智能化（约 68%）**；而且短板明确落在**底盘滤震与隔音（NVH）**两个工程点上——座椅本身是正资产，不是问题源。\n\n## 一、配置：NVH 硬件长期缺位（产品力侧）\n\n| 与舒适直接相关的配置 | 覆盖情况 |\n|---|---|\n| 座椅材质 | 全系仿皮，无可选真皮/半苯胺 |\n| 侧窗多层隔音玻璃 | 早期年款**全系无**，直到 2027 年年款才在部分配置上提供前排 |\n| 轮胎规格 | 仅高配给到 235/50 R19，其余 225/55 R18 |\n\n**读法**：座椅层面没有坏（材质一致、配置不寒酸），但**隔音玻璃这项\"花钱就能补\"的硬件在两个年款里一直缺位**，只在新年年款部分补齐——这正是\"结构性\"的配置侧证据。\n\n## 二、口碑：负向话题高度集中在底盘与 NVH\n\n- 舒适维度共 **503** 条提及，其中的 **313** 条为负向、**190** 条为正向，负向占比约 **62%**\n- 负面话题结构：**悬架偏硬** + **噪音大** + **隔音差** 三类构成主体；而座椅相关评价**以正向占多数**\n- **跨区域一致性**：广东、浙江、江苏、山东等主销省份的负面话题排序高度雷同（都是\"悬挂硬/噪音大\"前置），不是某地个案\n- 一条典型原话（2024 款车主，高速场景）：\"超过一百码风噪比较明显，A 柱附近呼呼的声音\"\n- 另一条反向证词值得注意（新年款车主）：\"底盘偏软，连续起伏路面抛跳明显、后排容易晕\"——**同一个底盘同时收到\"太硬\"和\"太软抛跳\"两种抱怨，指向的是标定一致性问题，而不是口味差异**\n\n## 三、销量：下行通道，但不做归因\n\n- 2026 年 8 月零售 **4,436** 台，2025 年 8 月为 **10,774** 台，同比约 **-58.8%**\n- 同期终端成交均价由约 **11.21 万元** 降至 **10.68 万元**——降价没换来销量\n\n**明确不归因**：市场结果受价格战、竞品投放、渠道等多因子影响，舒适口碑差与销量下行只能\"同时存在\"，不能互为因果。\n\n## 四、\"结构性\"的三条判据\n\n1. **跨维度同向**：口碑负面话题（悬架/噪音/隔音）与配置缺口（隔音玻璃缺失）指向同一处，不是评价噪声\n2. **跨群体普遍**：不同省份、不同年款、不同价位的版型都在提，且顶配同样有抱怨\n3. **跨年款未收敛**：硬件缺失延续两个年款，新年款才部分补齐；而口碑侧新年款样本的噪音抱怨率并未下降\n\n## 数据缺口与后续验证\n\n| 缺口 | 影响 | 缺什么能坐实 |\n|---|---|---|\n| 库内无悬架结构/标定参数 | 底盘问题只能从口碑侧推断，配置侧无法佐证 | 悬架供应商与标定文档、试驾主观评价表 |\n| 2027 年年款尚无零售数据 | 隔音玻璃补齐后的实际改善未验证 | 新年款上市后 3 个月口碑增量对比 |\n| 口碑样本以 2024 年年款为主（892/1187），新年款仅 225 条 | 年款间收敛性判断证据强度中等 | 新年款累计样本过 500 条后复算 |\n\n**给产品的判断**：舒适不是\"配置给不够\"，是\"底盘标定 + NVH 硬件\"两个工程点的欠账，且已被市场以口碑形式持续记录两个年款。若下一代只补隔音玻璃而底盘标定不动，这条短板不会消失。\n\n*数据时点：口碑 2026-10-07；销量与终端价 2026-9 月末（2026 年 9 月零售尚未结算）*",
+      "first_error_turn": null
+    },
+    {
+      "task": "cross-02",
+      "sessionId": "01a17890-ab40-75df-b273-a96acb40c56a",
+      "dimension": "跨维度",
+      "question": "银河E5 2026年销量同比表现如何？终端价是否真降价？",
+      "repeat": 1,
+      "score": 1,
+      "reasons": [
+        "市场侧归因产品力（越界）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "银河E5 2026年销量同比表现如何？终端价是否真降价？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "query_sales",
+        "query_sales",
+        "query_sales"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 60.1,
+        "tool_calls": 9,
+        "tokens": {
+          "input": 9019,
+          "output": 6497,
+          "cacheRead": 111488,
+          "totalTokens": 127004,
+          "cost_usd": 0.003394
+        },
+        "partial": false
+      },
+      "replyLength": 1551,
+      "replyPreview": "## 结论\n\n**销量：2026 年同比大幅失血，1–8 月累计 39,328 台 vs 去年同期 68,880 台，同比 −42.9%。**\n**终端价：确实在降价，而且是真实下探——同等配置终端成",
+      "reply_full": "## 结论\n\n**销量：2026 年同比大幅失血，1–8 月累计 39,328 台 vs 去年同期 68,880 台，同比 −42.9%。**\n**终端价：确实在降价，而且是真实下探——同等配置终端成交价同比降约 12%，单车优惠从约 6,180 元扩大到约 19,860 元，不只是统计上的均价错觉。**\n\n## 一、月度销量同比（零售口径）\n\n| 月份 | 2026 | 2025 | 同比 |\n|---|---|---|---|\n| 1月 | 3,028 | 5,882 | −48.5% |\n| 2月 | 1,823 | 6,955 | −73.8% |\n| 3月 | 6,508 | 8,727 | −25.4% |\n| 4月 | 5,950 | 6,864 | −13.3% |\n| 5月 | 5,203 | 8,495 | −38.8% |\n| 6月 | 7,218 | 11,004 | −34.4% |\n| 7月 | 5,162 | 10,179 | −49.3% |\n| 8月 | 4,436 | 10,774 | −58.8% |\n| **1–8月累计** | **39,328** | **68,880** | **−42.9%** |\n\n几点观察：\n- **降幅在扩大**，不是均匀下滑：4 月 −13% 收窄后再度恶化，8 月 −58.8% 为年内最差单月。\n- **年内峰值 6 月（7,218 台）已不足去年同期峰值水平**，2025 年 6 月为 11,004 台。\n- 下行趋势在 4–8 月持续加深，7、8 月连续两个月腰斩附近。\n\n## 二、终端价：真降价的三层证据\n\n**1）同配置对比——不是年款切换造成的假象**\n选取 2026 款 530km 探索版（当前销量主力）：\n- 2025 年 8 月终端成交均价 **113,620 元**\n- 2026 年 8 月终端成交均价 **99,940 元**\n- 同比 **−12.0%**，且指导价全程未变（119,800 元）\n\n**2）优惠幅度实质性放大**\n- 2025 年 8 月：指导价 119,800 − 成交 113,620 = 优惠约 **6,180 元（约 5%）**\n- 2026 年 8 月：指导价 119,800 − 成交 99,940 = 优惠约 **19,860 元（约 17%）**\n\n优惠从\"象征性让利\"变成\"近两成折让\"，这是最硬的降价证据——经销商在用价格换量。\n\n**3）年款换代也是\"软降价\"**\n2026 款相对 2024 款同定位车型指导价仅上调 2,000 元，但纯电续航由 530km 提至 610km，属**增配不加价**式下探。另外 2024 款 440km 入门版在 2026 年 1–5 月清理库存，成交价一度低至约 80,700–82,400 元（指导价 107,800 元），折让超过 2.5 万元。\n\n**一个口径提醒**：全系加权终端均价同比降约 8%，但这个数字受\"2024 款→2026 款\"结构切换影响，不宜直接当作降价幅度读，同配置口径的 −12% 更可靠。\n\n## 三、口径与数据缺口\n\n- 销量口径：月末零售行，**2026 年 9 月零售尚未结算**，同比统一取 1–8 月累计。\n- 终端价为版本维度成交均价，**非含税落地价**（不含保险、上牌、金融贴息）。\n- 市场侧数据，**不对销量下滑做产品力归因**——产品力需另看配置与口碑维度。\n\n如需进一步定位\"是价格没托住量，还是竞争分流\"，可继续拉同价位纯电 SUV 的销量与终端价对比。\n\n*数据时点：2026 年 8–9 月（销量至 8 月结算，终端价含 9 月月中样本）*",
+      "first_error_turn": 1
+    },
+    {
+      "task": "cross-03",
+      "sessionId": "01a17891-9633-75df-b273-a96d11632a4e",
+      "dimension": "跨维度",
+      "question": "银河E5 配置快照 79311 是什么版型？侧窗隔音玻璃是否车系级缺失？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_config_d",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "银河E5 配置快照 79311 是什么版型？侧窗隔音玻璃是否车系级缺失？"
+      ],
+      "tools": [
+        "resolve_series",
+        "get_trims",
+        "get_trims",
+        "get_config_detail",
+        "compare_configs_valued"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 38,
+        "tool_calls": 9,
+        "tokens": {
+          "input": 6757,
+          "output": 3538,
+          "cacheRead": 83968,
+          "totalTokens": 94263,
+          "cost_usd": 0.002172
+        },
+        "partial": false
+      },
+      "replyLength": 496,
+      "replyPreview": "**结论**\n\n1. **配置快照 79311 对应银河E5 2027款 550 智充启航版**，指导价 11.78 万元，属于 2027 年款 550 续航的第二档；该年款最低档是 530 全球经典",
+      "reply_full": "**结论**\n\n1. **配置快照 79311 对应银河E5 2027款 550 智充启航版**，指导价 11.78 万元，属于 2027 年款 550 续航的第二档；该年款最低档是 530 全球经典版，价格 10.78 万元。\n2. **侧窗多层隔音玻璃并非车系级缺失**，而是按年款、配置档位分档：银河E5 全系 12 个配置中，有 4 个配备了这项配置，即 **550 智充探索版、550 智充激光版、635 智充探索+版、635 智充激光版**，它们都属于 2027 年款；而 **79311 这款 550 智充启航版在该项的记录为“无”**。\n\n**几点容易被误读的地方**\n\n- 2026 年款全系配置都没有配备这项隔音玻璃，包含星舰版，并非只有入门配置缺少。\n- 2024 款 530km 公务版也没有配备。\n- 同一配置档位不一定都配齐：2027 款从探索版起才有隔音玻璃，但 2026 款 610 探索+版仍没有，因此判断配置时不能只按档位名称推断，要看具体年款的配置表。\n\n**口径**：配置快照抓取时点 2026-10-01，数据时点 as_of 2026-10-26。",
+      "first_error_turn": null
+    },
+    {
+      "task": "cross-04",
+      "sessionId": "01a17892-2acc-75df-b273-a96e151165f1",
+      "dimension": "跨维度",
+      "question": "银河E5 \"其他\"桶276条con82.6%是什么？能否下结构性短板结论？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_review_a",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_model_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "银河E5 \"其他\"桶276条con82.6%是什么？能否下结构性短板结论？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_reviews",
+        "get_review_analysis",
+        "get_model_detail",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 38.2,
+        "tool_calls": 6,
+        "tokens": {
+          "input": 26612,
+          "output": 9311,
+          "cacheRead": 224384,
+          "totalTokens": 260307,
+          "cost_usd": 0.006961
+        },
+        "partial": false
+      },
+      "replyLength": 1300,
+      "replyPreview": "**结论：库里没有这个“其他”桶，这个数字我复算不出来；而且就算它成立，也不能拿来下结构性短板结论。**\n\n## 一、这个“其他”桶查不到\n\n- 口碑标签分类目前只有 **8 个可归因维度**：空间、",
+      "reply_full": "**结论：库里没有这个“其他”桶，这个数字我复算不出来；而且就算它成立，也不能拿来下结构性短板结论。**\n\n## 一、这个“其他”桶查不到\n\n- 口碑标签分类目前只有 **8 个可归因维度**：空间、续航、智能化、舒适、性价比、驾驶感受、外观、内饰。\n- 这 8 个维度的标签合计 **3,145 条**，全部有明确归属——**没有剩下的“其他”类目**，也没有哪一类是 276 条、负面占 82.6%。\n- 8 个维度的分布（截至 2026-10-07，原文最新到 2026-09-30）：\n\n| 维度 | 提及总数 | 负面数 | 负面占比 | 净态度 |\n|---|---|---|---|---|\n| 智能化 | 616 | 418 | **67.9%** | -220 |\n| 舒适 | 503 | 313 | **62.2%** | -123 |\n| 续航 | 426 | 228 | **53.5%** | -30 |\n| 内饰 | 245 | 113 | 46.1% | +19 |\n| 性价比 | 282 | 75 | 26.6% | +132 |\n| 驾驶感受 | 272 | 61 | 22.4% | +150 |\n| 外观 | 270 | 43 | 15.9% | +184 |\n| 空间 | 531 | 33 | **6.2%** | +465 |\n\n所以：**276 条 / 82.6% 这个组合在当前口径里不存在**。它是别的界面、别的口径，还是被人手动筛过（比如把“异味大/减配/OTA/车漆薄”这类细标签单独归堆）？麻烦告诉我它出自哪里，我按那个口径再核。\n\n## 二、即便数字成立，也不该用来下结构性短板结论\n\n三条理由，任一条都足以否决：\n\n1. **兜底桶不能用于归因**。“其他”是没被映射进业务维度的残余集合，它既不指向具体部件，也不指向使用场景——你没法据此让工程或采购去改任何东西。\n2. **占比没有分母意义**。82.6% 到底是“桶内标签中负面占比”还是“提到该桶的评论中负面占比”？兜底桶的入桶规则本身带筛选倾向（负面表述更容易落进没有明确归属的剩余类），比率天然偏高。\n3. **不可复算 = 不可作为结论证据**。这是硬底线：拿不到行级溯源、算不出分母的数字，只能当线索，不能当结论。\n\n## 三、结构性短板该怎么定\n\n用已验证的 8 个维度看，真正站得住的三块薄弱面是：**智能化（负面 67.9%，净态度 -220，为全车最差）**、**舒适（62.2%，主要在悬挂偏硬、噪音、异味）**、**续航（53.5%，虚标与短途焦虑并存）**；对应地，**空间（负面仅 6.2%，净态度 +465）是明确强项**，可作为主打卖点。\n\n**缺口声明**：若你手上的“其他”桶确实存在，缺两样东西才能坐实——① 该桶的入桶规则与分母定义；② 桶内至少 20 条原文样本。给我这两样，我把它拆成可归因的子类，再判断够不够格写进短板清单。\n\n*数据时点：口碑聚合截至 2026-10-07，原文覆盖 2024-07-04 至 2026-09-30。*",
+      "first_error_turn": null
+    },
+    {
+      "task": "cross-05",
+      "sessionId": "01a17892-c023-75df-b273-a9710ae3795a",
+      "dimension": "跨维度",
+      "question": "零跑D19增程8月销量腰斩，原因是什么？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "rubric[causal_guard] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "causal_guard",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "causal_disclaimer",
+          "alternative",
+          "evidence_strength"
+        ],
+        "missing": [],
+        "forbidHits": [],
+        "note": "护栏全命中"
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ev",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ov",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_tr",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_co",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_di",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "零跑D19增程8月销量腰斩，原因是什么？"
+      ],
+      "tools": [
+        "resolve_series",
+        "search_cars",
+        "query_sales",
+        "get_sales_detail",
+        "sentiment_events"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 91.5,
+        "tool_calls": 26,
+        "tokens": {
+          "input": 31664,
+          "output": 19232,
+          "cacheRead": 359424,
+          "totalTokens": 410320,
+          "cost_usd": 0.010824
+        },
+        "partial": false
+      },
+      "replyLength": 2316,
+      "replyPreview": "## 结论先行\n\n**8月零跑 D19 确实销量接近腰斩，但“腰斩”是事实，“原因”库内只能给出线索、不能给出定论。** 能排除的是：**不是降价前的观望、不是新老款切换、也不是零跑品牌整体卖不动**",
+      "reply_full": "## 结论先行\n\n**8月零跑 D19 确实销量接近腰斩，但“腰斩”是事实，“原因”库内只能给出线索、不能给出定论。** 能排除的是：**不是降价前的观望、不是新老款切换、也不是零跑品牌整体卖不动**；能确认的是：**下滑是全系所有版型同步发生的**，同期该价位段出现了 D19 自身的负面舆情密集期和竞品的份额上涨。真正的驱动（订单回吐／产能排产／渠道节奏）库内没有数据，属于数据缺口。\n\n---\n\n## 一、销量事实：从连续爬坡到单月掉一半\n\n| 月份 | 增程 | 纯电 | 合计 |\n|---|---|---|---|\n| 4月 | 1,474 | 520 | 1,994 |\n| 5月 | 3,718 | 2,232 | 5,950 |\n| 6月 | 4,833 | 3,084 | 7,917 |\n| 7月 | 6,386 | 3,390 | 9,776 |\n| **8月** | **2,953** | **2,027** | **4,980** |\n\n- 增程 **-53.8%**、纯电 **-40.2%**、合计 **-49.1%**（8月 vs 7月）\n- 4—7月连续四个月爬坡，8月是上市以来第一次回落\n\n## 二、先排除三类常见解释\n\n**1. 不是“等降价”。** 8月增程全系终端成交就是指导价（21.98万／23.98万／24.98万／26.98万），没有一分钱折让；到9月才出现约 **1.7%** 的终端松动（均价降到22.92万）。也就是说，以价换量是9月才启动的动作，8月的下滑发生在没有优惠的月份。\n\n**2. 不是新老款切换。** 在售全部是 2026 款，共 7 个版型（增程400/500、纯电620/680/720），没有新款上市或清库的迹象。\n\n**3. 不是零跑品牌整体失速。** 同门对比：B10 8月 **5,095→6,790（+33.3%）创年内新高**；C16 基本持平（增程1,942→1,878，纯电3,839→3,584）；C11 几乎不动（增程929→929，纯电3,916→3,850）。**只有 D19 单独掉了一半。**\n\n## 三、下滑是全版型同步，不是某一个版本拖累\n\n| 版型（26款） | 7月 | 8月 | 变化 |\n|---|---|---|---|\n| 增程500 智尊 六座 | 5,633 | 2,608 | -53.7% |\n| 增程500 智尊 七座 | 753 | 334 | -55.6% |\n| 增程400 尊享 六座 | 0 | 11 | 新上低配未起量 |\n| 纯电720 智尊 六座 | 2,345 | 1,391 | -40.7% |\n| 纯电720 智尊 七座 | 714 | 409 | -42.7% |\n| 纯电620 智尊 六座 | 321 | 182 | -43.3% |\n| 纯电680 性能版 | 10 | 45 | +35 |\n\n主力版型整齐下滑 40%—56%，说明问题在“整个车系的进店／成交端”，而不是某个配置定价失误。另外**8月新上的 21.98 万低配只卖了 11 台**——下探入门价这条路当月没走通。\n\n## 四、同期出现的两个信号（并列，不作因果）\n\n- **舆情**：近30天 D19 样本 423 条、负面 112 条；8月是自身负面事件最密集的窗口——8/12 召回、8/14 车机频繁死机、8/8 电吸门夹手、8/13 起“新车故障+售后”维权话题 24 帖含 15 条负评、8/30 街头起火（6 帖全负）。口碑维度里安全、充电体验、售后是偏负的三项。**这些能否解释销量，库内无法验证**（市场结果不归因产品力／口碑）。\n- **竞品分流**：同价位段 8月反向走强——钛7 纯电 9,413→12,743（+35.4%）、理想i6 15,284→16,920（+10.7%）、乐道L80 基本持平（3,338→3,235）。D19 丢的量与段内新增的量级接近，但同样**不可当因果**。\n\n## 五、假设清单（证据强度 + 缺什么能坐实）\n\n| 假设 | 证据强度 | 缺什么能坐实 |\n|---|---|---|\n| 7月是冲量高点，8月订单自然回吐（爬坡期结束） | **中**（4—7月单边上冲后急落，形态吻合） | 月度订单量／上险量数据 |\n| 产能／排产或供应链瓶颈，交付节拍受限 | **弱**（无任何库内证据，纯电同跌也不排斥） | 工厂排产与产量数据 |\n| 安全类负面（起火／召回／异响）抑制成交转化 | **弱—中**（时序耦合，事件量级不足以解释3,400台缺口） | 门店来店量、试驾转化率、订单来源 |\n| 段内竞品 8月上市／放量分流 | **中**（钛7纯电、理想i6 同步上量） | 置换来源／退订流向数据 |\n| 厂家商务政策（金融贴息／置换补贴）7月末到期 | **不可验** | 厂家商务政策与补贴档期 |\n\n## 六、口径与缺口\n\n- 数据时点：销量截至 **2026年9月末**（9月零售尚未结算，无法判断这是单月波动还是趋势起点）；舆情时点 **2026-10-04**\n- 上述“为什么”的结论只到“信号并列”层，**没有因果认定**；把上面的假设转成结论，需要补齐订单、排产、门店转化三类数据\n- 一个可验证的下一步：9月终端已开始让价约1.7%，等9月零售结算后看是否回补——若让价后未回补，产能／订单假设权重上升；若回补，则更偏促销节奏问题\n\n**as_of：2026-10-04（销量口径 2026-9月末）**",
+      "first_error_turn": null
+    },
+    {
+      "task": "cross-06",
+      "sessionId": "01a17894-2578-75df-b273-a972b9b3685c",
+      "dimension": "跨维度",
+      "question": "零跑D19口碑最大短板是什么？与销量腰斩有何关系？",
+      "repeat": 1,
+      "score": 4,
+      "reasons": [
+        "rubric[causal_guard] 缺要素: condition"
+      ],
+      "rubric": {
+        "kind": "causal_guard",
+        "checked": true,
+        "pass": false,
+        "cap": 4,
+        "present": [
+          "shortboard",
+          "causal_disclaimer"
+        ],
+        "missing": [
+          "condition"
+        ],
+        "forbidHits": [],
+        "note": ""
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ov",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ev",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "零跑D19口碑最大短板是什么？与销量腰斩有何关系？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_reviews",
+        "query_sales",
+        "get_dimension_reviews",
+        "query_sales"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 41.9,
+        "tool_calls": 9,
+        "tokens": {
+          "input": 16627,
+          "output": 13536,
+          "cacheRead": 266240,
+          "totalTokens": 296403,
+          "cost_usd": 0.006863
+        },
+        "partial": false
+      },
+      "replyLength": 1701,
+      "replyPreview": "## 结论\n\n**口碑最大短板是智能化**（147 条提及中 120 条负面，负面占比 81.6%，是唯一净态度大幅为负的维度）。**但它与 8 月销量腰斩只是时间上同期，不构成因果**——智能化吐槽",
+      "reply_full": "## 结论\n\n**口碑最大短板是智能化**（147 条提及中 120 条负面，负面占比 81.6%，是唯一净态度大幅为负的维度）。**但它与 8 月销量腰斩只是时间上同期，不构成因果**——智能化吐槽是全年存量老问题，8 月下滑的时间落点更贴近几起突发负面事件。\n\n---\n\n### 一、口碑短板定位（数据时点 2026-10-07，业主口碑样本 186 条）\n\n| 维度 | 提及量 | 负面占比 | 净态度 | 判定 |\n|---|---|---|---|---|\n| **智能化** | 147 | **81.6%** | **-93** | 最大短板 |\n| 内饰 | 21 | 76.2% | -11 | 次短板（样本小） |\n| 驾驶感受 | 37 | 59.5% | -7 | 偏弱 |\n| 舒适 | 56 | 46.4% | +4 | 中性 |\n| 空间 | 89 | 10.1% | +71 | 强项 |\n| 性价比 | 58 | 8.6% | +48 | 强项 |\n\n- 智能化负面集中在**辅助驾驶、车机、语音、OTA 承诺**四类，而非单点故障——是\"整套体验没跟上\"的系统性问题。\n- 版型层面同样一致：七座版智能化评分明显低于六座版（3.65–3.67 分档），增程/纯电两条线都中招，说明不是个别配置问题。\n- 反差最值得注意：**空间、性价比、续航、外观四项都是强正向**，用户的购买理由成立，抱怨集中在\"买回来后天天用的那部分不好用\"。\n\n### 二、销量腰斩的事实面（月度结算口径，数据时点 2026-9 月末）\n\n| 月份 | 增程 | 纯电 | 合计 |\n|---|---|---|---|\n| 7 月 | 6,386 | 3,390 | **9,776** |\n| 8 月 | 2,953 | 2,027 | **4,980** |\n\n8 月环比 **-49.1%**（近乎腰斩），增程版跌幅（-53.7%）大于纯电版（-40.2%）。**9 月零售量尚未结算**，是否延续未知。\n\n### 三、两者的关系：相关，但不能归因\n\n1. **时间不吻合**：智能化负面从口碑样本起点（2025 年 11 月）一直持续到最近，属于\"长期扣分项\"；而销量是 8 月单月断崖。存量抱怨解释不了突变。\n2. **8 月有更近的触发源**（社媒舆情，不可复算）：8 月中上旬集中出现召回讨论、车机死机集中反馈、街头起火事件（6 条全负面）、以及\"新车故障+售后\"维权串（24 帖 / 15 负），这些事件的时间贴合度明显高于\"智能化不好用\"这类常态吐槽。\n3. **更合理的机制是\"漏斗稀释\"而非\"直接劝退\"**：智能化不阻止下单（用户为空间/性价比/续航买单），但它把试驾转化和转介绍这两环削弱——同期\"辅助驾驶升级\"话题虽以正向为主，说明厂家在补，但车主端对 OTA 承诺兑现的怨气（9 月仍在发酵）会持续压复购与推荐。\n4. 需要注意口径冲突：**舆情侧的最弱维度是安全性（-0.24），不是智能化**（性价比 +0.58 为最强）。意味着\"口碑短板\"取决于你看哪一层——业主深评骂智能化，社媒大盘更警惕安全。\n\n### 四、数据缺口与假设清单\n\n| 假设 | 证据强度 | 缺什么能坐实 |\n|---|---|---|\n| 8 月下滑主因是突发安全/质量负面 | 弱—中 | 需 8 月订单/退订、到店转化数据 |\n| 智能化短板压制试驾转化与转介绍 | 弱 | 需试驾-成交漏斗、竞品对比流失访谈 |\n| 价格政策或竞品同期挤压 | 不可验 | 需终端成交价与竞品上市节奏 |\n| 下滑是渠道压库/交付节奏所致 | 不可验 | 需批售 vs 零售拆分 |\n\n**一句话给产品侧**：真短板不在\"有没有智驾\"，而在\"车机+语音+OTA 兑现\"这套日常高频体验的完成度——这层不补，空间和性价比带来的口碑红利会被反复扣回去。\n\n*数据时点：口碑 2026-10-07（样本截至 2026-09-29）；销量 2026-9 月末结算口径；社媒舆情为即时快照、不可复算。*",
+      "first_error_turn": null
+    },
+    {
+      "task": "cross-07",
+      "sessionId": "01a17894-c8f8-75df-b273-a9751a2d5e79",
+      "dimension": "跨维度",
+      "question": "零跑D19纯电版8月也跌40%，能否用增程归因解释？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "rubric[causal_guard] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "causal_guard",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "negation",
+          "alternative"
+        ],
+        "missing": [],
+        "forbidHits": [],
+        "note": "护栏全命中"
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ov",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ev",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "零跑D19纯电版8月也跌40%，能否用增程归因解释？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "sentiment_overview",
+        "sentiment_events",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 56.7,
+        "tool_calls": 11,
+        "tokens": {
+          "input": 13504,
+          "output": 10353,
+          "cacheRead": 132864,
+          "totalTokens": 156721,
+          "cost_usd": 0.005161
+        },
+        "partial": false
+      },
+      "replyLength": 1964,
+      "replyPreview": "**结论：不能。** 增程归因（“增程分流了纯电的量”）在这一组数据上直接不成立：纯电版跌 40%，增程版同期跌得**更多**（-53.8%），两者是同向下滑，不是此消彼长。\n\n## 一、先核验口径\n",
+      "reply_full": "**结论：不能。** 增程归因（“增程分流了纯电的量”）在这一组数据上直接不成立：纯电版跌 40%，增程版同期跌得**更多**（-53.8%），两者是同向下滑，不是此消彼长。\n\n## 一、先核验口径\n\n库内 D19 在整体零售（全系汇总）口径下是**一个车系**（含增程 + 纯电版型），在市场口径下拆成“零跑 D19 增程 / 零跑 D19 纯电”两个车系。本回答统一用整系版型明细口径（2026 年 4–9 月），两个口径的 8 月零售量可交叉验证：纯电 2027、增程 2953，完全吻合。\n\n## 二、8 月 vs 7 月：纯电跌 40%，增程跌更狠\n\n| 动力形式 | 7 月末零售 | 8 月末零售 | 环比 |\n|---|---|---|---|\n| **纯电**（620、680、720Km） | 3390 | 2027 | **-40.2%** |\n| 　720Km 智尊 6 座 | 2345 | 1391 | -40.7% |\n| 　720Km 智尊 7 座 | 714 | 409 | -42.7% |\n| 　620Km 智尊 6 座 | 321 | 182 | -43.3% |\n| 　680Km 性能 6 座 | 10 | 45 | +350%（基数极小） |\n| **增程**（1.5T 400/500Km） | 6386 | 2953 | **-53.8%** |\n| 　500Km 智尊 6 座 | 5633 | 2608 | -53.7% |\n| 　500Km 智尊 7 座 | 753 | 334 | -55.6% |\n| 　400Km 尊享 6 座 | 0 | 11 | 新上量 |\n| **全系合计** | 9776 | 4980 | **-49.1%** |\n\n你提到的“纯电也跌 40%”没错（-40.2%）。但决定性的反证在结构占比上：\n\n- 纯电占比：7 月 **34.7%** → 8 月 **40.7%**（上升 6 个百分点）\n- 增程占比：7 月 65.3% → 8 月 59.3%（下降）\n\n**如果纯电的量确实被增程分流了（用户原本会买纯电，改去买增程），就应出现“纯电跌、增程涨、增程占比抬升”的情况；实际数据正好相反：纯电占比上升，增程跌得更深。** 因此，“增程抢走纯电销量”这一解释被数据否决；实际是**全系同时下滑**。\n\n## 三、更可能的方向和大前提说明\n\n更符合数据形态的是**全系共同的对外因素**（上市初期销量爬坡后的自然回落、8 月终端节奏、同级竞品动作），这一项库里没有对应字段，无法定量归因；本轮只报“现象 + 否证”，不认领因果。两条辅助线索如下（仅供假设，不作为结论）：\n\n1. **新品爬坡曲线**：D19 从 4 月起量，增程主力版从 1406→3170→4034→5633 逐月爬坡，8 月首次回落；纯电 720Km 6 座 6 月 2582、7 月 2345、8 月 1391。7 月很可能是上市期的峰值（前期订单集中交付），因此 8 月的下滑有一部分属于**订单交付节奏的自然回落，而不是需求塌陷**。要验证这一点需要看 9 月是否止跌，而 9 月 retail 尚未落库。\n2. **价格端尚未松动**：8 月各版型终端价（tp）均维持指导价（如增程 500Km 智尊 239800、纯电 720Km 智尊 249800），直到 9 月末才出现约 1.5%–1.7% 的终端让价。这说明 8 月下滑**不是以价换量失败造成的**；但反过来看，9 月让价后的销量恢复情况，是判断这是需求问题还是交付节奏问题的关键。\n\n## 四、数据缺口（明确声明）\n\n- **8 月下滑的具体驱动（终端优惠/竞品出新/产能与交付）库内无字段**，无法定量归因；需要“竞品同月零售 + 本品订单/交付数据”才能确认。\n- **9 月 retail 尚未落库**（仅有终端价），无法判断是止跌还是继续下滑；这是验证“交付节奏”还是“需求转弱”的唯一关键节点。\n- 舆情侧 8 月确有负面线索（8-12 召回讨论、8-14 车机死机、8-30 起火事件），但**这里的舆情与销量之间的序列对照未做，不构成因果关系**；而且舆情侧只能下舆情内结论，不能反过来解释市场变化。\n\n## 五、给你的判断口\n\n**“8 月跌 40%”这个问题也提示：“增程和纯电谁挤压谁”这类内部结构问题，在 D19 上暂时没有数据支撑——两条产品线的销量走向来自同一个外部因素；想解释下滑，就必须跳出内部结构，去看全系共同的变量（订单、交付、竞品、价格节奏）。** 如果你手上有 D19 的订单或交付周度数据，我可以把“7 月峰值是交付集中还是需求峰值”这个问题确定下来。",
+      "first_error_turn": null
+    },
+    {
+      "task": "cross-08",
+      "sessionId": "01a17895-a65d-75df-b273-a976a070cba4",
+      "dimension": "跨维度",
+      "question": "铂智3X在东北卖得好，找原因",
+      "repeat": 1,
+      "score": 4,
+      "reasons": [
+        "rubric[causal_guard] 缺要素: no_product_attribution"
+      ],
+      "rubric": {
+        "kind": "causal_guard",
+        "checked": true,
+        "pass": false,
+        "cap": 4,
+        "present": [
+          "gap",
+          "alternative"
+        ],
+        "missing": [
+          "no_product_attribution"
+        ],
+        "forbidHits": [],
+        "note": ""
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ov",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_di",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_po",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "铂智3X在东北卖得好，找原因"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "sentiment_overview",
+        "get_sales_detail",
+        "sentiment_dimension"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 66.9,
+        "tool_calls": 14,
+        "tokens": {
+          "input": 10466,
+          "output": 15341,
+          "cacheRead": 142080,
+          "totalTokens": 167887,
+          "cost_usd": 0.006159
+        },
+        "partial": false
+      },
+      "replyLength": 2881,
+      "replyPreview": "## 先说前提：**“东北卖得好”这一结论在库内查不到**，原因是销售数据本身没有地区维度\n\n- 库内 `sales_trim` 只记录**月和版型**两个维度，没有省份或地区字段，因此无法从库内核实",
+      "reply_full": "## 先说前提：**“东北卖得好”这一结论在库内查不到**，原因是销售数据本身没有地区维度\n\n- 库内 `sales_trim` 只记录**月和版型**两个维度，没有省份或地区字段，因此无法从库内核实东北销量占比，也无法验证“东北卖得好”这句话是否成立（已按 fail-closed 处理，不会替你确认）\n- 库内能确认的是：**全国范围内的低价位（性价比）定位和口碑基础**\n\n| 库内事实（as_of 2026-09月末） | 数值 |\n|---|---|\n| 2026-08 零售 | **7793 辆** |\n| 主力版型结构 | 520Km Pro 为绝对主力，其次 Pro+ 与激光雷达版 |\n| 舆情声量 | 248 帖，正面 **223** 帖，情绪健康度 **95.5** |\n| 最强维度 | 价格/性价比 **0.965**（179 条） |\n| 最弱维度 | 充电体验 **0.00** |\n\n---\n\n## 以下为外部旁证支持的“东北偏强”原因推断（按证据强度排序）\n\n### ① 价格水平确实比全国均价更低 —— 证据强度：中（依据为外部自述，无法从库内复算）\n- 哈尔滨车主自述“落地卡在 10w 内”，称本地门店有限时补贴（小红书，2026-06-06）：https://www.xiaohongshu.com/explore/6a23b58e000000001702df78\n- 大连门店挂出“权益后 9.48 万起、综合优惠 2 万”（小红书，2026-10-21）：https://www.xiaohongshu.com/explore/6ad84f95000000002c00d4af\n- 库内全国终端均价在 2026 年确实在往下走（138371 → 123819，即 2025-03 到 2026-08），低价位（性价比）是这台车在全国的定位，东北只是把这个定位**执行得更彻底**\n- **缺哪些数据才能坐实**：东北三省的分省终端成交价（tp）与库内全国 tp 的差值\n\n### ② 广汽丰田在东北的经销商渠道密度高，且经销商在社媒上高频做本地化内容 —— 证据强度：较强（多家门店账号可查）\n- 哈尔滨门店账号持续发布本地看车与购车笔记：https://www.xiaohongshu.com/explore/69343ef4000000001e039802 （2025-12-06，55 赞）｜https://www.xiaohongshu.com/explore/6ab4dbf300000000180179b1 （2026-09-24）\n- 长春门店：https://www.xiaohongshu.com/explore/6aacce080000000029013e8a （2026-09-18）｜大连门店：https://www.xiaohongshu.com/explore/6adaff0c000000002b001ba9 （2026-10-23）\n- 抖音端有本地经销商的交付日常内容：https://www.douyin.com/video/7681190485415235706 （2026-09-03）\n- 这一条是结果，但同时也是推力：合资品牌在东北的网点密度高，这在低线市场直接转化为到店量\n\n### ③ 冬季可用性被当作核心购买理由反复传播 —— 证据强度：中偏弱（正反两方面说法都有）\n- 正：沈阳城区冬季续航实测 8.5 折，224 赞（抖音，2026-01-12）：https://www.douyin.com/video/7594282655835786548\n- 正：车主称冬季暖风下 520 版稳定 380km+（快手，2026-02-24）：https://www.kuaishou.com/short-video/5248101128628834000\n- 正：远程空调、座椅加热、副驾独立空调被东北用户当成“过冬刚需”来夸（快手，2026-01-27、2026-01-23）：https://www.kuaishou.com/short-video/5247819652211112000 ｜https://www.kuaishou.com/short-video/5190398758782143000\n- **反**：“东北冬天掉电太快”，71 条评论跟帖（小红书，2025-12-14）：https://www.xiaohongshu.com/explore/693e5dee000000000d03a265\n- **反**：-2℃ 实测定速达成率仅 57.4%（抖音，2025-11-27）：https://www.douyin.com/video/7577232044625155411\n- **反**：满电高速严寒极限跑，评论里有争议（抖音，2026-03-01，4432 赞）：https://www.douyin.com/video/7612100377252547890\n- 结论边界：冬季表现不是“强”，是**“在同价位里不拖后腿，还有内容素材”**；把它当卖点会踩到反向证据\n\n### ④ 竞品区域结构留出的空档 —— 证据强度：弱（第三方口径，不可复算）\n- 第三方上险量分析反复提到这台车“区域偏科”“北方蓄力”，而竞品（如零跑 C10）强势的是华东和华南的家门口市场：https://weibo.com/1889345013/Rdv6UsZQV （2026-08-16）｜https://weibo.com/1889345013/QFLP5wiWJ （2026-05-17）\n- 这些属外部即时快照，**不可复算**，只能当方向性线索\n\n### ⑤ 丰田品牌在东北的存量信任 —— 证据强度：弱（基本无法验证）\n- 社媒可见东北用户把“丰田靠谱/不折腾”作为决策理由，甚至有车主从 bZ 系列转过来（小红书，2026-02-08）：https://www.xiaohongshu.com/explore/6989056f000000000e00e1b1\n- 这条要坐实必须做东北车主决策链访谈，仅凭社媒内容不足以支撑\n\n---\n\n## 数据缺口（已如实标注）\n1. **分省或分区域的上险量缺失**：这是本次唯一无法绕过的缺口，也是“东北卖得好”这句话无法被验证的直接原因\n2. `owner_reviews` 口碑库缺失，`config_snapshots` 配置快照缺失，因此冬季配置卖点（热泵？座椅加热标配范围？）无法用库内核验\n3. 东北的库存、交付与门店开票数据缺失\n\n**要把这件事坐实，最少的动作是**：拉取东北三省月度上险量与份额，再以 2 到 3 家哈尔滨或长春门店的成交台账做交叉，最后用 10 个东北车主样本验证“低温续航”是决策入场券还是排除项。要不要我按这个方案做一份东北区域的深挖调研（真实车主画像与决策链）？",
+      "first_error_turn": null
+    },
+    {
+      "task": "cross-09",
+      "sessionId": "01a17896-aba3-75df-b273-a9799fa0909e",
+      "dimension": "跨维度",
+      "question": "铂智3X的产品形态和厂商是什么？全国销量表现如何？",
+      "repeat": 1,
+      "score": 2,
+      "reasons": [
+        "truth 缺锚: 紧凑型SUV、广汽丰田"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 4,
+        "missing": [
+          "紧凑型SUV",
+          "广汽丰田"
+        ],
+        "forbidHits": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "铂智3X的产品形态和厂商是什么？全国销量表现如何？"
+      ],
+      "tools": [
+        "resolve_series",
+        "search_cars",
+        "query_sales",
+        "get_trims",
+        "web_search"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 37.5,
+        "tool_calls": 7,
+        "tokens": {
+          "input": 7244,
+          "output": 6978,
+          "cacheRead": 116352,
+          "totalTokens": 130574,
+          "cost_usd": 0.003294
+        },
+        "partial": false
+      },
+      "replyLength": 1809,
+      "replyPreview": "## 铂智3X · 产品形态与全国销量\n\n**一句话结论**：铂智3X 2026年8月零售 **7,793台**，环比微增 1.1%，1–8 月累计 **56,927台**——月均 7,000 台级的",
+      "reply_full": "## 铂智3X · 产品形态与全国销量\n\n**一句话结论**：铂智3X 2026年8月零售 **7,793台**，环比微增 1.1%，1–8 月累计 **56,927台**——月均 7,000 台级的稳定走量盘面，但终端成交价已从上市初期 13.8 万一路下探到 12.4 万附近，**量稳、价跌**。\n\n### 一、厂商与产品形态\n\n| 项 | 信息 | 说明 |\n|---|---|---|\n| 车系名 | 铂智3X | 库内主档名（唯一匹配，无歧义） |\n| 厂商 | 广汽丰田 | 库内未维护厂商结构化字段，此为依据公开信息的判断，**本轮未经联网核验** |\n| 能源形式 | 纯电（BEV） | 版型续航档位 430/520/610 km 推断，库内能耗字段缺失 |\n| 级别/车身形式 | 紧凑型 SUV | 公开定位；库内配置快照缺失，**无法从库内坐实** |\n| 在售年款 | 2025款 / 2026款 | 共 17 个版型 |\n| 指导价区间 | 10.98 万 – 15.98 万 | 2026款 430 Air 至 610 Max |\n| 版型结构 | 430 Air / 430 Air+ / 520 Pro / 520 Pro+ / 610 Max，另含骑士版、星云限量版、激光雷达版分支 | 主力带集中在 12.98–13.98 万 |\n\n> 产品形态这块需要直说：**配置快照是缺的**，所以座椅、智驾硬件、车机芯片这些真正的\"产品力\"项本次调不出来。能给的只有版型结构、续航档位和价格带。想要完整配置对比，需要该车系配置数据先补齐。\n\n### 二、全国销量表现\n\n**2026年（截至8月，9月未结算）**\n\n| 月份 | 零售量 | 终端成交价均值 |\n|---|---|---|\n| 1月 | 5,624 | 12.84 万 |\n| 2月 | 3,962 | 12.84 万 |\n| 3月 | 7,849 | 12.84 万 |\n| 4月 | 8,874 | 12.84 万 |\n| 5月 | 6,262 | 12.75 万 |\n| 6月 | 8,851 | 12.47 万 |\n| 7月 | 7,712 | 12.42 万 |\n| **8月** | **7,793** | **12.38 万** |\n| 9月 | 未结算 | 12.36 万 |\n\n**2025年（3月上市起）**：3月 2,527 → 4月 6,202 → 5月 4,620 → 6月 6,172 → 7月 6,637 → 8月 7,253 → **9月 9,421（历史峰值）** → 10月 9,610 → 11月 8,002 → 12月 8,858\n\n**三个可以拿去做判断的读数**：\n\n1. **爬坡期已过，进入平台期**：从2025年3月上市首月 2,527 台爬到9月 9,421 台用了半年，此后近一年在 6,000–9,700 台区间震荡，没有二次突破。\n2. **价格是明显的支撑位在退**：终端成交价从 13.84 万降到 12.36 万，降幅约 1.5 万（约 11%），同期月销并未同步放大，反而 2026年2月掉到 3,962 台。这条\"以价换量\"的边际效率在下降。\n3. **季节波动大**：1–2月（5,624 / 3,962）明显弱于 3–4月（7,849 / 8,874），春节因素叠加年初政策空窗。\n\n### 三、数据缺口（如实标注）\n\n| 缺什么 | 影响 | 缺什么能坐实 |\n|---|---|---|\n| 车主口碑（样本为 0） | 无法验证买它的人到底看重什么、抱怨什么，销量好坏无法从需求侧解释 | 口碑数据补齐后再谈 |\n| 配置快照 | 产品力维度完全空白，\"配置是否支撑这个价位\"没法答 | 补齐配置数据，可做同价位横向对比 |\n| 2026年9月零售 | 最新一个月只出到终端价，量还没结算 | 月末结算后回补 |\n| 厂商字段 | 厂商归属靠公开信息，不是库源 | 主档补厂商字段 |\n\n> **口径声明**：销量为月末结算口径的零售量，终端成交价为版型加权均价；数据时点 **2026-09月末**，最新完整结算月为 **2026年8月**。\n> 市场侧数据只描述结果，不归因到产品力——价格下行与销量的关系属于相关性观察，不能当因果结论用。",
+      "first_error_turn": 1
+    },
+    {
+      "task": "cross-10",
+      "sessionId": "01a17897-3e43-75df-b273-a97bbef3ba39",
+      "dimension": "跨维度",
+      "question": "铂智3X的智能泊车与芯片减配争议是否影响销量？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "rubric[causal_guard] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "causal_guard",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "no_evidence",
+          "url",
+          "不可复算"
+        ],
+        "missing": [],
+        "forbidHits": [],
+        "note": "护栏全命中"
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ov",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ev",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_di",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_tr",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "铂智3X的智能泊车与芯片减配争议是否影响销量？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "sentiment_overview",
+        "sentiment_events",
+        "sentiment_dimension"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 99.1,
+        "tool_calls": 25,
+        "tokens": {
+          "input": 13031,
+          "output": 7367,
+          "cacheRead": 139648,
+          "totalTokens": 160046,
+          "cost_usd": 0.004278
+        },
+        "partial": false
+      },
+      "replyLength": 2400,
+      "replyPreview": "## 结论\n\n两起争议都真实存在，并已在社媒发酵；但**库内销量目前看不到冲击 —— 这只意味着 8月及以前没有影响，并不等于争议没有代价**。关键难点是时间窗错位：芯片换芯争议帖发于 **8月21日",
+      "reply_full": "## 结论\n\n两起争议都真实存在，并已在社媒发酵；但**库内销量目前看不到冲击 —— 这只意味着 8月及以前没有影响，并不等于争议没有代价**。关键难点是时间窗错位：芯片换芯争议帖发于 **8月21日**、泊车碰撞争议发于 **9月20日**，而库内零售最新结算到 **2026年8月**（9月尚未结算），所以争议后的完整月没有数据可验证。\n\n---\n\n## 一、库内销量：8月没有下滑（可复算）\n\n| 月份 | 零售（台） | 环比 | 终端均价 |\n|---|---|---|---|\n| 2026-04 | 8,874 | — | 12.84万 |\n| 2026-05 | 6,262 | -29.4% | 12.75万 |\n| 2026-06（26款上市） | 8,851 | +41.3% | 12.47万 |\n| 2026-07 | 7,712 | -12.9% | 12.42万 |\n| **2026-08** | **7,793** | **+1.05%** | 12.38万 |\n| 2026-09 | 未结算 | — | 12.36万（价先行） |\n\n- **销量结构也没有下降**：8月三款带激光雷达车型合计 1,318 台，占当月 **16.91%**；7月同口径 1,302 台、16.88% —— 芯片争议集中于「影响高配买单意愿」，但 8月高配占比反而微升（520Km Pro激光雷达版 764、520Km Pro+激光雷达版 526、520Km Pro激光雷达 骑士版 28）。\n- 主销仍是 520Km Pro（8月 3,896 台，约一半），说明销量来自**入门和中配的价格因素**，而不是高阶智驾溢价。\n- 终端均价从上市初 13.84万 一路降到 8月 12.38万（2026-01 12.84万 → 08 12.38万）—— **价格持续走低、销量横盘**，这是「以价换量」的典型形态，不是「争议导致下滑」。\n\n## 二、库内舆情：没抓到争议（这是数据覆盖缺口，不是清白证明）\n\n库内 248 帖中，223 帖正面、仅 2 帖负面，健康度 95.5，其中辅助驾驶维度 14 帖全正、智能化/车机 92 帖得分 0.955。**这些数据不能用来反证争议不存在** —— 舆情源没有覆盖小红书长图文、B站长视频这类主要发酵载体。\n\n## 三、外部社媒证据（不可复算，抓取时间 2026-10-26）\n\n**芯片换芯**\n- 小红书 2026-08-21《26款铂智3X偷偷将智驾芯片换成高通8650》——16赞/92评/29转，核心指控：26款发布会未提智驾芯片，媒体与消费者默认沿用25款的英伟达 Orin-X 宣传：https://www.xiaohongshu.com/explore/6a884e560000000038003f67\n\n**智能泊车碰撞 + 泊车兜底承诺破裂**\n- 小红书 2026-09-20《发帖之后收到大量同款铂智3X车主反馈》——车主称开启智能泊车后车辆自主碰撞，厂家后台统一判定「泊车功能未激活」；评论区多位车主自述同类遭遇（如以 520PRO 无行车记录仪、数据说不清为由），亦有车主反馈「最近智能泊车有点智障，正经车位都识别不出来」：https://www.xiaohongshu.com/explore/6aaf5c76000000002a027b14\n- B站 2026-10-15《说好的泊车兜底呢？广汽丰田铂智3X这事干的》：https://www.bilibili.com/video/BV1fSJk6qE6z\n- 反向证据（正面评价仍在传播）：B站 2026-05-09 泊车实测好评 https://www.bilibili.com/video/BV1UsR9BTEfK ；抖音「普通版也有智能泊车了」108赞 https://www.douyin.com/video/7646678800612347190\n\n## 四、判断（市场侧，不归因产品力）\n\n1. **已确证**：8月（含芯片争议发酵后10天）零售与高配结构均未下降，争议当时未形成可测的销量冲击。\n2. **无法确证**：9月泊车争议 + 「泊车兜底」承诺受损，对 9–10 月的真实影响 —— 零售未结算。**「泊车兜底」是厂家三担责的核心话术，承诺型卖点落空对购车决策的伤害通常大于参数减配**，这一条是本次最大风险点，却恰好落在数据盲区。\n3. **需警惕的组合信号**：9月终端价继续下探至 12.36万而销量不可见 —— 若 10月结算显示「价降量不增」，才可判争议开始侵蚀转化。\n\n## 五、缺口与假设（证据强度标注）\n\n| 假设 | 强度 | 缺什么能坐实 |\n|---|---|---|\n| 争议仍属小众，未影响到实际购车人群 | 强 | 9–10月零售 + 带激光雷达车型占比 |\n| 厂家以权益包/降价对冲（9.48万起限时权益） | 弱 | 9月终端价 × 销量组合 |\n| 26款确为换芯减配（8650 替代 Orin-X） | 不可验（库内无配置数据） | 官方配置表 / 工信部申报与25款逐项比对 |\n| 泊车「后台判定未激活」属批量缺陷 | 弱（仅社媒自述，样本未清点） | 车质网/12315 投诉量、官方回应 |\n\n**数据缺口**：库内该车系车主口碑样本为 0、配置快照缺失，芯片型号与泊车功能是否真减配无法在库内核验；9月零售未结算、10月无数据。\n\n> as_of：库内销量与舆情为 2026-08月末口径（9月未结算）；社媒外部快照抓取于 2026-10-26。\n\n要不要等 10月数据结算后我回看一次「争议月销量 vs 结构」，或者先出一份这两起争议的全网口碑深挖报告（含真实车主与典型用户画像）？",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-10-26T14-13-59-390Z",
+    "snapshot_ids": [],
+    "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+    "set_composition": {
+      "dev": 10,
+      "frozen": 0,
+      "other": 0,
+      "total": 10
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 4.1,
+    "passCount": 8,
+    "trapBlockedCount": 0,
+    "trap_total": 0,
+    "anchored": {
+      "total": 6,
+      "pass": 5,
+      "pass_rate": 0.8333333333333334,
+      "avg": 4.17
+    },
+    "observational": {
+      "total": 4,
+      "pass": 3,
+      "pass_rate": 0.75,
+      "avg": 4
+    },
+    "set_filter": "all",
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 10,
+      "covered": 10,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 1,
+      "fail": 1,
+      "failTasks": [
+        "cross-09"
+      ]
+    }
+  }
+}

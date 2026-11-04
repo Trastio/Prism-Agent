@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Prism-Agent 运行架构讨论稿</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --panel:#ffffff; --panel2:#eef1f6; --line:#d4dae3;
+    --txt:#1a1f2b; --dim:#5b6472; --acc:#2b6cb0; --acc2:#0d8a6e;
+    --warn:#b9791f; --red:#c43d52; --purple:#6b46c1;
+    --pi:#2b6cb0; --prism:#0d8a6e; --supply:#b9791f; --data:#6b46c1;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:"PingFang SC","Microsoft YaHei",-apple-system,sans-serif;
+    line-height:1.6;padding:24px 16px 80px}
+  .wrap{max-width:1180px;margin:0 auto}
+  h1{font-size:22px;margin:0 0 4px;font-weight:600}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:28px}
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--dim);margin-bottom:22px}
+  .legend span{display:inline-flex;align-items:center;gap:6px}
+  .dot{width:10px;height:10px;border-radius:2px;display:inline-block}
+
+  /* 分层 */
+  .layer{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    margin-bottom:14px;overflow:hidden;box-shadow:0 1px 3px rgba(20,30,50,.06)}
+  .layer-head{display:flex;align-items:center;gap:12px;padding:14px 18px;
+    border-bottom:1px solid var(--line);cursor:pointer;user-select:none}
+  .layer-head:hover{background:var(--panel2)}
+  .layer-tag{font-size:11px;color:var(--bg);font-weight:700;padding:3px 8px;border-radius:4px;letter-spacing:.5px}
+  .layer-title{font-size:15px;font-weight:600}
+  .layer-meta{font-size:12px;color:var(--dim);margin-left:auto}
+  .layer-body{padding:16px 18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px}
+
+  .node{background:var(--panel2);border:1px solid var(--line);border-radius:9px;padding:12px 14px;
+    position:relative;transition:border-color .15s}
+  .node:hover{border-color:var(--acc)}
+  .node h4{margin:0 0 4px;font-size:14px;font-weight:600}
+  .node .who{font-size:11px;margin-bottom:8px}
+  .node p{margin:0;font-size:12.5px;color:var(--dim)}
+  .node .tag{position:absolute;top:10px;right:10px;font-size:10px;padding:2px 6px;border-radius:3px}
+
+  .pi .layer-tag,.pi .tag{background:var(--pi);color:#fff}
+  .pi .node{border-left:3px solid var(--pi)}
+  .prism .layer-tag,.prism .tag{background:var(--prism);color:#fff}
+  .prism .node{border-left:3px solid var(--prism)}
+  .supply .layer-tag,.supply .tag{background:var(--supply);color:#fff}
+  .supply .node{border-left:3px solid var(--supply)}
+  .data .layer-tag,.data .tag{background:var(--data);color:#fff}
+  .data .node{border-left:3px solid var(--data)}
+  .present .layer-tag{background:#5b6472;color:#fff}
+  .present .node{border-left:3px solid #5b6472}
+
+  .arrow{color:var(--dim);font-size:11px;letter-spacing:1px;margin:8px 0 6px}
+  .desc{font-size:11px;color:var(--dim);max-width:1180px;margin:0 auto 24px;
+    background:var(--panel);border:1px dashed var(--line);border-radius:10px;padding:12px 16px}
+
+  .col2{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:760px){.col2{grid-template-columns:1fr}}
+
+  .flow{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin-bottom:14px}
+  .flow h3{margin:0 0 12px;font-size:15px}
+  .step{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12.5px;margin-bottom:8px}
+  .step b{background:var(--panel2);border:1px solid var(--line);padding:3px 9px;border-radius:5px;font-weight:500}
+  .step .arr{color:var(--acc)}
+  .step .note{color:var(--dim);font-size:11px}
+
+  .redline{background:#fdf3f4;border:1px solid #e9c3c9;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+  .redline h3{margin:0 0 10px;color:var(--red);font-size:15px}
+  .rl{display:grid;grid-template-columns:160px 1fr;gap:8px 14px;font-size:12.5px;margin-bottom:6px}
+  .rl b{color:var(--red)}
+  .rl span{color:var(--dim)}
+
+  .pending{background:#fefcf2;border:1px solid #e6d9a8;border-radius:12px;padding:16px 18px;margin-bottom:14px}
+  .pending h3{margin:0 0 10px;color:var(--warn);font-size:15px}
+  .pending ul{margin:0;padding-left:18px;font-size:13px}
+  .pending li{margin-bottom:6px;color:var(--dim)}
+  .pending li b{color:var(--warn)}
+
+  .collapsible{max-height:0;overflow:hidden;transition:max-height .25s ease}
+  .layer.open .collapsible{max-height:2000px}
+  .chev{color:var(--dim);transition:transform .2s}
+  .layer.open .chev{transform:rotate(90deg)}
+
+  .small{font-size:11px;color:var(--dim);margin-top:6px}
+  code{background:#e6ecf2;padding:1px 5px;border-radius:3px;font-size:11.5px;color:var(--acc)}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<h1>Prism-Agent 运行架构 · 讨论稿</h1>
+<div class="sub">一个底盘（pi）+ 两个黑盒供给端（口碑 / 舆情）+ Prism 自建语义插座。v0.5（2026-10-02：E5复审重核+商业北极星改DAU+v8→v11同步）。继承 v0.4：阿里云单台ECS 4c16g+峰值并发40、无登录+本地ID、Redis建议上非阻塞、读写分离、MCP桥退役。供讨论，非定稿。</div>
+
+<div class="legend">
+  <span><i class="dot" style="background:#7d8593"></i>表现层（自建）</span>
+  <span><i class="dot" style="background:var(--pi)"></i>编排层（pi harness）</span>
+  <span><i class="dot" style="background:var(--prism)"></i>语义层（Prism 核心资产）</span>
+  <span><i class="dot" style="background:var(--supply)"></i>供给层（黑盒·不动内部）</span>
+  <span><i class="dot" style="background:var(--data)"></i>数据层</span>
+  <span><i class="dot" style="background:var(--red)"></i>红线落点</span>
+</div>
+
+<div class="desc">
+<strong>一句话形态（2026-09-30 云真并发版）</strong>：Prism 不"搬"任何一个项目的代码。pi 当底盘（agent loop + 护栏），
+两个旧项目当"插头"（只读直连 / REST），Prism 自己只建中间那层"插座"——
+数据源注册表 + 口径视图 + TS 语义工具。表现层是自建双模式网站，pi 躲在 API 后面。
+<b>部署=阿里云单台ECS 4c16g单机起步+本地Nginx（峰值并发40，原多实例+SLB降级远期扩展项，工位机出局）；认证=无登录+浏览器本地ID（管理者操作弹密码）；
+会话状态=Redis建议上非阻塞（进程崩溃恢复+扩展余量，内存会话+落盘快照可替代起步）；数据层=读写分离（生产库只读直连+运行时写独立存储）；MCP桥退役（TS工具直读库）。</b>
+</div>
+
+<!-- ===== 表现层 ===== -->
+<div class="layer present open">
+  <div class="layer-head" onclick="tog(this)">
+    <span class="layer-tag">L1</span>
+    <span class="layer-title">表现层 · 双模式网站（自建，复用舆情 Board 技术栈）· 无登录</span>
+    <span class="layer-meta">前端独立 · pi 躲在 API 后 · localStorage 本地ID · 管理者弹密码</span>
+    <span class="chev">▶</span>
+  </div>
+  <div class="collapsible">
+    <div class="layer-body">
+      <div class="node">
+        <span class="tag">对外门面</span>
+        <h4>BI 看板模式</h4>
+        <div class="who">前端直查 DB 视图出图 + 嵌入式 AI 对话</div>
+        <p>固定/参数化视图直接渲染图表，不走语义工具。嵌入的 AI 对话<strong>服务端锁死在当前 filter 数据集</strong>，工具白名单按 filter 收窄。</p>
+        <div class="small">定位待拍板：供给端看板已迭代到 v11（2026-10-02 重摸），需基于 v11 现状切分 Prism 站关系</div>
+      </div>
+      <div class="node">
+        <span class="tag">对外门面</span>
+        <h4>Agent 模式</h4>
+        <div class="who">独立对话界面 · 全库语义工具</div>
+        <p>用户与 pi agent 对话，agent 经语义工具查全库，产出<strong>结论 + 文件交付物</strong>（excel/word）。"舒适性是结构性短板"这种结论，不是计数。</p>
+      </div>
+      <div class="node">
+        <h4>口径一致性</h4>
+        <div class="who">两种模式共用同一套口径视图</div>
+        <p>BI 模式直查视图，Agent 模式经语义工具查同一视图——<strong>同一个"舒适性短板"在两个模式里是同一个数</strong>。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="arrow">▼ HTTP / WebSocket（SDK 或 RPC）</div>
+
+<!-- ===== 编排层 ===== -->
+<div class="layer pi open">
+  <div class="layer-head" onclick="tog(this)">
+    <span class="layer-tag">L2</span>
+    <span class="layer-title">编排层 · pi-agent 0.85.1（底盘，不搬代码）· 阿里云单机</span>
+    <span class="layer-meta">DeepSeek-v4-flash · 1-2 SDK进程+本地Nginx · Redis建议上(容错+扩展余量,非阻塞) · flash并发2500够用</span>
+    <span class="chev">▶</span>
+  </div>
+  <div class="collapsible">
+    <div class="layer-body">
+      <div class="node">
+        <h4>会话工厂（Redis 外置·无登录）</h4>
+        <p>两类会话：① BI 嵌入会话（工具白名单按 filter 收窄）② Agent 独立会话（全语义工具）。<code>SessionManager.inMemory()</code> + <b>Redis 建议上（非阻塞）</b>——单机单进程下原"多实例会丢会话"理由消失，Redis 残留价值=进程崩溃恢复+扩展余量；起步可用内存会话+定期落独立 SQLite 快照（pi 支持从 DB 条目恢复）。<b>无登录系统</b>：浏览器 localStorage 生成本地 ID（usr_xxx）作会话 key，管理者操作弹密码。</p>
+        <div class="small">权限模型落点：per-user 工具白名单（本地ID关联） <span style="color:var(--acc)">| 依据:chapter10/staged-system-prompt setActiveTools + chapter5/pedo AccessContext必传 | Redis建议上非阻塞:容错+扩展余量,2026-10-01修正(原多实例必须上降级)</span></div>
+      </div>
+      <div class="node">
+        <span class="tag" style="background:var(--red);color:#fff">红线</span>
+        <h4>Guardrail Hooks</h4>
+        <p><code>pi.on("tool_call")</code> 抛错=fail-closed 拦截；<code>pi.on("tool_result")</code> 改写结果。<strong>护栏在执行层，不在提示词</strong>——in-context agent 不可靠地自检注入。</p>
+        <div class="small"><span style="color:var(--acc)">依据:chapter2/prompt-injection/agent.py:268-277(D4运行时拦截) + chapter9/harness-safety-gate/safety_policy_gate.py:322(validate_tool_call); pi.on hook形态是Prism对教材validate模式的API化封装</span></div>
+      </div>
+      <div class="node">
+        <h4>完成验证器</h4>
+        <p>"模型可提出完成，不能批准自己的完成"。submit_conclusion 走台账，n 与覆盖率<strong>绝不采信模型自报</strong>，服务端真值校验。</p>
+        <div class="small">红线#1 机制化 <span style="color:var(--acc)">| 依据:chapter8/premature-completion-dpo/train_grpo_optional.py:37-60(run_hidden_check) + chapter10/staged-system-prompt approve_code信号工具; max1次continuation自定(教材max_revisions=2)</span></div>
+      </div>
+      <div class="node">
+        <h4>棱镜三维度并行</h4>
+        <p>pi-subagents 预留：配置/口碑/销量三个子 agent 各自独立数据源并行调查，结构化摘要回传主 agent（最强模型）。<strong>不做辩论、不做级联终止</strong>。</p>
+        <div class="small">舆情不进主推理链路（独立工具组） <span style="color:var(--acc)">| 依据:chapter10/parallel-web-research/agents.py:33-51独立context+218 Coordinator+240-257首个已验证成功结算+274-279结构化回传</span><br><b style="color:var(--acc2)">DeepSeek flash 单账号并发 2500（2026-09-30 核实）</b>：40 真并发会话离 2500 差 60 倍——<b>三维度并行的限流顾虑消除，可保留激进用法</b>，留串行 fallback 作复杂归因降级。user_id 参数实现 KVCache/调度/内容安全隔离，本地 ID 传 user_id 享三层隔离</div>
+      </div>
+      <div class="node">
+        <h4>评估批跑</h4>
+        <p><code>pi -p --mode json</code> 控参批跑；会话树 branch/fork 做轨迹前缀回归评测；Pass@k 诊断分流修复动作。</p>
+        <div class="small">评估集是活资产，分数下降先查评测系统 <span style="color:var(--acc)">| 依据:book/chapter7.md:682配对bootstrap+McNemar + chapter9/trajectory-verifier轨迹前缀回归</span></div>
+      </div>
+      <div class="node" style="border-color:var(--red)">
+        <span class="tag" style="background:var(--red);color:#fff">harness五层</span>
+        <h4>harness 不只是 AGENTS.md · 五层拆解（审视修正版）</h4>
+        <p><strong>AGENTS.md 只是第①层一小部分</strong>。harness 分五层，每层有 pi提供/自建/不建 三归属：</p>
+        <div class="small" style="line-height:1.8">
+          <strong>①提示词层</strong>：AGENTS.md+SYSTEM.md+3skill+templates。<b>工作⓪阶段不建(没agent读它)</b>，接agent时才建 <span style="color:var(--acc2)">| <b>PM性</b>:棱镜SOP作流程骨架(配置→口碑→销量不跳步)+结论定义(结论=结构性判断+证据行ID+as_of,计数不是结论)+两层提示词(全局层锁SOP/会话层锁快照),before_agent_start动态注入非静态AGENTS.md</span><br>
+          <strong>②上下文层</strong>：状态栏hook + compaction(keepRecentTokens 30k) + 记忆注入<b>顺序写死</b>(状态栏→memory→mem0总16K) + D3来源标记 <span style="color:var(--acc2)">| <b>PM性</b>:状态栏挂三维度完成度,agent自见哪维没查=PM的checklist习惯</span><br>
+          <strong>③工具接口层</strong>【红线核心】：<b>3核心常驻</b>(query_sales/reviews/config) + <b>discover_tools按需加载</b>(能耗/评分/事件/缺陷等,包住两项目能力=Atuohome 15 MCP工具稳定层+舆情21个dashboard GET;MCP桥退役走TS直读) + tool_call护栏(cc-safety-net+自建红线拦截) + expected_* + tool_result改写(grounding)<b>分维度配阈值</b> <span style="color:var(--acc2)">| <b>PM性</b>:3核心工具=棱镜三维度物化,工具门控(setActiveTools)按阶段解锁——没查配置时销量工具不给,PM不会没看产品力就谈市场结果</span><br>
+          <strong>④验证层</strong>【红线#1】：grounding(<b>销量/配置数值维度</b>) + 完成验证器(<b>max 1次continuation再不过fail</b>) + 真值校验 + <b>口碑定性结论单独一套</b>(claim溯源+人工抽检) <span style="color:var(--acc2)">| <b>PM性</b>:完成验证器替agent做PM的"复核"——PM会复查自己判断,agent自己不会,独立验证器管这件事</span><br>
+          <strong>⑤编排层</strong>：会话工厂(SDK inMemory) + 阶段化tool门控 + 三维度并行 + <b>langfuse接评估闭环</b>(分数写回trace) <span style="color:var(--acc2)">| <b>PM性</b>:三维度并行=PM多源交叉习惯,复刻PM同时看三张报表交叉验证,非为并行而并行</span>
+        </div>
+        <div class="small" style="margin-top:6px;color:var(--acc2);border-top:1px dashed var(--acc2);padding-top:6px"><b>PM 性两个外围支柱（不在五层内·同等关键）</b>：①<b>口径视图=PM的类型系统</b>（见L3）——PM算错数字多半是口径错,口径视图让agent拿到"带口径标签的数字"而非裸数字; ②<b>评估集=PM专业判断的活资产</b>（见工作③）——30-50问题必须用户写,trap tasks是PM才会踩的坑,agent像不像PM跑一遍评估集就知道。详见提纲§5.1.1。</div>
+        <div class="small" style="margin-top:6px;color:var(--red)"><strong>红线边界(已拍板)</strong>：不改已有记录；允许触发采集(加数据)需管理者授权。边界细则待定。</div>
+      </div>
+      <div class="node">
+        <h4>当前 harness 状态 · 8插件已装零自建</h4>
+        <p><strong>已就绪(pi原生+插件)</strong>：✅compaction ✅记忆(pi-memory+mem0) ✅会话工厂 ✅pi-subagents ✅permission-system ✅langfuse埋点 ✅rpiv需求澄清 ✅pi-web-access/pi-mcp-adapter</p>
+        <p style="color:var(--red)"><strong>必须自建</strong>：❌AGENTS.md ❌SYSTEM.md ❌3skill ❌状态栏extension ❌3语义工具 ❌tool_call护栏 ❌tool_result改写 ❌完成验证器 ❌真值校验 ❌阶段门控 ❌口径视图 ❌数据源注册表</p>
+        <div class="small">分阶段建（与八项稿v2.1同步·修正自相矛盾）：工作⓪<b>不建AGENTS.md</b>（没agent读它，纯脚本跑数据链），只建脚本语义工具+口径视图；接agent时建AGENTS.md/SYSTEM.md+extension主体；有用户时按需建阶段门控</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="arrow">▼ 调用 TS 语义工具（typebox schema 注册）</div>
+
+<!-- ===== 语义层 ===== -->
+<div class="layer prism open">
+  <div class="layer-head" onclick="tog(this)">
+    <span class="layer-tag">L3</span>
+    <span class="layer-title">语义层 · Prism 核心资产（"插座"——唯一新建物）</span>
+    <span class="layer-meta">消费者的口径资产 · 不放生产库</span>
+    <span class="chev">▶</span>
+  </div>
+  <div class="collapsible">
+    <div class="layer-body">
+      <div class="node">
+        <span class="tag">① 第一步</span>
+        <h4>数据源注册表</h4>
+        <p>每个供给端登记：连接方式 / as_of 截止时间 / 覆盖率守卫 / 健康状态。<strong>可插拔</strong>，RAG 预留第四口。</p>
+        <div class="small">消费侧时效随行声明："数据截止 X，n=，覆盖率="</div>
+      </div>
+      <div class="node">
+        <span class="tag">② 第二步</span>
+        <span class="tag" style="background:var(--acc2);color:#fff">PM性·类型系统</span>
+        <h4>口径视图 v1 + 说明书</h4>
+        <p>车系 × 维度 × 极性 聚合 + n 随行。BI 与 agent 共用。<strong>口径是消费者的资产，不放生产库</strong>。<b>PM 性承载</b>：PM 算错数字多半是口径错（提及率=标签次数÷已打标条数，不是÷总口碑）——口径视图让 agent 拿到的是"带口径标签的数字"而非裸数字，它不用懂口径，工具返回时口径已钉死=PM 的类型检查。</p>
+        <div class="small">口径=结论只基于已打标样本 + 官方总数作参考分母</div>
+      </div>
+      <div class="node">
+        <span class="tag">③ 第三步</span>
+        <span class="tag" style="background:var(--acc2);color:#fff">PM性·棱镜物化</span>
+        <h4>TS 语义工具</h4>
+        <p><code>pi.registerTool({name, parameters: Type.Object({...}), execute})</code>。<strong>agent 不写裸 SQL</strong>——全部包进受控语义工具，工具描述带 expected_* 自查。<b>PM 性承载</b>：query_config/reviews/sales 三核心常驻工具=棱镜三维度物化，阶段化 tool 门控按维度完成度解锁——没查配置时销量工具不给。</p>
+        <div class="small">三重口径保障：提示词规则 / 工具自查 / 服务端真值</div>
+      </div>
+      <div class="node" style="border-color:var(--red)">
+        <span class="tag" style="background:var(--red);color:#fff">退役</span>
+        <h4>MCP 桥（已退役·2026-09-30）</h4>
+        <p>原计划 pi-mcp-adapter 接 Atuohome 15 个 MCP 工具作过渡。<b>退役理由</b>：stdio 每会话拉起一个 MCP Python 进程，并发下进程数炸。<b>直接走 TS 语义工具直读库</b>——原 P0 gate 验证取消，提纲§5.6"验证推迟"的结论变成"跳过验证直接退役"。</p>
+        <div class="small">DeepSeek flash 2500 并发够用，限流不是瓶颈</div>
+      </div>
+      <div class="node">
+        <span class="tag">⑤ 第五步</span>
+        <h4>sentiment REST 薄封装</h4>
+        <p>把舆情 Board 的 21 个 dashboard GET 包成 6 个 sentiment_* 工具组（overview/trend/dimension/posts/competitive/events）。<strong>舆情独立于主推理链路</strong>，与棱镜理论对齐（舆情只与销量双向绑定）。12 个写端点不碰。</p>
+      </div>
+      <div class="node">
+        <span class="tag" style="background:var(--red);color:#fff">边界</span>
+        <h4>供给端契约清单</h4>
+        <p>Atuohome 基础表字段 / 15 MCP 工具签名 / 信封格式 + 舆情端点签名。<strong>这是 Prism 与黑盒之间的唯一接口</strong>，供给端内部怎么改是用户自己的事。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="arrow">▼ 只读连接 / REST / MCP stdio</div>
+
+<!-- ===== 供给层 ===== -->
+<div class="layer supply open">
+  <div class="layer-head" onclick="tog(this)">
+    <span class="layer-tag">L4</span>
+    <span class="layer-title">供给层 · 黑盒供给端（两个旧项目，不动内部）</span>
+    <span class="layer-meta">用户单独调整中 · Prism 不管其内部</span>
+    <span class="chev">▶</span>
+  </div>
+  <div class="collapsible">
+    <div class="layer-body">
+      <div class="node">
+        <h4>Atuohome_Agent（口碑·配置·市场）</h4>
+        <div class="who">SQLite 只读直连（MCP 桥已退役）· v11</div>
+        <p>autohome.db 1.07GB 只读直连（口碑 12.3万 / 标签 29.4万 / 销量 19.7万行 / 配置快照 244 系）。看板 v11（2026-10-01）。Prism 直读库带同款 <code>_ensure_tags_ready</code> 守卫。</p>
+        <div class="small">⚠️ 上云风险：服务监听 127.0.0.1:8001，无鉴权，CORS 仅本机——需 sidecar 内网开放或加鉴权（D3.12）。写端点 6 个限流每 IP 10次/分，多用户共享 IP 会穿透（D3.13）。</div>
+      </div>
+      <div class="node">
+        <h4>舆情 Board（sentiment）</h4>
+        <div class="who">REST 单通道 · 21 个 dashboard GET 对接</div>
+        <p>舆情 Board 47 端点（35 GET + 12 写），Prism 对接 21 个 dashboard GET，按 PM 视角分 6 个 sentiment_* 工具（见提纲§2.1）。12 个写端点（collect/trigger/reports/vehicle CRUD/watchlist）Prism 完全不碰。舆情不进 agent 主推理链路。</p>
+        <div class="small">⚠️ TikHub 单点（OneAPI 2026-09-27 退役，社媒全量 TikHub）；bocha 待充值；GPL/学习研究用途公开内容禁商用（D3.14 合规重审）。服务监听 127.0.0.1:8000 无鉴权（D3.12）。</div>
+      </div>
+      <div class="node">
+        <h4>RAG 知识库</h4>
+        <div class="who">预留第四口</div>
+        <p>汽车知识库 RAG，注册表预留接入位。<b>⚠️ 定位漂移修正</b>：提纲的 RAG=行业报告/文档检索（MinerU+FAISS+BM25+rerank），与 review_tags 标签检索是两个东西——别把"标签过滤+关键词"当 RAG 资产混述。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="arrow">▼</div>
+
+<!-- ===== 数据层 ===== -->
+<div class="layer data open">
+  <div class="layer-head" onclick="tog(this)">
+    <span class="layer-tag">L5</span>
+    <span class="layer-title">数据层（读写分离·2026-09-30 拍板）</span>
+    <span class="layer-meta">生产库只读直连(红线) · 运行时写Redis+独立库 · 快照=测试夹具</span>
+    <span class="chev">▶</span>
+  </div>
+  <div class="collapsible">
+    <div class="layer-body">
+      <div class="node" style="border-color:var(--acc2)">
+        <span class="tag" style="background:var(--acc2);color:#fff">只读·红线</span>
+        <h4>生产库 autohome.db（只读直连·~1094MB）</h4>
+        <p>owner_reviews 123,214 行 / review_tags 293,706 行 / series_summaries 216 车系 / config_snapshots 244 行 / sales_series_weighted 14,316 / sales_trim 197,114。<b>数据真实性红线=只读直连不破</b>——TS 语义工具只读访问，不写。</p>
+        <div class="small">活跃刷新中（E5 config fetched_at=2026-09-30 09:06）；原稿旧数已修正</div>
+      </div>
+      <div class="node" style="border-color:var(--pi)">
+        <span class="tag">运行时写·独立</span>
+        <h4>运行时写存储（Redis + 独立库·读写分离关键）</h4>
+        <p><b>Redis</b>：会话状态（建议上非阻塞，进程崩溃恢复+扩展余量，起步可内存会话+落盘快照替代）。<b>独立 SQLite</b>：trajectories.jsonl（badcase 轨迹，按 session_id+as_of）/ mem0 记忆 / 用户反馈点踩。<b>不混入生产库</b>——隔离只读红线，不污染生产库。</p>
+      <div class="small" style="color:var(--acc2);margin-top:6px"><b>langfuse 监测能力（2026-10-01 已核实）</b>：插件 <code>@langfuse/pi-observability-plugin@0.1.2</code>（Langfuse 官方）hook <code>tool_execution_start</code>/<code>tool_execution_end</code>——<b>自建 TS 语义工具完整覆盖</b>（执行层事件，不区分内置/自建）。trace 含：工具名 + 调用ID + <b>参数(input,脱敏截断20K)</b> + <b>返回值(output,截断20K)</b> + is_error + usage/成本(独立 Tool LLM Usage observation) + 耗时。评估闭环"分数写回 trace"完全可行。配置 ~/.pi/agent/langfuse.json 或环境变量。</div>
+        <div class="small">读写分离是云真并发倒推的最大改动——原设计生产库与运行时写混一个 SQLite，并发写必炸</div>
+      </div>
+      <div class="node">
+        <h4>周更快照 koubei-YYYY-MM-DD.db</h4>
+        <p>只读，metadata=采集截止/样本量/覆盖率。<strong>快照=测试夹具</strong>，评估在此上批跑。</p>
+        <div class="small">欠打标账目待核（as_of 时点未一致）；节奏待拍板</div>
+      </div>
+      <div class="node">
+        <h4>舆情库 + 评估快照库</h4>
+        <p>评估用 SQLite snapshot env，Pass@k 在此跑。judge 与 agent 异源（DeepSeek agent + GLM/Kimi 双评委）。</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 数据流 ===== -->
+<div class="flow">
+  <h3>两条数据流（点击哪条你更想先走通？）</h3>
+  <div class="step">
+    <b>BI 模式</b>
+    <span class="arr">→</span><b>前端</b>
+    <span class="arr">→</span><b>口径视图直查</b>
+    <span class="arr">→</span><b>图表</b>
+    <span class="note">嵌入对话时另开一条：前端 → pi SDK（工具白名单锁 filter）→ 视图</span>
+  </div>
+  <div class="step">
+    <b>Agent 模式</b>
+    <span class="arr">→</span><b>前端</b>
+    <span class="arr">→</span><b>pi SDK 会话工厂</b>
+    <span class="arr">→</span><b>语义工具（typebox）</b>
+    <span class="arr">→</span><b>口径视图</b>
+    <span class="arr">→</span><b>注册表路由</b>
+    <span class="arr">→</span><b>供给端 / 快照</b>
+    <span class="note">护栏在 tool_call/tool_result 两道闸拦截；完成验证器校 n/覆盖率真值</span>
+  </div>
+</div>
+
+<!-- ===== 红线 ===== -->
+<div class="redline">
+  <h3>红线 → 机制落点（每条都有对应组件，不是停留在口号）</h3>
+  <div class="rl"><b>数据真实性</b><span>完成验证器 + tool_result 改写 + 服务端 n/覆盖率真值校验（不采信模型自报）</span></div>
+  <div class="rl"><b>不裸 SQL</b><span>全部包进 TS 语义工具，typebox schema 约束参数</span></div>
+  <div class="rl"><b>权限模型</b><span>会话工厂 per-user 工具白名单（tools/excludeTools/noTools 三层 + setActiveTools）</span></div>
+  <div class="rl"><b>护栏在执行层</b><span>pi.on("tool_call"/"tool_result") hooks，不在系统提示词里</span></div>
+  <div class="rl"><b>舆情合规</b><span>GPL/学习研究、公开内容、禁商用；舆情独立工具组不进主链路</span></div>
+  <div class="rl"><b>会话隔离（2026-09-30）</b><span>无登录系统，三层隔离：DeepSeek user_id（KVCache/调度/内容安全）+ pi SessionManager.inMemory per-user（Redis外置共享）+ per-user 工具白名单。badcase 轨迹按 session_id+as_of 记录，回放归因不需关联真实人</span></div>
+  <div class="rl"><b>密钥保密（2026-09-30）</b><span>API key（DEEPSEEK_API_KEY 等）不裸进镜像，阿里云 KMS/加密环境变量注入</span></div>
+</div>
+
+<!-- ===== 待拍板 ===== -->
+<div class="pending">
+  <h3>待拍板（不急，但要先标出来）</h3>
+  <ul>
+    <li><b>部署形态 ✅ 已拍板（2026-10-01 修正）</b>：阿里云 + 峰值并发 40 + 单台 ECS 4c16g + 数据盘 + 5Mbps，1 个月包月单机起步（原 50-100 多实例+SLB 降级远期扩展，详见提纲§5.7）</li>
+    <li><b>认证 ✅ 已拍板</b>：无登录系统，本地 ID + 管理者弹密码（详见提纲§9.2）</li>
+    <li><b>北极星 ✅ 已拍板（2026-10-02 商业改 DAU）</b>：三层——商业=日活量DAU（看板+对话分开）/产品北极星=周成功交付结论数（详见提纲§9.8）</li>
+    <li><b>DeepSeek 并发 ✅ 已核实</b>：flash 单账号 2500，40 真并发够用，不需扩容工单</li>
+    <li><b>MCP 桥 ✅ 已退役</b>：stdio 进程模型在并发下进程数炸，走 TS 工具直读库</li>
+    <li><b>看板定位</b>：供给端看板已迭代到 v11（2026-10-02 重摸），需基于 v11 现状重新切分 Prism 站与供给端看板职能</li>
+    <li><b>竞品池</b>：核心池名单v2(2026-09-26)已扩到 200+ 系，config_snapshots 244 行。重新定位为"200+池里分级选 golden 集"</li>
+    <li><b>口径分母（已定）</b>：提及率=标签出现次数/已打标口碑条数，不再回炉</li>
+    <li><b>周更快照节奏</b>：周几跑、欠账先还多少</li>
+  </ul>
+</div>
+
+<div class="desc" style="margin-top:18px">
+<strong>建设顺序（v0.4 · 云单机版·与八项稿v2.3同步）</strong>：<b style="color:#0d8a6e">⓪ 银河E5端到端案例（立即开跑·纯Python直读SQLite·不被gate阻塞）</b> → ① 数据源注册表+只读连接 → ② 口径视图 v1+说明书 → ③ TS 语义工具直读库（<b>MCP桥退役，不验证</b>）+fail-closed 护栏 → ⑤ sentiment REST 薄封装 → <b style="color:#c43d52">⏸ 阶段3·上线基建（Redis建议上非阻塞/落盘快照+读写分离+本地Nginx+KMS密钥+本地ID体系+管理者弹密码+轨迹埋点+轻量APM）</b> → 双模式网站上线。
+<b>原v0.2的 MCP 桥 P0 gate 已删除</b>（stdio 进程模型在并发下进程数炸，直接退役）。L1/L2 在此期间各自并行搭壳。
+</div>
+
+</div>
+
+<script>
+function tog(el){el.parentElement.classList.toggle('open')}
+</script>
+
+<!-- phase3-convergence 更新（2026-10-06）-->
+<div style="position:fixed;bottom:12px;right:12px;max-width:360px;background:#fffbe6;border:1px solid #e0c36b;border-radius:8px;padding:12px 14px;font-size:12px;line-height:1.6;color:#5a4a1a;box-shadow:0 2px 8px rgba(0,0,0,0.12);z-index:9999">
+<div style="font-weight:700;margin-bottom:4px">📌 运行架构更新（2026-10-06 phase3）</div>
+<div>extension 5 hook 完整化（before_agent_start series_key+scope 解析+强制核验 / tool_call fail-closed / tool_result collectNameTruth / agent_settled verifyCompletion+verifyNames+verdict.json+trajectories）/ pi_gateway 9200 端口 + mapEvent verdict + 进程崩溃 respawn + /health 就绪探针 / FastAPI /identity/resolve+/events+/trajectory+/attribution+鉴权 / 前端 SeriesCombobox+tracker 点踩</div>
+<div style="margin-top:4px;color:#8a7a3a">端口 9100→9200（Hyper-V 保留坑）</div>
+</div>
+</body>
+</html>

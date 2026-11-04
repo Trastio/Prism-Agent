@@ -1,0 +1,947 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ d.series_name }} · 口碑下钻 · Autohome Agent</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- 2026-10：ECharts 本地化（原 jsdelivr CDN 在本机不可达 → 图表降级成表格撑爆页面） -->
+<script src="/dash/static/echarts.min.js"></script>
+{# dashboard-v2 共享设计系统：页头/卡片头/数据表/折叠等类优先使用该文件 #}
+<link rel="stylesheet" href="/dash/static/dashboard-v2.css">
+<style>
+  :root {
+    --accent: #b85638;  --accent-d: #a44f33;  --accent-bg: #fdf4ef;
+    --pos: #2348b8;  --neg: #9c2a25;  --neu: #7a7670;  --info: #3a6ea5;
+    --positive-bg: #eef2fc;  --negative-bg: #fdf2f2;  --neutral-bg: #f5f5f5;
+    --bg: #fafaf7;  --card-bg: #ffffff;
+    --ink: #15140f;  --muted: #5a564e;  --muted-2: #6b665e;
+    --border: #e7e5e0;  --thead: #f4f1ec;  --grid: #f0ece5;
+    --radius: 12px;  --radius-sm: 8px;  --radius-lg: 16px;
+    --shadow: 0 1px 0 var(--grid);
+    --shadow-md: 0 2px 8px rgba(21,20,15,0.06);
+    /* 兼容旧变量名 */
+    --ink2: var(--muted);  --line: var(--border);  --bg-soft: var(--grid);
+    --warn: var(--neg);  --pro: var(--pos);  --con: var(--neg);
+    --blue: var(--info);  --good: var(--pos);  --red: var(--neg);  --green: var(--pos);
+  }
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--ink); margin:0; padding:0 0 40px; }
+  /* 组件库 */
+  .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow-md); }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  /* KPI 档位统一（对齐 v2 设计系统 .kpi .n）：原 30px 比页面标题还大，层级倒挂 */
+  .kpi-value { font-size: 19px; font-weight: 700; font-feature-settings: 'tnum'; letter-spacing: -.01em; }
+  .alert-bar { background: var(--card-bg); border-left: 3px solid var(--accent); border-radius: var(--radius-sm); padding: 12px 16px; }
+  .hint { color: var(--muted); font-size: 12px; }
+  .sec { margin-bottom: 36px; }
+  .sec-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .18em; color: var(--muted); margin-bottom: 12px; }
+  /* 已移除 1 条失效规则：details.panel（页面无 <details class="panel">，折叠统一走共享 v2；
+     下方裸 .panel 仍在用，故保留）；见 git 历史。 */
+  nav { background:#fff; border-bottom:1px solid var(--line); padding:10px 24px; display:flex; gap:18px; align-items:center; }
+  nav a { color:var(--ink2); text-decoration:none; font-size:14px; padding:4px 10px; border-radius:6px; }
+  /* 冷蓝残留 → 暖色令牌（与配置/市场页统一） */
+  nav a.on { color:var(--accent); background:var(--accent-bg); font-weight:600; }
+  .container { max-width:1180px; margin:0 auto; padding:20px 24px 0; }
+  h1 { font-size:22px; margin:4px 0; } h2 { font-size:15px; margin:0 0 10px; }
+  .sub { color:var(--ink2); font-size:13px; margin-bottom:14px; }
+  .tab-btn { padding:5px 14px; border:1px solid var(--line); background:#fff; border-radius:8px; cursor:pointer; font-size:13px; }
+  .tab-btn.on { color:var(--accent); background:var(--accent-bg); font-weight:600; }
+  /* 2026-10：口碑对比 / 情绪画像 二级 Tab。用独立 class（非 .tab-btn），
+     避免与 §03 维度分布「版型/省份」的 .tab-btn 选择器互相干扰。 */
+  .peer-tabs { display:flex; gap:8px; margin-bottom:16px; }
+  .peer-tabs button { padding:6px 18px; border:1px solid var(--line); background:#fff; border-radius:8px; cursor:pointer; font-size:13px; color:var(--ink2); }
+  .peer-tabs button.on { color:var(--accent); background:var(--accent-bg); font-weight:600; border-color:var(--accent); }
+  .panel { background:#fff; border:1px solid var(--line); border-radius:10px; padding:14px 18px; margin-bottom:14px; }
+  .pill { display:inline-block; font-size:11px; background:var(--accent-bg); color:var(--accent); border-radius:4px; padding:1px 8px; margin-left:6px; }
+  .pill.warn { background:#fffbeb; color:var(--warn); }
+  table { width:100%; border-collapse:collapse; font-size:13px; }
+  th { text-align:left; color:var(--ink2); font-weight:500; padding:6px 8px; border-bottom:1px solid var(--line); white-space:nowrap; }
+  td { padding:6px 8px; border-bottom:1px solid var(--grid); vertical-align:top; }
+  .tags { white-space:normal; min-width:260px; max-width:420px; }
+  .tag { display:inline-block; font-size:12px; border-radius:4px; padding:1px 6px; margin:1px 3px 1px 0; }
+  .tag.p { background:#ecfeff; color:var(--pro); } .tag.c { background:#fff7ed; color:var(--con); }
+  tr.prov { cursor:pointer; } tr.prov:hover { background:var(--thead); } tr.prov.sel { background:var(--accent-bg); }
+  button.ghost { padding:6px 14px; border:1px solid var(--line); background:#fff; border-radius:8px; cursor:pointer; font-size:13px; }
+  button.ghost:hover { background:var(--thead); }
+  [data-tag-link]{cursor:pointer;}
+  /* 已移除 4 条失效规则：.hbar / .hbar .lbl / .hbar .track / .hbar .track > i（横向条形已改由共享
+     `.track` / `.bar-row` 承载，全页无 class="hbar"）；见 git 历史。 */
+  .hint { color:var(--ink2); font-size:13px; padding:6px 0; }
+  /* dashboard-v11 Task 2.3：竞品口碑对比（已改 v2：双车 .pickers/.pick） */
+  /* 已移除 4 条失效规则：.peer-pick / .peer-pick label / .peer-pick input[type=checkbox] / .peer-search
+     ——现由共享 `.pickers` / `.pick` / `.pick-row` 取代，全页无对应 class；见 git 历史。 */
+  .foot { font-size:12px; color:var(--muted); line-height:1.8; }
+  .pager { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-top:6px; }
+  .pager a, .pager b { padding:2px 8px; border-radius:6px; }
+  .pager b { background:var(--accent-bg); color:var(--accent); }
+  .pager form { display:inline-flex; gap:6px; align-items:center; }
+  .pager input[type=number] { width:64px; padding:4px 6px; border:1px solid var(--line); border-radius:6px; }
+  /* P2#17 摘要卡：结论先行，一屏读完"这车口碑行不行" */
+  .sum-grid { display:grid; grid-template-columns:repeat(auto-fit, minmax(170px, 1fr)); gap:12px; margin:10px 0 4px; }
+  .sum-grid .k { font-size:12px; color:var(--ink2); }
+  .sum-grid .v { font-size:20px; font-weight:600; margin-top:2px; }
+  .sum-grid .v small { font-size:12px; font-weight:400; color:var(--ink2); }
+  /* 已移除 6 条失效规则：details.panel / details.panel > summary / details.panel > summary:hover /
+     details.panel > summary .hint / details.panel[open] > summary / details.panel > .details-body
+     ——P2#17 旧折叠样式，已被共享 v2 的 details.dim / details.only 取代，页面无 <details class="panel">；见 git 历史。 */
+  .export-link { display:inline-block; margin-top:8px; padding:5px 14px; border:1px solid var(--line); border-radius:8px; background:#fff; color:var(--accent); text-decoration:none; font-size:13px; }
+  .export-link:hover { background:var(--thead); }
+  /* P2-28：窄屏响应式——面板纵向堆叠、表格横向滚动 */
+  @media (max-width: 768px) {
+    main { padding: 12px; }
+    .scroll, table { overflow-x: auto; }
+  }
+  /* dashboard-v10 Task 2.3：全局键盘焦点可见样式（无障碍） */
+  :focus-visible { outline: 2px solid var(--blue, #3182ce); outline-offset: 2px; }
+  /* K-6 / dashboard-v2：口碑对比「按业务维度折叠」样式已抽到共享文件 /dash/static/dashboard-v2.css
+     （.fold-tools / details.dim / .caret / .dim-name / .dim-bars / .bar-row / .track /
+       .dim-delta / .dim-body / details.only / .only-body / .na），此处不再重复定义。 */
+</style>
+</head>
+<body>
+<nav><a class="on" href="/dash/koubei">口碑</a><a href="/dash/config">配置</a><a href="/dash/market">市场</a></nav>
+<div class="container">
+{% if d.not_collected %}
+  <div class="page-head">
+    <div>
+      <div class="eyebrow">KOUBEI</div>
+      <div class="page-title">车型 {{ d.model_id }}</div>
+      <div class="page-sub">该车型未采集口碑（库内无数据）</div>
+    </div>
+  </div>
+  <div class="panel"><p class="hint">该车型未采集口碑（库内无数据）。本看板只读，不触发采集——如需分析请到对话页提问触发采集。</p></div>
+{% else %}
+
+  {# 页头（dashboard-v2 统一页头）：KOUBEI eyebrow + 车系名标题 + 口径副标 + 右侧 pill #}
+  <div class="page-head">
+    <div>
+      <div class="eyebrow">KOUBEI</div>
+      <div class="page-title">{{ d.series_name }} · 口碑</div>
+      <div class="page-sub">数据源：之家车主口碑（单车系下钻）｜样本 {{ d.overview.reviews }} 条 · 标签覆盖 {{ "%.1f"|format(d.overview.coverage*100) }}%{% if d.koubei_last_run %} · 口碑更新至 {{ d.koubei_last_run }}{% endif %}</div>
+    </div>
+    <span class="spacer"></span>
+    <span class="pill">{{ d.overview.spec_n }} 版型 · {{ d.overview.province_n }} 省份</span>
+  </div>
+
+  {# ======================= §01 结论区（dashboards-design-system 四层递进） ======================= #}
+  <section class="sec" id="summary">
+    <div class="sec-title">§01 结论</div>
+    <div class="card">
+      <div class="mhead">
+        <span class="mhead-title">车型口碑下钻</span>
+        <span class="spacer"></span>
+        <span class="mhead-note">发布 {{ d.overview.first_post }} ~ {{ d.overview.last_post }} · 已排除官方/经销商</span>
+      </div>
+      <div class="kpi-grid">
+        <div><div class="hint">口碑数</div><div class="kpi-value">{{ d.overview.reviews }} <small style="font-size:13px;font-weight:400;color:var(--muted)">条</small></div></div>
+        <div><div class="hint">情绪比（标签提取）</div><div class="kpi-value" style="color:var(--pos)">{% if d.cov_level != 'none' and d.summary.sentiment %}好评 {{ d.summary.sentiment.pro }} <small style="font-size:14px;font-weight:400;color:var(--muted)">/</small> 差评 {{ d.summary.sentiment.con }}{% else %}—{% endif %}</div></div>
+        <div><div class="hint">口碑均分（库内现算）</div><div class="kpi-value">{{ d.overview.avg_score or "—" }}{% if d.overview.avg_score %} <small style="font-size:13px;font-weight:400;color:var(--muted)">/ 5</small>{% endif %}</div></div>
+        <div><div class="hint">标签覆盖率</div><div class="kpi-value">{{ "%.1f"|format(d.overview.coverage*100) }}% <small style="font-size:13px;font-weight:400;color:var(--muted)">（{{ d.overview.tagged }}/{{ d.overview.taggable }}）</small></div></div>
+      </div>
+      {% if d.cov_level == 'warn' %}
+      <div class="alert-bar" style="margin-top:10px"><span class="pill warn">结论仅供参考（覆盖 {{ "%.1f"|format(d.overview.coverage*100) }}%）</span> 标签覆盖率偏低，本页结论基于部分口碑。</div>
+      {% elif d.cov_level == 'none' %}
+      <div class="alert-bar" style="margin-top:10px">⚠ 标签未提取/覆盖不足（{{ "%.1f"|format(d.overview.coverage*100) }}%）——标签类结论（情绪比/维度/诊断）暂不展示（数据真实性：不以空列表伪装）。</div>
+      {% endif %}
+      {% if d.low_collection %}
+      <p class="hint" style="margin-bottom:0"><span class="pill warn">低采集（{{ "%.1f"|format(d.overview.collection_coverage*100) }}%）</span>库内仅采到之家标注的 {{ "%.1f"|format(d.overview.collection_coverage*100) }}%，热门车系结论可能不全。</p>
+      {% endif %}
+      {% if d.low_reviews %}
+      <p class="hint" style="margin-bottom:0"><span class="pill warn">样本不足（{{ d.overview.collected }} 条）</span>口碑数 &lt;30，统计结论参考性有限。</p>
+      {% endif %}
+    </div>
+  </section>
+
+  {# 2026-10：口碑对比 / 情绪画像 二级 Tab——原为同页并列两块，用户难以分辨是两个独立功能；
+    改为顶部 Tab 互斥切换；2026-10 调整：两个功能互换位置（情绪画像在前、口碑对比在后，
+     默认展示排序第一的「情绪画像」），选择存 sessionStorage，刷新/筛选提交后保持。 #}
+  <div class="peer-tabs" role="tablist" aria-label="口碑功能切换">
+    <button type="button" role="tab" data-peer-tab="profile">情绪画像</button>
+    <button type="button" role="tab" data-peer-tab="compare">口碑对比</button>
+  </div>
+
+  {# ======================= 口碑对比（dashboard-v2 原型落地：选车/守卫/分类层/单侧专属） ======================= #}
+  <section class="sec" id="peer-v2">
+    <div class="sec-title">口碑对比</div>
+    {% if d.peer_options %}
+
+    {# §01 选车与粒度：粒度 chips + A/B 两车 pickers + 对比按钮 #}
+    <div class="sec">
+      <div class="sec-title">§01 选车与粒度</div>
+      <div class="card">
+        <div class="mhead">
+          <span class="mhead-title">选择对比车系</span>
+          <span class="spacer"></span>
+          <span class="mhead-note" id="peer-granularity-hint">可选库内任意有口碑的车系；年款级：spec 填年款（如 2024款），留空=全部</span>
+        </div>
+        <div class="chips hint-mb">
+          <button class="chip on" data-granularity="year" onclick="switchGranularity('year')">按年款</button>
+          <button class="chip" data-granularity="spec" onclick="switchGranularity('spec')">按版型</button>
+        </div>
+        <div class="pickers">
+          <div class="pick">
+            <div class="pick-lbl">A 车</div>
+            <div class="pick-row">
+              <select id="peer-a-series" aria-label="A 车 车系" onchange="loadPeerTrimFacets('a')">
+                <option value="">选择 A 车…</option>
+                {% for o in d.peer_options %}
+                <option value="{{ o.id }}" {{ 'selected' if o.id == d.model_id }}>{{ o.name }}</option>
+                {% endfor %}
+              </select>
+              <select id="peer-a-trim" aria-label="A 车 年款"><option value="">全部</option></select>
+            </div>
+            <span class="hint" id="peer-a-n"></span>
+          </div>
+          <div class="pick">
+            <div class="pick-lbl">B 车</div>
+            <div class="pick-row">
+              <select id="peer-b-series" aria-label="B 车 车系" onchange="loadPeerTrimFacets('b')">
+                <option value="">选择 B 车…</option>
+                {% for o in d.peer_options %}
+                <option value="{{ o.id }}">{{ o.name }}</option>
+                {% endfor %}
+              </select>
+              <select id="peer-b-trim" aria-label="B 车 年款"><option value="">全部</option></select>
+            </div>
+            <span class="hint" id="peer-b-n"></span>
+          </div>
+        </div>
+        <div class="btns">
+          <button class="btn" id="peer-compare-btn" onclick="loadPeerCompareV2()">对比</button>
+          <span class="hint" id="peer-v2-status">选 A/B 两车后点对比。</span>
+        </div>
+      </div>
+    </div>
+
+    {# §02 样本守卫 · 可比性体检 #}
+    <div class="sec">
+      <div class="sec-title">§02 样本守卫 · 可比性体检</div>
+      <div class="card">
+        <div class="mhead">
+          <span class="mhead-title">样本与可比性</span>
+          <span class="spacer"></span>
+          <span class="mhead-note">n&lt;5 拒绝出结论；n&lt;10 黄牌提示仅供参考</span>
+        </div>
+        <div id="peer-guard"></div>
+        <div id="peer-audit"></div>
+      </div>
+    </div>
+
+    {# §03 分类层对比 · 按业务维度折叠（#peer-result-card 仍为结果容器；#peer-dims 首次成功对比后才显示）#}
+    <div class="sec">
+      <div class="sec-title">§03 分类层对比 · 按业务维度折叠</div>
+      <div class="card" id="peer-result-card">
+        <div class="mhead">
+          <span class="mhead-title">按业务维度折叠</span>
+          <span class="spacer"></span>
+          <span class="mhead-note">默认收起；展开某维度 → 看该维度下的标签明细（含「未提及」）</span>
+        </div>
+        <div id="peer-dims" style="display:none">
+          <div class="fold-tools">
+            <button class="btn ghost sm" onclick="peerExpandAll(true)">展开全部</button>
+            <button class="btn ghost sm" onclick="peerExpandAll(false)">收起全部</button>
+            <span class="hint">两栏独立排序，互不挤占</span>
+          </div>
+          <div id="peer-dim-list"></div>
+        </div>
+      </div>
+    </div>
+
+    {# §04 单侧专属标签（仅一方提及）#}
+    <div class="sec">
+      <div class="sec-title">§04 单侧专属标签（仅一方提及）</div>
+      <div class="card">
+        <div class="mhead">
+          <span class="mhead-title">单侧专属标签</span>
+          <span class="spacer"></span>
+          <span class="mhead-note">仅一方提及的标签单独折叠；缺失方标「未提及」（灰色）</span>
+        </div>
+        <div id="peer-only"></div>
+      </div>
+    </div>
+    {% else %}
+    <div class="card"><p class="hint">库内暂无可对比的口碑车系（需要至少一个车系已有标签数据）。</p></div>
+    {% endif %}
+  </section>
+
+  {# ======================= 情绪画像（dashboards-design-system 四层递进） ======================= #}
+  <section class="sec" id="profile-sec">
+    <div class="sec-title">情绪画像</div>
+    <div class="card">
+      <h2>多维筛选 <small class="hint">（年款×版型×省份自由组合，筛出车主原话子集）</small></h2>
+      <form method="get" action="/dash/koubei/series/{{ d.model_id }}" style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+        <select name="year" style="padding:5px 10px;border:1px solid var(--line);border-radius:8px">
+          <option value="">全部年款</option>
+          {% for y in d.pivot.year_facets %}<option value="{{ y }}" {{ 'selected' if d.stream_q.year == y }}>{{ y }}</option>{% endfor %}
+        </select>
+        <select name="spec" style="padding:5px 10px;border:1px solid var(--line);border-radius:8px;max-width:260px">
+          <option value="">全部版型</option>
+          {% for sp in d.specs %}<option value="{{ sp.name }}" {{ 'selected' if d.stream_q.spec == sp.name }}>{{ sp.name }}</option>{% endfor %}
+        </select>
+        <select name="prov" style="padding:5px 10px;border:1px solid var(--line);border-radius:8px">
+          <option value="">全部省份</option>
+          {% for p in d.provinces %}<option value="{{ p.name }}" {{ 'selected' if d.stream_q.prov == p.name }}>{{ p.name }}</option>{% endfor %}
+        </select>
+        <input name="kw" value="{{ d.stream_q.kw }}" placeholder="关键词" style="padding:5px 10px;border:1px solid var(--line);border-radius:8px;width:140px">
+        <button class="ghost" type="submit">筛选</button>
+        <span class="hint">命中 {{ d.pivot.n }} 条原话{% if d.pivot.n < 5 %}（&lt;5 条，仅列原话不总结）{% endif %}</span>
+      </form>
+      {% if d.pivot.n >= 5 %}
+      <div style="margin-top:8px">
+        <button class="ghost" id="btn-insight" data-mid="{{ d.model_id }}">✨ 生成 AI 总结</button>
+        <span class="hint" id="insight-status" aria-live="polite">（按需触发，基于筛出原话，强制引文{% if d.pivot_truncated %}；AI 总结基于 {{ d.pivot_limit }} 条随机抽样{% endif %}）</span>
+      </div>
+      {# dashboard-v12 Task 1.2：AI 总结三段式——①结论摘要 / ②引文分组卡片 / ③脚注 #}
+      <div id="insight-result" class="panel" hidden style="margin-top:10px;background:var(--thead)">
+        {# ①结论摘要：整体印象/亮点/短板分段（按 ## 标题解析，加粗标题+正文）#}
+        <div id="insight-summary"></div>
+        {# ②引文分组卡片：pro/con 分组，每条引文+来源meta（版型/城市/日期）#}
+        <div id="insight-citations" hidden style="margin-top:10px;border-top:1px dashed var(--line);padding-top:8px">
+          <strong>引文校验</strong>
+          <div style="display:flex;gap:16px;flex-wrap:wrap;margin-top:6px">
+            <div style="flex:1;min-width:240px">
+              <div class="hint" style="color:var(--pro);font-weight:600">亮点引文</div>
+              <ul id="insight-cite-pro" style="margin:4px 0 0 18px;padding:0;font-size:13px;color:var(--ink2);list-style:none"></ul>
+            </div>
+            <div style="flex:1;min-width:240px">
+              <div class="hint" style="color:var(--con);font-weight:600">短板引文</div>
+              <ul id="insight-cite-con" style="margin:4px 0 0 18px;padding:0;font-size:13px;color:var(--ink2);list-style:none"></ul>
+            </div>
+          </div>
+        </div>
+        {# ③脚注：抽样口径披露 #}
+        <div id="insight-footnote" hidden style="margin-top:8px;border-top:1px dashed var(--line);padding-top:6px;font-size:12px;color:var(--muted)"></div>
+      </div>
+      {% endif %}
+    </div>
+
+    {# 标签月度趋势（dashboards-design-system：移出 details，§02 主流卡片；ECharts 堆叠柱） #}
+    {# not_collected 守卫：diagnose 无 trend 键时降级提示 #}
+    {% if not d.diagnose.not_collected and d.diagnose.trend and d.diagnose.trend.months %}
+    <div class="card" style="margin-top:12px">
+      <h2>标签月度趋势 <small class="hint">（跟随顶部多维筛选）</small></h2>
+      <div id="trendChart" style="height:240px"></div>
+      {% if d.pivot_truncated %}
+      <div class="hint">⚠ 趋势基于 {{ d.pivot_limit }} 条随机抽样（命中 {{ d.pivot_n }} 条），非全量</div>
+      {% endif %}
+      {% if d.diagnose.trend.segments %}
+      <div class="hint" style="margin-top:6px">{% for seg in d.diagnose.trend.segments %}<span class="tag {{ 'c' if seg.type == '恶化' else 'p' }}">{{ seg.type }}（{{ seg.start_month }}~{{ seg.end_month }}，Δ{{ seg.delta }}）</span> {% endfor %}</div>
+      {% endif %}
+    </div>
+    {% else %}
+    <div class="card" style="margin-top:12px">
+      <h2>标签月度趋势</h2>
+      <p class="hint">暂无月度标签数据（标签未提取或覆盖不足）。</p>
+    </div>
+    {% endif %}
+
+    {# 标签分布双栏（dashboards-design-system：移出 details，§02 主流卡片；ECharts 横向条形） #}
+    {% if d.cov_level != 'none' %}
+    <div class="card" style="margin-top:12px">
+      <h2>标签分布 <small class="hint">（top-10，跟随顶部多维筛选）</small></h2>
+      {% if d.tag_dist and d.tag_dist["items"] %}
+      {% set _np = d.tag_dist["pro_items"]|length %}
+      {% set _nc = d.tag_dist["con_items"]|length %}
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div style="flex:1;min-width:280px">
+          <div class="hint" style="color:var(--pro);font-weight:600">满意点 Top{{ _np }}</div>
+          <div id="tagProChart" style="height:{{ [_np * 28 + 30, 280]|max }}px"></div>
+        </div>
+        <div style="flex:1;min-width:280px">
+          <div class="hint" style="color:var(--con);font-weight:600">槽点 Top{{ _nc }}</div>
+          <div id="tagConChart" style="height:{{ [_nc * 28 + 30, 280]|max }}px"></div>
+        </div>
+      </div>
+      <div class="hint">满意点 / 槽点各自按命中数降序取 Top10（两栏独立排序，互不挤占）。</div>
+      {% else %}
+      <p class="hint">当前筛选下无标签数据。</p>
+      {% endif %}
+    </div>
+    {% endif %}
+  </section>
+
+  {# ======================= §03 维度分布（dashboards-design-system 四层递进） ======================= #}
+  <section class="sec">
+    <div class="sec-title">§03 维度分布 <span class="hint" style="text-transform:none;letter-spacing:0;font-weight:400">（点击即筛选）</span></div>
+    <div class="card">
+    <div style="display:flex;gap:8px;margin-bottom:10px">
+      <button class="tab-btn on" data-tab="spec">版型维度</button>
+      <button class="tab-btn" data-tab="prov">省份维度</button>
+    </div>
+    <div id="tab-spec">
+    {% if d.cov_level == 'none' %}
+    <p class="hint">⚠ 标签未提取/覆盖不足（{{ "%.1f"|format(d.overview.coverage*100) }}%），维度展开区标签暂不展示（数据真实性：不以空列表伪装）。</p>
+    {% endif %}
+    <table>
+      <tr><th>版型</th><th>口碑数</th><th>原话示例</th></tr>
+      {% for sp in d.specs %}
+      <tr>
+        <td><a href="#" data-spec-link="{{ sp.name }}">{{ sp.name }}</a></td>
+        <td>{{ sp.count }}</td>
+        <td class="hint"><a href="#" data-spec-link="{{ sp.name }}">查看 {{ sp.count }} 条原话 →</a></td>
+      </tr>
+      {% endfor %}
+    </table>
+    </div>
+    <div id="tab-prov" style="display:none">
+    {% if d.cov_level == 'none' %}
+    <p class="hint">⚠ 标签未提取/覆盖不足（{{ "%.1f"|format(d.overview.coverage*100) }}%）——省级行为计数如下，优缺点标签暂不展示（数据真实性：不以空列表伪装）。</p>
+    {% endif %}
+    <p class="hint">点选省份行 → 原文流按该省筛选。</p>
+    <table>
+      <tr><th>省份</th><th>口碑数</th><th>原话</th></tr>
+      {% for p in d.provinces %}
+      <tr class="prov{{ ' sel' if d.stream_q.prov == p.name }}" data-p="{{ p.name }}">
+        <td>{{ p.name }}</td><td>{{ p.count }}</td>
+        <td class="hint">点选筛选 {{ p.count }} 条原话 →</td>
+      </tr>
+      {% endfor %}
+    </table>
+    <div class="foot">省份按城市静态映射归类（_geo.py）；"未知"= 城市名不在映射表，如实计数；未填写城市 {{ d.city_blank_n }} 条不计入上表。</div>
+    </div>
+    </div>
+  </section>
+
+  {# ======================= §04 原文佐证（dashboards-design-system 四层递进） ======================= #}
+  <section class="sec" id="stream">
+    <div class="sec-title">§04 原文佐证 <span class="hint" style="text-transform:none;letter-spacing:0;font-weight:400">（前 10 条 · 每条前 100 字 + 显示全文）</span></div>
+    <div class="card">
+    <h2>口碑原文流 <span class="pill">{{ d.stream.total }} 条</span> <small class="hint">用户说了啥——按筛选条件列出原文（节选 100 字）</small></h2>
+    <form method="get" action="/dash/koubei/series/{{ d.model_id }}" style="margin:6px 0;display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+      <input type="hidden" name="spec" value="{{ d.stream_q.spec }}">
+      <input type="hidden" name="prov" value="{{ d.stream_q.prov }}">
+      <input type="hidden" name="tag" value="{{ d.stream_q.tag }}">
+      <input type="hidden" name="year" value="{{ d.stream_q.year }}">
+      <input name="kw" value="{{ d.stream_q.kw }}" placeholder="关键词（搜最满意/最不满意原文）"
+             style="padding:5px 10px;border:1px solid var(--line);border-radius:8px;width:260px">
+      {% if d.stream_q.spec or d.stream_q.prov or d.stream_q.tag or d.stream_q.year %}
+      <span class="hint">筛选中：{% if d.stream_q.spec %}版型={{ d.stream_q.spec }}{% endif %}
+        {% if d.stream_q.prov %} 省={{ d.stream_q.prov }}{% endif %}
+        {% if d.stream_q.tag %} 标签={{ d.stream_q.tag }}{% endif %}
+        {% if d.stream_q.year %} 年款={{ d.stream_q.year }}{% endif %}
+        <a href="/dash/koubei/series/{{ d.model_id }}">清除</a></span>
+      {% endif %}
+      <button class="ghost" type="submit">筛选</button>
+    </form>
+    {% if d.stream.rows %}
+    <table>
+      <tr><th style="width:90px">日期</th><th style="width:110px">版型</th><th style="width:70px">城市</th><th style="width:80px">裸车价</th><th>最满意 / 最不满意（节选）</th></tr>
+      {% for r in d.stream.rows %}
+      <tr>
+        <td>{{ r.post_date }}</td><td>{{ r.spec }}</td><td>{{ r.city }}</td><td>{{ r.buy_price }}</td>
+        <td>
+          {% if r.best %}<div><span class="hint" style="color:var(--pro);font-weight:600">最满意：</span>{{ r.best }}</div>{% endif %}
+          {% if r.worst %}<div><span class="hint" style="color:var(--con);font-weight:600">最不满意：</span>{{ r.worst }}</div>{% endif %}
+          {% if d.cov_level != 'none' %}<div>{% for t in r.tags %}<span class="tag {{ 'p' if t.senti == 'pro' else 'c' }}">{{ t.name }}</span>{% endfor %}</div>{% endif %}
+          {# dashboard-v12 Task 1.3：查看全文 toggle（best_full/worst_full 完整原文，点别行自动收起） #}
+          {% if r.best_full or r.worst_full %}
+          <details class="stream-full" style="margin-top:4px">
+            <summary style="cursor:pointer;font-size:12px;color:var(--accent)">查看全文 ▾</summary>
+            <div style="margin-top:4px;padding:6px 8px;background:var(--thead);border-radius:6px;font-size:13px;line-height:1.6">
+              {% if r.best_full %}<div><span class="hint" style="color:var(--pro);font-weight:600">最满意：</span>{{ r.best_full }}</div>{% endif %}
+              {% if r.worst_full %}<div><span class="hint" style="color:var(--con);font-weight:600">最不满意：</span>{{ r.worst_full }}</div>{% endif %}
+            </div>
+          </details>
+          {% endif %}
+        </td>
+      </tr>
+      {% endfor %}
+    </table>
+    {% if d.stream.total > d.stream.size %}
+    {% set _base = "/dash/koubei/series/" ~ d.model_id ~ "?spec=" ~ (d.stream_q.spec|urlencode) ~ "&prov=" ~ (d.stream_q.prov|urlencode) ~ "&tag=" ~ (d.stream_q.tag|urlencode) ~ "&kw=" ~ (d.stream_q.kw|urlencode) ~ "&year=" ~ (d.stream_q.year|urlencode) %}
+    <div class="pager">
+      {% if d.stream.page > 1 %}<a href="{{ _base }}&page={{ d.stream.page - 1 }}#stream">上一页</a>{% endif %}
+      {# P3#38：页码窗口 1 … n-1 n n+1 … N（page_window 中 None 为省略号） #}
+      {% for p in d.stream.page_window %}
+        {% if p is none %}<span class="hint">…</span>
+        {% elif p == d.stream.page %}<b>{{ p }}</b>
+        {% else %}<a href="{{ _base }}&page={{ p }}#stream">{{ p }}</a>{% endif %}
+      {% endfor %}
+      <span class="hint">/ 共 {{ d.stream.total_pages }} 页</span>
+      {% if d.stream.page * d.stream.size < d.stream.total %}<a href="{{ _base }}&page={{ d.stream.page + 1 }}#stream">下一页</a>{% endif %}
+      <form method="get" action="/dash/koubei/series/{{ d.model_id }}#stream">
+        <input type="hidden" name="spec" value="{{ d.stream_q.spec }}">
+        <input type="hidden" name="prov" value="{{ d.stream_q.prov }}">
+        <input type="hidden" name="tag" value="{{ d.stream_q.tag }}">
+        <input type="hidden" name="year" value="{{ d.stream_q.year }}">
+        <input type="hidden" name="kw" value="{{ d.stream_q.kw }}">
+        <input type="number" name="page" min="1" max="{{ d.stream.total_pages }}" value="{{ d.stream.page }}">
+        <button class="ghost" type="submit">跳转</button>
+      </form>
+    </div>
+    {% endif %}
+    {% elif d.stream.total > 0 %}
+    <p class="hint">页码超出范围（共 {{ ((d.stream.total - 1) // d.stream.size) + 1 }} 页）——请回到有效页码。</p>
+    {% else %}
+    <p class="hint">无匹配口碑（当前筛选条件下 0 条命中）。</p>
+    {% endif %}
+    {# P2#28：导出当前筛选全量命中行（与原文流同一筛选口径，CSV 供离线分析） #}
+    <a class="export-link" href="/dash/koubei/series/{{ d.model_id }}/export?spec={{ d.stream_q.spec|urlencode }}&prov={{ d.stream_q.prov|urlencode }}&tag={{ d.stream_q.tag|urlencode }}&kw={{ d.stream_q.kw|urlencode }}&year={{ d.stream_q.year|urlencode }}">⬇ 导出当前筛选 CSV（{{ d.stream.total }} 条）</a>
+    </div>
+  </section>
+
+  {# ======================= 折叠区（P2#17 全文数据默认收起） ======================= #}
+  {# dashboard-v12 Task 1.1：深度诊断 + 文本×数值交叉验证 details 已删；
+    标签月度趋势 + 标签分布 上移到§02主流；竞品考虑集 + 同级对比保留在折叠区 #}
+  {# 事实统计面板已删（v8 Task7 方案B：无信息量/混年款/垃圾桶分组/与标签月度趋势重复） #}
+  {# data-layer-tag-system 阶段3：删旧竞品考虑集 + 同级对比 + 旧竞品口碑对比 details；
+    新增竞品口碑对比 v2（双车 + 粒度锁定 + 样本守卫 + 可比性 + 分类层兜底） #}
+
+  {# 维度双层面板已删（v8 Task7 方案B：官方评分无区分度/两侧维度对不上号/把解读推给读者） #}
+
+  <div class="foot">
+    · 版型名来自口碑"购买版本"字段（用户购买时选择），与配置页当前在售版型可能不同——两处口径独立，不强行对齐。<br>
+    · 本页只读本地库，不触发采集或打标；标签覆盖率口径与工具层守卫同源。
+  </div>
+{% endif %}
+</div>
+<script>
+// dashboards-design-system 阶段1：标签月度趋势 + 标签分布 ECharts 渲染
+// 数据真实性：chart 数据来自服务端聚合（diagnose.trend.months / tag_dist），
+// 不在前端编造；ECharts 未加载时静默降级（div 不渲染，不报错）。
+// dashboard-v12 Task 1.2 ③：注入抽样口径供 AI 总结脚注渲染
+window._pivotTruncated = {{ d.pivot_truncated | tojson if d.pivot_truncated is defined else "false" }};
+window._pivotLimit = {{ d.pivot_limit | tojson if d.pivot_limit is defined else "100" }};
+window._pivotN = {{ d.pivot_n | tojson if d.pivot_n is defined else "0" }};
+(function () {
+  if (typeof echarts === "undefined") return;
+  var months = {{ d.diagnose.trend.months | tojson if d.diagnose and d.diagnose.trend and d.diagnose.trend.months else "[]" }};
+  var trendEl = document.getElementById("trendChart");
+  if (trendEl && months.length) {
+    // 月度趋势堆叠柱（正/负；数据无 neutral 维度，不编造）
+    var trendChart = echarts.init(trendEl);
+    // 2026-10：二级 Tab 切换时对本区图表 resize（隐藏容器内 init 尺寸为 0）
+    (window._profileCharts = window._profileCharts || []).push(trendChart);
+    trendChart.setOption({
+      xAxis: {type: "category", data: months.map(function (m) { return m.month; }),
+              axisLine: {lineStyle: {color: "#e7e5e0"}}, axisLabel: {color: "#5a564e"}},
+      yAxis: {type: "value", axisLine: {lineStyle: {color: "#e7e5e0"}}, axisLabel: {color: "#5a564e"},
+              splitLine: {lineStyle: {color: "#f0ece5"}}},
+      series: [
+        {name: "正", type: "bar", stack: "total", data: months.map(function (m) { return m.pro; }),
+         itemStyle: {color: "#2348b8"}},
+        {name: "负", type: "bar", stack: "total", data: months.map(function (m) { return m.con; }),
+         itemStyle: {color: "#9c2a25"}},
+      ],
+      legend: {top: "top", textStyle: {color: "#5a564e"}},
+      grid: {left: "8%", right: "5%", top: "15%", bottom: "10%"},
+      tooltip: {trigger: "axis"},
+    });
+    window.addEventListener("resize", function () { trendChart.resize(); });
+  }
+  var tagDist = {{ d.tag_dist | tojson if d.tag_dist and d.tag_dist["items"] else '{"items":[],"pro_items":[],"con_items":[]}' }};
+  (function(){
+    if (!tagDist.items || !tagDist.items.length) return;
+    // K-1：两栏各自独立 Top10（后端 pro_items/con_items 已在**全量标签**上排序截断）；
+    // reverse 让横向条形图首个落在顶部
+    var proItems = (tagDist.pro_items || []).slice().reverse();
+    var conItems = (tagDist.con_items || []).slice().reverse();
+    var proEl = document.getElementById("tagProChart");
+    var conEl = document.getElementById("tagConChart");
+    function makeBar(el, items, key, color){
+      if(!el) return;
+      var chart = echarts.init(el);
+      (window._profileCharts = window._profileCharts || []).push(chart);
+      chart.setOption({
+        xAxis: {type: "value", axisLine: {lineStyle: {color: "#e7e5e0"}}, axisLabel: {color: "#5a564e"},
+                splitLine: {lineStyle: {color: "#f0ece5"}}},
+        yAxis: {type: "category", data: items.map(function(i){return i.name;}),
+                axisLine: {lineStyle: {color: "#e7e5e0"}}, axisLabel: {color: "#15140f"}},
+        series: [{type: "bar", data: items.map(function(i){return i[key];}), itemStyle: {color: color}}],
+        grid: {left: "30%", right: "8%", top: "5%", bottom: "5%"},
+        tooltip: {trigger: "axis", axisPointer: {type: "shadow"}},
+      });
+      window.addEventListener("resize", function () { chart.resize(); });
+    }
+    makeBar(proEl, proItems, "pro", "#2348b8");
+    makeBar(conEl, conItems, "con", "#9c2a25");
+  })();
+})();
+</script>
+<script>
+// not_collected 页无 Tab/联动元素，整段跳过（防 #prov hash 下 showTab null 引用）
+if (document.getElementById("tab-spec")) {
+  // 联动：点省份行/版型名/标签 → 原文流按该维度筛选（URL 参数，可分享）；
+  // 当前省份高亮由服务端按 stream_q.prov 回显，客户端不再自行 toggle
+  function setQ(k, v) {
+    const u = new URL(location.href);
+    u.searchParams.set(k, v);
+    u.searchParams.set("page", "1");
+    u.hash = "stream";
+    location.href = u.toString();
+  }
+  // 版型/省份主维度 Tab：零请求切换，hash 记忆（#spec/#prov）；
+  // 不覆盖 #stream 锚点（联动筛选后视口落在原文流，tab 状态由服务端默认 spec 接管）
+  const tabBtns = document.querySelectorAll(".tab-btn");
+  function showTab(name) {
+    tabBtns.forEach(b => b.classList.toggle("on", b.dataset.tab === name));
+    document.getElementById("tab-spec").style.display = name === "spec" ? "" : "none";
+    document.getElementById("tab-prov").style.display = name === "prov" ? "" : "none";
+    if (!location.hash || !location.hash.startsWith("#stream")) history.replaceState(null, "", "#" + name);
+  }
+  tabBtns.forEach(b => b.addEventListener("click", () => showTab(b.dataset.tab)));
+  if (location.hash === "#prov") showTab("prov");
+  document.querySelectorAll("tr.prov").forEach(tr => tr.addEventListener("click", () => {
+    setQ("prov", tr.dataset.p);
+  }));
+  document.querySelectorAll("[data-spec-link]").forEach(el => el.addEventListener("click", e => {
+    e.preventDefault(); setQ("spec", el.dataset.specLink);
+  }));
+  document.querySelectorAll("[data-tag-link]").forEach(el => el.addEventListener("click", e => {
+    // stopPropagation：省份行内的标签点击只按标签筛，不冒泡触发行级 prov 筛选
+    e.preventDefault(); e.stopPropagation(); setQ("tag", el.dataset.tagLink);
+  }));
+  const btnInsight = document.getElementById("btn-insight");
+  if (btnInsight) {
+    btnInsight.addEventListener("click", async () => {
+      const status = document.getElementById("insight-status");
+      const result = document.getElementById("insight-result");
+      const summaryEl = document.getElementById("insight-summary");
+      const citationsWrap = document.getElementById("insight-citations");
+      const citePro = document.getElementById("insight-cite-pro");
+      const citeCon = document.getElementById("insight-cite-con");
+      const footnote = document.getElementById("insight-footnote");
+      status.textContent = "生成中…";
+      if (result) result.hidden = true;
+      btnInsight.disabled = true;
+      try {
+        const u = new URL(location.href);
+        const resp = await fetch(`/dash/koubei/series/${btnInsight.dataset.mid}/insight`, {
+          method: "POST",
+          headers: {"Content-Type": "application/json"},
+          body: JSON.stringify({
+            year: u.searchParams.get("year") || "",
+            spec: u.searchParams.get("spec") || "",
+            prov: u.searchParams.get("prov") || "",
+            kw: u.searchParams.get("kw") || "",
+          }),
+        });
+        const data = await resp.json();
+        // dashboard-v12 Task 1.2：三段式渲染——①结论摘要 / ②引文分组 / ③脚注
+        if (data.ok && (data.insight.status === "summary" || data.insight.status === "insufficient_citations")) {
+          const ins = data.insight;
+          status.textContent = `已生成（${ins.n ?? data.n ?? ""} 条原话${ins.cached ? "，缓存" : ""}${ins.status === "insufficient_citations" ? "，无可验证引文" : ""}）`;
+          // ①结论摘要：解析 ## 三段式 markdown → 加粗标题 + 正文（全过 _esc 防 XSS）
+          if (summaryEl) {
+            summaryEl.innerHTML = _render_summary_sections(ins.summary || "");
+          }
+          // ②引文分组卡片：pro/con 分组 + 来源 meta
+          const refs = ins.refs || [];
+          if (citePro) citePro.innerHTML = "";
+          if (citeCon) citeCon.innerHTML = "";
+          refs.forEach(r => {
+            const li = document.createElement("li");
+            li.style.marginBottom = "4px";
+            const a = document.createElement("a");
+            a.href = "#stream"; a.dataset.citeRid = String(r.rid || "");
+            a.textContent = r.quote || "";
+            li.appendChild(a);
+            // 来源 meta（版型/城市/日期）—— v12 refs 增强；旧缓存无 meta 时降级 "-"
+            const meta = document.createElement("div");
+            meta.className = "hint";
+            meta.style.fontSize = "11px";
+            meta.textContent = `${r.spec || "-"} · ${r.city || "-"} · ${r.post_date || "-"}`;
+            li.appendChild(meta);
+            const bucket = (r.field === "con") ? citeCon : citePro;
+            if (bucket) bucket.appendChild(li);
+          });
+          if (citationsWrap) citationsWrap.hidden = refs.length === 0;
+          // ③脚注：抽样口径披露
+          if (footnote) {
+            if (window._pivotTruncated) {
+              footnote.textContent = `基于 ${window._pivotLimit} 条随机抽样（命中 ${window._pivotN} 条）`;
+              footnote.hidden = false;
+            } else {
+              footnote.hidden = true;
+            }
+          }
+          if (result) result.hidden = false;
+        } else if (data.ok && data.insight.status === "only_reviews") {
+          status.textContent = "样本不足（<5），仅列原话。";
+        } else {
+          status.textContent = "生成失败：" + (data.error || data.insight?.error || "");
+        }
+      } catch (e) {
+        status.textContent = "生成失败：网络或服务异常。";
+      } finally {
+        btnInsight.disabled = false;
+      }
+    });
+  }
+  // dashboard-v12 Task 1.3：查看全文 toggle——展开一行全文时自动收起其他行
+  document.querySelectorAll("details.stream-full").forEach(d => {
+    d.addEventListener("toggle", () => {
+      if (d.open) {
+        document.querySelectorAll("details.stream-full").forEach(o => {
+          if (o !== d) o.open = false;
+        });
+      }
+    });
+  });
+}
+// dashboard-v12 Task 1.2：_esc 防 XSS（同 dash_config P3#40 模式）+ 三段式 summary 解析
+function _esc(s){
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function _render_summary_sections(md){
+  // 解析 ## 整体印象 / ## 亮点 / ## 短板 三段式 markdown → 加粗标题 + 正文
+  // 旧格式（无 ## 标题）降级为整段 pre-wrap 渲染
+  var sections = md.split(/^## /m).filter(function(p){return p.trim();});
+  if (sections.length <= 1) {
+    return '<div style="white-space:pre-wrap;line-height:1.7">' + _esc(md) + '</div>';
+  }
+  var html = "";
+  sections.forEach(function(sec){
+    var nl = sec.indexOf("\n");
+    var title = (nl === -1 ? sec : sec.slice(0, nl)).trim();
+    var body = (nl === -1 ? "" : sec.slice(nl + 1)).trim();
+    html += '<div style="margin-bottom:10px"><strong>' + _esc(title) + '</strong>'
+          + '<div style="white-space:pre-wrap;line-height:1.7;margin-top:2px">' + _esc(body) + '</div></div>';
+  });
+  return html;
+}
+// ===== data-layer-tag-system 阶段3：竞品口碑对比 v2 =====
+// 数据真实性：所有数据来自 /dash/koubei/peer-compare-v2 服务端聚合，
+// 前端只渲染；样本不足/未提及由后端守卫，前端不编造。
+var _peerGranularity = "year";
+function switchGranularity(g) {
+  _peerGranularity = g;
+  // dashboard-v2：粒度 chips 容器由 .dims 改为 .chips，选择器同步更新（class chip 语义不变）
+  document.querySelectorAll('#peer-v2 .chips .chip').forEach(function (c) {
+    c.classList.toggle("on", c.dataset.granularity === g);
+  });
+  var hint = document.getElementById("peer-granularity-hint");
+  hint.textContent = g === "year"
+    ? "年款级：trim 填年款（如 2024款），留空=全部"
+    : "版型级：trim 选具体版型，留空=全部";
+  // 切换粒度时重置 trim 下拉为"全部"并重新加载分面
+  ["a", "b"].forEach(function (side) {
+    var sel = document.getElementById("peer-" + side + "-trim");
+    sel.innerHTML = '<option value="">全部</option>';
+    var mid = document.getElementById("peer-" + side + "-series").value;
+    if (mid) loadPeerTrimFacets(side);
+  });
+}
+
+function loadPeerTrimFacets(side) {
+  var mid = document.getElementById("peer-" + side + "-series").value;
+  var sel = document.getElementById("peer-" + side + "-trim");
+  sel.innerHTML = '<option value="">全部</option>';
+  if (!mid) return;
+  fetch("/dash/koubei/series/" + encodeURIComponent(mid) + "/spec-facets")
+    .then(function (r) { return r.json(); })
+    .then(function (data) {
+      if (!data.ok) return;
+      var facets = data.facets || {};
+      var items = _peerGranularity === "year" ? (facets.years || []) : (facets.specs || []);
+      items.forEach(function (it) {
+        var opt = document.createElement("option");
+        opt.value = it.name === "未填写版型" || it.name === "未知年款" ? "" : it.name;
+        opt.textContent = it.name + "（" + it.count + "）";
+        sel.appendChild(opt);
+      });
+    }).catch(function () {});
+}
+
+// dashboard-v2：样本守卫统一用 .guard（达标 / warn / bad 三档，对齐原型 §02）
+function _peerGuardHtml(g, nameA, nameB) {
+  if (g.reject) {
+    return '<div class="guard bad hint-mb"><b>样本不足，已拒绝对比</b> '
+      + '<span class="hint">' + _esc(nameA) + ' n=' + g.n_a + ' / ' + _esc(nameB) + ' n=' + g.n_b
+      + '（n&lt;5 拒绝）' + (g.advice ? ' — ' + _esc(g.advice) : '') + '</span></div>';
+  }
+  if (g.warn) {
+    return '<div class="guard warn hint-mb"><b>样本偏少，结论仅供参考</b> '
+      + '<span class="hint">' + _esc(nameA) + ' n=' + g.n_a + ' / ' + _esc(nameB) + ' n=' + g.n_b
+      + (g.advice ? ' — ' + _esc(g.advice) : '') + '</span></div>';
+  }
+  return '<div class="guard hint-mb"><b>样本达标</b> '
+      + '<span class="hint">' + _esc(nameA) + ' n=' + g.n_a + ' / ' + _esc(nameB) + ' n=' + g.n_b + '</span></div>';
+}
+
+// dashboard-v2：可比性体检读数（.guard 第二行，对齐原型 §02）
+function _peerAuditHtml(c) {
+  var html = '<div class="guard"><b>可比性体检</b> 共有 ' + c.common
+    + ' ／ 仅 A ' + c.only_a + ' ／ 仅 B ' + c.only_b
+    + ' — 可比性 <b>' + c.ratio + '%</b>';
+  if (c.advice) {
+    html += '；' + _esc(c.advice);
+  }
+  return html + '</div>';
+}
+
+// K-6：按业务维度折叠渲染（对齐 docs/原型-口碑对比.html）
+// 维度头：caret + 维度名 + A/B 赞槽迷你条（四方向全局最大值归一，单侧最多占半条）+ A−B 差值
+// 展开体：该维度下的标签明细（共有 + 单侧专属标签归位到本维度，缺失方标"未提及"）
+function _peerBar(pro, con, maxv) {
+  var wp = maxv ? (pro / maxv * 50) : 0;
+  var wc = maxv ? (con / maxv * 50) : 0;
+  return '<span class="track"><i class="c" style="width:' + wc + '%"></i>'
+       + '<i class="p" style="width:' + wp + '%"></i></span>';
+}
+
+function _peerDimsHtml(cc, td, nameA, nameB) {
+  if (!cc.length) return '<p class="hint" style="margin-top:10px">分类层无数据。</p>';
+  // 标签按 dim 归位（tag_details 三组并集；dim 与 category_compare.dim 同源）
+  var allTags = (td.common || []).concat(td.only_a || [], td.only_b || []);
+  var byDim = {};
+  allTags.forEach(function (it) {
+    var d = it.dim || "其他";
+    (byDim[d] = byDim[d] || []).push(it);
+  });
+  var maxv = 0;
+  cc.forEach(function (r) { maxv = Math.max(maxv, r.a_pro, r.a_con, r.b_pro, r.b_con); });
+  var html = "";
+  cc.forEach(function (r) {
+    var delta = r.a_pro - r.b_pro;
+    var dcls = delta >= 0 ? "a" : "b";
+    var dtxt = delta === 0 ? "持平" : (delta > 0 ? "A +" + delta : "B +" + (-delta));
+    var tags = byDim[r.dim] || [];
+    var g = function (v) { return v === "未提及" ? '<span class="na">未提及</span>' : v; };
+    // dashboard-v2：明细表统一 <table class="tbl"> + <thead> 表头行，数值列加 .num
+    var rows = tags.map(function (it) {
+      return '<tr><td>' + _esc(it.name) + '</td>'
+        + '<td class="num">' + g(it.a_pro) + '</td><td class="num">' + g(it.a_con) + '</td>'
+        + '<td class="num">' + g(it.b_pro) + '</td><td class="num">' + g(it.b_con) + '</td></tr>';
+    }).join("");
+    var body = tags.length
+      ? '<table class="tbl"><thead><tr><th>标签</th>'
+        + '<th class="num">' + _esc(nameA) + ' 赞</th><th class="num">' + _esc(nameA) + ' 槽</th>'
+        + '<th class="num">' + _esc(nameB) + ' 赞</th><th class="num">' + _esc(nameB) + ' 槽</th></tr></thead>'
+        + '<tbody>' + rows + '</tbody></table>'
+      : '<p class="hint" style="padding:8px 0 0">该维度暂无标签明细。</p>';
+    html +=
+      '<details class="dim">'
+      + '<summary>'
+      +   '<span class="caret">▶</span>'
+      +   '<span class="dim-name">' + _esc(r.dim) + '</span>'
+      +   '<span class="dim-bars">'
+      +     '<span class="bar-row"><span class="who">A</span>'
+      +       _peerBar(r.a_pro, r.a_con, maxv)
+      +       '<span class="num">赞 <b>' + r.a_pro + '</b> · 槽 ' + r.a_con + '</span></span>'
+      +     '<span class="bar-row b"><span class="who">B</span>'
+      +       _peerBar(r.b_pro, r.b_con, maxv)
+      +       '<span class="num">赞 <b>' + r.b_pro + '</b> · 槽 ' + r.b_con + '</span></span>'
+      +   '</span>'
+      +   '<span class="dim-delta ' + dcls + '">' + dtxt + '</span>'
+      + '</summary>'
+      + '<div class="dim-body">' + body + '</div>'
+      + '</details>';
+  });
+  return html;
+}
+
+// 单侧专属标签（仅一方提及）：折叠，缺失方标"未提及"
+// dashboard-v2：明细表统一 <table class="tbl"> + <thead> 表头行，数值列加 .num
+function _peerOnlyHtml(td, nameA, nameB) {
+  function panel(title, items, side) {
+    if (!items.length) return '';
+    var g = function (v) {
+      return (v === null || v === undefined || v === "未提及")
+        ? '<span class="na">未提及</span>' : v;
+    };
+    var rows = items.map(function (it) {
+      var a_pro = side === "a" ? it.a_pro : null, a_con = side === "a" ? it.a_con : null;
+      var b_pro = side === "b" ? it.b_pro : null, b_con = side === "b" ? it.b_con : null;
+      return '<tr><td>' + _esc(it.name) + '</td>'
+        + '<td class="num">' + g(a_pro) + '</td><td class="num">' + g(a_con) + '</td>'
+        + '<td class="num">' + g(b_pro) + '</td><td class="num">' + g(b_con) + '</td></tr>';
+    }).join("");
+    return '<details class="only"><summary><span class="caret">▶</span>' + _esc(title)
+      + ' <span class="hint">(' + items.length + ' 个)</span></summary>'
+      + '<div class="only-body"><table class="tbl"><thead><tr><th>标签</th>'
+      + '<th class="num">' + _esc(nameA) + ' 赞</th><th class="num">' + _esc(nameA) + ' 槽</th>'
+      + '<th class="num">' + _esc(nameB) + ' 赞</th><th class="num">' + _esc(nameB) + ' 槽</th></tr></thead>'
+      + '<tbody>' + rows + '</tbody></table></div></details>';
+  }
+  var html = panel("仅 " + nameA + " 提及", td.only_a || [], "a")
+           + panel("仅 " + nameB + " 提及", td.only_b || [], "b");
+  if (!html) return '';
+  // dashboard-v2：标题由 §04 卡片的 .mhead-title 承担，此处只返回折叠体
+  return html;
+}
+
+function peerExpandAll(open) {
+  document.querySelectorAll('#peer-v2 details.dim, #peer-v2 details.only')
+    .forEach(function (d) { d.open = open; });
+}
+
+async function loadPeerCompareV2() {
+  var status = document.getElementById("peer-v2-status");
+  var aMid = document.getElementById("peer-a-series").value;
+  var bMid = document.getElementById("peer-b-series").value;
+  var aSpec = document.getElementById("peer-a-trim").value;
+  var bSpec = document.getElementById("peer-b-trim").value;
+  if (!aMid || !bMid) { status.textContent = "请选择 A 车和 B 车。"; return; }
+  if (aMid === bMid) { status.textContent = "A 车和 B 车不能相同。"; return; }
+  status.textContent = "加载中…";
+  var url = "/dash/koubei/peer-compare-v2?a_mid=" + encodeURIComponent(aMid)
+    + "&a_spec=" + encodeURIComponent(aSpec)
+    + "&b_mid=" + encodeURIComponent(bMid)
+    + "&b_spec=" + encodeURIComponent(bSpec)
+    + "&granularity=" + encodeURIComponent(_peerGranularity);
+  try {
+    var resp = await fetch(url);
+    var data = await resp.json();
+    if (!data.ok) { status.textContent = "失败：" + (data.error || ""); return; }
+    var cmp = data.compare;
+    var nameA = (cmp.names && cmp.names.a) || aMid;
+    var nameB = (cmp.names && cmp.names.b) || bMid;
+    status.textContent = "已对比 " + nameA + " vs " + nameB + "（" + _peerGranularity + "级）";
+    var reject = cmp.sample_guard.reject;
+    document.getElementById("peer-guard").innerHTML = _peerGuardHtml(cmp.sample_guard, nameA, nameB);
+    document.getElementById("peer-audit").innerHTML = reject ? "" : _peerAuditHtml(cmp.comparability);
+    // K-6：结果写入新容器（按业务维度折叠 + 单侧专属）；样本被拒时整块隐藏
+    document.getElementById("peer-dim-list").innerHTML = reject ? "" : _peerDimsHtml(cmp.category_compare, cmp.tag_details, nameA, nameB);
+    document.getElementById("peer-only").innerHTML = reject ? "" : _peerOnlyHtml(cmp.tag_details, nameA, nameB);
+    document.getElementById("peer-dims").style.display = reject ? "none" : "";
+  } catch (e) {
+    status.textContent = "失败：网络或服务异常。";
+  }
+}
+
+// 初始化：若 A 车已默认选中（当前车系），加载其分面
+(function () {
+  var aMid = document.getElementById("peer-a-series");
+  if (aMid && aMid.value) loadPeerTrimFacets("a");
+})();
+</script>
+<script>
+// 2026-10：口碑对比 / 情绪画像 二级 Tab 切换。
+// 两者原为同页并列的两个 section，现互斥切换；选择存 sessionStorage，
+// 使情绪画像内的「多维筛选」表单提交（整页刷新）后仍停留在该 Tab。
+(function () {
+  var KEY = "prism-koubei-peer-tab";
+  var compareSec = document.getElementById("peer-v2");
+  var profileSec = document.getElementById("profile-sec");
+  if (!compareSec || !profileSec) return;  // not_collected 页无这两块
+  var btns = Array.prototype.slice.call(document.querySelectorAll("[data-peer-tab]"));
+
+  function resizeProfileCharts() {
+    (window._profileCharts || []).forEach(function (c) {
+      try { c.resize(); } catch (e) {}
+    });
+  }
+
+  function show(which, persist) {
+    var isProfile = which === "profile";
+    compareSec.style.display = isProfile ? "none" : "";
+    profileSec.style.display = isProfile ? "" : "none";
+    btns.forEach(function (b) { b.classList.toggle("on", b.dataset.peerTab === which); });
+    if (persist) { try { sessionStorage.setItem(KEY, which); } catch (e) {} }
+    // 图表在隐藏容器内 init 时尺寸为 0，显示后再 resize 才正确渲染
+    if (isProfile) requestAnimationFrame(resizeProfileCharts);
+  }
+
+  btns.forEach(function (b) {
+    b.addEventListener("click", function () { show(b.dataset.peerTab, true); });
+  });
+
+  var saved = "profile";
+  try { saved = sessionStorage.getItem(KEY) || "profile"; } catch (e) {}
+  show(saved === "compare" ? "compare" : "profile", false);
+})();
+</script>
+</body>
+</html>

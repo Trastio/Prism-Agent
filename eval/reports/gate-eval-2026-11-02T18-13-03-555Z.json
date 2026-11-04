@@ -1,0 +1,58 @@
+{
+  "baseline": "eval-2026-11-02T17-18-44-115Z",
+  "candidate": "eval-2026-11-02T18-13-03-555Z",
+  "paired_n": 63,
+  "baseline_only": 0,
+  "candidate_only": 0,
+  "conditions": {
+    "veto_zero": {
+      "met": true,
+      "detail": "trap 6/6 拦截"
+    },
+    "wilcoxon_significant": {
+      "met": false,
+      "detail": "p=0.2559086205193717, delta=-0.08238851095993953, |delta|=0.08238851095993953",
+      "wilcoxon": {
+        "w": 52.5,
+        "z": -1.136114563994762,
+        "p_value": 0.2559086205193717,
+        "n": 17,
+        "w_plus": 52.5,
+        "w_minus": 100.5
+      },
+      "cliffs": {
+        "delta": -0.08238851095993953,
+        "abs": 0.08238851095993953,
+        "interpretation": "negligible",
+        "n": 3969
+      }
+    },
+    "retention_ci_positive": {
+      "met": true,
+      "detail": "frozen n=16, ci_low=3.438",
+      "ci": {
+        "mean": 4.3125,
+        "ci_low": 3.4375,
+        "ci_high": 5.0,
+        "n": 16,
+        "confidence": 0.95
+      }
+    },
+    "cost_under_budget": {
+      "met": true,
+      "detail": "ci_high=61.5s < 预算 300.0s（duration 兜底口径）",
+      "ci": {
+        "mean": 53.82222222222222,
+        "ci_low": 46.73015873015873,
+        "ci_high": 61.46031746031746,
+        "n": 63,
+        "confidence": 0.95
+      },
+      "budget": 300.0
+    }
+  },
+  "pass_all": false,
+  "notes": [
+    "成本口径=duration_s 兜底（n=63/63 题有值，token 台账缺）"
+  ]
+}

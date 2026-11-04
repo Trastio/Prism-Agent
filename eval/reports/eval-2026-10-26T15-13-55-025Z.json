@@ -1,0 +1,427 @@
+{
+  "run_id": "eval-2026-10-26T15-13-55-025Z",
+  "started_at": "2026-10-26T15:13:55.026Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+  "snapshot_id": "snap-20261012-1222",
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "6b5b63d651db9a054298bc61ebe4ff8f",
+  "scoring_fingerprint": "659013b54d6168e6",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-26T15:16:30.660Z",
+  "results": [
+    {
+      "task": "config-05",
+      "sessionId": "01a178c6-8ba5-71f3-ae1b-c1cb037e8fc6",
+      "dimension": "配置",
+      "question": "风云T7的配置比银河E5好么？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "rubric[elements] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "elements",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "e5_win",
+          "t7_win",
+          "gap"
+        ],
+        "missing": [],
+        "missingRequired": [],
+        "forbidHits": [],
+        "note": "护栏全命中"
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "风云T7的配置比银河E5好么？"
+      ],
+      "tools": [
+        "resolve_series",
+        "resolve_series",
+        "get_trims",
+        "get_trims",
+        "compare_configs_valued"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 46.1,
+        "tool_calls": 10,
+        "tokens": {
+          "input": 29264,
+          "output": 24970,
+          "cacheRead": 340736,
+          "totalTokens": 394970,
+          "cost_usd": 0.012043
+        },
+        "partial": false
+      },
+      "replyLength": 930,
+      "replyPreview": "**结论：银河E5 的配置更全，但风云T7 更划算：银河E5 配置更高，却贵出一大截。**\n\n以下按两车**在售最高配**对比：风云T7 2026款 600km 智享版 **11.89万** vs 银",
+      "reply_full": "**结论：银河E5 的配置更全，但风云T7 更划算：银河E5 配置更高，却贵出一大截。**\n\n以下按两车**在售最高配**对比：风云T7 2026款 600km 智享版 **11.89万** vs 银河E5 2027款 635 智充激光版 **14.78万**。\n\n## 银河E5 比风云T7 多出来的（共计约 1.82 万元配置价值）\n| 项目 | 银河E5 | 风云T7 |\n|---|---|---|\n| 800V 高压平台 | 有 | 无 |\n| 城市 NOA | 有 | 无 |\n| 记忆泊车、代客泊车 | 有 | 无 |\n| CLTC 续航 | 635 km | 600 km |\n| 前排座椅按摩、座椅记忆 | 有 | 无 |\n| 车载冰箱 | 有 | 无 |\n| 侧窗隔音玻璃 | 有 | 无 |\n| 轮毂 | R19 | R18 |\n\n## 风云T7 反超的几项\n- 可开启全景天窗（银河E5 该版型没有天窗）\n- 后排侧气囊、中央气囊\n- 对外放电 6.6 kW（银河E5 为 6 kW）\n\n## 关键看点：价差大于配置增量\n银河E5 多出的配置，按参考价折算约 **1.8万**，但指导价贵了 **2.89万**。这意味着银河E5 的溢价里，约 1 万元并不是买配置。\n\n**同价位对位**更能看出问题：风云T7 智享版 11.89万 vs 银河E5 2027款 550 智充启航版 11.78万。在价格基本相同的情况下，风云T7 反而在**高速 NOA、自动泊车、遥控泊车、可开启全景天窗、电动尾门、600km 对 550km 续航、后排侧气囊**等项上领先；银河E5 只赢 800V 平台和车顶行李架。\n\n## 选购建议\n- 想要城区智驾、冰箱、座椅按摩这类舒适或智驾体验 → 只能加预算上银河E5 激光版；\n- 预算 12 万左右、看重智驾基础和续航实用性 → 风云T7 这一档配置更能打。\n\n**数据说明**：配置明细取自 2026-10-01 快照，两车分别有 27 项、15 项配置字段未采集或未落档，因此细项对比并非逐项完整；配置价值为按统一口径折算的参考值，不代表实际终端差价。\n\n**as_of：2026-10-26**",
+      "first_error_turn": null
+    },
+    {
+      "task": "config-12",
+      "sessionId": "01a178c7-3708-71f3-ae1b-c1cd21e52fde",
+      "dimension": "配置",
+      "question": "比较一下银河E5、零跑B10、风云T7以及MG 4X的配置",
+      "repeat": 1,
+      "score": 2,
+      "reasons": [
+        "truth 缺锚: 14.98万、11.68万"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 4,
+        "missing": [
+          "14.98万",
+          "11.68万"
+        ],
+        "forbidHits": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : load_skill\ni",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_config_d",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "比较一下银河E5、零跑B10、风云T7以及MG 4X的配置"
+      ],
+      "tools": [
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "search_cars"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 106.5,
+        "tool_calls": 19,
+        "tokens": {
+          "input": 43718,
+          "output": 24387,
+          "cacheRead": 343424,
+          "totalTokens": 411529,
+          "cost_usd": 0.01391
+        },
+        "partial": false
+      },
+      "replyLength": 2242,
+      "replyPreview": "## 结论\n三车都取**最新年款在售最高配**（剔除公务版、行政版等对公版型）进行对比：**配置总量 银河E5 > 零跑B10 > 风云T7；但综合指导价来看，配置最划算的是零跑B10**。银河E5 ",
+      "reply_full": "## 结论\n三车都取**最新年款在售最高配**（剔除公务版、行政版等对公版型）进行对比：**配置总量 银河E5 > 零跑B10 > 风云T7；但综合指导价来看，配置最划算的是零跑B10**。银河E5 的配置最多，但指导价分别比零跑B10 高 **2.2 万**、比风云T7 高 **2.89 万**，其配置优势主要集中在舒适性配置。\n\n**MG 4X 本次未纳入**：按该名称检索后，配置数据却指向 **MG4**（版型名全部是「MG4 2026款」，6.88–10.28 万），销量侧另有独立同名的「MG 4X」车系 —— 两者是否为同一款车，库内无法确认。为避免把 MG4 当成 MG 4X 来做对比，我暂时没有做替代。若要继续，请确认：① 就是 MG4（顶配「MG4 2026款 改款 半固态安芯版」10.28 万）→ 我立即补上第四列；② 或者给我 MG 4X 的准确年款或版型名。\n\n---\n\n## 一、配置对比（逐项）\n\n以 **银河E5 2027款 635 智充激光版** ｜ **零跑B10 2027款 610激光雷达版** ｜ **风云T7 2026款 600km 智享版** 为例\n\n### 三电与智驾\n| 项目 | 银河E5 | 零跑B10 | 风云T7 |\n|---|---|---|---|\n| 指导价 | 14.78 万 | 12.58 万 | 11.89 万 |\n| CLTC 续航 | 635 km | 610 km | 600 km |\n| 高压平台 | 800V | 800V | 未见 800V |\n| 对外放电 | 6 kW | 未见该项 | 6.6 kW |\n| 驱动电机数 | 单电机 | 单电机 | 单电机 |\n| 高速 NOA | ● | ● | ● |\n| 城市 NOA | ● | ● | — |\n| 记忆泊车 | ● | ● | — |\n| 自动泊车、遥控泊车 | ● | ● | ● |\n| 热泵空调 | ● | ● | ● |\n| 可变悬架功能 | 软硬调节 | — | — |\n| 轮胎 | 235/50 R19 | 225/45 R19 | 225/60 R18 |\n\n### 座舱舒适与屏幕音响\n| 项目 | 银河E5 | 零跑B10 | 风云T7 |\n|---|---|---|---|\n| 中控屏 | 15.4 英寸 | **17.3 英寸** | 15.6 英寸 |\n| 液晶仪表 | **10.2 英寸** | 8.8 英寸 | 8.8 英寸 |\n| HUD | 普通 HUD | **AR-HUD** | — |\n| 扬声器数 | **23 喇叭** | 14 喇叭 | 8 喇叭 |\n| 前排座椅按摩 | ● | ● | — |\n| 前排座椅记忆 | ● | ● | — |\n| 方向盘加热 | ● | ● | — |\n| 车载冰箱 | ● | — | — |\n| 隔音玻璃 | ● | — | — |\n| 前备厢 | 160 L | — | — |\n| 氛围灯 | 256 色 | 256 色 | 多色 |\n| 天窗 | 可开启全景 | 不可开启全景 | 可开启全景 |\n\n### 安全与其他\n| 项目 | 银河E5 | 零跑B10 | 风云T7 |\n|---|---|---|---|\n| 后排侧气囊 | — | — | ● |\n| 中央安全气囊 | — | — | ● |\n| 无钥匙进入(4门) | — | — | ● |\n| 内置行车记录仪 | ● | ● | — |\n| 面部识别 | ● | — | — |\n| 声纹识别 | — | ● | — |\n| 外后视镜记忆 | — | ● | — |\n| 车联网 | 5G | 4G | 5G |\n| 语音分区域唤醒 | 四区域 | 双区域 | 双区域 |\n\n---\n\n## 二、点评（只讨论配置维度）\n- **银河E5**：多出 0.4 万到 0.9 万元的配置，换来了隔音玻璃、车载冰箱、前排座椅按摩与记忆、方向盘加热、可变悬架、23 喇叭、160L 前备厢、面部识别；**适合把预算投入座舱质感、隔音和音响**。不过，它比零跑B10 贵 2.2 万，而多出的配置净值明显低于这 2.2 万的价差。\n- **零跑B10**：以 12.58 万的价格保住了 800V、城市NOA、17.3 寸大屏、AR-HUD，以及前排座椅按摩与记忆、方向盘加热；**三者中每万元指导价换来的配置最划算**。\n- **风云T7**：11.89 万，是三者里唯一没有 800V、城市NOA、HUD 的车型，也没有座椅按摩、座椅记忆、方向盘加热和内置行车记录仪；换来的独有配置是**后排侧气囊、中央安全气囊、四门无钥匙进入**——偏向安全与便利的基础层面。\n\n> 说明：配置价值折算（按配置差价口径逐项折成金额）本轮未通过校验链，因此上面的金额只包括指导价与指导价差，配置部分以逐项有无的形式呈现。如果你需要“贵 X 万值不值”的折算结论，我可以另外单独展开。\n\n**数据缺口**：三车分别有 15、23、27 项概念配置项未采集，因此未参与对比；风云T7 的部分「无此项」是库内未采集与确实无配置混合口径，需以其官方配置表坐实；MG 4X 待确认对象身份。\n\n*as_of：2026-10-26（配置快照 2026-10-01、价目表 v1.1-20261014）*",
+      "first_error_turn": 1
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-10-26T15-13-55-025Z",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+    "set_composition": {
+      "dev": 0,
+      "frozen": 2,
+      "other": 0,
+      "total": 2
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 3.5,
+    "passCount": 1,
+    "trapBlockedCount": 0,
+    "trap_total": 0,
+    "anchored": {
+      "total": 2,
+      "pass": 1,
+      "pass_rate": 0.5,
+      "avg": 3.5
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 2,
+      "covered": 2,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 1,
+      "fail": 1,
+      "failTasks": [
+        "config-12"
+      ]
+    },
+    "regression": {
+      "skip_reason": "scoring_changed"
+    }
+  }
+}

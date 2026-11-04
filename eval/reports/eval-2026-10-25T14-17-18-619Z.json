@@ -1,0 +1,166 @@
+{
+  "run_id": "eval-2026-10-25T14-17-18-619Z",
+  "started_at": "2026-10-25T14:17:18.620Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "69cc03a2fcd9bb543419a2bb207cf1da25e5e2dd",
+  "snapshot_id": "snap-20261012-1222",
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "ca7c4f7cec8662d8abd07d5f958c226a",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-25T14:21:40.856Z",
+  "results": [
+    {
+      "task": "multi-05",
+      "dimension": "多轮",
+      "question": "风云T7 9月的销量是多少",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "truth 锚点全中(0)"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 0,
+        "missing": [],
+        "forbidHits": []
+      },
+      "perTurnTruth": [
+        {
+          "turn": 1,
+          "missing": [],
+          "forbidHits": []
+        }
+      ],
+      "turnVerdicts": [
+        "pass",
+        "pass"
+      ],
+      "traceId": "26f4169beb5c65977233b54fe3d5bd12",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "风云T7 9月的销量是多少",
+        "那9月环比8月跌了多少？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "query_sales",
+        "get_sales_detail",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 260.4,
+        "tool_calls": 8,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 355,
+      "replyPreview": "**无法计算——8月销量在库内也不存在，所以“9月环比8月下跌”这个前提无法成立。**\n\n核查情况：\n\n| 月份 | 零售销量 |\n|---|---|\n| 2026年8月 | 无记录 |\n| 2026",
+      "reply_full": "**无法计算——8月销量在库内也不存在，所以“9月环比8月下跌”这个前提无法成立。**\n\n核查情况：\n\n| 月份 | 零售销量 |\n|---|---|\n| 2026年8月 | 无记录 |\n| 2026年9月 | 有月末记录，但销量字段为空 |\n| 2025年全年 | 无记录 |\n\n所以：\n- 8月整月没有入库记录，9月销量本身也是空值，两头都缺，环比算不出来（不是“跌幅多少”的问题，是分子分母都没有）；\n- 需要明确一点：在数据补齐前，**不能推断9月销量比8月下滑**——这个方向性判断目前没有依据。\n\n要坐实这个环比，需要两件事：① 补齐8月、9月的月度零售结算量（厂家批发口径或上险口径）；② 确认9月记录的“空”是延迟结算还是数据缺失。\n\n数据时点：2026-9月末（查询于 2026-10-25）",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-10-25T14-17-18-619Z",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "69cc03a2fcd9bb543419a2bb207cf1da25e5e2dd",
+    "set_composition": {
+      "dev": 1,
+      "frozen": 0,
+      "other": 0,
+      "total": 1
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 5,
+    "passCount": 1,
+    "trapBlockedCount": 0,
+    "set_filter": "all",
+    "truth": {
+      "checked": 1,
+      "fail": 0,
+      "failTasks": []
+    }
+  }
+}

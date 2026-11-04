@@ -1,0 +1,7 @@
+#!/bin/sh
+# 提示词回归门禁（prompt-gate change，2026-10-16）
+# 提示词层文件（AGENTS.md/SYSTEM.md/skills md/verifier-prefix.ts）变更且未冒烟标绿 → 拦 commit。
+# 显式绕过（留痕）：PRISM_PROMPT_GATE_BYPASS=1 git commit ...
+# 安装（一次性，已执行）：git config core.hooksPath .githooks
+node eval/prompt_gate.mjs check --hook
+exit $?

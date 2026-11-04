@@ -1,0 +1,561 @@
+{
+  "run_id": "eval-2026-10-26T15-01-18-285Z",
+  "started_at": "2026-10-26T15:01:18.287Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+  "snapshot_id": "snap-20261012-1222",
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "ca7c4f7cec8662d8abd07d5f958c226a",
+  "scoring_fingerprint": "ecc0c904af206ca5",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-26T15:04:04.317Z",
+  "results": [
+    {
+      "task": "cross-02",
+      "sessionId": "01a178ba-faff-7314-bfc5-0e1e38c3acc4",
+      "dimension": "跨维度",
+      "question": "银河E5 2026年销量同比表现如何？终端价是否真降价？",
+      "repeat": 1,
+      "score": 1,
+      "reasons": [
+        "市场侧归因产品力（越界）",
+        "rubric[elements] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "elements",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "same_trim",
+          "tp",
+          "month_end"
+        ],
+        "missing": [],
+        "missingRequired": [],
+        "forbidHits": [],
+        "note": "护栏全命中"
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "银河E5 2026年销量同比表现如何？终端价是否真降价？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "query_sales",
+        "query_sales",
+        "query_sales"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 55.3,
+        "tool_calls": 9,
+        "tokens": {
+          "input": 9019,
+          "output": 6497,
+          "cacheRead": 111488,
+          "totalTokens": 127004,
+          "cost_usd": 0.003394
+        },
+        "partial": false
+      },
+      "replyLength": 1383,
+      "replyPreview": "**结论：2026 年银河E5 销量同比下滑约四成（1-8 月 39,328 台 vs 去年同期 68,880 台，-42.9%）；终端确实是真降价——同版型成交价比去年同期低约 1.37 万元、降幅",
+      "reply_full": "**结论：2026 年银河E5 销量同比下滑约四成（1-8 月 39,328 台 vs 去年同期 68,880 台，-42.9%）；终端确实是真降价——同版型成交价比去年同期低约 1.37 万元、降幅 12.6%，且指导价没动。**\n\n## 一、销量：量级降四成，8 月单月接近腰斩\n\n| 月份 | 2026 零售 | 2025 零售 |\n|---|---|---|\n| 1 月 | 3,028 | 5,882 |\n| 2 月 | 1,823 | 6,955 |\n| 3 月 | 6,508 | 8,727 |\n| 4 月 | 5,950 | 6,864 |\n| 5 月 | 5,203 | 8,495 |\n| 6 月 | 7,218 | 11,004 |\n| 7 月 | 5,162 | 10,179 |\n| 8 月 | **4,436** | **10,774** |\n\n- **1-8 月累计**：39,328 台，同比 **-42.9%**\n- **8 月单月**：4,436 台，同比 **-58.8%**\n- 高点是 2026 年 6 月的 7,218 台，也未回到去年任何一个月的水平（去年月均 8,610 台）\n- ⚠️ 2026 年 9 月零售量尚未结算，累计口径截至 8 月\n\n## 二、终端价：车系均价只降 4.8%，但同版型降了 12.6%——真降价\n\n这一点容易被车系均价掩盖，拆开看才能看清：\n\n| 口径 | 2025 年 8 月 | 2026 年 8 月 | 变化 |\n|---|---|---|---|\n| 车系终端均价 | 112,119 元 | 106,755 元 | -5,364 元（**-4.8%**） |\n| 26款 530Km 启航版终端成交价 | 103,657 元 | 89,977 元 | -13,680 元（**-12.6%**） |\n| 同版型指导价 | 109,800 元 | 109,800 元 | **未变** |\n\n- **指导价一字未改，终端成交价却让了 1.37 万** → 属于渠道侧的实质性价格让步，不是官降\n- 车系均价只降 4.8%，原因是**结构变化稀释**：2025 年 8 月还有 24款 440Km 启航版、24款 530Km 星舰版等同堂在售（24款合计占当月 69%），2026 年 8 月只剩 26款在售，且销量高度集中在 26款 530Km 启航版（占当月 42%）\n- 换句话说：**表面均价看着只降 5%，实际买同一台车的人少花了 12%**\n\n## 三、可延伸观察（仅供参考，不归因）\n\n- 结构上出现了明显的**下探与集中**：26款 530Km 探索版从去年同期 905 台涨到 2,047 台（+126%），26款 530Km 启航版从 542 台涨到 1,854 台（+242%）；而 610Km 高配（探索+版、星舰版）分别从 1,126 台、500 台跌到 57 台、28 台\n- 这属于市场侧口径，**不与产品力做因果归因**；若需判断是产品力问题还是价格/竞品挤压，需接入配置与口碑维度另做分析\n\n**数据时点**：销量截至 2026 年 8 月末（9 月未结算）；终端价为版型简单平均口径，同版型对比取 2025 年 8 月与 2026 年 8 月。",
+      "first_error_turn": 1
+    },
+    {
+      "task": "reviews-03",
+      "sessionId": "01a178bb-c9b4-7314-bfc5-0e2196a86818",
+      "dimension": "口碑",
+      "question": "海狮05 2026款的口碑如何",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "truth 锚点全中(0)",
+        "rubric[elements] 全要素命中"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 0,
+        "missing": [],
+        "forbidHits": []
+      },
+      "rubric": {
+        "kind": "elements",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "y2026",
+          "best",
+          "worst",
+          "sample"
+        ],
+        "missing": [],
+        "missingRequired": [],
+        "forbidHits": [],
+        "note": "护栏全命中"
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_model_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_review_a",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "海狮05 2026款的口碑如何"
+      ],
+      "tools": [
+        "resolve_series",
+        "search_cars",
+        "resolve_series",
+        "resolve_series",
+        "query_reviews"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 71.9,
+        "tool_calls": 15,
+        "tokens": {
+          "input": 41578,
+          "output": 11768,
+          "cacheRead": 268672,
+          "totalTokens": 322018,
+          "cost_usd": 0.009868
+        },
+        "partial": false
+      },
+      "replyLength": 980,
+      "replyPreview": "**结论：海狮05 EV 口碑整体正向，产品体验层面的短板（NVH、车机）比动力/能耗更突出。**2026 款目前解析样本还不多（两个主力版型合计不足百条），评分与 2025 款基本持平、略低一点点；",
+      "reply_full": "**结论：海狮05 EV 口碑整体正向，产品体验层面的短板（NVH、车机）比动力/能耗更突出。**2026 款目前解析样本还不多（两个主力版型合计不足百条），评分与 2025 款基本持平、略低一点点；口碑结构没变——好评集中在好开、空间和能耗，抱怨集中在噪音、车机和内饰质感。\n\n## 口碑结构（系整体口径，含 2025/2026 款）\n\n| 维度 | 正/负样本 | 判断 |\n|---|---|---|\n| 驾驶感受 | 84 条中 70 条为正 | 最强项：好开、操控顺手、动力线性 |\n| 空间 | 83 条中 59 条为正 | 强项：后排腿部宽裕、储物位多 |\n| 续航 | 103 条中 66 条为正 | 偏正向，但\"续航虚\"仍有稳定抱怨 |\n| 舒适 | 89 条中 75 条为负 | 最大痛点：高速风噪/胎噪、悬挂偏硬 |\n| 内饰 | 69 条中 52 条为负 | 痛点：塑料感、异味 |\n| 智能化 | 94 条中 59 条为负 | 争议项：车机卡顿、复杂场景识别偏保守 |\n\n## 2026 款车主具体怎么说\n\n- **好评**：540/630 智航版车主高频提到\"好开、空间大、充电快、能耗低\"，云辇-C 滤震和防晕车调校被明确点名认可。\n- **差评**（一位金华 630 智航版车主，2026-09 提车复盘）：车速过 100km/h 后 A 柱风噪＋轮拱胎噪明显进舱；带云辇-C 但只是阻尼可调，连续大坑洼仍有余震；后备箱放倒后有高度差、前备厢偏小；高阶智驾在无标线小区道路、雨天逆光下识别偏弱、需接管。\n- 另有车主反馈：车机启动偶发卡顿、钢琴烤漆易沾指纹、后备箱开口偏小影响大件装卸。\n\n## 一句话产品判断\n\n2026 款口碑没有\"硬伤级\"差评，问题都是**可优化的体验细节**：高速 NVH 与车机响应是最高优先级的改进项（负样本量排前列），空间与能耗是应当继续放大的卖点。\n\n**口径与缺口**\n- 数据时点：2026-10-07（口碑样本最新至 2026-09-23）\n- 维度占比为全年款口径，2026 款专属维度聚合未单列\n- 2026 款部分版型样本仅 1～7 条，代表性弱（如闪充版）\n- **海狮05 DM-i 版本库内暂无可分析口碑样本**，以上结论仅适用 EV；若要 DM-i 口碑需另做全网社媒补充调研",
+      "first_error_turn": null
+    },
+    {
+      "task": "reviews-09",
+      "sessionId": "01a178bc-e262-7314-bfc5-0e23d2b173c0",
+      "dimension": "口碑",
+      "question": "在智舱体验方面，零跑B10、风云T7哪个口碑更好？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "rubric[elements] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "elements",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "dim",
+          "b10",
+          "t7",
+          "sample",
+          "direction"
+        ],
+        "missing": [],
+        "missingRequired": [],
+        "forbidHits": [],
+        "note": "护栏全命中"
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "在智舱体验方面，零跑B10、风云T7哪个口碑更好？"
+      ],
+      "tools": [
+        "resolve_series",
+        "resolve_series",
+        "search_cars",
+        "search_cars",
+        "query_reviews"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 37.2,
+        "tool_calls": 12,
+        "tokens": {
+          "input": 50151,
+          "output": 12250,
+          "cacheRead": 551936,
+          "totalTokens": 614337,
+          "cost_usd": 0.011997
+        },
+        "partial": false
+      },
+      "replyLength": 1139,
+      "replyPreview": "**结论：两者在智舱口碑上都不算好，零跑B10 略占优（负面占比 67.3% 对 85.7%），但差距不足以说“明显更好”——风云T7 的样本太少。**\n\n## 智舱口碑对比（车主评价 · 智能化维度",
+      "reply_full": "**结论：两者在智舱口碑上都不算好，零跑B10 略占优（负面占比 67.3% 对 85.7%），但差距不足以说“明显更好”——风云T7 的样本太少。**\n\n## 智舱口碑对比（车主评价 · 智能化维度，含车机、语音、互联）\n\n| 指标 | 零跑B10 | 风云T7 |\n|---|---|---|\n| 相关评价条数 | 453 条 | 28 条 |\n| 正面 / 负面 | 148 / 305 | 4 / 24 |\n| 负面占比 | **67.3%** | **85.7%** |\n| 净态度 | −157 | −20 |\n| 口碑样本总量 | 1,027 条 | 50 条 |\n\n## 各自的槽点性质不同\n\n**零跑B10：负面主要来自“不够智能”，而非“用不了”**\n- 正向反馈确实存在：车机流畅、语音识别准且支持连续对话，55 寸 AR-HUD 抬头显示被多次提到好用。\n- 但“智能化不足”是它负面标签里数量最多的一类，其次是车机问题、辅助驾驶表现差，最新 2027 款还出现了 OTA 升级相关的抱怨。\n- 一句话：**座舱底子不差，主要是智驾和软件迭代拖了后腿。**\n\n**风云T7：负面集中在生态和互联，影响更直接**\n- 车主具体吐槽很具体：车机偶尔卡顿、切换应用慢半拍；应用软件太少，“只能听听歌”；不支持华为 HiCar，CarLink 协议不兼容荣耀手机，也没有百度 CarLife，蓝牙连上后手机高德发路线失败；官方 App 本身简陋卡顿。\n- 正向声音也有，但数量少：车机反应流畅 + 索尼音响音质好、屏幕清晰（个别车主评价）。\n- 一句话：**硬件和流畅度基本够用，卡在互联生态和软件丰富度上。**\n\n## 需要提醒的数据缺口\n\n1. **风云T7 口碑只有 50 条**（2026-08-25 至 2026-09-30，一个多月），智能化维度仅 28 条——在这 28 条里负面多出 24 条，占比就会被放大，不宜作为稳定结论。\n2. 库内“智能化”维度**包含辅助驾驶**，与“智舱”不完全同源。我上面已用“车机”“语音”等具体反馈内容做交叉校验，但零跑B10 那 305 条负面里有多少是骂智驾、多少是骂座舱，没有逐条拆分。\n3. 要坐实智舱谁更好，还缺：同价位版型的车机芯片、屏幕规格与大版本 OTA 记录（库内暂未采集完整），以及更长周期的车主反馈。\n\n**给选车/立项的实用判断**：如果你把智舱排在前三位，两款车都不是加分项——零跑B10 是“流畅但没有第三方互联软件生态焦虑的加分项少”，风云T7 是“手机互联生态受限”。建议优先看具体版型的车机芯片与是否支持你手机生态。\n\n*数据时点：2026-10-07（车主口碑库实时口径）*",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-10-26T15-01-18-285Z",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+    "set_composition": {
+      "dev": 3,
+      "frozen": 0,
+      "other": 0,
+      "total": 3
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 3.6666666666666665,
+    "passCount": 2,
+    "trapBlockedCount": 0,
+    "trap_total": 0,
+    "anchored": {
+      "total": 3,
+      "pass": 2,
+      "pass_rate": 0.6666666666666666,
+      "avg": 3.67
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 3,
+      "covered": 3,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 1,
+      "fail": 0,
+      "failTasks": []
+    },
+    "regression": {
+      "skip_reason": "scoring_changed"
+    }
+  }
+}

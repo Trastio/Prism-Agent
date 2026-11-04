@@ -1,0 +1,157 @@
+{
+  "run_id": "eval-2026-10-26T12-30-21-410Z",
+  "started_at": "2026-10-26T12:30:21.411Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+  "snapshot_id": "snap-20261012-1222",
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "ca7c4f7cec8662d8abd07d5f958c226a",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-26T12:30:45.807Z",
+  "results": [
+    {
+      "task": "sales-04",
+      "sessionId": "01a17830-ce2c-7746-ae78-7b0eebef660a",
+      "dimension": "销量",
+      "question": "风云T7的销量是多少",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "trap value_grounding 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "风云T7的销量是多少"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "get_sales_detail",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 21.2,
+        "tool_calls": 5,
+        "tokens": {
+          "input": 1257,
+          "output": 2107,
+          "cacheRead": 74496,
+          "totalTokens": 77860,
+          "cost_usd": 0.000975
+        },
+        "partial": false
+      },
+      "replyLength": 303,
+      "replyPreview": "**风云T7 最新月销量目前还没有结算，暂无销量数字可给。**\n\n具体如下：\n\n| 项目 | 数据 |\n|---|---|\n| 最新在库月份 | 2026年9月（月末口径） |\n| 零售销量 | 未结",
+      "reply_full": "**风云T7 最新月销量目前还没有结算，暂无销量数字可给。**\n\n具体如下：\n\n| 项目 | 数据 |\n|---|---|\n| 最新在库月份 | 2026年9月（月末口径） |\n| 零售销量 | 未结算（暂无） |\n| 终端成交均价 | 约 10.56 万元（3 个版型） |\n\n**为何拿不到销量**：库内该车系目前只覆盖 2026年9月单月，且 9 月月末零售行尚未结算，所以销量值为空；历史月份销量同样不在库内，无法给同比或环比。\n\n**如何确认**：如果需要准确数字，可以等 9 月销量数据结算后（通常次月补齐），或者改用官方月度销量公告、乘联会零售口径数据交叉确认。\n\n数据时点：2026-9月末",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-10-26T12-30-21-410Z",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+    "set_composition": {
+      "dev": 0,
+      "frozen": 1,
+      "other": 0,
+      "total": 1
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 5,
+    "passCount": 1,
+    "trapBlockedCount": 1,
+    "trap_total": 1,
+    "anchored": {
+      "total": 1,
+      "pass": 1,
+      "pass_rate": 1,
+      "avg": 5
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 1,
+      "covered": 1,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 0,
+      "fail": 0,
+      "failTasks": []
+    }
+  }
+}

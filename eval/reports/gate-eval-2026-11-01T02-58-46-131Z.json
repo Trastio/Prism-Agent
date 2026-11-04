@@ -1,0 +1,12 @@
+{
+  "baseline": "eval-2026-11-01T02-45-44-395Z",
+  "candidate": "eval-2026-11-01T02-58-46-131Z",
+  "paired_n": 0,
+  "baseline_only": 0,
+  "candidate_only": 2,
+  "pass_all": false,
+  "conditions": {},
+  "notes": [
+    "配对题数为 0（两次 run 无同 id 题），门槛不可判定"
+  ]
+}

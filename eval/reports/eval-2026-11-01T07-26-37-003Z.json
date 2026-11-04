@@ -1,0 +1,159 @@
+{
+  "run_id": "eval-2026-11-01T07-26-37-003Z",
+  "started_at": "2026-11-01T07:26:37.004Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "013fd93c7076679336361c9eaf57f84b5e4ad6d2",
+  "snapshot_id": null,
+  "runtime_snapshot": null,
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "0d05ccc07bf0294a0075601655e9fb3d",
+  "scoring_fingerprint": "582de90475b967e1",
+  "content_fingerprint": "32070d48020dd79e",
+  "invalid_rows": 0,
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-11-01T07:26:50.428Z",
+  "results": [
+    {
+      "task": "trap-01",
+      "sessionId": "01a19600-cc7a-7091-8439-76503ecb3551",
+      "dimension": "配置",
+      "question": "银河E5 26款 530Km 探索型的 msrp 是多少？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "trap name_grounding 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        null
+      ],
+      "traceId": "370462ca3b254fd0d34de7be91a140f3",
+      "turnMessages": [
+        "银河E5 26款 530Km 探索型的 msrp 是多少？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_config",
+        "get_trims",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 13.3,
+        "tool_calls": 5,
+        "tokens": {
+          "input": 6220,
+          "output": 1473,
+          "cacheRead": 65152,
+          "totalTokens": 72845,
+          "cost_usd": 0.001466
+        },
+        "partial": false
+      },
+      "replyLength": 395,
+      "replyPreview": "**银河E5 2026款 530km 探索版：官方指导价 11.98 万元**（119,800 元）\n\n补充说明（同款其他信息，便于对照）：\n- 名称核对：库里没有“530km 探索**型**”，实际",
+      "reply_full": "**银河E5 2026款 530km 探索版：官方指导价 11.98 万元**（119,800 元）\n\n补充说明（同款其他信息，便于对照）：\n- 名称核对：库里没有“530km 探索**型**”，实际在售名为「2026款 530km 探索**版**」，已按此核验（车系 银河E5，series_id 7650）\n- 续航口径：CLTC 纯电 530km；轮胎 225/55 R18；车机芯片 龍鹰一号；座椅材质 仿皮\n- 同 2026 款价格阶梯：530km 启航版 10.98万 → 530km 探索版 11.98万 → 610km 远航版 12.58万 → 610km 探索+版 13.58万 → 610km 星舰版 14.58万\n\n数据时点：2026-10-16（配置快照实时直读）\n\n需要的话我可以再拉这款版的**终端成交价（tp_avg）与近月销量**，看指导价与实际落地差多少。",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-11-01T07-26-37-003Z",
+    "snapshot_ids": [],
+    "tasks_git_hash": "013fd93c7076679336361c9eaf57f84b5e4ad6d2",
+    "set_composition": {
+      "dev": 1,
+      "frozen": 0,
+      "blind": 0,
+      "other": 0,
+      "total": 1
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 5,
+    "passCount": 1,
+    "trapBlockedCount": 1,
+    "trap_total": 1,
+    "anchored": {
+      "total": 1,
+      "pass": 1,
+      "pass_rate": 1,
+      "avg": 5
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "pass_at_k": {
+      "k": 1,
+      "tasks": 1,
+      "pass": 1,
+      "rate": 1,
+      "missed": []
+    },
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 1,
+      "covered": 1,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 0,
+      "fail": 0,
+      "failTasks": []
+    },
+    "regression": {
+      "baseline_run_id": "eval-2026-11-01T07-21-20-496Z",
+      "task_overlap": 1,
+      "pass_rate": {
+        "current": 1,
+        "baseline": 0,
+        "delta": 1
+      },
+      "anchored_pass_rate": {
+        "total": 1,
+        "current": 1,
+        "baseline": 0,
+        "delta": 1
+      },
+      "regressed_tasks": [],
+      "consecutive_failures": [],
+      "alerts": [],
+      "alerted": false,
+      "baseline_path": "C:\\Users\\<you>\\Desktop\\Prism-Agent\\eval\\reports\\eval-2026-11-01T07-21-20-496Z.json"
+    }
+  },
+  "release_gate": {
+    "baseline": "eval-2026-11-01T07-21-20-496Z",
+    "candidate": "eval-2026-11-01T07-26-37-003Z",
+    "paired_n": 0,
+    "baseline_only": 0,
+    "candidate_only": 1,
+    "pass_all": false,
+    "conditions": {},
+    "notes": [
+      "配对题数为 0（两次 run 无同 id 题），门槛不可判定"
+    ],
+    "gate_file": "eval/reports/gate-eval-2026-11-01T07-26-37-003Z.json",
+    "baseline_source": "auto"
+  }
+}

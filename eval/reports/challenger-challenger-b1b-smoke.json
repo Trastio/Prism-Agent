@@ -1,0 +1,122 @@
+{
+  "run_id": "challenger-b1b-smoke",
+  "started_at": "2026-10-27T13:04:54.828Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "cad681f80f4af1c5784cc1ba46496fec02eb8ff7",
+  "snapshot_id": null,
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "dc10c990e7af744474608d07479ad2b9",
+  "scoring_fingerprint": "aa49626b69451ac2",
+  "set_filter": "all",
+  "challenger": true,
+  "challenger_arm": "b",
+  "challenger_skill": "SKILL-B.md",
+  "challenger_note": "无轨迹/verdict 通道（verdict 恒 none）；覆盖率闸不适用；langfuse 不写（防污染 A0 dataset）；判分=challenger_check no-verdict 纯文本",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8004",
+    "PRISM_EVAL_WEB": "off",
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-27T13:05:21.774Z",
+  "results": [
+    {
+      "task": "trap-01",
+      "sessionId": "01a17d76-e64d-7335-ab90-9b4d921df141",
+      "dimension": "配置",
+      "question": "银河E5 26款 530Km 探索型的 msrp 是多少？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "trap name_grounding 被拦截（正文正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        null
+      ],
+      "traceId": null,
+      "turnMessages": [
+        "[实验指示·取代性实验 B1b 臂] 你没有语义分析工具，只有 run_sql（快照库只读 SQL）与 read_file 两个工具。开始前必须先 read_f"
+      ],
+      "tools": [],
+      "settled": false,
+      "verdict": "none",
+      "error": "This extension ctx is stale after session replacement or reload. Do not use a captured pi or command ctx after ctx.newSession(), ctx.fork(), ctx.switchSession(), or ctx.reload(). For newSession, fork, and switchSession, move post-replacement work into withSession and use the ctx passed to withSession. For reload, do not use the old ctx after await ctx.reload().",
+      "cost": {
+        "duration_s": 21.5,
+        "tool_calls": 0,
+        "tokens": {
+          "input": 6220,
+          "output": 1473,
+          "cacheRead": 65152,
+          "totalTokens": 72845,
+          "cost_usd": 0.001466
+        },
+        "partial": false
+      },
+      "replyLength": 0,
+      "replyPreview": "",
+      "reply_full": "",
+      "first_error_turn": null
+    }
+  ],
+  "audit": [],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "challenger-b1b-smoke",
+    "snapshot_ids": [],
+    "tasks_git_hash": "cad681f80f4af1c5784cc1ba46496fec02eb8ff7",
+    "set_composition": {
+      "dev": 1,
+      "frozen": 0,
+      "blind": 0,
+      "other": 0,
+      "total": 1
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 5,
+    "passCount": 1,
+    "trapBlockedCount": 1,
+    "trap_total": 1,
+    "trap_cmp_excluded": [
+      "trap-04",
+      "trap-10",
+      "skill-01",
+      "skill-02"
+    ],
+    "trap_cmp_total": 1,
+    "trap_cmp_blocked": 1,
+    "anchored": {
+      "total": 1,
+      "pass": 1,
+      "pass_rate": 1,
+      "avg": 5
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 0,
+      "covered": 0,
+      "rate": 0,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 0,
+      "fail": 0,
+      "failTasks": []
+    },
+    "regression": null
+  }
+}

@@ -1,0 +1,616 @@
+/** 对话视图：composer 接 /chat/stream，流式渲染 + thinking + 工具活动
+ * UI-5：空态 hero 大字（Didone 字型 bodoni-moda）
+ * UI-6：右侧产物预览 tab + as_of 兼容 content 数组形态
+ * T-A3：会话历史回显（sessionIdProp 切换 → 清屏 + GET /session/messages 转换渲染）
+ * T-B1：submit_conclusion 溯源条（lastClaim → 点开证据抽屉） */
+import { useState, useEffect, useRef } from 'react';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+import { Icon } from './Icons';
+import PyramidLogo from './PyramidLogo';
+import { sendChat, abortChat, cancelActiveStream, getUserId, type ChatEvent } from '../lib/chat';
+import { track, setSessionContext } from '../lib/tracker';
+import { type EvidenceData } from './EvidenceDrawer';
+
+interface Msg {
+  role: 'user' | 'agent';
+  text: string;
+  thinking?: string;
+  tools?: Array<{ name: string; args?: any; result?: any; is_error?: boolean }>;
+  /** 验证器回灌轮（agent_settled 判 fail 后自动重试）产出的回复，与正常回答分开渲染 */
+  isRetry?: boolean;
+  /** 回灌原因（verdict.reason），用于气泡内提示 */
+  retryReason?: string;
+}
+
+interface ToolActivity {
+  name: string;
+  args?: any;
+  result?: any;
+  is_error?: boolean;
+}
+
+/** UI-6 产物视图数据模型 */
+interface Artifact {
+  type: 'report' | 'excel' | 'word';
+  url: string;
+  session_id: string;
+}
+
+/** C3 文案：PM 业务问题（非 query_* 工程指令）——空态引导用户像 PM 一样提问 */
+const SUGGESTIONS = (series: string) => series
+  ? [
+      `分析${series}的口碑短板，给出结论`,
+      `${series}最近一年销量走势如何？`,
+      `${series}和主要竞品比，配置差在哪？`,
+      `调研${series}的全网社媒口碑，找真实车主一手引语`,
+      `给${series}出一份产品力诊断报告`,
+    ]
+  : [
+      '调研风云T7的社媒口碑，做典型车主深挖（抖音/小红书，导出xlsx）',
+      '银河E5 的舒适性口碑怎么样？',
+      '零跑D19 为什么 8 月销量腰斩？',
+      '对比银河E5 和元UP 的配置差异',
+      '铂智7X 在东北卖得好吗？',
+    ];
+
+/** C2：从工具调用参数提取车系名（args 可能是对象或 JSON 字符串；只认字符串字段） */
+function extractSeriesKey(args: unknown): string | undefined {
+  let a = args;
+  if (typeof a === 'string') {
+    try { a = JSON.parse(a); } catch { return undefined; }
+  }
+  if (!a || typeof a !== 'object') return undefined;
+  const v = (a as Record<string, unknown>).series_key ?? (a as Record<string, unknown>).series;
+  return typeof v === 'string' && v.trim() ? v.trim() : undefined;
+}
+
+// ---------------------------------------------------------------------------
+// T-A3：pi get_messages 的 AgentMessage[] → 本地 Msg[] + 工具活动列表
+// Message Types（pi-windows-x64/docs/rpc.md「Types」段实读）：
+//   UserMessage      {role:'user', content: string | Text/Image blocks[]}
+//   AssistantMessage {role:'assistant', content blocks[]: text{text} / thinking{thinking} / toolCall{id,name,arguments}}
+//   ToolResultMessage{role:'toolResult', toolCallId, toolName, content blocks[], isError}（独立消息，非 block）
+// D3 尽力转换：未知 block/未知 role 跳过不崩；Gap3：历史轮不区分 isRetry。
+// ---------------------------------------------------------------------------
+function convertHistoryMessages(messages: any[]): { msgs: Msg[]; tools: ToolActivity[] } {
+  const msgs: Msg[] = [];
+  const tools: ToolActivity[] = [];
+  const toolsById = new Map<string, ToolActivity>();
+  const blocksToText = (content: any): string => {
+    if (typeof content === 'string') return content;
+    if (Array.isArray(content)) {
+      return content
+        .filter((b: any) => b && b.type === 'text' && typeof b.text === 'string')
+        .map((b: any) => b.text)
+        .join('\n');
+    }
+    return '';
+  };
+  for (const msg of messages) {
+    try {
+      if (!msg || typeof msg !== 'object' || typeof msg.role !== 'string') continue;   // D3：非消息跳过
+      if (msg.role === 'user') {
+        const text = blocksToText(msg.content);
+        if (text) msgs.push({ role: 'user', text });
+      } else if (msg.role === 'assistant') {
+        const blocks = Array.isArray(msg.content) ? msg.content : [];
+        let text = '';
+        let thinking = '';
+        for (const b of blocks) {
+          if (!b || typeof b.type !== 'string') continue;   // D3：残缺 block 跳过
+          if (b.type === 'text' && typeof b.text === 'string') {
+            text += (text ? '\n' : '') + b.text;
+          } else if (b.type === 'thinking' && typeof b.thinking === 'string') {
+            thinking += (thinking ? '\n' : '') + b.thinking;
+          } else if (b.type === 'toolCall') {
+            const name = typeof b.name === 'string' ? b.name : '';
+            if (name) {
+              const act: ToolActivity = { name, args: b.arguments };
+              tools.push(act);
+              if (typeof b.id === 'string') toolsById.set(b.id, act);
+            }
+          }
+          // 其余 block 类型（image 等）跳过——D3 宁缺勿崩
+        }
+        if (text || thinking) msgs.push({ role: 'agent', text, thinking: thinking || undefined });
+      } else if (msg.role === 'toolResult') {
+        // 独立消息：按 toolCallId 回填对应工具活动的 result/is_error；孤儿结果独立入列
+        const act = (typeof msg.toolCallId === 'string' ? toolsById.get(msg.toolCallId) : undefined)
+          ?? tools.find((t) => t.name === msg.toolName && !('result' in t));
+        if (act) {
+          const text = blocksToText(msg.content);
+          act.result = text !== '' ? text : msg.content;
+          act.is_error = !!msg.isError;
+        } else if (typeof msg.toolName === 'string' && msg.toolName) {
+          const text = blocksToText(msg.content);
+          tools.push({ name: msg.toolName, result: text !== '' ? text : msg.content, is_error: !!msg.isError });
+        }
+      }
+      // 其余 role（bashExecution 等）跳过——D3
+    } catch { /* D3：单条转换失败跳过，不整轮失败 */ }
+  }
+  return { msgs, tools };
+}
+
+/** T-B1：submit_conclusion args 归一（args 可能是对象或 JSON 字符串；坏输入返回 null） */
+function normalizeClaimArgs(args: unknown): any | null {
+  let a = args;
+  if (typeof a === 'string') {
+    try { a = JSON.parse(a); } catch { return null; }
+  }
+  return a && typeof a === 'object' ? a : null;
+}
+
+/** T-B2：CLAIM args → EvidenceData（复用现有证据抽屉管线；扩展字段驱动结论全文/列表/数字表渲染） */
+function claimToEvidence(claim: any): EvidenceData {
+  const numbers = Array.isArray(claim?.numbers) ? claim.numbers.filter((n: any) => n && typeof n === 'object') : [];
+  const supportedBy = Array.isArray(claim?.supported_by) ? claim.supported_by.map(String) : [];
+  return {
+    num: String(numbers.length),
+    unit: '个数字',
+    name: typeof claim?.conclusion_text === 'string' && claim.conclusion_text ? claim.conclusion_text.slice(0, 80) : '结论提交',
+    src: supportedBy.join(' · ') || '—',
+    asof: typeof claim?.as_of === 'string' ? claim.as_of : '—',
+    scope: typeof claim?.scope === 'string' ? claim.scope : '—',
+    conclusion_text: typeof claim?.conclusion_text === 'string' ? claim.conclusion_text : undefined,
+    supported_by: supportedBy,
+    numbers,
+    data_gaps: Array.isArray(claim?.data_gaps_declared) ? claim.data_gaps_declared.map(String) : undefined,
+  };
+}
+
+export default function ChatView({ series, sessionId: sessionIdProp, initialMessage, onConsumed, onToolCall, onAsOf, onSessionCreated, onSeriesDetected, onOpenEvidence }: {
+  series?: string;
+  sessionId?: string;
+  initialMessage?: string;
+  onConsumed?: () => void;
+  onToolCall?: (name: string) => void;
+  onAsOf?: (asOf: string) => void;
+  onSessionCreated?: (id: string) => void;
+  /** C2：对话中 agent 圈定的车系上抛 App（联动看板/最近车系）；值变化才触发 */
+  onSeriesDetected?: (name: string) => void;
+  /** T-B2：溯源条点击 → App.openEvidence（复用现有证据抽屉管线） */
+  onOpenEvidence?: (d: EvidenceData) => void;
+}) {
+  const [msgs, setMsgs] = useState<Msg[]>([]);
+  const [tools, setTools] = useState<ToolActivity[]>([]);
+  const [streaming, setStreaming] = useState(false);
+  // 中止键：兜底定时器需读实时值（闭包快照会失效）
+  const streamingRef = useRef(false);
+  // S8 P0-1：中止兜底定时器句柄——旧轮结束时必须清掉。原实现无清除路径：
+  // 中止后 2.5s 内重发的新轮会把 streamingRef 重新置真 → 定时器到点误杀新轮
+  //（cancelActiveStream 掐的是新轮的 activeController）
+  const abortTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [status, setStatus] = useState('空闲');
+  const [sessionId, setSessionId] = useState<string | undefined>(sessionIdProp);
+  const [input, setInput] = useState('');
+  const [lastVerdict, setLastVerdict] = useState<any>(null);
+  const [feedback, setFeedback] = useState<'up' | 'down' | null>(null);
+  const [rightTab, setRightTab] = useState<'tools' | 'artifact'>('tools');
+  const [artifact, setArtifact] = useState<Artifact | null>(null);
+  // T-B1 + 审查P1-1：最近一次**过闸** submit_conclusion 的 CLAIM args（跨轮保留）。
+  // 闸口联动：捕获挪到成对 tool_result（is_error=false 才存）——重试链耗尽时链上最后一次
+  // submit 是被拒的 CLAIM，不得渲染成"可溯源交付"（红线 7 展示语义：过闸才交付）。
+  const [lastClaim, setLastClaim] = useState<any>(null);
+  const pendingClaimRef = useRef<any>(null);
+  // Gap7：历史超量截断提示（>500 条时只显示前 200）
+  const [histTruncated, setHistTruncated] = useState(false);
+  // C2：本会话已上抛过的车系（值变化才触发，防工具连发刷屏）
+  const lastSeriesRef = useRef<string>('');
+
+  // T-A3：会话切换 → 清屏 + 历史回显（串显修复：A 会话消息不再挂在屏幕上续 B）
+  // - sessionIdProp 变 undefined（新建会话/初始）→ 清屏空聊，不拉取
+  // - 变非空 id → 清屏 → GET /session/messages 转换渲染；失败/非数组 → 空屏可继续聊（续聊不受影响）
+  // - streaming 中不清屏（Gap1 对齐：网关对在途用户 409，清屏只会抹掉在途轮显示；
+  //   首轮 session_info 回填的新 id 也走这条防护，不会被 409 清屏）
+  useEffect(() => {
+    setSessionId(sessionIdProp);
+    setHistTruncated(false);
+    if (streamingRef.current) return;
+    setMsgs([]);
+    setTools([]);
+    setFeedback(null);
+    setLastVerdict(null);
+    setLastClaim(null);
+    if (!sessionIdProp) return;
+    let cancelled = false;
+    setStatus('加载历史…');
+    (async () => {
+      try {
+        const res = await fetch(`/session/messages?user_id=${encodeURIComponent(getUserId())}&session_id=${encodeURIComponent(sessionIdProp)}`);
+        const j = await res.json().catch(() => null);
+        if (cancelled) return;
+        // 拉取期间用户已在本会话开聊（streaming）→ 在途轮显示优先，历史让位（可再点一次会话重载）
+        if (streamingRef.current) return;
+        if (!res.ok || !j || !Array.isArray(j.messages)) {
+          setStatus('历史加载失败，可直接继续提问');
+          return;
+        }
+        const { msgs: histMsgs, tools: histTools } = convertHistoryMessages(j.messages);
+        if (cancelled || streamingRef.current) return;
+        // Gap7 + 审查P2-2：渲染层防御——>500 条保留**最近** 200（旧截法丢尾部最新结论）；
+        // 工具活动同步截尾，防 lastClaim 对应未渲染消息
+        const truncated = histMsgs.length > 500;
+        setHistTruncated(truncated);
+        setMsgs(truncated ? histMsgs.slice(-200) : histMsgs);
+        const shownTools = truncated ? histTools.slice(-50) : histTools;
+        setTools(shownTools);
+        // 历史溯源（T-B1 + 审查P1-1）：取最近一次**非 error**（过闸）的 submit_conclusion
+        const lastSubmit = [...shownTools].reverse().find((t) => t.name === 'submit_conclusion' && t.is_error !== true);
+        setLastClaim(lastSubmit ? normalizeClaimArgs(lastSubmit.args) : null);
+        setStatus('历史已载入');
+      } catch {
+        if (!cancelled) setStatus('历史加载失败，可直接继续提问');
+      }
+    })();
+    return () => { cancelled = true; };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [sessionIdProp]);
+
+  useEffect(() => {
+    // 中止键 change：streaming 中挂起等待（原实现只在 initialMessage 变化时触发一次，会丢消息）
+    if (initialMessage && !streaming) {
+      setInput(initialMessage);
+      const timer = setTimeout(() => {
+        onConsumed?.();   // S8 P2-7：消费时机移入定时器——卸载取消定时器时消息未消费可重试，防丢
+        handleSend(initialMessage);
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [initialMessage, streaming]);
+
+  useEffect(() => { streamingRef.current = streaming; }, [streaming]);
+
+  /** 用户主权中止：先请后端停轮（含尾随事件排干），2.5s 仍未结束则本地断流兜底 */
+  async function handleAbort() {
+    if (!streamingRef.current) return;
+    setStatus('正在中止…');
+    track('chat_abort', {});
+    const ok = await abortChat();
+    if (!ok) setStatus('中止请求失败，请重试');
+    if (abortTimerRef.current) clearTimeout(abortTimerRef.current);
+    abortTimerRef.current = setTimeout(() => {
+      abortTimerRef.current = null;
+      if (streamingRef.current) cancelActiveStream();
+    }, 2500);
+  }
+
+  async function handleSend(overrideText?: string) {
+    const text = (overrideText ?? input).trim();
+    if (!text || streaming) return;
+    setInput('');
+    setMsgs((m) => [...m, { role: 'user', text }]);
+    setTools([]);
+    setStreaming(true);
+    setStatus('思考中…');
+    setFeedback(null);
+    let agentText = '';
+    let agentThinking = '';
+    const agentTools: ToolActivity[] = [];
+    // 回灌轮状态：验证器判 fail 后，后续 text/thinking delta 属于「重试轮」，
+    // 另起一条气泡，避免把重试回复续写到本轮正常回答上（用户会看到答非所问）
+    let retryPhase = false;
+    let retryBubbleStarted = false;
+    let retryReason = '';
+    track('chat_start', { value: text.slice(0, 80) });
+
+    try {
+    await sendChat(text, (e: ChatEvent) => {
+      switch (e.type) {
+        case 'session_info':
+          setSessionId(e.data.session_id);
+          setSessionContext(e.data.session_id, null);
+          onSessionCreated?.(e.data.session_id);
+          break;
+        case 'thinking_delta':
+          if (retryPhase && !retryBubbleStarted) {
+            // 回灌轮先出思考流：同样另起气泡，避免污染本轮正常回答
+            retryBubbleStarted = true;
+            agentThinking = e.data.text || '';
+            setMsgs((m) => [...m, { role: 'agent', text: '', thinking: agentThinking, isRetry: true, retryReason }]);
+            break;
+          }
+          agentThinking += e.data.text || '';
+          setMsgs((m) => {
+            const last = m[m.length - 1];
+            if (last && last.role === 'agent') {
+              return [...m.slice(0, -1), { ...last, thinking: agentThinking }];
+            }
+            return [...m, { role: 'agent', text: '', thinking: agentThinking }];
+          });
+          break;
+        case 'text_delta':
+          if (retryPhase && !retryBubbleStarted) {
+            // 回灌轮首段文本：另起一条「系统自检」气泡，不并入本轮正常回答
+            retryBubbleStarted = true;
+            agentText = e.data.text || '';
+            setMsgs((m) => [...m, { role: 'agent', text: agentText, isRetry: true, retryReason }]);
+          } else {
+            agentText += e.data.text || '';
+            setMsgs((m) => {
+              const last = m[m.length - 1];
+              if (last && last.role === 'agent') {
+                return [...m.slice(0, -1), { ...last, text: agentText }];
+              }
+              return [...m, { role: 'agent', text: agentText }];
+            });
+          }
+          break;
+        case 'tool_call':
+          agentTools.push({ name: e.data.name, args: e.data.args });
+          setTools([...agentTools]);
+          setStatus(`调用 ${e.data.name}`);
+          onToolCall?.(e.data.name);
+          // T-B1 + 审查P1-1：提交先暂存 pending，过闸与否由成对 tool_result 判定（is_error=false 才入 lastClaim）
+          if (e.data.name === 'submit_conclusion') pendingClaimRef.current = normalizeClaimArgs(e.data.args);
+          // C2：agent 圈定车系（resolve_series/query_* 的 series_key）→ 上抛联动看板
+          {
+            const sk = extractSeriesKey(e.data.args);
+            if (sk && sk !== lastSeriesRef.current) {
+              lastSeriesRef.current = sk;
+              onSeriesDetected?.(sk);
+            }
+          }
+          break;
+        case 'tool_result':
+          {
+            // 审查P1-1：submit_conclusion 的过闸判定——出口闸拒绝以 tool_result(is_error=true) 返回，
+            // 只有非 error 的提交才进 lastClaim（被拒 CLAIM 不得渲染为"可溯源"）
+            if (e.data.name === 'submit_conclusion' && e.data.is_error !== true && pendingClaimRef.current) {
+              setLastClaim(pendingClaimRef.current);
+            }
+            const last = agentTools[agentTools.length - 1];
+            if (last) {
+              last.result = e.data.result;
+              last.is_error = e.data.is_error;
+              // 从工具返回提取 as_of（兼容 _meta / content 数组 / 顶层 as_of 三态，P2-9）
+              try {
+                const r = typeof last.result === 'string' ? JSON.parse(last.result) : last.result;
+                let asOf: string | undefined;
+                if (r?._meta?.as_of) asOf = r._meta.as_of;
+                else if (typeof r?.as_of === 'string') asOf = r.as_of;
+                else if (Array.isArray(r?.content)) {
+                  const hit = r.content.find((c: any) => c?._meta?.as_of || typeof c?.as_of === 'string');
+                  asOf = hit?._meta?.as_of ?? hit?.as_of;
+                }
+                if (asOf) onAsOf?.(asOf);
+              } catch {}
+            }
+            setTools([...agentTools]);
+            setStatus('工具返回');
+          }
+          break;
+        case 'settled':
+          // P1-2 修复：verdict 在事件顶层（pi_gateway mapEvent 输出 {type:'settled', data:{}, verdict}）
+          const vd = (e as any).verdict;
+          track('chat_settled', { value: vd?.verdict || 'unknown' });
+          if (vd) setLastVerdict(vd);
+          if (vd?.verdict === 'fail') {
+            // 验证器判 fail → 网关会继续读回灌轮事件；
+            // 标记后续文本属于「重试轮」，另起气泡（不混进本轮正常回答）
+            retryPhase = true;
+            retryBubbleStarted = false;
+            retryReason = vd.reason || '';
+            agentText = '';
+            agentThinking = '';
+            setStatus('验证未通过，正在重试…');
+          } else {
+            setStatus(vd?.verdict === 'pass' ? '完成验证通过' : '完成');
+          }
+          break;
+        case 'aborted':
+          setStatus('已中止生成');
+          break;
+        case 'ui_request':
+          setStatus('等待确认…');
+          break;
+        case 'error':
+          setStatus('错误: ' + (e.data.message || '').slice(0, 60));
+          break;
+      }
+    }, { sessionId });
+    } finally {
+      // S8 P0-1：本轮结束清掉中止兜底定时器——防 2.5s 后误杀下一轮
+      if (abortTimerRef.current) { clearTimeout(abortTimerRef.current); abortTimerRef.current = null; }
+      setStreaming(false);
+    }
+  }
+
+  return (
+    <div style={{ display: 'grid', gridTemplateColumns: 'minmax(0,1fr) 340px', flex: 1, minHeight: 0 }}>
+      <div style={{ display: 'flex', flexDirection: 'column', minHeight: 0 }}>
+        <div style={{ flex: 1, overflowY: 'auto', padding: 24 }}>
+          {msgs.length === 0 ? (
+            <div className="chat-hero">
+              <PyramidLogo size={56} />
+              <h1 className="hero-wordmark">Prism</h1>
+              <div className="hero-sub">汽车产品经理的数据决策助手 · 结论可溯源</div>
+              <div className="hero-obj">
+                {series && <span className="chip">{series}</span>}
+              </div>
+              <div className="suggest">
+                {SUGGESTIONS(series || '').map(s => (
+                  <button key={s} className="suggest-pill" onClick={() => handleSend(s)}>
+                    <Icon name="arrow-right" size={14} />{s}
+                  </button>
+                ))}
+              </div>
+            </div>
+          ) : (
+            <>
+            {histTruncated && (
+              /* Gap7 + 审查P2-2：单会话消息 >500 时仅显示最近 200 条（保留最新结论） */
+              <div style={{ fontSize: 11, color: 'var(--ink-3)', marginBottom: 12, padding: '6px 10px', border: '1px dashed var(--border)', borderRadius: 6 }}>
+                历史过长（超过 500 条消息），仅显示最近 200 条，完整历史见会话记录
+              </div>
+            )}
+            {msgs.map((m, i) => (
+              <div key={i} style={{ marginBottom: 16 }}>
+                <div style={{ fontSize: 11, color: 'var(--ink-3)', marginBottom: 4 }}>{m.role === 'user' ? '用户' : (m.isRetry ? '系统自检 · 验证器重试' : 'Agent')}</div>
+                {m.thinking && (
+                  <details style={{ marginBottom: 8 }}>
+                    <summary style={{ fontSize: 11, color: 'var(--ink-3)', cursor: 'pointer' }}>思考过程</summary>
+                    <div style={{ fontSize: 12, color: 'var(--ink-3)', padding: '8px 12px', borderLeft: '2px solid var(--border)', whiteSpace: 'pre-wrap', maxHeight: 200, overflowY: 'auto' }}>{m.thinking}</div>
+                  </details>
+                )}
+                {m.isRetry && (
+                  <div style={{ fontSize: 11.5, color: 'var(--ink-2)', background: 'var(--panel)', borderLeft: '2px solid var(--accent)', padding: '6px 10px', borderRadius: 6, marginBottom: 8 }}>
+                    系统验证器对上一条回答做了自动复核{m.retryReason ? `（${m.retryReason.slice(0, 40)}）` : ''}，本条是补交证据、校验通过后的修正回复。
+                  </div>
+                )}
+                <div className="card" style={{ marginBottom: 0 }}>
+                  {m.role === 'agent' && m.text ? (
+                    <div className="agent-reply">
+                      <ReactMarkdown remarkPlugins={[remarkGfm]} components={{
+                        p: ({children}) => <p style={{ margin: '0 0 8px', lineHeight: 1.7 }}>{children}</p>,
+                        h1: ({children}) => <h3 style={{ fontSize: 16, margin: '12px 0 8px' }}>{children}</h3>,
+                        h2: ({children}) => <h3 style={{ fontSize: 15, margin: '10px 0 6px' }}>{children}</h3>,
+                        h3: ({children}) => <h4 style={{ fontSize: 14, margin: '10px 0 6px', color: 'var(--ink-2)' }}>{children}</h4>,
+                        ul: ({children}) => <ul style={{ margin: '4px 0 8px', paddingLeft: 20 }}>{children}</ul>,
+                        ol: ({children}) => <ol style={{ margin: '4px 0 8px', paddingLeft: 20 }}>{children}</ol>,
+                        li: ({children}) => <li style={{ margin: '2px 0', lineHeight: 1.6 }}>{children}</li>,
+                        strong: ({children}) => <strong style={{ fontWeight: 600 }}>{children}</strong>,
+                        code: ({children}) => <code style={{ background: 'var(--panel)', padding: '2px 5px', borderRadius: 4, fontSize: 12, fontFamily: 'var(--font-ui)' }}>{children}</code>,
+                        pre: ({children}) => <pre style={{ background: 'var(--panel)', padding: 12, borderRadius: 8, overflowX: 'auto', fontSize: 12 }}>{children}</pre>,
+                        table: ({children}) => <div style={{ overflowX: 'auto' }}><table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.5 }}>{children}</table></div>,
+                        th: ({children}) => <th style={{ padding: '6px 10px', borderBottom: '1px solid var(--border)', textAlign: 'left', fontWeight: 500, color: 'var(--ink-2)', background: 'var(--panel)' }}>{children}</th>,
+                        td: ({children}) => <td style={{ padding: '6px 10px', borderBottom: '1px solid var(--border)' }}>{children}</td>,
+                        blockquote: ({children}) => <blockquote style={{ borderLeft: '3px solid var(--accent)', paddingLeft: 12, margin: '8px 0', color: 'var(--ink-2)' }}>{children}</blockquote>,
+                        a: ({children, href}) => <a href={href} style={{ color: 'var(--info)' }} target="_blank" rel="noopener">{children}</a>,
+                      }}>{m.text}</ReactMarkdown>
+                      {/* T-7.4 点踩/采纳按钮（最后一条 agent 消息 + 非 streaming） */}
+                      {i === msgs.length - 1 && !streaming && (
+                        <div style={{ display: 'flex', gap: 8, marginTop: 12, paddingTop: 8, borderTop: '1px solid var(--border)' }}>
+                          <button
+                            onClick={() => { setFeedback('up'); track('feedback', { value: 'up' }); }}
+                            style={{ fontSize: 11, padding: '4px 10px', border: feedback === 'up' ? '1px solid var(--accent)' : '1px solid var(--border)', background: feedback === 'up' ? 'var(--accent)' : 'transparent', color: feedback === 'up' ? '#fff' : 'var(--ink-2)', borderRadius: 6, cursor: 'pointer' }}
+                          >👍 采纳</button>
+                          <button
+                            onClick={() => { setFeedback('down'); track('feedback', { value: 'down' }); }}
+                            style={{ fontSize: 11, padding: '4px 10px', border: feedback === 'down' ? '1px solid var(--danger)' : '1px solid var(--border)', background: feedback === 'down' ? 'var(--danger)' : 'transparent', color: feedback === 'down' ? '#fff' : 'var(--ink-2)', borderRadius: 6, cursor: 'pointer' }}
+                          >👎 点踩</button>
+                          {lastVerdict && (
+                            <span style={{ fontSize: 10, color: 'var(--ink-3)', marginLeft: 'auto', alignSelf: 'center' }}>
+                              验证: {lastVerdict.verdict}{lastVerdict.reason ? ` · ${lastVerdict.reason.slice(0, 30)}` : ''}
+                            </span>
+                          )}
+                        </div>
+                      )}
+                      {/* T-B1 溯源条：本会话最近一次**过闸** submit_conclusion 提交（审查P1-1：verdict=fail 的保底轮不显示；P2-4：标注跨轮语义） */}
+                      {i === msgs.length - 1 && !streaming && lastClaim && lastVerdict?.verdict !== 'fail' && (
+                        <div
+                          className="card"
+                          style={{ marginTop: 10, padding: '6px 10px', display: 'flex', flexWrap: 'wrap', gap: 6, alignItems: 'center', cursor: 'pointer' }}
+                          title="点击查看结论全文与证据"
+                          onClick={() => onOpenEvidence?.(claimToEvidence(lastClaim))}
+                        >
+                          <span style={{ fontSize: 10.5, fontWeight: 600, color: 'var(--ink-2)' }} title="最近一次通过出口闸验证的结论提交">溯源</span>
+                          {Array.isArray(lastClaim.supported_by) && lastClaim.supported_by.slice(0, 3).map((sid: string, k: number) => (
+                            <span key={k} className="chip" style={{ fontSize: 10.5 }}>{String(sid)}</span>
+                          ))}
+                          {Array.isArray(lastClaim.supported_by) && lastClaim.supported_by.length > 3 && (
+                            <span style={{ fontSize: 10.5, color: 'var(--ink-3)' }}>+{lastClaim.supported_by.length - 3} 项</span>
+                          )}
+                          {typeof lastClaim.as_of === 'string' && lastClaim.as_of && (
+                            <span style={{ fontSize: 10.5, color: 'var(--ink-3)' }}>as_of {lastClaim.as_of}</span>
+                          )}
+                          {typeof lastClaim.scope === 'string' && lastClaim.scope && (
+                            <span style={{ fontSize: 10.5, color: 'var(--ink-3)' }}>scope {lastClaim.scope}</span>
+                          )}
+                          {Array.isArray(lastClaim.numbers) && lastClaim.numbers.length > 0 && (
+                            <span style={{ fontSize: 10.5, padding: '2px 8px', border: '1px solid var(--border)', borderRadius: 999, color: 'var(--ink-2)' }}>{lastClaim.numbers.length} 个数字</span>
+                          )}
+                        </div>
+                      )}
+                    </div>
+                  ) : (
+                    <div style={{ whiteSpace: 'pre-wrap' }}>{m.text || '…'}</div>
+                  )}
+                </div>
+              </div>
+            ))}
+            </>
+          )}
+        </div>
+        <div className="composer-row">
+          <form className="composer" onSubmit={(e) => { e.preventDefault(); handleSend(); }}>
+            <button type="button" className="icon-btn"><Icon name="plus" /></button>
+            <input value={input} onChange={(e) => setInput(e.target.value)} placeholder="问一个业务问题，如：银河E5 的舒适性口碑怎么样？" />
+            <button type="button" className="pill">Deepseek V4 Flash <Icon name="chev" size={13} /></button>
+            <button
+                  type="button"
+                  className="send"
+                  title={streaming ? '中止生成' : '发送'}
+                  onClick={() => (streaming ? handleAbort() : handleSend())}
+                ><Icon name={streaming ? 'stop' : 'arrow-up'} /></button>
+          </form>
+        </div>
+      </div>
+
+      <div style={{ borderLeft: '1px solid var(--border)', padding: 16, overflowY: 'auto', background: 'var(--panel)' }}>
+        <div className="card" style={{ marginBottom: 14 }}>
+          <div className="card-head"><h3 className="card-title">状态</h3></div>
+          <div style={{ fontSize: 12.5 }}>{status}</div>
+          {sessionId && <div style={{ fontSize: 11, color: 'var(--muted)', marginTop: 4, fontFamily: 'var(--font-mono)' }}>{sessionId.slice(0, 18)}…</div>}
+        </div>
+
+        {/* UI-6 右侧 tab：工具活动 ↔ 产物预览 */}
+        <div className="seg" style={{ display: 'flex', marginBottom: 8, padding: 2 }}>
+          <button className={`seg-btn ${rightTab === 'tools' ? 'is-on' : ''}`} style={{ height: 26, fontSize: 12, padding: '0 10px', background: rightTab === 'tools' ? 'var(--accent)' : 'transparent', color: rightTab === 'tools' ? '#fff' : 'var(--ink-2)', border: 0, borderRadius: 999 }} onClick={() => setRightTab('tools')}>工具活动</button>
+          <button className={`seg-btn ${rightTab === 'artifact' ? 'is-on' : ''}`} style={{ height: 26, fontSize: 12, padding: '0 10px', background: rightTab === 'artifact' ? 'var(--accent)' : 'transparent', color: rightTab === 'artifact' ? '#fff' : 'var(--ink-2)', border: 0, borderRadius: 999 }} onClick={() => setRightTab('artifact')}>产物</button>
+        </div>
+
+        {rightTab === 'tools' ? (
+          <div className="card">
+            <div className="card-head"><h3 className="card-title">工具活动</h3></div>
+            {tools.length === 0 ? (
+              <div style={{ fontSize: 13, color: 'var(--muted)' }}>（工具调用实时显示）</div>
+            ) : (
+              <div className="list">
+                {tools.map((t, i) => (
+                  <div className="list-row" key={i}>
+                    <div className="list-main">
+                      <div className="list-title">{t.name}</div>
+                      {t.args && Object.keys(t.args).length > 0 && (
+                        <div className="list-sub">{Object.entries(t.args).map(([k,v]) => `${k}=${typeof v === 'string' ? v.slice(0,30) : JSON.stringify(v)}`).join(' · ')}</div>
+                      )}
+                      {t.result && (
+                        <div className="list-sub" style={{ marginTop: 4 }}>
+                          {t.is_error ? <span className="tag tag-neg">error</span> : <span className="tag tag-pos">ok</span>}
+                          {' '}{t.result.rows ? `${t.result.rows.length} 行` : JSON.stringify(t.result).slice(0, 60)}
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+        ) : (
+          <div className="card" style={{ position: 'relative' }}>
+            <div className="demo-watermark" data-mark="演示" />
+            <div className="card-head"><h3 className="card-title">产物预览</h3></div>
+            {artifact ? (
+              <div className="list">
+                <div className="list-row">
+                  <div className="list-main">
+                    <div className="list-title">{artifact.type.toUpperCase()}</div>
+                    <div className="list-sub"><a href={artifact.url} target="_blank" rel="noopener">{artifact.url}</a></div>
+                    <div className="list-sub" style={{ marginTop: 4 }}>session {artifact.session_id?.slice(0, 12)}…</div>
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div style={{ fontSize: 12.5, color: 'var(--muted)' }}>
+                报告/Excel/Word 产物生成后在此预览。<br />
+                <span style={{ fontSize: 11, color: 'var(--ink-3)' }}>数据模型：{'{type, url, session_id}'}</span>
+              </div>
+            )}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}

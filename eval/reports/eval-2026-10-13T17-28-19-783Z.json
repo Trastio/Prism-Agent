@@ -1,0 +1,69 @@
+{
+  "run_id": "eval-2026-10-13T17-28-19-783Z",
+  "started_at": "2026-10-13T17:28:19.784Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "d68ff517a960f9b9afc992bfa20ad8fb3a4f2eb6",
+  "snapshot_id": "snap-20261012-1222",
+  "agent_release": "0.3.0",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": "fixture",
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-13T17:29:00.722Z",
+  "results": [
+    {
+      "task": "config-03",
+      "dimension": "配置",
+      "question": "风云T7最高配没有PTC",
+      "repeat": 1,
+      "score": 2,
+      "reasons": [
+        "缺 supported_by 证据行 ID"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_config",
+        "get_trims",
+        "get_config_detail",
+        "search_reviews"
+      ],
+      "settled": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 39.5,
+        "tool_calls": 11,
+        "tokens": {
+          "input": 33512,
+          "output": 5932,
+          "cacheRead": 189696,
+          "totalTokens": 229140,
+          "cost_usd": 0.006884
+        },
+        "partial": false
+      },
+      "replyLength": 1302,
+      "replyPreview": "我来核验一下风云T7的配置数据。配置数据里没有直接出现 PTC 字段，我需要看版型清单和逐项配置。库内 PTC 关键词命中 0 条。我再查一下\"减配\"原文和公开信息。## 结论\n\n**\"风云T7 最高"
+    }
+  ],
+  "conditional_skipped": [],
+  "summary": {
+    "avg": 2,
+    "passCount": 0,
+    "trapBlockedCount": 0,
+    "set_filter": "all",
+    "truth": {
+      "checked": 0,
+      "fail": 0,
+      "failTasks": []
+    }
+  }
+}

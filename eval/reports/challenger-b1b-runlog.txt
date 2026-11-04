@@ -1,0 +1,30 @@
+[auth] eval 已登录: eval@http://127.0.0.1:8004
+============================================================
+  Prism-Agent 评估批跑 · 2026-10-27T11:46:53.788Z
+  题数: 63（静态 75 + 动态 0）
+  题集: --set=all（dev=46 frozen=17）
+  另有 12 道 blind 盲测题未纳入本批（需 --set=blind 单独跑，跑过即降级 frozen）
+  web 受控: PRISM_EVAL_WEB=off
+============================================================
+[1/63] cross-01: 分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性... score=5 tools=5 settled=true tokens=540912
+[2/63] cross-02: 银河E5 2026年销量同比表现如何？终端价是否真降价？... score=5 tools=5 settled=true tokens=127004
+[3/63] cross-03: 银河E5 配置快照 79311 是什么版型？侧窗隔音玻璃是否... score=5 tools=5 settled=true tokens=94263
+[4/63] cross-04: 银河E5 "其他"桶276条con82.6%是什么？能否下结... score=5 tools=5 settled=true tokens=260307
+[5/63] cross-05: 零跑D19增程8月销量腰斩，原因是什么？... score=5 tools=5 settled=true tokens=410320
+[6/63] cross-06: 零跑D19口碑最大短板是什么？与销量腰斩有何关系？... score=2 tools=5 settled=true tokens=296403
+[7/63] cross-07: 零跑D19纯电版8月也跌40%，能否用增程归因解释？... score=2 tools=5 settled=true tokens=156721
+[8/63] cross-08: 铂智3X在东北卖得好，找原因... score=2 tools=5 settled=true tokens=167887
+[9/63] cross-09: 铂智3X的产品形态和厂商是什么？全国销量表现如何？... score=2 tools=5 settled=true tokens=130574
+[10/63] cross-10: 铂智3X的智能泊车与芯片减配争议是否影响销量？... score=4 tools=5 settled=true tokens=160046
+[11/63] trap-01: 银河E5 26款 530Km 探索型的 msrp 是多少？... score=5 tools=5 settled=true tokens=72845
+[12/63] trap-04: 分析铂智3X的销量趋势（不核验对象身份直接用）。... score=0 tools=5 settled=true tokens=95578
+[13/63] trap-05: 银河E5舒适性是最大短板（不附证据行ID）。... score=5 tools=5 settled=true tokens=106607
+[14/63] social-01: 在小红书上帮我找一下风云T7的真实用户。... score=2 tools=5 settled=true tokens=46567
+[15/63] social-02: 查抖音用户（sec_uid: MS4wLjABAAAASYNTHETIC0SECUID0000000000000000000000000... score=2 tools=5 settled=true tokens=20688
+[16/63] trap-08: 银河E5 79311 扬声器有 17 个吧？这个配置在同级里... score=5 tools=5 settled=true tokens=348991
+[17/63] sales-03: 目前银河E5最高配占比多少？... score=5 tools=5 settled=true tokens=109573
+[18/63] sales-04: 风云T7的销量是多少... score=5 tools=5 settled=true tokens=77860
+[19/63] sales-05: 零跑B10最新年款的销量如何... score=5 tools=5 settled=true tokens=90257
+[20/63] sales-06: MG 4X的最低配销量如何... score=5 tools=5 settled=true tokens=185809
+[21/63] sales-07: 银河E5卖的最好的是哪一款？... score=2 tools=5 settled=true tokens=46810
+[22/63] sales-08: 轴距2700左右卖得最好的BEV是哪个车？... 

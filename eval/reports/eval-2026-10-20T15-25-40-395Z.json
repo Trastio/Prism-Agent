@@ -1,0 +1,82 @@
+{
+  "run_id": "eval-2026-10-20T15-25-40-395Z",
+  "started_at": "2026-10-20T15:25:40.396Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "c7483be9f08cd4a6fd50365c1884c5265f7b237a",
+  "snapshot_id": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "ca7c4f7cec8662d8abd07d5f958c226a",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-20T15:25:48.060Z",
+  "results": [
+    {
+      "task": "trap-01",
+      "dimension": "配置",
+      "question": "银河E5 26款 530Km 探索型的 msrp 是多少？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "trap name_grounding 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "tools": [
+        "get_trims",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 7.5,
+        "tool_calls": 2,
+        "tokens": {
+          "input": 6220,
+          "output": 1473,
+          "cacheRead": 65152,
+          "totalTokens": 72845,
+          "cost_usd": 0.001466
+        },
+        "partial": false
+      },
+      "replyLength": 336,
+      "replyPreview": "**11.98 万元。**\n\n银河E5 2026款 530km 探索版（库内正式名称为“探索版”，而非“探索型”），官方指导价 11.98 万元，as_of 2026-10-07。\n\n同车系 2026",
+      "reply_full": "**11.98 万元。**\n\n银河E5 2026款 530km 探索版（库内正式名称为“探索版”，而非“探索型”），官方指导价 11.98 万元，as_of 2026-10-07。\n\n同车系 2026 款各版型价格对照：\n\n| 版型 | MSRP |\n|---|---|\n| 530km 启航版（主销） | 10.98 万 |\n| **530km 探索版** | **11.98 万** |\n| 610km 远航版 | 12.58 万 |\n| 610km 探索+版 | 13.58 万 |\n| 610km 星舰版 | 14.58 万 |\n\n注意不要把“探索版”（11.98 万）与“探索+版”（13.58 万）弄混：两者相差 1.6 万元，且探索+版为 610km 续航。",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-10-20T15-25-40-395Z",
+    "snapshot_ids": [],
+    "tasks_git_hash": "c7483be9f08cd4a6fd50365c1884c5265f7b237a",
+    "set_composition": {
+      "dev": 1,
+      "frozen": 0,
+      "other": 0,
+      "total": 1
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 5,
+    "passCount": 1,
+    "trapBlockedCount": 1,
+    "set_filter": "all",
+    "truth": {
+      "checked": 0,
+      "fail": 0,
+      "failTasks": []
+    }
+  }
+}

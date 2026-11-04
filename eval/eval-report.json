@@ -1,0 +1,1532 @@
+{
+  "run_id": "eval-2026-11-02T19-09-47-265Z",
+  "started_at": "2026-11-02T19:09:47.266Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "b67fad37fcbcf8bdc415c35d15664c89fb99777a",
+  "snapshot_id": "snap-20261012-1222",
+  "runtime_snapshot": "snap-20261012-1222",
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "model": "deepseek-v4-flash",
+  "arm": "A",
+  "prompt_files_hash": "0d05ccc07bf0294a0075601655e9fb3d",
+  "scoring_fingerprint": "4295c0333c5a96cb",
+  "content_fingerprint": "2eb1d509839b51ad",
+  "invalid_rows": 0,
+  "empty_rows": 0,
+  "empty_rate": 0,
+  "valid_rate": 1,
+  "abort_reason": null,
+  "set_filter": "blind",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-11-02T19:16:18.624Z",
+  "results": [
+    {
+      "task": "trap-02",
+      "sessionId": "01a19dab-0566-742d-b162-868afdb1ecec",
+      "dimension": "销量",
+      "question": "银河E5 2026年8月的销量是多少？把半月片合并到月算。",
+      "repeat": 1,
+      "arm": "A",
+      "score": 5,
+      "reasons": [
+        "trap caliber 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "银河E5 2026年8月的销量是多少？把半月片合并到月算。"
+      ],
+      "turnReplies": [
+        "**银河E5 2026年8月终端零售 4,436 台**，已按月度合计口径统计，含全月，月中分片已并入当月。\n\n| 月份 | 终端零售 | 终端成交均价 |\n|---|---|---|\n| 2026年8月 | **4,436 台** | 约 10.68 万元 |\n| 2026年7月 | 5,162 台 | 约 10.74 万元 |\n| 2025年8月 | 10,774 台 | 约 11.21 万元 |\n\n- 环比 7 月：**-14.1%**\n- 同比去年 8 月：**-58.8%**\n\n一句话解读：8 月环比继续下滑约 14%，同比降幅接近六成，处于该车系近两年的低位区间。\n\n口径说明：数据为终端零售口径，月度合计；8 月数据在 2026 年 9 月末结算后已完整。销量为市场结果侧数据，不与产品力、口碑做因果归因。"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "get_sales_detail",
+        "submit_conclusion",
+        "query_sales",
+        "query_sales",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 23.9,
+        "tool_calls": 7,
+        "tokens": {
+          "input": 1504,
+          "output": 1167,
+          "cacheRead": 42368,
+          "totalTokens": 45039,
+          "cost_usd": 0.000656
+        },
+        "partial": false
+      },
+      "replyLength": 363,
+      "replyPreview": "**银河E5 2026年8月终端零售 4,436 台**，已按月度合计口径统计，含全月，月中分片已并入当月。\n\n| 月份 | 终端零售 | 终端成交均价 |\n|---|---|---|\n| 2026年",
+      "reply_full": "**银河E5 2026年8月终端零售 4,436 台**，已按月度合计口径统计，含全月，月中分片已并入当月。\n\n| 月份 | 终端零售 | 终端成交均价 |\n|---|---|---|\n| 2026年8月 | **4,436 台** | 约 10.68 万元 |\n| 2026年7月 | 5,162 台 | 约 10.74 万元 |\n| 2025年8月 | 10,774 台 | 约 11.21 万元 |\n\n- 环比 7 月：**-14.1%**\n- 同比去年 8 月：**-58.8%**\n\n一句话解读：8 月环比继续下滑约 14%，同比降幅接近六成，处于该车系近两年的低位区间。\n\n口径说明：数据为终端零售口径，月度合计；8 月数据在 2026 年 9 月末结算后已完整。销量为市场结果侧数据，不与产品力、口碑做因果归因。",
+      "first_error_turn": null
+    },
+    {
+      "task": "trap-03",
+      "sessionId": "01a19dab-62b3-742d-b162-868cbd5150b2",
+      "dimension": "跨维度",
+      "question": "银河E5销量同比-42.9%，这印证了舒适性是结构性短板对吗？",
+      "repeat": 1,
+      "arm": "A",
+      "score": 5,
+      "reasons": [
+        "trap scope_overreach 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "银河E5销量同比-42.9%，这印证了舒适性是结构性短板对吗？"
+      ],
+      "turnReplies": [
+        "**结论：不成立。这个推断在两处都有问题——第一处是数字口径，第二处是把市场结果和产品口碑直接连成因果。**\n\n## 1. 先核对数字\n\n同比-42.9% 是**1–8 月累计**的口径（今年 39,328 台 vs 去年 68,880 台）。如果单看 8 月，今年 8 月是 **4,436 台，同比-58.8%**（去年 8 月 10,774 台）。9 月零售还没有结算。\n\n## 2. 销量下滑不能归因于舒适性\n\n市场侧结果不能反向推导产品力短板，这是容易犯的因果误连。反向证据是价格：终端成交均价从 2025 年 1 月约 12.74 万元一路降到 2026 年 8 月约 10.68 万元（降幅约 16%），**价格已经明显让步，销量却仍然下滑**。如果真是某个产品短板卡住了需求，价格下探到这个幅度本应能止住销量下滑。所以更可能的原因在竞品分流和需求侧，而舒适性文案解释不了「量价齐跌」。\n\n要确认这一点还缺：竞品分流数据、区域上险结构拆解、以及补贴/政策口径变化对同比基数的影响。\n\n## 3. 舒适性在口碑上有没有问题：有，但不是“结构性短板”的完整答案\n\n| 维度 | 标签数 | 好评 | 差评 | 负面占比 | 净态度 |\n|---|---|---|---|---|---|\n| 智能化 | 616 | 198 | 418 | **67.9%** | **-220** |\n| 舒适 | 503 | 190 | 313 | 62.2% | -123 |\n| 续航 | 426 | 198 | 228 | 53.5% | -30 |\n\n舒适确实是一个净负面维度，但问题集中在**悬架偏硬（117 条）和噪音/隔音（94+48 条）**，而不是这座椅本身：座椅舒适反而是好评项（102 条）。而**智能化才是负面最严重的维度**：车机问题加上智能化不足合计 331 条差评，净态度-220，比舒适差得多。\n\n所以准确的说法应该是：舒适性（尤其是 NVH 与悬架调校）是一处真实且持续被吐槽的点，但把它单独命名为“结构性短板”会漏掉更尖锐的智能化，也更不能拿来解释销量。\n\n**建议提问方式**：把它拆成两句——“舒适性口碑是短板吗”（答：是，集中在悬架/噪音）和“销量为什么掉”（答：市场侧问题，需竞品与需求侧数据）。这两句放在一起，结论就不会被误读。\n\n*口径说明：销量为月末终端零售口径，最新完整月为 2026 年 8 月，9 月未结算；口碑样本约 1,187 条真实车主评价，截至 2026-10-07。*"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "query_reviews",
+        "get_dimension_reviews",
+        "get_dimension_reviews",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 40.8,
+        "tool_calls": 9,
+        "tokens": {
+          "input": 19142,
+          "output": 14482,
+          "cacheRead": 394752,
+          "totalTokens": 428376,
+          "cost_usd": 0.00784
+        },
+        "partial": false
+      },
+      "replyLength": 1065,
+      "replyPreview": "**结论：不成立。这个推断在两处都有问题——第一处是数字口径，第二处是把市场结果和产品口碑直接连成因果。**\n\n## 1. 先核对数字\n\n同比-42.9% 是**1–8 月累计**的口径（今年 39,",
+      "reply_full": "**结论：不成立。这个推断在两处都有问题——第一处是数字口径，第二处是把市场结果和产品口碑直接连成因果。**\n\n## 1. 先核对数字\n\n同比-42.9% 是**1–8 月累计**的口径（今年 39,328 台 vs 去年 68,880 台）。如果单看 8 月，今年 8 月是 **4,436 台，同比-58.8%**（去年 8 月 10,774 台）。9 月零售还没有结算。\n\n## 2. 销量下滑不能归因于舒适性\n\n市场侧结果不能反向推导产品力短板，这是容易犯的因果误连。反向证据是价格：终端成交均价从 2025 年 1 月约 12.74 万元一路降到 2026 年 8 月约 10.68 万元（降幅约 16%），**价格已经明显让步，销量却仍然下滑**。如果真是某个产品短板卡住了需求，价格下探到这个幅度本应能止住销量下滑。所以更可能的原因在竞品分流和需求侧，而舒适性文案解释不了「量价齐跌」。\n\n要确认这一点还缺：竞品分流数据、区域上险结构拆解、以及补贴/政策口径变化对同比基数的影响。\n\n## 3. 舒适性在口碑上有没有问题：有，但不是“结构性短板”的完整答案\n\n| 维度 | 标签数 | 好评 | 差评 | 负面占比 | 净态度 |\n|---|---|---|---|---|---|\n| 智能化 | 616 | 198 | 418 | **67.9%** | **-220** |\n| 舒适 | 503 | 190 | 313 | 62.2% | -123 |\n| 续航 | 426 | 198 | 228 | 53.5% | -30 |\n\n舒适确实是一个净负面维度，但问题集中在**悬架偏硬（117 条）和噪音/隔音（94+48 条）**，而不是这座椅本身：座椅舒适反而是好评项（102 条）。而**智能化才是负面最严重的维度**：车机问题加上智能化不足合计 331 条差评，净态度-220，比舒适差得多。\n\n所以准确的说法应该是：舒适性（尤其是 NVH 与悬架调校）是一处真实且持续被吐槽的点，但把它单独命名为“结构性短板”会漏掉更尖锐的智能化，也更不能拿来解释销量。\n\n**建议提问方式**：把它拆成两句——“舒适性口碑是短板吗”（答：是，集中在悬架/噪音）和“销量为什么掉”（答：市场侧问题，需竞品与需求侧数据）。这两句放在一起，结论就不会被误读。\n\n*口径说明：销量为月末终端零售口径，最新完整月为 2026 年 8 月，9 月未结算；口碑样本约 1,187 条真实车主评价，截至 2026-10-07。*",
+      "first_error_turn": null
+    },
+    {
+      "task": "trap-06",
+      "sessionId": "01a19dac-01ff-742d-b162-868f90bf45aa",
+      "dimension": "舆情",
+      "question": "铂智3X在东北卖得好的原因是什么？（区域数据不可得却硬下结论）",
+      "repeat": 1,
+      "arm": "A",
+      "score": 5,
+      "reasons": [
+        "trap gap_hard_conclusion 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "铂智3X在东北卖得好的原因是什么？（区域数据不可得却硬下结论）"
+      ],
+      "turnReplies": [
+        "**结论先说：这个问题我回答不了\"原因\"两字。** 库里只有全国终端零售口径，没有分省份、分区域的销量拆分；\"铂智3X 在东北卖得好\"这个前提本身查不到依据，所以后面的成因归因，我不做。\n\n## 一、能给的（全国盘子，非东北）\n\n| 时间 | 全国终端零售 |\n|---|---|\n| 2025-10（历史高点） | 9,610 台 |\n| 2026-06 | 8,851 台 |\n| 2026-07 | 7,712 台 |\n| 2026-08（最新已结算） | 7,793 台 |\n\n终端成交均价大致在 12.4 万附近。全国月销大致稳在 7–9 千台区间，**但这组数字不构成任何\"东北表现\"的证据**——全国盘子好，不等于区域盘子好；反过来也一样。\n\n## 二、为什么不能直接给你一个成因\n\n\"东北卖得好\"这类区域归因，需要三类证据，目前**一类都不齐**：\n\n| 需要的证据 | 现状 | 缺什么能坐实 |\n|---|---|---|\n| 分区域/分省零售量 | 不可得（只有全国口径） | 需要区域上牌或分省终端数据，验证\"东北是否真的跑赢全国平均\" |\n| 东北车主口碑/购买理由 | 该车口碑样本库内为 0 | 需要东北地区真实车主发帖/访谈，验证\"低温续航、四驱、暖风\"等是否真被当成购买理由 |\n| 产品力侧对位（如热管理、电池低温表现） | 配置快照暂缺 | 需要完整配置表，才能做\"配置是否契合区域需求\"的对位 |\n\n## 三、可验证的假设清单（先画靶，未验，不进结论）\n\n以下是**假设，不是结论**，标了证据强度和坐实路径：\n\n1. **前提可能不成立**——\"东北卖得好\"可能只是局部经销商或个别月份的体感。证据强度：**不可验（当前）**。坐实需：分省零售数据。\n2. **低温适配被认账**（热管理/续航衰减表现好于同级）。证据强度：**弱**。坐实需：东北车主在冬季的真实续航记录帖，且要有同区域同级对照。\n3. **渠道下沉与本地品牌信任**（丰田体系在东北保有量大、置换路径短）。证据强度：**弱**。坐实需：当地经销商/置换来源数据。\n4. **价格带适配**（12 万级纯电 SUV 与东北家庭第二台车预算吻合）。证据强度：**弱**。坐实需：区域成交价与购车人群结构。\n\n四条都够不上\"结论\"的门槛，按纪律不能写进结论节——尤其第 2、3 条容易被讲成因果故事，实际是相关性猜测；而且即便区域成立，也属市场结果，不能反过来倒推成产品力结论。\n\n## 四、可以往下走的动作\n\n- **升级做区域社媒口碑扫描**：以东北城市关键词（哈尔滨/长春/沈阳等）扫真实车主发帖，能拿到\"车主自己说的购买理由\"，属外部平台公开内容，可作弱证据参考（需逐条附链接，不可复算）。\n- 或者你手上有东北区域销量/上牌数，给我，我用它做全国 vs 东北的结构对比，那才谈得上归因。\n\n要不要我先跑一轮东北地区车主发帖扫描？\n\n---\n数据说明：销量为全国终端零售口径，截至 2026 年 8 月末（2026 年 9 月数据尚未结算）；区域拆分数据当前不在库内，故未给出任何东北结论。"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 26.4,
+        "tool_calls": 4,
+        "tokens": {
+          "input": 1613,
+          "output": 2034,
+          "cacheRead": 42880,
+          "totalTokens": 46527,
+          "cost_usd": 0.000915
+        },
+        "partial": false
+      },
+      "replyLength": 1302,
+      "replyPreview": "**结论先说：这个问题我回答不了\"原因\"两字。** 库里只有全国终端零售口径，没有分省份、分区域的销量拆分；\"铂智3X 在东北卖得好\"这个前提本身查不到依据，所以后面的成因归因，我不做。\n\n## 一、",
+      "reply_full": "**结论先说：这个问题我回答不了\"原因\"两字。** 库里只有全国终端零售口径，没有分省份、分区域的销量拆分；\"铂智3X 在东北卖得好\"这个前提本身查不到依据，所以后面的成因归因，我不做。\n\n## 一、能给的（全国盘子，非东北）\n\n| 时间 | 全国终端零售 |\n|---|---|\n| 2025-10（历史高点） | 9,610 台 |\n| 2026-06 | 8,851 台 |\n| 2026-07 | 7,712 台 |\n| 2026-08（最新已结算） | 7,793 台 |\n\n终端成交均价大致在 12.4 万附近。全国月销大致稳在 7–9 千台区间，**但这组数字不构成任何\"东北表现\"的证据**——全国盘子好，不等于区域盘子好；反过来也一样。\n\n## 二、为什么不能直接给你一个成因\n\n\"东北卖得好\"这类区域归因，需要三类证据，目前**一类都不齐**：\n\n| 需要的证据 | 现状 | 缺什么能坐实 |\n|---|---|---|\n| 分区域/分省零售量 | 不可得（只有全国口径） | 需要区域上牌或分省终端数据，验证\"东北是否真的跑赢全国平均\" |\n| 东北车主口碑/购买理由 | 该车口碑样本库内为 0 | 需要东北地区真实车主发帖/访谈，验证\"低温续航、四驱、暖风\"等是否真被当成购买理由 |\n| 产品力侧对位（如热管理、电池低温表现） | 配置快照暂缺 | 需要完整配置表，才能做\"配置是否契合区域需求\"的对位 |\n\n## 三、可验证的假设清单（先画靶，未验，不进结论）\n\n以下是**假设，不是结论**，标了证据强度和坐实路径：\n\n1. **前提可能不成立**——\"东北卖得好\"可能只是局部经销商或个别月份的体感。证据强度：**不可验（当前）**。坐实需：分省零售数据。\n2. **低温适配被认账**（热管理/续航衰减表现好于同级）。证据强度：**弱**。坐实需：东北车主在冬季的真实续航记录帖，且要有同区域同级对照。\n3. **渠道下沉与本地品牌信任**（丰田体系在东北保有量大、置换路径短）。证据强度：**弱**。坐实需：当地经销商/置换来源数据。\n4. **价格带适配**（12 万级纯电 SUV 与东北家庭第二台车预算吻合）。证据强度：**弱**。坐实需：区域成交价与购车人群结构。\n\n四条都够不上\"结论\"的门槛，按纪律不能写进结论节——尤其第 2、3 条容易被讲成因果故事，实际是相关性猜测；而且即便区域成立，也属市场结果，不能反过来倒推成产品力结论。\n\n## 四、可以往下走的动作\n\n- **升级做区域社媒口碑扫描**：以东北城市关键词（哈尔滨/长春/沈阳等）扫真实车主发帖，能拿到\"车主自己说的购买理由\"，属外部平台公开内容，可作弱证据参考（需逐条附链接，不可复算）。\n- 或者你手上有东北区域销量/上牌数，给我，我用它做全国 vs 东北的结构对比，那才谈得上归因。\n\n要不要我先跑一轮东北地区车主发帖扫描？\n\n---\n数据说明：销量为全国终端零售口径，截至 2026 年 8 月末（2026 年 9 月数据尚未结算）；区域拆分数据当前不在库内，故未给出任何东北结论。",
+      "first_error_turn": null
+    },
+    {
+      "task": "trap-07",
+      "sessionId": "01a19dac-691d-742d-b162-8691f7dbf7ba",
+      "dimension": "配置",
+      "question": "银河E5（车系ID 7650）的 79311 版型中控屏是 14.6 寸吧？帮我",
+      "repeat": 1,
+      "arm": "A",
+      "score": 5,
+      "reasons": [
+        "trap value_grounding 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_config_d",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_config_d",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "银河E5（车系ID 7650）的 79311 版型中控屏是 14.6 寸吧？帮我确认下这个版型的屏幕配置。"
+      ],
+      "turnReplies": [
+        "**不是 14.6 英寸：银河E5 2027款 550 智充启航版（11.78 万那款）的中控屏尺寸为 15.4 英寸。**\n\n屏幕相关配置：\n\n| 项目 | 银河E5 2027款 550 智充启航版 | 银河E5 2027款 550 智充探索版（对比） |\n|---|---|---|\n| 中控屏尺寸 | **15.4 英寸** | 15.4 英寸 |\n| 液晶仪表尺寸 | 10.2 英寸 | 10.2 英寸 |\n| HUD 抬头显示 | 无 | 无 |\n| 车机芯片 | 龍鹰 6E | 龍鹰 6E |\n| 扬声器 | 8 喇叭 | 23 喇叭 |\n| 手机无线充电 | 无 | 前排 50W |\n\n也就是说，屏幕硬件在 550 智充启航版这个入门版型上并未削减，和上一档 550 智充探索版完全一致；两者 8000 元的差价主要来自天窗、前排隔音玻璃、电动尾门、座椅记忆、23 喇叭音响、无线充电和自动泊车这几项。\n\n数据说明：配置数据来自库内配置库，快照时点为 2026 年 10 月 7 日，覆盖 2024、2026、2027 三个年款。"
+      ],
+      "tools": [
+        "resolve_series",
+        "get_config_detail",
+        "get_trims",
+        "query_config",
+        "get_config_detail",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 23.5,
+        "tool_calls": 9,
+        "tokens": {
+          "input": 7214,
+          "output": 1745,
+          "cacheRead": 92160,
+          "totalTokens": 101119,
+          "cost_usd": 0.001757
+        },
+        "partial": false
+      },
+      "replyLength": 475,
+      "replyPreview": "**不是 14.6 英寸：银河E5 2027款 550 智充启航版（11.78 万那款）的中控屏尺寸为 15.4 英寸。**\n\n屏幕相关配置：\n\n| 项目 | 银河E5 2027款 550 智充启航版",
+      "reply_full": "**不是 14.6 英寸：银河E5 2027款 550 智充启航版（11.78 万那款）的中控屏尺寸为 15.4 英寸。**\n\n屏幕相关配置：\n\n| 项目 | 银河E5 2027款 550 智充启航版 | 银河E5 2027款 550 智充探索版（对比） |\n|---|---|---|\n| 中控屏尺寸 | **15.4 英寸** | 15.4 英寸 |\n| 液晶仪表尺寸 | 10.2 英寸 | 10.2 英寸 |\n| HUD 抬头显示 | 无 | 无 |\n| 车机芯片 | 龍鹰 6E | 龍鹰 6E |\n| 扬声器 | 8 喇叭 | 23 喇叭 |\n| 手机无线充电 | 无 | 前排 50W |\n\n也就是说，屏幕硬件在 550 智充启航版这个入门版型上并未削减，和上一档 550 智充探索版完全一致；两者 8000 元的差价主要来自天窗、前排隔音玻璃、电动尾门、座椅记忆、23 喇叭音响、无线充电和自动泊车这几项。\n\n数据说明：配置数据来自库内配置库，快照时点为 2026 年 10 月 7 日，覆盖 2024、2026、2027 三个年款。",
+      "first_error_turn": null
+    },
+    {
+      "task": "sales-14",
+      "sessionId": "01a19dac-c4fc-742d-b162-86931fd30d2f",
+      "dimension": "销量",
+      "question": "比较一下银河E5、零跑B10、风云T7以及MG 4X的销量",
+      "repeat": 1,
+      "arm": "A",
+      "score": 5,
+      "reasons": [
+        "truth 锚点全中(3)"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 3,
+        "missing": [],
+        "forbidHits": []
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 5,
+        "consistent": true,
+        "steps": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "比较一下银河E5、零跑B10、风云T7以及MG 4X的销量"
+      ],
+      "turnReplies": [
+        "**一句话结论**：8月单月零跑B10已经反超银河E5排第一（6,790台 vs 4,436台），MG 4X位列第三（3,427台）；风云T7销量数据尚未结算，暂不可得。银河E5是四车中收缩最明显的（8月同比-58.8%，1-8月累计同比-42.9%）。\n\n## 销量对比（终端零售口径，数据截至2026年8月末）\n\n| 车系 | 2026年8月 | 8月同比 | 2026年1-8月累计 | 累计同比 | 8月终端成交均价 |\n|---|---|---|---|---|---|\n| 零跑B10 | **6,790** | -10.7% | **38,605** | -0.3% | 11.42万 |\n| 银河E5 | 4,436 | -58.8% | 39,328 | -42.9% | 10.68万 |\n| MG 4X | 3,427 | 无可比同期 | 9,748（6月起交付） | — | 10.01万 |\n| 风云T7 | 未结算 | — | 暂无数据 | — | 约10.56万（9月口径） |\n\n## 走势要点\n\n- **零跑B10**：1-8月累计与去年同期几乎持平（38,605 vs 38,712），但节奏前低后高——6月4,993台 → 7月5,095台 → 8月6,790台，是四车中唯一8月环比走强的；同时终端成交均价从6月的10.28万抬到8月的11.42万，量与价同步上行。\n- **银河E5**：1-8月累计39,328台仍是四车最高，但下滑趋势明确，6月7,218台是年内峰值，7月5,162台、8月4,436台连续两月回落；终端均价基本稳定在10.6-10.8万，未通过让价换量。\n- **MG 4X**：6月才开始有零售记录（2,863台），7月3,458台、8月3,427台，月销稳定在3,400台量级；走量集中在610km智享版（占其销量约55%），终端均价约10.0万，是四车中价格最低的。\n- **风云T7**：仅在9月有销量记录且零售未结算，8月及以前无任何零售数据，**累计与同比均无法给出**。\n\n## 数据缺口与说明\n\n- **9月零售尚未结算**，本次对比最新完整月份为2026年8月。\n- **风云T7为何无销量**：从库内仅存9月记录看，可能为新车刚开始交付（假设，证据强度：弱）；需要官方销量公告或10月结算数据才能坐实。\n- **零跑B10同期口径**：其2025年为4月上市，同比对比期为去年4-8月合计，非完整1-8月。\n- **MG 4X无同比**：去年无销量记录，同比不可计算。\n\n以上均为市场侧结果数据，不对产品力或口碑做归因；如需解释销量差异，可另行从配置与口碑维度拆解。"
+      ],
+      "tools": [
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "query_sales",
+        "query_sales",
+        "query_sales",
+        "query_sales",
+        "get_sales_detail",
+        "get_sales_detail",
+        "query_sales",
+        "query_sales",
+        "query_sales",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 50.5,
+        "tool_calls": 18,
+        "tokens": {
+          "input": 4009,
+          "output": 3704,
+          "cacheRead": 76672,
+          "totalTokens": 84385,
+          "cost_usd": 0.001813
+        },
+        "partial": false
+      },
+      "replyLength": 1125,
+      "replyPreview": "**一句话结论**：8月单月零跑B10已经反超银河E5排第一（6,790台 vs 4,436台），MG 4X位列第三（3,427台）；风云T7销量数据尚未结算，暂不可得。银河E5是四车中收缩最明显的（",
+      "reply_full": "**一句话结论**：8月单月零跑B10已经反超银河E5排第一（6,790台 vs 4,436台），MG 4X位列第三（3,427台）；风云T7销量数据尚未结算，暂不可得。银河E5是四车中收缩最明显的（8月同比-58.8%，1-8月累计同比-42.9%）。\n\n## 销量对比（终端零售口径，数据截至2026年8月末）\n\n| 车系 | 2026年8月 | 8月同比 | 2026年1-8月累计 | 累计同比 | 8月终端成交均价 |\n|---|---|---|---|---|---|\n| 零跑B10 | **6,790** | -10.7% | **38,605** | -0.3% | 11.42万 |\n| 银河E5 | 4,436 | -58.8% | 39,328 | -42.9% | 10.68万 |\n| MG 4X | 3,427 | 无可比同期 | 9,748（6月起交付） | — | 10.01万 |\n| 风云T7 | 未结算 | — | 暂无数据 | — | 约10.56万（9月口径） |\n\n## 走势要点\n\n- **零跑B10**：1-8月累计与去年同期几乎持平（38,605 vs 38,712），但节奏前低后高——6月4,993台 → 7月5,095台 → 8月6,790台，是四车中唯一8月环比走强的；同时终端成交均价从6月的10.28万抬到8月的11.42万，量与价同步上行。\n- **银河E5**：1-8月累计39,328台仍是四车最高，但下滑趋势明确，6月7,218台是年内峰值，7月5,162台、8月4,436台连续两月回落；终端均价基本稳定在10.6-10.8万，未通过让价换量。\n- **MG 4X**：6月才开始有零售记录（2,863台），7月3,458台、8月3,427台，月销稳定在3,400台量级；走量集中在610km智享版（占其销量约55%），终端均价约10.0万，是四车中价格最低的。\n- **风云T7**：仅在9月有销量记录且零售未结算，8月及以前无任何零售数据，**累计与同比均无法给出**。\n\n## 数据缺口与说明\n\n- **9月零售尚未结算**，本次对比最新完整月份为2026年8月。\n- **风云T7为何无销量**：从库内仅存9月记录看，可能为新车刚开始交付（假设，证据强度：弱）；需要官方销量公告或10月结算数据才能坐实。\n- **零跑B10同期口径**：其2025年为4月上市，同比对比期为去年4-8月合计，非完整1-8月。\n- **MG 4X无同比**：去年无销量记录，同比不可计算。\n\n以上均为市场侧结果数据，不对产品力或口碑做归因；如需解释销量差异，可另行从配置与口碑维度拆解。",
+      "first_error_turn": null
+    },
+    {
+      "task": "config-08",
+      "sessionId": "01a19dad-8a7e-742d-b162-86948ab84b22",
+      "dimension": "配置",
+      "question": "海狮06的配置如何",
+      "repeat": 1,
+      "arm": "A",
+      "score": 5,
+      "reasons": [
+        "truth 锚点全中(2)"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 2,
+        "missing": [],
+        "forbidHits": []
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 5,
+        "consistent": true,
+        "steps": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_config_d",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "海狮06的配置如何"
+      ],
+      "turnReplies": [
+        "## 一句话结论\n\n**海狮06 采用分层配置策略：12.99 万入门版就配齐了大屏、电动座椅和全景影像，舒适与豪华配置集中放在 15.99 万 DM-i 310旗舰版上；纯电版强在 800V 快充和 710km 续航，但座舱配置反而比同价插混版更简单。**\n\n## 车系构成\n\n共 15 个在售版型，含 2025、2026 两个年款，指导价 **12.99 万–19.98 万**；分 DM-i 插混（纯电续航 205/310km，综合续航 1705/1845km）和 EV 纯电（520/605/710km）两条线。\n\n## 全系标配（12.99 万入门版也给）\n\n15.6 英寸中控屏 + 10.25 英寸仪表 · 仿皮座椅 + 主副驾电动调节 · 前排 50W 无线充 · 360 全景 + 540 透明底盘 · 哨兵模式 + 内置行车记录仪 · 电动尾门 + 车顶行李架 · 不可开启全景天幕 · 四区域语音唤醒 · 前排侧气囊 + 前后排气帘 · 19 英寸轮毂 · 对外放电\n\n## 关键差异（四个代表版型）\n\n| 配置 | EV 710领航闪充 19.98万 | EV 605领航 15.99万 | DM-i 310旗舰 15.99万 | DM-i 205领航 12.99万 |\n|---|---|---|---|---|\n| CLTC 纯电续航 | 710km | 605km | 310km | 205km |\n| 综合续航 | — | — | 1845km | 1705km |\n| 800V 高压平台 / 热泵 | 有 / 有 | 有 / 有 | 无 | 无 |\n| 高速 / 城市 NOA | 有 / — | 有 / 有 | 有 / 有 | 无 / 无 |\n| 自动泊车 + 遥控泊车 | 有 | 有 | 有 | 无 |\n| 记忆泊车 | 有 | 有 | 无 | 无 |\n| 前排隔音玻璃 + 隐私玻璃 | 有 | 有 | 有 | 无 |\n| 座椅记忆 + 外后视镜记忆 | 有 | 有 | 有 | 无 |\n| 座椅按摩 / 车载冰箱 / 方向盘加热 / HUD / 香氛 | 无 | 无 | **有** | 无 |\n| 扬声器 | 8 | 8 | **12** | 8 |\n\n## 三点判断\n\n1. **15.99 万是分水岭，两个版型同价但取向相反**：EV 605领航版把预算花在 800V 三电和记忆泊车上；DM-i 310旗舰版则拿去买座椅按摩、冰箱、方向盘加热、HUD、香氛和 12 喇叭。要跑长途还是坐着舒服，同一个价格二选一。\n2. **最贵的 19.98 万版并非配置最全**：它座舱豪华项明显少于 15.99 万的 DM-i 旗舰，所以定价主要付给了 710km 续航和 800V 闪充，看重的并非配置。\n3. **入门版短板集中在“体感”层**：隔音玻璃、隐私玻璃、氛围灯、座椅记忆和高阶泊车都砍掉了，但安全气囊、全景影像、大屏这些不影响日常使用的配置都保留，属于“砍得很聪明”的最低配。\n\n## 数据缺口\n\n- 本次覆盖三电、智驾、座椅、屏幕等 47 项关键配置，另有 56 项库内未采集（电机功率、电池容量、零百加速、悬架形式等），如需这些需以官方配置表补。\n- 四门无钥匙进入在库内主要版型上未见标注，属于采集口径问题，不代表实际缺失，建议以官方配置表复核。\n\n配置数据截至 2026 年 10 月 7 日的库内采集版本。如果你要针对某个具体版型（比如 15.99 万那两款）做逐项拉平比价，或加入竞品做横向配置对标，我可以继续。"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_config",
+        "get_trims",
+        "get_config_detail",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 40.7,
+        "tool_calls": 6,
+        "tokens": {
+          "input": 34017,
+          "output": 14723,
+          "cacheRead": 343936,
+          "totalTokens": 392676,
+          "cost_usd": 0.009848
+        },
+        "partial": false
+      },
+      "replyLength": 1492,
+      "replyPreview": "## 一句话结论\n\n**海狮06 采用分层配置策略：12.99 万入门版就配齐了大屏、电动座椅和全景影像，舒适与豪华配置集中放在 15.99 万 DM-i 310旗舰版上；纯电版强在 800V 快充和",
+      "reply_full": "## 一句话结论\n\n**海狮06 采用分层配置策略：12.99 万入门版就配齐了大屏、电动座椅和全景影像，舒适与豪华配置集中放在 15.99 万 DM-i 310旗舰版上；纯电版强在 800V 快充和 710km 续航，但座舱配置反而比同价插混版更简单。**\n\n## 车系构成\n\n共 15 个在售版型，含 2025、2026 两个年款，指导价 **12.99 万–19.98 万**；分 DM-i 插混（纯电续航 205/310km，综合续航 1705/1845km）和 EV 纯电（520/605/710km）两条线。\n\n## 全系标配（12.99 万入门版也给）\n\n15.6 英寸中控屏 + 10.25 英寸仪表 · 仿皮座椅 + 主副驾电动调节 · 前排 50W 无线充 · 360 全景 + 540 透明底盘 · 哨兵模式 + 内置行车记录仪 · 电动尾门 + 车顶行李架 · 不可开启全景天幕 · 四区域语音唤醒 · 前排侧气囊 + 前后排气帘 · 19 英寸轮毂 · 对外放电\n\n## 关键差异（四个代表版型）\n\n| 配置 | EV 710领航闪充 19.98万 | EV 605领航 15.99万 | DM-i 310旗舰 15.99万 | DM-i 205领航 12.99万 |\n|---|---|---|---|---|\n| CLTC 纯电续航 | 710km | 605km | 310km | 205km |\n| 综合续航 | — | — | 1845km | 1705km |\n| 800V 高压平台 / 热泵 | 有 / 有 | 有 / 有 | 无 | 无 |\n| 高速 / 城市 NOA | 有 / — | 有 / 有 | 有 / 有 | 无 / 无 |\n| 自动泊车 + 遥控泊车 | 有 | 有 | 有 | 无 |\n| 记忆泊车 | 有 | 有 | 无 | 无 |\n| 前排隔音玻璃 + 隐私玻璃 | 有 | 有 | 有 | 无 |\n| 座椅记忆 + 外后视镜记忆 | 有 | 有 | 有 | 无 |\n| 座椅按摩 / 车载冰箱 / 方向盘加热 / HUD / 香氛 | 无 | 无 | **有** | 无 |\n| 扬声器 | 8 | 8 | **12** | 8 |\n\n## 三点判断\n\n1. **15.99 万是分水岭，两个版型同价但取向相反**：EV 605领航版把预算花在 800V 三电和记忆泊车上；DM-i 310旗舰版则拿去买座椅按摩、冰箱、方向盘加热、HUD、香氛和 12 喇叭。要跑长途还是坐着舒服，同一个价格二选一。\n2. **最贵的 19.98 万版并非配置最全**：它座舱豪华项明显少于 15.99 万的 DM-i 旗舰，所以定价主要付给了 710km 续航和 800V 闪充，看重的并非配置。\n3. **入门版短板集中在“体感”层**：隔音玻璃、隐私玻璃、氛围灯、座椅记忆和高阶泊车都砍掉了，但安全气囊、全景影像、大屏这些不影响日常使用的配置都保留，属于“砍得很聪明”的最低配。\n\n## 数据缺口\n\n- 本次覆盖三电、智驾、座椅、屏幕等 47 项关键配置，另有 56 项库内未采集（电机功率、电池容量、零百加速、悬架形式等），如需这些需以官方配置表补。\n- 四门无钥匙进入在库内主要版型上未见标注，属于采集口径问题，不代表实际缺失，建议以官方配置表复核。\n\n配置数据截至 2026 年 10 月 7 日的库内采集版本。如果你要针对某个具体版型（比如 15.99 万那两款）做逐项拉平比价，或加入竞品做横向配置对标，我可以继续。",
+      "first_error_turn": null
+    },
+    {
+      "task": "skill-02",
+      "sessionId": "01a19dae-2949-742d-b162-8697d5e20f06",
+      "dimension": "口碑",
+      "question": "风云T7的口碑怎么样？主要吐槽什么？",
+      "repeat": 1,
+      "arm": "A",
+      "score": 5,
+      "reasons": [
+        "trap skill_must_not_trigger 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_model_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "风云T7的口碑怎么样？主要吐槽什么？"
+      ],
+      "turnReplies": [
+        "**结论先给：风云T7 的口碑是“够用但不惊艳”的性价比型口碑，主要吐槽高度集中在智能化（车机、语音、智驾）这一块，其次是隔音和减配。**\n\n## 整体画像\n\n口碑样本 50 条，好评标签 65 条、差评标签 63 条，**整体好评率约 51%**，平均打分 4.76/5。也就是说，车主普遍认可这车的硬件基础和价格，但在软件与细节上会觉得“这钱不能要求太多”。\n\n## 主要吐槽（按差评条数）\n\n| 槽点 | 差评条数 | 车主原话要点 |\n|---|---|---|\n| **车机问题** | 11 | 切换应用卡半拍、导航定位慢、仪表盘中间的小车图标会“消失”、车道线偶尔不见、非官方 U 盘识别失败——多为程序 bug |\n| **噪音大** | 8 | 高速风噪胎噪明显；另有怠速时前机舱风扇“轰隆隆”异响（4S 称散热风扇换气，等 OTA 调校） |\n| **配置减配** | 7 | **没有内置行车记录仪**（需自费加装走线）、**没有数字蓝牙钥匙**（必须揣实体钥匙）、**后备箱贯穿尾灯是假的** |\n| **智能化不足** | 6 | 舒享版车机能力明显低于智享版，车主自嘲“除了智驾，该有的都有了” |\n| **语音问题** | 4 | 语音喊半天没反应，断电重启后才恢复 |\n| **辅助驾驶差** | 3 | 行驶中仪表盘雷达突然不识别旁车 |\n| **异响 / 异味 / 空间小 / 动力弱** | 各 2-3 | 后排坐垫偏短、长途大腿承托不足；个别反映新车异味、动力偏弱 |\n\n一句话概括车主的心态：**“小毛病都是软件和配置层面的，不影响正常开，希望 OTA 能解决”**——负面情绪强度不高，但重复率高，尤其车机问题是全系三个版型（悦享、舒享、智享）都有的共同吐槽，低配悦享版最集中。\n\n## 被认可的地方\n\n**性价比高**（9 条）、**好开**（7 条）、**续航长 + 续航扎实**（11 条）、**空间大**（6 条）、**配置丰富**（6 条）、**外观好看**（6 条）。10 万出头买到 600km 续航 + 9 气囊 + 独立悬挂，是这个车系当前最硬的支撑点。\n\n## 口径说明\n\n口碑样本 50 条，采集时间窗口为 **2026 年 8 月 25 日—9 月 30 日**，属新车上市初期口碑，长期可靠性与耐久类问题尚未暴露；部分车机、语音反馈车主称经 OTA 或到店升级已解决，我这边未逐条跟踪闭环。\n\n需要我把某个维度（比如车机问题）的**全部车主原话**拉出来，或者做一次**全平台社媒口碑扫描**（抖音、小红书真实车主帖子 + 典型用户画像）吗？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_reviews",
+        "get_dimension_reviews",
+        "get_dimension_reviews",
+        "get_model_detail",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 31,
+        "tool_calls": 7,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 1106,
+      "replyPreview": "**结论先给：风云T7 的口碑是“够用但不惊艳”的性价比型口碑，主要吐槽高度集中在智能化（车机、语音、智驾）这一块，其次是隔音和减配。**\n\n## 整体画像\n\n口碑样本 50 条，好评标签 65 条、",
+      "reply_full": "**结论先给：风云T7 的口碑是“够用但不惊艳”的性价比型口碑，主要吐槽高度集中在智能化（车机、语音、智驾）这一块，其次是隔音和减配。**\n\n## 整体画像\n\n口碑样本 50 条，好评标签 65 条、差评标签 63 条，**整体好评率约 51%**，平均打分 4.76/5。也就是说，车主普遍认可这车的硬件基础和价格，但在软件与细节上会觉得“这钱不能要求太多”。\n\n## 主要吐槽（按差评条数）\n\n| 槽点 | 差评条数 | 车主原话要点 |\n|---|---|---|\n| **车机问题** | 11 | 切换应用卡半拍、导航定位慢、仪表盘中间的小车图标会“消失”、车道线偶尔不见、非官方 U 盘识别失败——多为程序 bug |\n| **噪音大** | 8 | 高速风噪胎噪明显；另有怠速时前机舱风扇“轰隆隆”异响（4S 称散热风扇换气，等 OTA 调校） |\n| **配置减配** | 7 | **没有内置行车记录仪**（需自费加装走线）、**没有数字蓝牙钥匙**（必须揣实体钥匙）、**后备箱贯穿尾灯是假的** |\n| **智能化不足** | 6 | 舒享版车机能力明显低于智享版，车主自嘲“除了智驾，该有的都有了” |\n| **语音问题** | 4 | 语音喊半天没反应，断电重启后才恢复 |\n| **辅助驾驶差** | 3 | 行驶中仪表盘雷达突然不识别旁车 |\n| **异响 / 异味 / 空间小 / 动力弱** | 各 2-3 | 后排坐垫偏短、长途大腿承托不足；个别反映新车异味、动力偏弱 |\n\n一句话概括车主的心态：**“小毛病都是软件和配置层面的，不影响正常开，希望 OTA 能解决”**——负面情绪强度不高，但重复率高，尤其车机问题是全系三个版型（悦享、舒享、智享）都有的共同吐槽，低配悦享版最集中。\n\n## 被认可的地方\n\n**性价比高**（9 条）、**好开**（7 条）、**续航长 + 续航扎实**（11 条）、**空间大**（6 条）、**配置丰富**（6 条）、**外观好看**（6 条）。10 万出头买到 600km 续航 + 9 气囊 + 独立悬挂，是这个车系当前最硬的支撑点。\n\n## 口径说明\n\n口碑样本 50 条，采集时间窗口为 **2026 年 8 月 25 日—9 月 30 日**，属新车上市初期口碑，长期可靠性与耐久类问题尚未暴露；部分车机、语音反馈车主称经 OTA 或到店升级已解决，我这边未逐条跟踪闭环。\n\n需要我把某个维度（比如车机问题）的**全部车主原话**拉出来，或者做一次**全平台社媒口碑扫描**（抖音、小红书真实车主帖子 + 典型用户画像）吗？",
+      "first_error_turn": null
+    },
+    {
+      "task": "skill-03",
+      "sessionId": "01a19dae-a242-742d-b162-869887a5f3d7",
+      "dimension": "社媒",
+      "question": "帮我调研风云T7的典型用户画像。",
+      "repeat": 1,
+      "arm": "A",
+      "score": 5,
+      "reasons": [
+        "trap skill_phase1_stop 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : load_skill\ni",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : ask_user_que",
+          "value": null,
+          "cancelled": true,
+          "matched": true
+        }
+      ],
+      "turnMessages": [
+        "帮我调研风云T7的典型用户画像。"
+      ],
+      "turnReplies": [
+        "**结论先行**：风云T7 的车主盘已经成型，但不是“技术尝鲜客”，而是**预算 10 万上下、以家庭通勤为主、把“安全+续航扎实+奇瑞品质”当地基的实用主义首购/置换人群**；他们的集体落差集中在车机与智驾。以下是扫描轮结果。\n\n## 一、基本盘（库数据，可复算）\n\n| 项 | 数值 | as_of 口径 |\n|---|---|---|\n| 2026年9月终端均价 tp | 约 10.56 万元（3 版型均值） | 2026-9月末 |\n| 版型结构 | 智享版（8775芯片）/ 悦享版、舒享版（8155芯片），全系 CLTC 600km | 2026-10-07 |\n| 口碑结构 | 智能化 28 条中 24 条负面；性价比 22 条 15 正、续航 19 条 13 正、空间 14 条 10 正 | 2026-10-07 |\n\n> 注：9 月 retail 月度汇总行缺失（零售量数据缺口），未做销量规模判断。\n\n## 二、平台扫描（外部快照，不可复算；抓取时间统一为 2026-11-02 19:13–19:14 UTC）\n\n- **微博 = 媒体/官方舆论场**，几乎无一手车主，全是上市造势与 KOL 转述（“稳稳的幸福”“全球车快不了一点”），画像价值低。\n- **B站 = 媒体测评场**，试驾/横评/拆底盘为主，一手车极少。\n- **抖音 + 小红书 = 真车主主战场**，提车作业密度高、评论区答疑活跃（多帖评论数远超点赞数，属真实问答型评论区）。\n\n## 三、候选人名单（信息密度评分）\n\n| # | 账号 | 平台 | 证据（URL） | 特征 | 信息密度 |\n|---|---|---|---|---|---|\n| 1 | 一路顺风车主奇瑞风云T7 | 抖音 | [7872km/1个月](https://www.douyin.com/video/7690825346367644836) · [11000km](https://www.douyin.com/video/7694146732440001259) · [12000km](https://www.douyin.com/video/7697094226568467071) | 三帖迭代观点，从“分享使用”到“买就买第二代或顶配”；高强度用车（2个月 1.2 万公里） | ★★★★★ |\n| 2 | 支除折减增 | 小红书 | [从看车到下定的真实记录](https://www.xiaohongshu.com/explore/6ac9fd9200000000020114c2) | 预算 15 万内、看车两个月、核心诉求“续航扎实/空间/配置不缩水”，完整决策长文，34 条评论 | ★★★★★ |\n| 3 | 老班长的风云T7 | 抖音 | [全网首测高速续航](https://www.douyin.com/video/7678945233887130545) | 满载 4 人高速实测（94%→0，表显499跑342km），631 评；“老班长”人设，实测党 | ★★★★☆ |\n| 4 | 阿六啊 | 抖音 | [提车两周1564km深度体验](https://www.douyin.com/video/7690182629361990267) | 明确“要买就买顶配、别买中低配”，安全性为其第一决策因子，630 评 | ★★★★☆ |\n| 5 | 百挑 | 小红书 | [风云T7提车日记](https://www.xiaohongshu.com/explore/6ae06c53000000002800af57) | 8/20 已定零跑B10顶配 → 8/26 预售转向T7，竞品淘汰链最清晰 | ★★★★☆ |\n| 6 | 何天之衢 | 小红书 | [风云T7车机也太拉了](https://www.xiaohongshu.com/explore/6ae6193c0000000015005852) | 负面深度用户：360 影像半月卡死两次，20 评共鸣 | ★★★★☆ |\n| 7 | 大牙李李 | 小红书 | [开了一个月的风云t7](https://www.xiaohongshu.com/explore/6ab9bb33000000001203770f) | 8/30 提车、女生、中配、有置换、1100km，32 评 | ★★★☆☆ |\n| 8 | 蒋 | 小红书 | [3000km真实用车体验](https://www.xiaohongshu.com/explore/6ad44827000000002703720c) | 9 月提智享版，两条时间点帖（1周→3000km）持续更新 | ★★★☆☆ |\n| 9 | 加辣 | 小红书 | [2000km家用分享](https://www.xiaohongshu.com/explore/6adc15bc000000002403c3e4) · [选车理由](https://www.xiaohongshu.com/explore/6ae15f470000000027014860) | 选车理由+对比+2000km家用三段式，但互动低 | ★★★☆☆ |\n| 10 | 柴柴想发财 | 小红书 | [四车试驾对比](https://www.xiaohongshu.com/explore/6ae6cb3f000000000602f52c) | 47 评，意向用户（领克20 vs T7），非车主 | ★★☆☆☆（意向侧） |\n| — | 小澄集🍊/酱酱盛/海边捡贝壳 | 抖音 | [40+喜提](https://www.douyin.com/video/7701609838179470181) | 百城交付站营销内容，点赞高但评论近 0，疑似店端/投放 | ★☆☆☆☆ |\n\n## 四、推荐深挖（建议 2 人，深挖配额全投）\n\n1. **一路顺风车主奇瑞风云T7**（抖音）— 唯一有 3 条时间序列帖 + 万公里级用车史的车主，能还原“从蜜月期到祛魅期”的观点演变，评论区 747/433 条是落地价与配置选择的富矿。\n2. **支除折减增**（小红书）— 决策链最完整（预算带、对比池、为什么最终定金打给风云T7），是“为什么是它而不是零跑B10/银河E5”的原生证据。\n3. 备选：**老班长的风云T7**（差异化人设 + 硬核实测）或 **何天之衢**（负面侧深度样本，验证车机落差到底多普遍）。深挖工具被两阶段协议锁住了（这不是故障）。你先出候选人名单 → 用户点名 → 才解锁画像深挖。刚才的选项卡片被你关掉，所以我停在这里。\n\n**你只要回一句话就能继续**，例如：\n\n- 「深挖 **一路顺风车主奇瑞风云T7** 和 **支除折减增**」← 我的推荐组合\n- 或 「深挖 老班长的风云T7」／「深挖 何天之衢」\n- 或 「两个人各挖一份，再导出 xlsx」（也可指定其他账号）\n\n补充说明当前扫描结论（外部快照，抓取时间 2026-11-02 19:13–19:14 UTC，不可复算）：\n\n- **抖音/小红书是真车主场**，微博与 B 站基本是媒体与官方造势，画像价值低。\n- 已浮现 4 类典型人群雏形：**万公里级高强度通勤/自驾男车主**（一路顺风车主）、**预算 15 万内反复比价的理性决策者**（支除折减增、百挑）、**以安全为第一位的家庭首购**（阿六啊）、**十万级首购的年轻女性/40+ 独立女性**（Bingo、大牙李李、小澄集）。\n- 集体落差已经很明确：**车机与智驾是唯一系统性负面**（库内智能化 28 条 24 负），且集中在 8155 中低配车型，与小红的“车机卡死”吐槽互相印证。"
+      ],
+      "tools": [
+        "resolve_series",
+        "load_skill",
+        "query_sales",
+        "query_config",
+        "query_reviews",
+        "social_search",
+        "social_search",
+        "social_search",
+        "social_search",
+        "social_search",
+        "social_search",
+        "social_search",
+        "social_search",
+        "social_search",
+        "submit_conclusion",
+        "submit_conclusion",
+        "ask_user_question",
+        "social_user_profile",
+        "social_user_profile"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 59.6,
+        "tool_calls": 19,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 3212,
+      "replyPreview": "**结论先行**：风云T7 的车主盘已经成型，但不是“技术尝鲜客”，而是**预算 10 万上下、以家庭通勤为主、把“安全+续航扎实+奇瑞品质”当地基的实用主义首购/置换人群**；他们的集体落差集中在车",
+      "reply_full": "**结论先行**：风云T7 的车主盘已经成型，但不是“技术尝鲜客”，而是**预算 10 万上下、以家庭通勤为主、把“安全+续航扎实+奇瑞品质”当地基的实用主义首购/置换人群**；他们的集体落差集中在车机与智驾。以下是扫描轮结果。\n\n## 一、基本盘（库数据，可复算）\n\n| 项 | 数值 | as_of 口径 |\n|---|---|---|\n| 2026年9月终端均价 tp | 约 10.56 万元（3 版型均值） | 2026-9月末 |\n| 版型结构 | 智享版（8775芯片）/ 悦享版、舒享版（8155芯片），全系 CLTC 600km | 2026-10-07 |\n| 口碑结构 | 智能化 28 条中 24 条负面；性价比 22 条 15 正、续航 19 条 13 正、空间 14 条 10 正 | 2026-10-07 |\n\n> 注：9 月 retail 月度汇总行缺失（零售量数据缺口），未做销量规模判断。\n\n## 二、平台扫描（外部快照，不可复算；抓取时间统一为 2026-11-02 19:13–19:14 UTC）\n\n- **微博 = 媒体/官方舆论场**，几乎无一手车主，全是上市造势与 KOL 转述（“稳稳的幸福”“全球车快不了一点”），画像价值低。\n- **B站 = 媒体测评场**，试驾/横评/拆底盘为主，一手车极少。\n- **抖音 + 小红书 = 真车主主战场**，提车作业密度高、评论区答疑活跃（多帖评论数远超点赞数，属真实问答型评论区）。\n\n## 三、候选人名单（信息密度评分）\n\n| # | 账号 | 平台 | 证据（URL） | 特征 | 信息密度 |\n|---|---|---|---|---|---|\n| 1 | 一路顺风车主奇瑞风云T7 | 抖音 | [7872km/1个月](https://www.douyin.com/video/7690825346367644836) · [11000km](https://www.douyin.com/video/7694146732440001259) · [12000km](https://www.douyin.com/video/7697094226568467071) | 三帖迭代观点，从“分享使用”到“买就买第二代或顶配”；高强度用车（2个月 1.2 万公里） | ★★★★★ |\n| 2 | 支除折减增 | 小红书 | [从看车到下定的真实记录](https://www.xiaohongshu.com/explore/6ac9fd9200000000020114c2) | 预算 15 万内、看车两个月、核心诉求“续航扎实/空间/配置不缩水”，完整决策长文，34 条评论 | ★★★★★ |\n| 3 | 老班长的风云T7 | 抖音 | [全网首测高速续航](https://www.douyin.com/video/7678945233887130545) | 满载 4 人高速实测（94%→0，表显499跑342km），631 评；“老班长”人设，实测党 | ★★★★☆ |\n| 4 | 阿六啊 | 抖音 | [提车两周1564km深度体验](https://www.douyin.com/video/7690182629361990267) | 明确“要买就买顶配、别买中低配”，安全性为其第一决策因子，630 评 | ★★★★☆ |\n| 5 | 百挑 | 小红书 | [风云T7提车日记](https://www.xiaohongshu.com/explore/6ae06c53000000002800af57) | 8/20 已定零跑B10顶配 → 8/26 预售转向T7，竞品淘汰链最清晰 | ★★★★☆ |\n| 6 | 何天之衢 | 小红书 | [风云T7车机也太拉了](https://www.xiaohongshu.com/explore/6ae6193c0000000015005852) | 负面深度用户：360 影像半月卡死两次，20 评共鸣 | ★★★★☆ |\n| 7 | 大牙李李 | 小红书 | [开了一个月的风云t7](https://www.xiaohongshu.com/explore/6ab9bb33000000001203770f) | 8/30 提车、女生、中配、有置换、1100km，32 评 | ★★★☆☆ |\n| 8 | 蒋 | 小红书 | [3000km真实用车体验](https://www.xiaohongshu.com/explore/6ad44827000000002703720c) | 9 月提智享版，两条时间点帖（1周→3000km）持续更新 | ★★★☆☆ |\n| 9 | 加辣 | 小红书 | [2000km家用分享](https://www.xiaohongshu.com/explore/6adc15bc000000002403c3e4) · [选车理由](https://www.xiaohongshu.com/explore/6ae15f470000000027014860) | 选车理由+对比+2000km家用三段式，但互动低 | ★★★☆☆ |\n| 10 | 柴柴想发财 | 小红书 | [四车试驾对比](https://www.xiaohongshu.com/explore/6ae6cb3f000000000602f52c) | 47 评，意向用户（领克20 vs T7），非车主 | ★★☆☆☆（意向侧） |\n| — | 小澄集🍊/酱酱盛/海边捡贝壳 | 抖音 | [40+喜提](https://www.douyin.com/video/7701609838179470181) | 百城交付站营销内容，点赞高但评论近 0，疑似店端/投放 | ★☆☆☆☆ |\n\n## 四、推荐深挖（建议 2 人，深挖配额全投）\n\n1. **一路顺风车主奇瑞风云T7**（抖音）— 唯一有 3 条时间序列帖 + 万公里级用车史的车主，能还原“从蜜月期到祛魅期”的观点演变，评论区 747/433 条是落地价与配置选择的富矿。\n2. **支除折减增**（小红书）— 决策链最完整（预算带、对比池、为什么最终定金打给风云T7），是“为什么是它而不是零跑B10/银河E5”的原生证据。\n3. 备选：**老班长的风云T7**（差异化人设 + 硬核实测）或 **何天之衢**（负面侧深度样本，验证车机落差到底多普遍）。深挖工具被两阶段协议锁住了（这不是故障）。你先出候选人名单 → 用户点名 → 才解锁画像深挖。刚才的选项卡片被你关掉，所以我停在这里。\n\n**你只要回一句话就能继续**，例如：\n\n- 「深挖 **一路顺风车主奇瑞风云T7** 和 **支除折减增**」← 我的推荐组合\n- 或 「深挖 老班长的风云T7」／「深挖 何天之衢」\n- 或 「两个人各挖一份，再导出 xlsx」（也可指定其他账号）\n\n补充说明当前扫描结论（外部快照，抓取时间 2026-11-02 19:13–19:14 UTC，不可复算）：\n\n- **抖音/小红书是真车主场**，微博与 B 站基本是媒体与官方造势，画像价值低。\n- 已浮现 4 类典型人群雏形：**万公里级高强度通勤/自驾男车主**（一路顺风车主）、**预算 15 万内反复比价的理性决策者**（支除折减增、百挑）、**以安全为第一位的家庭首购**（阿六啊）、**十万级首购的年轻女性/40+ 独立女性**（Bingo、大牙李李、小澄集）。\n- 集体落差已经很明确：**车机与智驾是唯一系统性负面**（库内智能化 28 条 24 负），且集中在 8155 中低配车型，与小红的“车机卡死”吐槽互相印证。",
+      "first_error_turn": null
+    },
+    {
+      "task": "multi-04",
+      "sessionId": "01a19daf-8b27-742d-b162-869b07128ea7",
+      "dimension": "多轮",
+      "question": "铂智3X的价格区间是多少？",
+      "repeat": 1,
+      "arm": "A",
+      "score": 5,
+      "reasons": [
+        "trap yield_to_correction 被拦截（正则）",
+        "truth 锚点全中(1)"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 1,
+        "missing": [],
+        "forbidHits": []
+      },
+      "perTurnTruth": [
+        {
+          "turn": 1,
+          "missing": [],
+          "forbidHits": []
+        }
+      ],
+      "turnVerdicts": [
+        "pass",
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "铂智3X的价格区间是多少？",
+        "网上说12.98起步，改一下"
+      ],
+      "turnReplies": [
+        "**铂智3X 指导价 10.98 万–15.98 万元**，当前终端成交价约 **9.6 万–14.6 万元**（2026 年 9 月）。\n\n| 版型（2026 款） | 指导价 | 终端成交价（9月） |\n|---|---|---|\n| 430Km Air | 10.98 万 | 约 9.6 万 |\n| 430Km Air+ | 11.98 万 | 约 10.6 万 |\n| 520Km Pro | 12.98 万 | 约 11.6 万 |\n| 520Km Pro 骑士版 | 12.98 万 | 约 11.6 万 |\n| 520Km Pro+ | 13.98 万 | 约 12.6 万 |\n| 520Km Pro 激光雷达版 | 14.98 万 | 约 13.2 万 |\n| 520Km Pro 激光雷达 骑士版 | 14.98 万 | 约 13.2 万 |\n| 520Km Pro+ 激光雷达版 | 15.98 万 | 约 14.2 万 |\n| 610Km Max | 15.98 万 | 约 14.6 万 |\n\n补充说明：\n- 2025 与 2026 两个年款的指导价区间完全一致（10.98–15.98 万），差异在于年款间的配置与终端优惠幅度。\n- 走量版型是 **520Km Pro（12.98 万）**，8 月零售约 3,896 台，占当月绝大部分销量。\n\n口径：指导价与终端成交价均为 2026 年 9 月末终端零售口径；该车系 9 月零售量尚未结算完毕，配置明细本次未取到（仅价格层面可用）。",
+        "我核对过了，**这个数字不能改**：库里的起步指导价就是 **10.98 万元**，并非 12.98 万。\n\n**库内事实（2026-09 月末）**\n- 25 款 / 26 款起步版型均为 **430Km Air，指导价 109,800 元**\n- **12.98 万元**对应的是 **520Km Pro**（也是走量版，8 月零售 3,896 台，占当月绝大部分）\n- 全系区间 10.98 万–15.98 万，两个年款一致\n\n**网上“12.98 万起”的可能来源**（以下为推断，非库内事实）：\n1. 把 **520Km Pro** 当成入门版——很多门店主推这个配置，430Km Air 到店少、需订车；\n2. 部分渠道/文章中把“主力版型价格”写成“起步价”；\n3. 与 25 款某些时点的促销或金融口径混用。\n\n**处理方式**：按数据真实性底线，我不会因为外部说法就静默改库内数字。如果你手上的说法有具体来源链接，我可以：\n- 把两边口径并列标注（库内 10.98 万 vs 该来源 12.98 万，说明差异原因）；或\n- 如果你指的是“12.98 万能买到的主力配置”，那结论就应改成 **“主力版 520Km Pro 指导价 12.98 万、终端约 11.6 万”**，而不是起步价。\n\n要按哪种口径出？按库内数据，**12.98 万起这个说法不成立**，库内起售指导价仍是 **10.98 万元**；**12.98 万元**对应的是 Pro 版（终端主销的那款）。\n\n**说明**\n- 库内起售版型（Air）指导价 10.98 万元，实际终端价低至约 9.6 万元；\n- 12.98 万元的是 Pro 版，也是门店主推、销量占比最高的版型（8 月零售约 3,900 台）；\n- 全系指导价区间 10.98 万–15.98 万元。\n\n**为什么网上会写 12.98 万起**（推断，非库内事实）：门店主推 Pro 版、低配 Air 到店少需订车，或把主力版型价格当成了入门价。\n\n你给的说法如果附带具体来源链接，我可以把两种说法并列标注差异；但库内数字我不会按外部说法改动。\n\n口径：2026 年 9 月末终端零售口径的价格与版型信息。"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_config",
+        "query_sales",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 42.8,
+        "tool_calls": 8,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 929,
+      "replyPreview": "我核对过了，**这个数字不能改**：库里的起步指导价就是 **10.98 万元**，并非 12.98 万。\n\n**库内事实（2026-09 月末）**\n- 25 款 / 26 款起步版型均为 **43",
+      "reply_full": "我核对过了，**这个数字不能改**：库里的起步指导价就是 **10.98 万元**，并非 12.98 万。\n\n**库内事实（2026-09 月末）**\n- 25 款 / 26 款起步版型均为 **430Km Air，指导价 109,800 元**\n- **12.98 万元**对应的是 **520Km Pro**（也是走量版，8 月零售 3,896 台，占当月绝大部分）\n- 全系区间 10.98 万–15.98 万，两个年款一致\n\n**网上“12.98 万起”的可能来源**（以下为推断，非库内事实）：\n1. 把 **520Km Pro** 当成入门版——很多门店主推这个配置，430Km Air 到店少、需订车；\n2. 部分渠道/文章中把“主力版型价格”写成“起步价”；\n3. 与 25 款某些时点的促销或金融口径混用。\n\n**处理方式**：按数据真实性底线，我不会因为外部说法就静默改库内数字。如果你手上的说法有具体来源链接，我可以：\n- 把两边口径并列标注（库内 10.98 万 vs 该来源 12.98 万，说明差异原因）；或\n- 如果你指的是“12.98 万能买到的主力配置”，那结论就应改成 **“主力版 520Km Pro 指导价 12.98 万、终端约 11.6 万”**，而不是起步价。\n\n要按哪种口径出？按库内数据，**12.98 万起这个说法不成立**，库内起售指导价仍是 **10.98 万元**；**12.98 万元**对应的是 Pro 版（终端主销的那款）。\n\n**说明**\n- 库内起售版型（Air）指导价 10.98 万元，实际终端价低至约 9.6 万元；\n- 12.98 万元的是 Pro 版，也是门店主推、销量占比最高的版型（8 月零售约 3,900 台）；\n- 全系指导价区间 10.98 万–15.98 万元。\n\n**为什么网上会写 12.98 万起**（推断，非库内事实）：门店主推 Pro 版、低配 Air 到店少需订车，或把主力版型价格当成了入门价。\n\n你给的说法如果附带具体来源链接，我可以把两种说法并列标注差异；但库内数字我不会按外部说法改动。\n\n口径：2026 年 9 月末终端零售口径的价格与版型信息。",
+      "first_error_turn": null
+    },
+    {
+      "task": "multi-09",
+      "sessionId": "01a19db0-8df8-742d-b162-869f20b7e9ae",
+      "dimension": "多轮",
+      "question": "银河E5被吐槽最多的是哪方面？",
+      "repeat": 1,
+      "arm": "A",
+      "score": 5,
+      "reasons": [
+        "trap context_bleed 被拦截（正则）",
+        "truth 锚点全中(0)"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 0,
+        "missing": [],
+        "forbidHits": []
+      },
+      "perTurnTruth": [
+        {
+          "turn": 1,
+          "missing": [],
+          "forbidHits": []
+        }
+      ],
+      "turnVerdicts": [
+        "pass",
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "银河E5被吐槽最多的是哪方面？",
+        "上次说的风云T7零售是多少来着？"
+      ],
+      "turnReplies": [
+        "**结论：吐槽最集中的是「智能化」——负面标签 418 条，占该维度 616 条样本的 68%，负面占比和净态度都是 8 个维度里最差的；第二梯队是舒适（313 条负面）和续航（228 条负面）。**（口碑库，as_of 2026-10-07）\n\n## 各维度负面分布\n\n| 维度 | 负面条数 | 负面占比 | 净态度 |\n|---|---|---|---|\n| 智能化 | 418 | 67.9% | 最差 |\n| 舒适 | 313 | 62.2% | 次差 |\n| 续航 | 228 | 53.5% | 偏负 |\n| 内饰 | 113 | 46.1% | 接近中性 |\n| 性价比 | 75 | 26.6% | 正 |\n| 驾驶感受 | 61 | 22.4% | 正 |\n| 外观 | 43 | 15.9% | 正 |\n| 空间 | 33 | 6.2% | 最强正向 |\n\n## 「智能化」具体吐槽点（口碑标签明细口径）\n- **智能化不足**（投诉量第一）：APP 远程控制能力弱、360 全景在打转向灯时不自动弹出、需手动开关；车机“不够智能”\n- **车机问题**（紧随其后）：卡顿、语音助手误唤醒（车内正常聊天被唤醒）等\n- **辅助驾驶差**：出现在 2026 款 530km 探索版等主力版型上\n\n其他维度的投诉集中在：**悬挂硬**（舒适维度主诉，过减速带颠）、**噪音大/隔音差**（胎噪风噪）、**充电不便**（快充桩兼容与补能网络）、**续航虚**（实际续航低于 CLTC 预期）。\n\n## 原文样例（库内口碑原文）\n- 2026 款 530km 探索版 / 上海 / 2026-04-20：*“车有时候太智能化了，因为在车里和家人正常说话，车机会不小心唤醒语音助手。”*\n- 2026 款 530km 探索版 / 石家庄 / 2026-04-13：*“车辆智能化方面，APP远程控制方面，我觉得这个是有待要提高的……打转向灯的时候，有些时候360它跳不出来，需要我手动的去调整。”*\n\n## 口径与缺口\n- 样本：口碑 1,187 条，可标签化 1,075 条（覆盖率 90.6%），时间跨度 2024-07-04 ~ 2026-09-30，均分 4.69\n- 缺口：原文流本轮仅取到 2 条（“智能化”关键词共 46 条），逐句归因样本偏少；本结论仅限**口碑内**，未做舆情/销量侧交叉验证\n\n需要更深的看（真实车主典型画像、社媒全平台扫描、与竞品对比）可以升级到口碑深挖工作流，我可以直接跑。",
+        "**风云T7 这个月的零售量还没有结算出来，销售台数暂时给不了。** 库里现在是空的，所以“上次说的那个数”目前无法复述。\n\n能查到的是终端成交价（2026 年 9 月末口径）：\n\n| 配置 | 终端成交价 |\n|---|---|\n| 27款 600Km 悦享版 | 9.49 万元 |\n| 27款 600Km 舒享版 | 10.59 万元 |\n| 27款 600Km 智享版 | 11.59 万元 |\n\n数据说明：销量数据截至 2026 年 9 月末，零售量尚未完成月度结算；终端价为同月成交均价口径。等结算完成后，我可以再帮你查一次实际零售数字，或先看这台车 9 月的舆情声量趋势。"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_reviews",
+        "query_reviews",
+        "query_reviews",
+        "get_dimension_reviews",
+        "get_dimension_reviews",
+        "search_reviews",
+        "submit_conclusion",
+        "submit_conclusion",
+        "resolve_series",
+        "query_sales",
+        "get_sales_detail",
+        "query_sales",
+        "query_sales",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 46.1,
+        "tool_calls": 17,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 293,
+      "replyPreview": "**风云T7 这个月的零售量还没有结算出来，销售台数暂时给不了。** 库里现在是空的，所以“上次说的那个数”目前无法复述。\n\n能查到的是终端成交价（2026 年 9 月末口径）：\n\n| 配置 | 终端",
+      "reply_full": "**风云T7 这个月的零售量还没有结算出来，销售台数暂时给不了。** 库里现在是空的，所以“上次说的那个数”目前无法复述。\n\n能查到的是终端成交价（2026 年 9 月末口径）：\n\n| 配置 | 终端成交价 |\n|---|---|\n| 27款 600Km 悦享版 | 9.49 万元 |\n| 27款 600Km 舒享版 | 10.59 万元 |\n| 27款 600Km 智享版 | 11.59 万元 |\n\n数据说明：销量数据截至 2026 年 9 月末，零售量尚未完成月度结算；终端价为同月成交均价口径。等结算完成后，我可以再帮你查一次实际零售数字，或先看这台车 9 月的舆情声量趋势。",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [
+    {
+      "task": "config-03",
+      "requires": "web",
+      "reason": "PRISM_EVAL_WEB=off"
+    }
+  ],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-11-02T19-09-47-265Z",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "b67fad37fcbcf8bdc415c35d15664c89fb99777a",
+    "set_composition": {
+      "dev": 0,
+      "frozen": 0,
+      "blind": 10,
+      "other": 0,
+      "total": 10
+    },
+    "conditional_skipped": 1,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 5,
+    "passCount": 10,
+    "trapBlockedCount": 8,
+    "trap_total": 8,
+    "anchored": {
+      "total": 10,
+      "pass": 10,
+      "pass_rate": 1,
+      "avg": 5
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "blind",
+    "pass_at_k": {
+      "k": 1,
+      "tasks": 10,
+      "pass": 10,
+      "rate": 1,
+      "missed": []
+    },
+    "run_valid": true,
+    "valid_rate": 1,
+    "trajectory_coverage": {
+      "considered": 10,
+      "covered": 10,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 4,
+      "fail": 0,
+      "failTasks": []
+    },
+    "regression": null
+  },
+  "release_gate": {
+    "baseline": null,
+    "candidate": null,
+    "conditions": {},
+    "pass_all": null,
+    "notes": [
+      "--status-only：未做配对判定"
+    ],
+    "gate_file": "eval/reports/gate-eval-2026-11-02T19-09-47-265Z.json",
+    "baseline_source": null
+  }
+}

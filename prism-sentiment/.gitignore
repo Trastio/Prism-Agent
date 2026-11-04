@@ -1,0 +1,25 @@
+.secrets
+.secrets.bak
+*.pyc
+__pycache__/
+.env
+node_modules/
+*.log
+logs/
+data/
+.claude/
+.pytest_cache/
+.cache/
+browser_data/
+unsloth_compiled_cache/
+*.db
+*.db-journal
+.superpowers/
+
+# E-4/E-3: IDE 产物 + 垃圾文件
+.understand-anything/
+=1.8.0
+=2.1.0
+agent/
+baidu_*.png
+*.png.bak

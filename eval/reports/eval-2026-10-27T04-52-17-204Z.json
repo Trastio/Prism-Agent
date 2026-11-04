@@ -1,0 +1,231 @@
+{
+  "run_id": "eval-2026-10-27T04-52-17-204Z",
+  "started_at": "2026-10-27T04:52:17.205Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+  "snapshot_id": "snap-20261012-1222",
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "dc10c990e7af744474608d07479ad2b9",
+  "scoring_fingerprint": "a4e12be004d97cc8",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-27T04:52:47.599Z",
+  "results": [
+    {
+      "task": "multi-12",
+      "sessionId": "01a17bb3-c8e8-7607-9854-480b5486cd38",
+      "dimension": "多轮",
+      "question": "比较一下银河E5、零跑B10以及MG 4X的销量",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "trap abort_residue 被拦截（正则）",
+        "truth 锚点全中(1)"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 1,
+        "missing": [],
+        "forbidHits": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass",
+        "pass"
+      ],
+      "abortedTurn": 1,
+      "traceId": "79cb9422378854811c18aed9a4013379",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "比较一下银河E5、零跑B10以及MG 4X的销量",
+        "比亚迪海豚8月卖了多少？"
+      ],
+      "tools": [
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "query_sales",
+        "query_sales"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 29,
+        "tool_calls": 13,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 109,
+      "replyPreview": "**比亚迪海豚 2026年8月零售 16,879 台**，终端成交均价约 8.84 万元。\n\n- 口径：零售量（月末结算行），as_of 2026-9月末\n- 9月零售量尚未结算；如需看月度走势或版型",
+      "reply_full": "**比亚迪海豚 2026年8月零售 16,879 台**，终端成交均价约 8.84 万元。\n\n- 口径：零售量（月末结算行），as_of 2026-9月末\n- 9月零售量尚未结算；如需看月度走势或版型分布，可继续拉明细",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-10-27T04-52-17-204Z",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+    "set_composition": {
+      "dev": 1,
+      "frozen": 0,
+      "blind": 0,
+      "other": 0,
+      "total": 1
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 5,
+    "passCount": 1,
+    "trapBlockedCount": 1,
+    "trap_total": 1,
+    "anchored": {
+      "total": 1,
+      "pass": 1,
+      "pass_rate": 1,
+      "avg": 5
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 1,
+      "covered": 1,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 1,
+      "fail": 0,
+      "failTasks": []
+    },
+    "regression": {
+      "skip_reason": "scoring_changed"
+    }
+  }
+}

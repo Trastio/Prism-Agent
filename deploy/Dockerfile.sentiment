@@ -1,0 +1,21 @@
+# prism-sentiment：舆情看板 + 查询面（8000），不做模型推理（GPU 留本地夜跑）
+FROM python:3.11-slim
+
+ENV TZ=Asia/Shanghai \
+    PYTHONUNBUFFERED=1 \
+    HOST=0.0.0.0 \
+    PORT=8000
+
+WORKDIR /app/prism-sentiment
+
+COPY prism-sentiment/requirements.txt ./requirements.txt
+RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+
+COPY prism-sentiment/ ./
+
+# start.py 会自建 data/ 与 logs/；容器内 data 目录由 compose 挂载覆盖
+RUN mkdir -p data logs
+
+EXPOSE 8000
+
+CMD ["python", "start.py"]

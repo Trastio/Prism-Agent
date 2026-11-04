@@ -1,0 +1,241 @@
+{
+  "run_id": "eval-2026-11-01T02-58-46-131Z",
+  "started_at": "2026-11-01T02:58:46.132Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "013fd93c7076679336361c9eaf57f84b5e4ad6d2",
+  "snapshot_id": null,
+  "runtime_snapshot": null,
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "0d05ccc07bf0294a0075601655e9fb3d",
+  "scoring_fingerprint": "582de90475b967e1",
+  "content_fingerprint": "32070d48020dd79e",
+  "invalid_rows": 0,
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-11-01T03:00:44.381Z",
+  "results": [
+    {
+      "task": "cross-01",
+      "sessionId": "01a1950b-9381-7428-8cb5-8344f4ade4b4",
+      "dimension": "跨维度",
+      "question": "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "rubric[elements] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "elements",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "dims",
+          "comfort",
+          "config_scope",
+          "no_attr"
+        ],
+        "missing": [],
+        "missingRequired": [],
+        "forbidHits": [],
+        "note": "护栏全命中"
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 5,
+        "consistent": true,
+        "steps": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        null
+      ],
+      "traceId": null,
+      "turnMessages": [
+        "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_config",
+        "query_reviews",
+        "query_sales",
+        "get_dimension_reviews",
+        "get_trims",
+        "sentiment_dimension",
+        "get_config_detail",
+        "sentiment_competitive",
+        "compare_configs_valued",
+        "search_reviews",
+        "search_reviews",
+        "query_sales",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 97.3,
+        "tool_calls": 20,
+        "tokens": {
+          "input": 47913,
+          "output": 16711,
+          "cacheRead": 476288,
+          "totalTokens": 540912,
+          "cost_usd": 0.012721
+        },
+        "partial": false
+      },
+      "replyLength": 2305,
+      "replyPreview": "## 结论\n\n**是，但需要说清它是哪一类短板**：舒适在银河E5 的八个口碑维度中负面占比排**第二（62.2%）**，且横跨 2024、2026 两个年款持续存在；配置清单上又**始终没有针对性动",
+      "reply_full": "## 结论\n\n**是，但需要说清它是哪一类短板**：舒适在银河E5 的八个口碑维度中负面占比排**第二（62.2%）**，且横跨 2024、2026 两个年款持续存在；配置清单上又**始终没有针对性动作**，所以属于“结构性、且未被修补”的短板。真正的短板集中在**底盘调校和 NVH（风噪、隔音）**，**不在座椅本身**——座椅舒适仍是排名第五的好评点（102 次提及）。\n\n---\n\n## 一、口碑维度（样本 1,187 条，2024-07 至 2026-09-30，覆盖 11 个配置版本、30 个省）\n\n- 全维度综合好评率 **59.2%**\n- 负面占比排序：智能化 67.9% ＞ **舒适 62.2%** ＞ 续航 53.5% ＞ 内饰 46.1% ＞ 性价比 26.6% ＞ 驾驶感受 22.4% ＞ 外观 15.9% ＞ 空间 6.2%\n- 舒适：好评 190 条、差评 313 条，净态度 **-123**\n\n舒适内部拆开后，问题指向非常集中：\n\n| 负面标签 | 提及次数 | 正面标签 | 提及次数 |\n|---|---|---|---|\n| 悬挂硬 | 117 | 座椅舒适 | 102 |\n| 噪音大 | 94 | 悬挂舒适 | 66 |\n| 隔音差 | 48 | 后排宽敞 | 93 |\n\n**跨年款持续**：2024 款探索+版里“悬挂硬 51、噪音大 35”；到 2026 款探索+版仍是“噪音大 10、悬挂硬 10、隔音差 8”，换代并未消除该问题。这也符合“结构性”的定义：不是个别批次或个别配置的问题。\n\n**一个值得注意的矛盾**：一部分车主抱怨“硬”，另一部分抱怨“偏软、连续起伏抛跳、后排晕”。说明短板本质是**调校取向没找准**（初段硬、余段松散），不是单纯减振器廉价。\n\n两条较有代表性的原话（均来自车主口碑原文）：\n- 2026 款 530km 探索版（杭州，2026-08-27）：「底盘偏软，连续起伏路面抛跳明显、后排容易晕…高速隔音效果不是很好，由于是单层玻璃，速度 110 码以上风噪有点大。」\n- 2026 款 610km 探索+版（长治，2026-09-10）：「跑高速超过一百码风噪比较明显，A 柱附近呼呼的声音，隔音表现跟那些二三十万的车比还是有差距。」\n\n---\n\n## 二、配置维度（数据截至 2026-10-16，覆盖 2024、2026、2027 三个年款共 12 个在售配置）\n\n- **座椅材质：全系仿皮，无一版本升级到真皮或更高档材料**\n- **侧窗多层隔音玻璃**：2024 与 2026 年款**全部无配备**；只有 2027 年款中 4 个版本做到**前排**，后排仍为单层——这正好对上车主“单层玻璃、A 柱风噪”的抱怨\n- **轮胎**：主销为 225/55 R18；2026 星舰版与 2027 顶配改用 235/50 R19（大轮辋、低扁平比），舒适取向车型的顶配反而更偏硬，与“悬挂硬”声量一致\n- 三年款下来，舒适相关硬件没有任何一次补强：隔音玻璃最多下放到前排、座椅材质原地不动\n\n**数据缺口（如实声明）**：本次整车配置逐项对比的明细查询接口异常，**悬架形式、座椅加热、通风、按摩、腰部支撑等细分项本次未取到**。所以“底盘各年款沿用同一套”是基于三年款配置项缺失模式与口碑延续性做的推断（证据强度：较强），要完全坐实需要拿到逐版本悬架与座椅功能明细。\n\n---\n\n## 三、销量维度（截至 2026 年 9 月末，终端零售口径）\n\n| 指标 | 数值 |\n|---|---|\n| 2026 年 9 月零售 | **3,355 台** |\n| 同比（2025 年 9 月 10,377 台） | **-67.7%** |\n| 环比（2026 年 8 月 4,436 台） | **-24.4%** |\n| 26款 530Km 启航版、探索版合计 | 3,067 台，占 **91.4%** |\n| 26款 610Km 星舰版 | 9 台 |\n\n结构信号很明确：**销量几乎全靠 11 万上下的两个低配版本撑住，舒适取向的高配卖不动（9 台）**。这说明，靠“加舒适配置换取溢价”这条路在本车系上并没有形成购买理由。\n\n**但必须划清边界**：销量下滑不能归因于舒适短板。市场侧的萎缩（同期价格带竞争、产品周期）与产品力之间不构成因果关系，这里只做并列呈现，不做归因。\n\n---\n\n## 四、判断与建议\n\n1. **性质**：舒适是**结构性短板，但属“第二短板”**——智能化（负面 67.9%）才是第一短板。\n2. **短板不在“看得见”的座椅，而在“看不见”的两处**：底盘衬套/减振标定、隔音玻璃与风噪控制。这解释了为什么配置表看起来还行、口碑却差。\n3. **未修补型**是它成为“结构性”的关键：2024→2026 三代同款方案、只有 2027 才给前排双层，说明产品端尚未把它当作必修项。\n4. 可执行度较高：座椅已有正向口碑（102 次），无需重做；**前排和后排双层隔音玻璃全系下放，加上减振器重新标定**，是投入产出比最高的补强，也能直接回应“隔音差 48 + 噪音大 94”这 142 条负面。\n\n**口径说明**：口碑数据为车主口碑样本，覆盖 2024 年 7 月至 2026 年 9 月 30 日，共 1,187 条；配置数据截至 2026 年 10 月 16 日的官方配置库；销量为 2026 年 9 月末终端零售口径。配置明细的悬架与座椅功能项本次缺失，已在上文标注。",
+      "first_error_turn": null
+    },
+    {
+      "task": "trap-01",
+      "sessionId": "01a1950d-0fd9-7428-8cb5-8346cc340903",
+      "dimension": "配置",
+      "question": "银河E5 26款 530Km 探索型的 msrp 是多少？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "trap name_grounding 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        null
+      ],
+      "traceId": null,
+      "turnMessages": [
+        "银河E5 26款 530Km 探索型的 msrp 是多少？"
+      ],
+      "tools": [
+        "resolve_series",
+        "get_trims",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 20.8,
+        "tool_calls": 4,
+        "tokens": {
+          "input": 6220,
+          "output": 1473,
+          "cacheRead": 65152,
+          "totalTokens": 72845,
+          "cost_usd": 0.001466
+        },
+        "partial": false
+      },
+      "replyLength": 294,
+      "replyPreview": "**银河E5 2026款 530km 探索版：指导价（MSRP）11.98 万元**\n\n- 车系身份已核验：银河E5（series_id 7650），无歧义\n- 准确版型名是「530km 探索**版*",
+      "reply_full": "**银河E5 2026款 530km 探索版：指导价（MSRP）11.98 万元**\n\n- 车系身份已核验：银河E5（series_id 7650），无歧义\n- 准确版型名是「530km 探索**版**」（不是\"探索型\"），也是 2026 款的在售主力版型\n- 2026款 530km 同门参考：启航版 10.98 万 / 探索版 11.98 万 / 610km 远航版 12.58 万 / 610km 探索+版 13.58 万\n\n提示：以上为**指导价**，不等于终端落地价。需要的话我可以拉这个版型的月度终端成交价（tp）或做 530 探索版 vs 610 探索+版 的配置差价对比。",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-11-01T02-58-46-131Z",
+    "snapshot_ids": [],
+    "tasks_git_hash": "013fd93c7076679336361c9eaf57f84b5e4ad6d2",
+    "set_composition": {
+      "dev": 2,
+      "frozen": 0,
+      "blind": 0,
+      "other": 0,
+      "total": 2
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 5,
+    "passCount": 2,
+    "trapBlockedCount": 1,
+    "trap_total": 1,
+    "anchored": {
+      "total": 2,
+      "pass": 2,
+      "pass_rate": 1,
+      "avg": 5
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "pass_at_k": {
+      "k": 1,
+      "tasks": 2,
+      "pass": 2,
+      "rate": 1,
+      "missed": []
+    },
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 2,
+      "covered": 2,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 0,
+      "fail": 0,
+      "failTasks": []
+    },
+    "regression": {
+      "baseline_run_id": "eval-2026-11-01T02-45-44-395Z",
+      "task_overlap": 2,
+      "pass_rate": {
+        "current": 1,
+        "baseline": 0,
+        "delta": 1
+      },
+      "anchored_pass_rate": {
+        "total": 2,
+        "current": 1,
+        "baseline": 0,
+        "delta": 1
+      },
+      "regressed_tasks": [],
+      "consecutive_failures": [],
+      "alerts": [],
+      "alerted": false,
+      "baseline_path": "C:\\Users\\<you>\\Desktop\\Prism-Agent\\eval\\reports\\eval-2026-11-01T02-45-44-395Z.json"
+    }
+  },
+  "release_gate": {
+    "baseline": "eval-2026-11-01T02-45-44-395Z",
+    "candidate": "eval-2026-11-01T02-58-46-131Z",
+    "paired_n": 0,
+    "baseline_only": 0,
+    "candidate_only": 2,
+    "pass_all": false,
+    "conditions": {},
+    "notes": [
+      "配对题数为 0（两次 run 无同 id 题），门槛不可判定"
+    ],
+    "gate_file": "eval/reports/gate-eval-2026-11-01T02-58-46-131Z.json",
+    "baseline_source": "auto"
+  }
+}

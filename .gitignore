@@ -1,0 +1,49 @@
+# 大二进制/数据库
+*.db
+*.db-shm
+*.db-wal
+eval/snapshots/
+prism-dashboards/data/
+prism-sentiment/data/
+prism-ops/data/
+deploy/data/
+# 依赖/构建
+node_modules/
+dist/
+prism-web/dist/
+.pi/agent-minimal/npm/
+# 密钥/凭据
+.env
+.pi/agent-minimal/auth.json
+.pi/agent-minimal/langfuse.json
+.pi/agent-minimal/models-store.json
+# 运行时产物
+logs/
+.pi/sessions/
+.pi/agent-minimal/web-search-cache/
+logs/tool-outputs/
+*.log
+__pycache__/
+.pytest_cache/
+_tmp*
+.pi/agent-minimal/sessions/
+ai-agent-book/
+pi-windows-x64/
+
+# 登录门禁：密码哈希凭据文件（本地阶段共享密码；上云前换强密码+独立凭据）
+prism-api/data/users.json
+
+# 运行产物：xlsx 导出件不入库（manifest 台账已跟踪）
+prism-api/exports/*.xlsx
+.pi/service_token
+
+# 舆情库备份（滚动 gz + 手动快照）
+prism-sentiment/backups/
+
+# 推送凭据（勿提交）
+deploy/.sshpass
+deploy/push-autohome-snapshot.db
+deploy/.env.prod
+eval/reports/cloud-sources/
+deploy/prism-nginx-new.tar.gz
+deploy/prism-dashboards-new.tar.gz

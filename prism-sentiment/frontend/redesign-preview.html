@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>汽车舆情监控 · 看板 · 设计示例 v3</title>
+<script src="https://cdn.jsdelivr.net/npm/echarts@5/dist/echarts.min.js"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#fafaf7; --ink:#15140f; --muted:#5a564e;
+    --border:#e7e5e0; --thead:#f4f1ec; --grid:#f0ece5;
+    --accent:#c96442; --accent-d:#a44f33;
+    --pos:#2348b8;    /* 正面/好 — 蓝（替代绿）*/
+    --neg:#9c2a25;    /* 负面/坏 — 红 */
+    --neu:#9e9e9e;    /* 中性 — 灰 */
+    --info:#3a6ea5;
+  }
+  *{box-sizing:border-box}
+  body{background:var(--bg);font-family:'Inter','Noto Sans SC',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;margin:0;line-height:1.5}
+  .num{font-family:'Inter',sans-serif;font-feature-settings:'tnum' on;letter-spacing:-0.02em}
+
+  /* ===== 顶部工具栏 chrome（车型可选）===== */
+  .chrome{position:sticky;top:0;z-index:20;background:rgba(250,250,247,0.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--border);padding:12px 32px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+  .chrome-brand{font-weight:800;font-size:15px;letter-spacing:-0.01em;white-space:nowrap}
+  .chrome-brand .dot{color:var(--accent)}
+  .chrome-search{position:relative;flex:0 1 280px;min-width:200px}
+  .chrome-search input{width:100%;padding:8px 12px 8px 32px;border:1px solid var(--border);border-radius:8px;background:#fff;font-size:13px;font-family:inherit;color:var(--ink);outline:none}
+  .chrome-search input:focus{border-color:var(--accent)}
+  .chrome-search::before{content:"🔍";position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:12px;opacity:0.6}
+  .chrome-select{padding:8px 10px;border:1px solid var(--border);border-radius:8px;background:#fff;font-size:13px;font-family:inherit;color:var(--muted);cursor:pointer}
+  .chrome-spacer{flex:1}
+  .chrome-time{font-size:12px;color:var(--muted);font-family:'Inter'}
+  .chrome-btn{padding:8px 16px;background:var(--accent);color:#fff;border:none;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;font-family:inherit}
+  .chrome-btn:hover{background:var(--accent-d)}
+  .chrome-icon{width:32px;height:32px;display:inline-flex;align-items:center;justify-content:center;border:1px solid var(--border);border-radius:8px;background:#fff;cursor:pointer;font-size:14px;position:relative}
+  .chrome-icon .badge{position:absolute;top:-4px;right:-4px;background:var(--neg);color:#fff;font-size:9px;font-weight:700;border-radius:8px;padding:1px 5px;font-family:'Inter'}
+
+  .wrap{max-width:1152px;margin:0 auto;padding:32px}
+
+  /* alert bar */
+  .alert-bar{background:#fff;border:1px solid var(--border);border-left:3px solid var(--accent);border-radius:10px;padding:10px 16px;margin-bottom:24px;font-size:12.5px;display:flex;align-items:center;gap:14px;box-shadow:0 1px 0 var(--grid)}
+  .alert-bar .label{font-size:10.5px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:var(--accent);white-space:nowrap}
+  .alert-bar .items{display:flex;gap:18px;flex-wrap:wrap;color:var(--muted)}
+  .alert-bar .items b{color:var(--ink)}
+  .alert-bar .spike{color:var(--accent-d);font-weight:600}
+  .alert-bar .drop{color:var(--muted);font-weight:600}
+
+  header.pb{padding-bottom:24px;margin-bottom:28px;border-bottom:1px solid var(--border)}
+  .eyebrow{font-size:11px;font-weight:600;letter-spacing:0.22em;text-transform:uppercase;color:var(--accent);margin-bottom:8px}
+  h1.title{font-size:34px;font-weight:800;letter-spacing:-0.02em;margin:0}
+  .header-row{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px}
+  .meta{font-size:12px;color:var(--muted);text-align:right}
+  .meta b{color:var(--ink);font-weight:600}
+  .lede{margin-top:12px;font-size:14px;color:var(--muted);max-width:760px;line-height:1.7}
+
+  section.sec{margin-bottom:36px}
+  .sec-title{font-size:11px;font-weight:700;letter-spacing:0.18em;text-transform:uppercase;color:var(--muted);margin:0 0 16px}
+
+  .card{background:#fff;border:1px solid var(--border);border-radius:16px;padding:20px;box-shadow:0 1px 0 var(--grid)}
+  .card-title{font-size:14px;font-weight:600;margin:0 0 12px}
+  .card-sub{font-size:11px;color:var(--muted);font-weight:400;margin-left:8px}
+
+  .kpi-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
+  .kpi-label{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:0.08em;color:var(--muted);margin-bottom:8px}
+  .kpi-value{font-size:30px;font-weight:800;line-height:1.1}
+  .kpi-value .sub{font-size:15px;color:var(--muted);font-weight:600}
+  .kpi-delta{font-size:12px;margin-top:8px}
+  .delta-up{color:var(--pos);font-weight:600}     /* 蓝 = 好 */
+  .delta-down{color:var(--neg);font-weight:600}   /* 红 = 坏 */
+  .spark{margin-top:10px;height:40px}
+
+  .grid-3{display:grid;grid-template-columns:2fr 1fr;gap:16px}
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+  .chart-md{height:280px}
+  .chart-h{height:360px}
+
+  .insight-emoji{font-size:26px;margin-bottom:6px}
+  .insight-h{font-weight:600;margin-bottom:6px;font-size:14px}
+  .insight-p{font-size:12.5px;color:var(--muted);line-height:1.6}
+
+  .ano-list{font-size:13px}
+  .ano-item{display:flex;align-items:center;gap:12px;padding:9px 0;border-bottom:1px solid var(--border)}
+  .ano-item:last-child{border-bottom:none}
+  .ano-date{font-family:'Inter';font-size:12px;color:var(--muted);width:64px}
+  .ano-tag{font-size:11px;font-weight:600;padding:2px 8px;border-radius:4px}
+  .ano-tag.spike{background:rgba(201,100,66,0.14);color:var(--accent-d)}
+  .ano-tag.drop{background:rgba(90,86,78,0.12);color:var(--muted)}
+  .ano-rate{font-family:'Inter';font-weight:600;color:var(--ink);width:54px}
+  .ano-desc{color:var(--muted);font-size:12.5px;flex:1}
+
+  details.meth{margin-top:40px}
+  details.meth>summary{cursor:pointer;font-size:14px;font-weight:600;color:var(--muted);list-style:none;display:flex;justify-content:space-between}
+  details.meth>summary::-webkit-details-marker{display:none}
+  .meth-body{font-size:12px;color:var(--muted);line-height:1.7;margin-top:12px;max-width:760px}
+  .meth-body b{color:var(--ink)}
+  .note{font-size:11px;color:var(--muted);margin-top:32px;padding:10px 14px;background:var(--thead);border-radius:8px}
+</style>
+</head>
+<body>
+
+<!-- ===== 顶部工具栏：车型可选 ===== -->
+<div class="chrome">
+  <div class="chrome-brand">汽车舆情<span class="dot">·</span>监控</div>
+  <div class="chrome-search"><input value="启源Q05" placeholder="搜索或选择车型..."></div>
+  <select class="chrome-select"><option>全部分组</option><option>长安启源</option><option>竞品对比</option></select>
+  <div class="chrome-spacer"></div>
+  <span class="chrome-time">2026-03-15 ~ 06-13</span>
+  <button class="chrome-btn">采集</button>
+  <div class="chrome-icon" title="时间范围">📅</div>
+  <div class="chrome-icon" title="异常告警">🔔<span class="badge">32</span></div>
+</div>
+
+<div class="wrap">
+
+  <div class="alert-bar">
+    <span class="label">⚠ 异常告警</span>
+    <div class="items">
+      <span><span class="spike">▲ 11.0×</span> <b>4-24</b> 声量激增</span>
+      <span><span class="spike">▲ 6.0×</span> <b>4-03</b> 声量激增</span>
+      <span><span class="spike">▲ 5.0×</span> <b>3-20 / 4-10</b> 声量激增</span>
+      <span style="color:var(--muted)">共 32 起（spike 21 / drop 11）</span>
+    </div>
+  </div>
+
+  <header class="pb">
+    <div class="header-row">
+      <div>
+        <div class="eyebrow">当前车型 · 启源Q05 · 长安启源</div>
+        <h1 class="title">舆情看板 · 启源Q05</h1>
+      </div>
+      <div class="meta">
+        <div>来源: <b>5 平台社媒 + 新闻</b></div>
+        <div>区间 <b class="num">2026-03-15 ~ 06-13</b></div>
+        <div>上次采集 <b class="num">06-14 00:10</b></div>
+      </div>
+    </div>
+    <p class="lede">采集 <b class="num">1,267</b> 条、分析 <b class="num">981</b> 条。健康分 <b class="num">78.4</b>，正面 60.2%。<b>新车发布/上市</b>主导事件（864 条），<b>续航争议</b>需关注；价格性价比最强、售后服务最弱。检测出 <b class="num">283</b> 个事件聚类。</p>
+  </header>
+
+  <!-- 01 KPI -->
+  <section class="sec">
+    <h2 class="sec-title">01 · 核心指标</h2>
+    <div class="kpi-grid">
+      <div class="card">
+        <div class="kpi-label">健康分</div>
+        <div class="kpi-value num">78.4<span class="sub"> / 100</span></div>
+        <div class="kpi-delta"><span class="delta-up">▲ 3.2</span> <span style="color:var(--muted)">vs 上期</span></div>
+        <div class="spark" id="sp-health"></div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">舆情总量</div>
+        <div class="kpi-value num">981<span class="sub"> 已分析</span></div>
+        <div class="kpi-delta"><span class="delta-up">▲ 12.4%</span> <span style="color:var(--muted)">vs 上期</span></div>
+        <div class="spark" id="sp-volume"></div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">正面占比</div>
+        <div class="kpi-value num">60.2<span class="sub">%</span></div>
+        <div class="kpi-delta"><span class="delta-up">▲ 4.1pp</span> <span style="color:var(--muted)">vs 上期</span></div>
+        <div class="spark" id="sp-pos"></div>
+      </div>
+      <div class="card">
+        <div class="kpi-label">事件聚类</div>
+        <div class="kpi-value num">283<span class="sub"> 个</span></div>
+        <div class="kpi-delta"><span style="color:var(--muted)">Louvain 社区发现</span></div>
+        <div class="spark" id="sp-event"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 02 趋势 -->
+  <section class="sec">
+    <h2 class="sec-title">02 · 趋势</h2>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">情感趋势 · 近 8 周<span class="card-sub">堆叠帖数 + 健康分</span></div>
+        <div class="chart-md" id="chart-sentiment"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">热度指数 · attention</div>
+        <div class="chart-md" id="chart-heat"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 03 事件 -->
+  <section class="sec">
+    <h2 class="sec-title">03 · 事件 · Events</h2>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">事件标签分布<span class="card-sub">TOP10 · 新车发布主导</span></div>
+        <div class="chart-h" id="chart-event"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">观点标签<span class="card-sub">TOP10 · 用户在说什么</span></div>
+        <div class="chart-h" id="chart-opinion"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 04 维度体检 -->
+  <section class="sec">
+    <h2 class="sec-title">04 · 维度体检 · ABSA 15 维度</h2>
+    <div class="card">
+      <div class="card-title">各维度情感均分<span class="card-sub">-1 负面 ~ 1 正面 · 价格性价比最强 / 售后服务最弱</span></div>
+      <div id="chart-dim" style="height:420px"></div>
+    </div>
+  </section>
+
+  <!-- 05 异常 + 洞察 -->
+  <section class="sec">
+    <h2 class="sec-title">05 · 异常与洞察</h2>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">异常时间线<span class="card-sub">声量突增/骤降 TOP</span></div>
+        <div class="ano-list">
+          <div class="ano-item"><span class="ano-date">4-24</span><span class="ano-tag spike">激增</span><span class="ano-rate">11.0×</span><span class="ano-desc">评测视频引爆</span></div>
+          <div class="ano-item"><span class="ano-date">4-03</span><span class="ano-tag spike">激增</span><span class="ano-rate">6.0×</span><span class="ano-desc">上市宣传期</span></div>
+          <div class="ano-item"><span class="ano-date">3-20</span><span class="ano-tag spike">激增</span><span class="ano-rate">5.0×</span><span class="ano-desc">—</span></div>
+          <div class="ano-item"><span class="ano-date">4-10</span><span class="ano-tag spike">激增</span><span class="ano-rate">5.0×</span><span class="ano-desc">—</span></div>
+          <div class="ano-item"><span class="ano-date">4-20</span><span class="ano-tag spike">激增</span><span class="ano-rate">2.5×</span><span class="ano-desc">—</span></div>
+        </div>
+      </div>
+      <div class="card" style="grid-column:span 2">
+        <div class="card-title">关键洞察</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
+          <div><div class="insight-emoji">🚗</div><div class="insight-h">新车发布期主导舆论</div><div class="insight-p">「新车发布/上市」864 条，占事件标签超 40%。启源Q05 处于上市热度窗口，舆论以关注和提车分享为主。</div></div>
+          <div><div class="insight-emoji">⚡</div><div class="insight-h">续航争议需关注</div><div class="insight-p">续航争议 220 条排第三，观点标签「续航里程」也高频。建议核实续航虚标争议，准备回应话术。</div></div>
+          <div><div class="insight-emoji">💰</div><div class="insight-h">价格性价比是最强卖点</div><div class="insight-p">ABSA 价格/性价比维度均分 0.64 居首，观点「性价比高」「性价比」合计 136 条正面。</div></div>
+          <div><div class="insight-emoji">🔧</div><div class="insight-h">售后服务维度偏弱</div><div class="insight-p">售后均分 0.23 垫底，电耗 0.27 次低。售后事件标签 69 条，建议梳理店端反馈。</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 06 平台 + 热帖 -->
+  <section class="sec">
+    <h2 class="sec-title">06 · 平台与热帖</h2>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">平台声量分布</div>
+        <div id="chart-platform" style="height:200px"></div>
+      </div>
+      <div class="card">
+        <div class="card-title">热帖 TOP3<span class="card-sub">按互动量</span></div>
+        <div style="font-size:13px">
+          <div style="padding:10px 0;border-bottom:1px solid var(--border)"><div style="font-weight:600">三分钟带你看懂长安启源Q05的优缺点</div><div style="color:var(--muted);font-size:12px;margin-top:4px">抖音 · ▲1953 💬675 · 6-12</div></div>
+          <div style="padding:10px 0;border-bottom:1px solid var(--border)"><div style="font-weight:600">启源Q05车内休息看电影吹空调时一定要切换供电电池</div><div style="color:var(--muted);font-size:12px;margin-top:4px">抖音 · ▲1925 💬345 · 6-08</div></div>
+          <div style="padding:10px 0"><div style="font-weight:600">月销1W5的启源Q05真有那么好吗？</div><div style="color:var(--muted);font-size:12px;margin-top:4px">抖音 · ▲1083 💬422 · 6-01</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <details class="meth card">
+    <summary>方法论 · Methodology <span>▾</span></summary>
+    <div class="meth-body">
+      <p><b>数据来源</b>：小红书 / 微博 / 抖音 / 快手（MediaCrawler）+ bocha/anspire 新闻 API。1,267 条 → 过滤剔除 286 条 → 分析 981 条。</p>
+      <p style="margin-top:8px"><b>分析</b>：双模型——本地 Qwen3-4B QLoRA（ABSA 15 维度）+ GLM-4-Flash（event_tags 17 标签池 + opinion_tags）。<b>事件聚类</b>：LLM 标注 → jieba → 共现图 → Louvain → 时间切分 → LLM 命名（本期 283 组）。</p>
+      <p style="margin-top:8px"><b>健康分</b>：50 +（正面 − 负面）/ 总量 × 50。<b>热度</b>：百度指数优先，无则回退互动强度。<b>异常</b>：声量突增/骤降检测。</p>
+    </div>
+  </details>
+
+  <div class="note">设计示例 v3 · 方案 B（Vue+ECharts 复刻）· 顶部车型选择器 + 全部柱状图无绿（蓝红对比）· 事件/观点/异常/维度/平台均为启源Q05 真实数据，情感/热度周度趋势为示意。</div>
+</div>
+
+<script>
+const C = {accent:'#c96442', accentD:'#a44f33', pos:'#2348b8', neg:'#9c2a25', neu:'#9e9e9e', info:'#3a6ea5', grid:'#f0ece5', muted:'#5a564e', ink:'#15140f'};
+const baseAxis = {axisLine:{show:false}, axisTick:{show:false}, splitLine:{lineStyle:{color:C.grid}}, axisLabel:{color:C.muted, fontSize:11}};
+
+function spark(id, data, color){
+  echarts.init(document.getElementById(id)).setOption({
+    grid:{left:0,right:0,top:2,bottom:2}, xAxis:{type:'category',show:false,data:data.map((_,i)=>i)}, yAxis:{type:'value',show:false},
+    series:[{type:'line',data,smooth:true,symbol:'none',lineStyle:{color,width:2},areaStyle:{color:color+'22'}}]
+  });
+}
+spark('sp-health',[72,73,71,74,75,74,77,78.4],C.pos);
+spark('sp-volume',[620,680,710,750,790,850,920,981],C.accent);
+spark('sp-pos',[52,53,54,55,56,57,58,60.2],C.pos);
+spark('sp-event',[180,200,210,230,240,250,265,283],C.info);
+
+const weeks = ['4-06','4-13','4-20','4-27','5-04','5-11','5-18','5-25'];
+echarts.init(document.getElementById('chart-sentiment')).setOption({
+  legend:{bottom:0,itemWidth:8,itemHeight:8,textStyle:{color:C.muted,fontSize:11}},
+  grid:{left:40,right:40,top:16,bottom:36},
+  xAxis:{type:'category',data:weeks,...baseAxis},
+  yAxis:[{type:'value',name:'帖数',...baseAxis},{type:'value',name:'健康分',min:60,max:85,...baseAxis}],
+  series:[
+    {name:'正面',type:'bar',stack:'s',data:[55,62,70,68,75,82,88,92],itemStyle:{color:C.pos},barWidth:'50%'},
+    {name:'中性',type:'bar',stack:'s',data:[35,38,42,40,45,48,52,55],itemStyle:{color:C.neu}},
+    {name:'负面',type:'bar',stack:'s',data:[4,5,3,6,4,5,4,3],itemStyle:{color:C.neg,borderRadius:[2,2,0,0]}},
+    {name:'健康分',type:'line',yAxisIndex:1,data:[71,72,73,74,75,76,77,78.4],smooth:true,symbol:'circle',symbolSize:5,lineStyle:{color:C.accent,width:2.5},itemStyle:{color:C.accent}}
+  ]
+});
+
+echarts.init(document.getElementById('chart-heat')).setOption({
+  grid:{left:40,right:16,top:16,bottom:24},
+  xAxis:{type:'category',data:weeks,boundaryGap:false,...baseAxis}, yAxis:{type:'value',...baseAxis},
+  series:[{type:'line',data:[1200,1800,2400,3100,4200,6800,12500,22390],smooth:true,symbol:'circle',symbolSize:4,
+    lineStyle:{color:C.accent,width:2.5},itemStyle:{color:C.accent},
+    areaStyle:{color:{type:'linear',x:0,y:0,x2:0,y2:1,colorStops:[{offset:0,color:C.accent+'33'},{offset:1,color:C.accent+'05'}]}}}]
+});
+
+function hbar(id, data, opts={}){
+  const sorted = data.slice().sort((a,b)=>a[1]-b[1]);
+  const max = Math.max(...data.map(d=>d[1]));
+  echarts.init(document.getElementById(id)).setOption({
+    grid:{left:opts.left||96,right:opts.right||48,top:8,bottom:8},
+    xAxis:{type:'value',...baseAxis},
+    yAxis:{type:'category',data:sorted.map(d=>d[0]),axisLine:{show:false},axisTick:{show:false},axisLabel:{color:C.ink,fontSize:12},splitLine:{show:false}},
+    series:[{type:'bar',data:sorted.map(d=>({value:d[1],itemStyle:{color:`rgba(201,100,66,${(0.4+0.55*(d[1]/max)).toFixed(2)})`,borderRadius:[0,4,4,0]}})),barWidth:'58%',
+      label:{show:true,position:'right',color:C.muted,fontSize:11,fontFamily:'Inter'}}]
+  });
+}
+hbar('chart-event',[['新车发布/上市',864],['提车分享',380],['续航争议',220],['行业动态',201],['降价/促销',108],['智能驾驶事故',89],['售后服务',69],['交付延迟',40],['充电问题',40],['政策法规',22]],{color:true});
+hbar('chart-opinion',[['续航里程',76],['性价比高',72],['性价比',64],['舒适性',43],['空间',40],['续航里程长',35],['内饰',31],['外观设计',31],['安全性',31],['外观',29]],{left:84});
+
+const dims=[['价格/性价比',0.64],['续航里程',0.59],['动力/加速',0.57],['外观',0.57],['智能化/车机',0.56],['内饰',0.51],['舒适性',0.50],['空间',0.48],['操控',0.47],['安全性',0.45],['辅助驾驶/智驾',0.36],['充电体验',0.36],['电耗',0.27],['售后服务',0.23]];
+const dimSorted=dims.slice().sort((a,b)=>a[1]-b[1]);
+const dimMax=0.64;
+echarts.init(document.getElementById('chart-dim')).setOption({
+  grid:{left:110,right:60,top:16,bottom:24},
+  xAxis:{type:'value',min:0,max:1,...baseAxis},
+  yAxis:{type:'category',data:dimSorted.map(d=>d[0]),axisLine:{show:false},axisTick:{show:false},axisLabel:{color:C.ink,fontSize:12},splitLine:{show:false}},
+  series:[{type:'bar',data:dimSorted.map(d=>({value:d[1],itemStyle:{color:`rgba(201,100,66,${(0.4+0.55*(d[1]/dimMax)).toFixed(2)})`,borderRadius:[0,4,4,0]}})),barWidth:'56%',
+    label:{show:true,position:'right',formatter:({value})=>value.toFixed(2),color:C.muted,fontSize:11,fontFamily:'Inter'}}]
+});
+
+hbar('chart-platform',[['微博',326],['快手',297],['抖音',241],['小红书',209],['新闻',194]],{left:64,right:40});
+</script>
+</body>
+</html>

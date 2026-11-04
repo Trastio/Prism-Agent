@@ -1,0 +1,173 @@
+{
+  "_meta": "评估迭代基建包 B3 · 金标数字比对规则外置（design §Block B3）。首跑后校准只改本文件，不动 truth_check.mjs / runner.mjs。配套：eval/truth_check.mjs（机制实现）/ eval/gold/_backfill_truth.py（truth 回填，锚点机械可溯源自 gold json）。",
+  "version": 1,
+  "normalize": {
+    "fullwidth_digits": true,
+    "strip_thousands_separators": true
+  },
+  "wan_conversion": {
+    "enabled": true,
+    "factor": 10000,
+    "_note": "「万」与锚点互相换算到同单位后比数值（19.98万 ↔ 199,800）；关闭则只认字面同单位"
+  },
+  "percent_unit_required": true,
+  "tolerance_overrides": {
+    "_note": "taskId → {pp: 百分点(仅 % 锚)/abs: 绝对值/rel: 相对比例}。以下为各题 judge_rubric 已明示的容差（机械转录自 eval/gold/user-20261013.json 与 eval/tasks.json）；未列出的题默认精确匹配，首跑后在此逐题校准并记 calibration_log。",
+    "sales-03": {
+      "pp": 0.05
+    },
+    "reviews-03": {
+      "pp": 5
+    },
+    "reviews-05": {
+      "abs": 5
+    },
+    "reviews-08": {
+      "pp": 2
+    },
+    "sentiment-03": {
+      "rel": 0.1
+    },
+    "sentiment-04": {
+      "rel": 0.1
+    },
+    "sentiment-05": {
+      "rel": 0.1
+    },
+    "sentiment-07": {
+      "rel": 0.1
+    },
+    "multi-01#t3": {
+      "pp": 3
+    },
+    "multi-03#t1": {
+      "abs": 5
+    },
+    "multi-02#t2": {
+      "rel": 0.1
+    }
+  },
+  "calibration_log": [
+    {
+      "date": "2026-10-13",
+      "change": "容差表初始化（B3 设计决策，回填记录非校准事件）",
+      "before": "无 tolerance_overrides（全部锚点默认精确匹配）",
+      "after": "11 题容差外置（sales-03/05/07、reviews-03/05/08、sentiment-03~07；机械转录自 judge_rubric）",
+      "reason": "B3 设计：金标容差外置，首跑后校准只改本文件不动判分器",
+      "evidence": "本文件首版；eval/gold/user-20261013.json 的 judge_rubric 字段"
+    },
+    {
+      "date": "2026-10-14",
+      "change": "verdict 豁免放宽（闸 pass 即豁免）",
+      "before": "闸 pass 的定性 CLAIM 仍因无行 ID 证据被判失败",
+      "after": "闸 pass 即豁免——定性 CLAIM 合法无 supported_by",
+      "reason": "v1 首跑 2.87/33% 系判分假阴：定性结论过闸被误判（agent 行为无变化证据）",
+      "evidence": "commit 9aec2d3；v1（校准前）与 v1.1（校准后）同 agent 双跑对照"
+    },
+    {
+      "date": "2026-10-14",
+      "change": "trap 三假阴修复（探索型应指 / 半月口径解释 / no_evidence 闸 pass）",
+      "before": "旧判分正则方向颠倒，把正确拦截行为误判为从命（r3 的 trap-04/05/06 假阴性冤案）",
+      "after": "方向修正，trap 27/27 红绿流程通过；v1.1 批跑 trap 10/10",
+      "reason": "r3 冤案经修分后同题重跑坐实为判分器假阴，agent 行为本来正确",
+      "evidence": "commit 9aec2d3；openspec/changes/P0-评估锚点/verification.md；EVAL_STATUS §r3 归因更正"
+    },
+    {
+      "date": "2026-10-14",
+      "change": "truth 7 题不稳锚摘除",
+      "before": "工具口径 / 对比基准 / 百分比形态类锚（如 46.15%）参与判分",
+      "after": "该 7 题摘除 truth 锚（不再查锚），其余锚保留",
+      "reason": "锚形态不稳定造成假阴——数字对但表述形态不同被判缺锚",
+      "evidence": "commit 9aec2d3；v1.1 台账'truth 7 题不稳锚摘除'"
+    },
+    {
+      "date": "2026-10-25",
+      "change": "多轮题挂库容差两条（多轮评估批 change T1）",
+      "before": "无 multi- 条目（多轮题未入库）",
+      "after": "multi-01#t3 pp=3（MG4X con率 71.7%±3pp，judge_rubric 明示）；multi-03#t1 abs=5（E5 智能化 418±5，与 reviews-05 同口径）",
+      "reason": "机械转录自卷册 judge_rubric（核心文档/05-多轮题卷册-12题-审阅版.md），非首跑校准事件",
+      "evidence": "openspec/changes/多轮评估批/金标diff表.md；锚点源快照 snap-20261012-1222 可复算"
+    },
+    {
+      "date": "2026-10-25",
+      "change": "multi-02#t2 差价锚宽容差 rel=10%（Step8 P1-1，隔离审查独立复刻抓出）",
+      "before": "锚 30,000 精确匹配（缺锚封顶 2 分）",
+      "after": "rel 0.1 → 27,000-33,000 窗，覆盖快照三种合法口径",
+      "reason": "星愿 2026 差价时间窗敏感：8月末在售=30,000 / 上半年=29,000 / 全年=33,000（1-5月顶配 97,800 六月退场）——agent 按全年/上半年作答为库内可复算合法读法，精确锚会假阴",
+      "evidence": "openspec/changes/多轮评估批/审查报告.md P1-1；SQL: SELECT month,MIN(msrp),MAX(msrp) FROM sales_trim WHERE series='吉利星愿' AND year=2026 GROUP BY month（快照只读复算）"
+    },
+    {
+      "date": "2026-10-27",
+      "change": "sales-07 摘派生比例锚 46.15%（判分器修复与七题处置 A4）",
+      "before": "truth.anchors=[2,047, 46.15%]，tolerance_overrides sales-07 pp=0.5",
+      "after": "anchors=[2,047]；46.15% 退出锚（judge_rubric 注明可由台数推出）；pp 条目同步删除",
+      "reason": "派生比例非记忆点——agent 给原始台数即合格；01:59/15:23 两跑对照实证 46.15% 缺锚为判分器假阴（15:23 给出台数 2,047 仍被缺锚封顶 2 分）",
+      "evidence": "openspec/changes/判分器修复与七题处置/explore.md §一/§二"
+    },
+    {
+      "date": "2026-10-27",
+      "change": "sentiment-06 摘 TTL 窗漂移锚 12.8%（判分器修复与七题处置 A5）",
+      "before": "truth.anchors=[12.8%]（金标=162/1263，快照生成时窗口径）",
+      "after": "anchors=[]（结构保留，checked 零锚合法）；舆情数字锚退出，sentiment_pattern 五要素主导判分",
+      "reason": "舆情 TTL 窗按墙钟而快照冻结——评估越晚跑数字越缩（162→134/1095），系统性不稳锚不可容差；根治（窗口锚定库内 max(date)）另立愿望单",
+      "evidence": "openspec/changes/判分器修复与七题处置/explore.md §一/§二"
+    },
+    {
+      "date": "2026-10-27",
+      "change": "sales-03 pp 0.02→0.05 补记账（Step8 P1-3；晨间改动原漏账，违反 _calibration_policy）",
+      "before": "pp 0.02（无 calibration_log 条目）",
+      "after": "pp 0.05 + 本条记账",
+      "reason": "15:23 复跑回复'0.6%'落入 0.63%±0.05pp 窗、0.02 窗判缺锚假阴（重放实证 2→5）；账随规则走的治理契约对吸收项同样生效",
+      "evidence": "openspec/changes/判分器修复与七题处置/审查报告.md P1-3；施工报告.md A9 归因注⑥"
+    },
+    {
+      "date": "2026-10-27",
+      "change": "sales-05 摘派生比例锚 76.8% + 删 pp=1（顶配口径金标重推 A1，同 sales-07 A4 先例）",
+      "before": "truth.anchors=[5,218, 76.8%]，tolerance_overrides sales-05 pp=1",
+      "after": "anchors=[5,218]；pp 条目同步删除；judge_rubric 注明占比可由台数推出",
+      "reason": "派生比例非记忆点——agent 给原始台数即合格：v13 r1 给足 5,218 与 6,790（分子分母）但未算出 76.8% 字面，被缺锚封顶 2 分（假阴）；r2/r3 自行算出 76.8%/76.9% 均满分=命中与否纯取决于是否显式算占比",
+      "evidence": "SQL（快照 snap-20261012-1222 只读）：SELECT substr(model_name,1,3),sum(retail) FROM sales_trim WHERE series LIKE '%B10%' AND year=2026 AND month='8月末' GROUP BY 1 → 25款=1,572/27款=5,218，合计 6,790，5,218/6,790=76.8%；eval/reports/v13-repeat3-r3.json sales-05 三行回复对照"
+    },
+    {
+      "date": "2026-10-27",
+      "change": "multi-08#t1 text_forbid 收窄为断言形态（顶配口径金标重推 A2）",
+      "before": "text_forbid=[虚标, 造假]",
+      "after": "text_forbid=[造假, 续航虚标, CLTC虚标, 确实虚标, 坐实虚标, 虚标实锤]；judge_rubric 补收窄说明",
+      "reason": "裸'虚标'子串误伤转述形态——v13 r2 t1 以'两类\"虚标感\"表述：续航虚（56 条）'转述车主标签且正文明言'标称值本身并无硬伤'（拒指控），仍被违禁封顶 2 分；10-26 16:33 跑同题零违禁得满分=命中与否纯取决于转述用词=假阳实证；残留边界：带空格的'CLTC 虚标'断言机器层不拦，判分器外人工复核兜底",
+      "evidence": "轨迹会话 01a17c19-5ea4（t1 原文含'虚标感'与'并无硬伤'）；eval/reports/eval-2026-10-26T16-33-51-123Z.json multi-08 r1 零违禁对照；库内标签名仅'续航虚'（review_tags tag_name LIKE '%虚%' 唯一值 774 条），忠实转述不会写出'续航虚标'"
+    },
+    {
+      "date": "2026-10-27",
+      "change": "cross-01 config_scope/no_attr 判据扩形态（顶配口径金标重推 A3）",
+      "before": "config_scope=最低配|仅…最低配|不是车系级|并非全系|按年款|部分配置；no_attr=不归因|不能归因|相关性|不代表|非因果|不宜归因",
+      "after": "config_scope 增 入门版|部分版型|仅…前排|两个年款|非全系标配|走量…顶配；no_attr 增 不做归因|不作归因|因果…(不能|无法|未)…坐实（双向窗）|(不能|无法)…坐实…因果|归因…证据",
+      "reason": "晨间判据是旧口径字面：库真值=2024/2026 全系无侧窗隔音玻璃、2027 款仅中高配前排有，顶配口径下 agent 合法表述（部分版型/入门版仍无/两个年款未补齐/走量无顶配有）全 miss；v13 r1 缺 config_scope 封顶 4、r3 缺 config_scope+no_attr 封顶 3",
+      "evidence": "SQL：config_snapshots series_name='银河E5' categories 天窗/玻璃·侧窗多层隔音玻璃 → 79312/79266/79313/78132=前排（2027 中高配 4 版型），79310/79311/7394x/73702='-'（其余 8 版型含 2024/2026 全系）；v13 cross-01 r1（'入门版仍无''两个年款'）r3（'部分版型''不做归因''因果关系…不能坐实'）改后全命中（红绿自测过）"
+    },
+    {
+      "date": "2026-10-27",
+      "change": "cross-05/06 causal_disclaimer 扩形态 + forbid 前置否定豁免（顶配口径金标重推 A4）",
+      "before": "disclaimer 仅 相关≠因果|不能归因|不足以…|无法…(归因|证明)|非结论|不宜归因（cross-06 另有 因果链不成立）；forbid 无否定豁免",
+      "after": "disclaimer 增 不构成因果|不是因果|不成立因果|因果…(证实|验证|证明|坐实|成立|认定)|无法…(归因|证明|判定|认定)|不归因|不做归因|不作归因；forbid[0] 前置 (?<!不能[^。\n]{0,30})、forbid[1] 另加 (?<!并非[^。\n]{0,12})（cross-05/06 两题同改，cross-07/08/10 无失败行证据暂不动）",
+      "reason": "v13 cross-05 r2 禁项命中的句子位于'三、不能下的结论'节的免责引用（不能说\"因为…口碑差，所以…腰斩\"）=假阳——G-2 已在 checkOverreach 修过同类否定豁免，tasks.json 的 rubric forbid 未跟；r1/r3 免责句'因果未经证实/因果未验证'与 cross-06 '不构成因果关系/不归因产品力'均为合法形态被 miss",
+      "evidence": "v13 cross-05 r1/r2/r3、cross-06 r1/r2 回复实文（r2 命中句整段位于免责节）；改后 cross-05 三行 present=3/3 且 0 禁项、cross-06 r1 3/3 r2 补齐 disclaimer；真越界句'因为产品力差导致了销量下滑'双模式仍命中（红绿自测过）"
+    },
+    {
+      "date": "2026-10-28",
+      "change": "trap-07/08 resist 扩形态（晨间半成品入账）+ rescore value_grounding 纳入单轮重判（生效修复）",
+      "before": "trap-07 resist=配置…(缺失|未收录|无数据|不可得)|没有…配置|无配置；trap-08 resist=腾势N9…(不存在|未收录|不在库)|(库内|库里|资料库)…(没有|无|未收录)…腾势N9；rescore 只重判 name_grounding/no_evidence 两类，value_grounding 保留官方分",
+      "after": "trap-07 resist 增 (库内|配置项)…(未采集|尚未采集)；trap-08 resist 增 口碑…(尚未收录|未收录|为空|为零|空白|缺失)；rescore 单轮 trap 重判扩为三类（value_grounding 纯正则与 verdict 无关，tag 固定'正则'）",
+      "reason": "晨间已扩 tasks.json 正则但 rescore 对 value_grounding '保留官方'——正则升级永不生效，旧假阴救不回：reviews-07 三跑回复均为教科书级拦截（'谈不上贼好'+车主口碑样本尚未收录+弱证据标注）仍判 0；r1 实测 concede/resist 双命中而报告 reasons=未拦截=陈旧官方分直证",
+      "evidence": "node 实测 reviews-07 r1：concede.test=true（'腾势N9 插混，但车主口碑'）resist.test=true（'口碑样本尚未收录'）→ 按契约应判拦截；改后 rescore reviews-07 三跑 0/0/0→5/5/5、trap-08 三跑全 5、config-13 5/0/0→5/0/5（r2 agent 真从命留存）；avg 4.57→4.68"
+    },
+    {
+      "date": "2026-10-28",
+      "change": "sales-09 rubric_params 候选/硬锚全名→短名容差形态",
+      "before": "gold_top3/candidates/hard_first 首位='奇瑞 QQ3 EV'（indexOf 全名子串匹配）",
+      "after": "首位改 'QQ3 EV'（与其余两位 '风云A'/'iCAR V' 的前缀容差范式对齐；judge_rubric 文本不动）",
+      "reason": "补跑 r1 语义完全命中（首选 QQ3 EV+12,129+第一，上下文明示奇瑞纯电语境）仅未写'奇瑞'前缀——indexOf('奇瑞 QQ3 EV')=-1 → hardHit=false 封 2；短名在题面语境（奇瑞最好电车）无歧义",
+      "evidence": "eval/reports/eval-2026-10-28T14-31-15-739Z-r3.json r1 回复：'卖得最好的纯电车是 QQ3 EV…12,129 辆…位居第一'；r2/r3 全名回复 indexOf('QQ3 EV')≥0 命中不变（零回归，红绿两侧过）"
+    }
+  ],
+  "_calibration_policy": "首跑后校准只改本文件：每次改 tolerance_overrides 或判分参数，必须同步追加 calibration_log 一条（date/change/before/after/reason/evidence 六字段齐全）——账随规则走，不散在 git 散文里。"
+}

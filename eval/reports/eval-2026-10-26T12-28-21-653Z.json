@@ -1,0 +1,165 @@
+{
+  "run_id": "eval-2026-10-26T12-28-21-653Z",
+  "started_at": "2026-10-26T12:28:21.654Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+  "snapshot_id": "snap-20261012-1222",
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "ca7c4f7cec8662d8abd07d5f958c226a",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-26T12:28:50.015Z",
+  "results": [
+    {
+      "task": "sales-04",
+      "sessionId": "01a1782e-f844-7093-9da3-936d51eabd5a",
+      "dimension": "销量",
+      "question": "风云T7的销量是多少",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "trap value_grounding 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "风云T7的销量是多少"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "get_sales_detail",
+        "query_sales",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 25.7,
+        "tool_calls": 6,
+        "tokens": {
+          "input": 1257,
+          "output": 2107,
+          "cacheRead": 74496,
+          "totalTokens": 77860,
+          "cost_usd": 0.000975
+        },
+        "partial": false
+      },
+      "replyLength": 498,
+      "replyPreview": "**结论：风云T7 最新结算月的零售销量暂不可得——2026年9月的零售量数据尚未生成。**\n\n| 项目 | 数值 |\n|---|---|\n| 最新结算月 | 2026年9月（月末口径） |\n| 零售",
+      "reply_full": "**结论：风云T7 最新结算月的零售销量暂不可得——2026年9月的零售量数据尚未生成。**\n\n| 项目 | 数值 |\n|---|---|\n| 最新结算月 | 2026年9月（月末口径） |\n| 零售销量 | 未结算（暂不可得） |\n| 终端均价 | 约 10.56 万元 |\n| 悦享版 600km 终端价 | 9.49 万元（指导价 9.79 万） |\n| 舒享版 600km 终端价 | 10.59 万元（指导价 10.89 万） |\n| 智享版 600km 终端价 | 11.59 万元（指导价 11.89 万） |\n\n**数据缺口：**\n- 2026年9月三个在售配置的零售量均为空值，销量尚未结算入库，因此无法给出月度销量数字，也无法给出环比/同比。\n- 库内该车系目前仅有 2026年9月 一个月末行，没有更早的月度序列，做不了趋势判断。\n\n**要坐实销量，还需要：** 等 9 月零售量结算入库（或补录更早月份月末行）。期间如需了解该车的产品力与用户口碑（配置/口碑两个维度数据齐全），可以继续帮你查。\n\n*数据时点：2026-9月末（销售量口径）；查询日 2026-10-26*",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-10-26T12-28-21-653Z",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+    "set_composition": {
+      "dev": 0,
+      "frozen": 1,
+      "other": 0,
+      "total": 1
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 5,
+    "passCount": 1,
+    "trapBlockedCount": 1,
+    "trap_total": 1,
+    "anchored": {
+      "total": 1,
+      "pass": 1,
+      "pass_rate": 1,
+      "avg": 5
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 1,
+      "covered": 1,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 0,
+      "fail": 0,
+      "failTasks": []
+    }
+  }
+}

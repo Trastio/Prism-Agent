@@ -1,0 +1,1111 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>hermes-agent · 看板栏</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:oklch(98.3% 0.002 67.8);
+  --surface:oklch(100% 0 0);
+  --fg:oklch(23.9% 0.008 264.4);
+  --muted:oklch(55% 0.007 255.5);
+  --border:oklch(91.9% 0.003 286.3);
+  --accent:oklch(52.7% 0.258 262.7);
+  --panel:oklch(90.7% 0.001 286.4);
+  --panel-2:oklch(96.1% 0.001 286.4);
+  --track:oklch(95.5% 0.002 286);
+  --accent-strong:oklch(45% 0.235 263);
+  --chart:oklch(60% 0.145 262);
+  --chart-soft:oklch(93.5% 0.032 262);
+  --muted-fill:oklch(62% 0.008 260);
+  --danger:oklch(52% 0.185 27);
+  --danger-soft:oklch(95.5% 0.028 27);
+  --success:oklch(52% 0.115 155);
+  --warn:oklch(58% 0.13 72);
+  --radius:14px;
+  --font-display:"Bodoni Moda",Didot,"Bodoni MT",Georgia,"Songti SC","SimSun",serif;
+  --font-ui:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --font-mono:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{margin:0;background:var(--panel-2);color:var(--fg);font-family:var(--font-ui);font-size:14px;line-height:1.6;-webkit-font-smoothing:antialiased}
+button{font-family:inherit;color:inherit;cursor:pointer}
+h1,h2,h3{font-weight:600;margin:0}
+.sprite{position:absolute;width:0;height:0;overflow:hidden}
+.ico{width:16px;height:16px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.app{display:grid;grid-template-columns:264px minmax(0,1fr);height:100vh;overflow:hidden}
+
+/* ---------- sidebar ---------- */
+.sidebar{display:flex;flex-direction:column;min-height:0;background:var(--panel);border-right:1px solid var(--border);font-size:13px}
+.sb-top{display:flex;align-items:center;gap:8px;padding:8px 10px}
+.icon-btn{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border:1px solid transparent;border-radius:9px;background:transparent;color:var(--muted);transition:background .16s ease,color .16s ease,border-color .16s ease}
+.icon-btn:hover{background:var(--surface);color:var(--fg)}
+.icon-btn:focus-visible{outline:2px solid var(--fg);outline-offset:1px}
+.sb-tabs{display:inline-flex;gap:2px;padding:2px;background:var(--panel-2);border:1px solid var(--border);border-radius:999px}
+.sb-tab{border:0;background:transparent;color:var(--muted);font-size:12px;letter-spacing:.02em;padding:0 12px;height:26px;border-radius:999px;transition:background .16s ease,color .16s ease}
+.sb-tab:hover{color:var(--fg)}
+.sb-tab.is-on{background:var(--surface);color:var(--fg);box-shadow:0 1px 2px oklch(0% 0 0 / .06)}
+.sb-tab:focus-visible{outline:2px solid var(--fg);outline-offset:1px}
+.sb-nav{display:flex;flex-direction:column;gap:1px;padding:4px 8px 8px}
+.sb-item{display:flex;align-items:center;gap:10px;width:100%;min-height:34px;padding:0 8px;border:0;border-radius:9px;background:transparent;font-size:13px;color:var(--fg);text-align:left;transition:background .16s ease}
+.sb-item .ico{color:var(--muted)}
+.sb-item:hover{background:var(--panel-2)}
+.sb-item.is-active{background:var(--surface)}
+.sb-item.is-active .ico{color:var(--fg)}
+.sb-item:focus-visible{outline:2px solid var(--fg);outline-offset:-2px}
+.sb-item kbd{margin-left:auto;font-family:var(--font-ui);font-size:11px;color:var(--muted);background:var(--panel-2);border:1px solid var(--border);border-radius:5px;padding:1px 5px}
+.sb-search{display:flex;align-items:center;gap:8px;margin:0 16px 10px;padding:0 10px;height:32px;background:var(--panel-2);border:1px solid var(--border);border-radius:9px;color:var(--muted)}
+.sb-search input{flex:1;min-width:0;border:0;background:transparent;outline:none;font:inherit;font-size:12.5px;color:var(--fg)}
+.sb-search input::placeholder{color:var(--muted)}
+.sb-search:focus-within{border-color:var(--fg)}
+.sb-scroll{flex:1;min-height:0;overflow-y:auto;padding:0 8px 8px}
+.sb-scroll::-webkit-scrollbar,.board-scroll::-webkit-scrollbar{width:9px}
+.sb-scroll::-webkit-scrollbar-thumb,.board-scroll::-webkit-scrollbar-thumb{background:oklch(84% 0.003 286);border:3px solid transparent;background-clip:padding-box;border-radius:99px}
+.sb-group{margin-bottom:12px}
+.sb-label{display:flex;align-items:center;gap:7px;padding:6px 8px 4px;font-size:11px;letter-spacing:.04em;color:var(--muted)}
+.sb-label .ico{width:13px;height:13px}
+.sb-hint{margin:6px 8px 0;font-size:10.5px;line-height:1.5;color:var(--muted)}
+.sb-list{list-style:none;margin:0;padding:0}
+.sb-row{display:flex;align-items:center;gap:8px;min-height:30px;padding:0 8px;border-radius:8px;color:var(--fg);transition:background .16s ease}
+.sb-row:hover{background:var(--panel-2)}
+.sb-row-title{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;font-size:12.5px}
+.sb-row-time{margin-left:auto;font-size:11px;color:var(--muted);flex:none}
+.sb-row .dot{width:5px;height:5px;border-radius:99px;background:var(--accent);flex:none}
+.sb-month{padding:6px 8px 2px;font-size:11.5px;color:var(--muted)}
+.sb-foot{display:flex;align-items:center;gap:2px;padding:8px 10px;border-top:1px solid var(--border)}
+
+/* ---------- main ---------- */
+.main{display:grid;grid-template-rows:auto minmax(0,1fr) auto auto;min-width:0;background:var(--bg)}
+.board-bar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 24px;background:var(--bg);border-bottom:1px solid var(--border);transition:box-shadow .2s ease}
+.board-bar.is-scrolled{box-shadow:0 6px 18px -14px oklch(0% 0 0 / .5)}
+.bar-left{display:flex;align-items:center;gap:12px;min-width:0}
+.bar-brand{display:inline-flex;align-items:center;gap:7px;font-size:12px;letter-spacing:.04em;color:var(--muted)}
+.bar-brand .ico{width:14px;height:14px}
+.seg{display:flex;align-items:center;gap:2px;padding:3px;background:var(--track);border:1px solid var(--border);border-radius:999px;flex-wrap:wrap}
+.seg-btn{display:inline-flex;align-items:center;gap:8px;height:34px;padding:0 16px;border:0;border-radius:999px;background:transparent;color:var(--muted);font-size:13px;letter-spacing:.02em;transition:background .18s ease,color .18s ease}
+.seg-btn:hover{color:var(--fg);background:oklch(100% 0 0 / .7)}
+.seg-btn[aria-selected="true"]{background:var(--accent);color:oklch(100% 0 0)}
+.seg-btn[aria-selected="true"]:hover{background:var(--accent-strong);color:oklch(100% 0 0)}
+.seg-btn:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.seg-div{width:1px;height:18px;margin:0 5px;background:var(--border)}
+.bar-right{display:flex;align-items:center;gap:10px}
+.chip{display:inline-flex;align-items:center;height:24px;padding:0 10px;border:1px solid var(--border);border-radius:999px;background:var(--surface);font-size:11.5px;letter-spacing:.02em;color:var(--muted)}
+.bar-meta{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.bar-meta b{font-weight:500;color:var(--fg);font-family:var(--font-mono);font-size:11.5px}
+#actionRefresh.is-busy .ico{animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.board-scroll{overflow-y:auto;min-height:0;padding:24px 24px 28px}
+.board{display:none;max-width:1240px;margin:0 auto}
+.board.is-active{display:block}
+.board-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:18px;flex-wrap:wrap}
+.kicker{font-family:var(--font-display);font-size:12px;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.board-title{font-size:24px;line-height:1.4;margin:2px 0 6px;letter-spacing:0}
+.board-desc{margin:0;max-width:62ch;font-size:13.5px;color:var(--muted)}
+.head-ctrl{display:flex;flex-direction:column;gap:5px;align-items:flex-start}
+.field-label{font-size:11.5px;letter-spacing:.02em;color:var(--muted)}
+.select-wrap{position:relative;display:inline-flex;align-items:center}
+.select-wrap select{appearance:none;-webkit-appearance:none;height:34px;padding:0 32px 0 12px;border:1px solid var(--border);border-radius:9px;background:var(--surface);color:var(--fg);font:inherit;font-size:12.5px}
+.select-wrap select:hover{border-color:var(--muted)}
+.select-wrap select:focus-visible{outline:2px solid var(--fg);outline-offset:1px}
+.chev{position:absolute;right:9px;width:14px;height:14px;color:var(--muted);pointer-events:none}
+.grid{display:grid;gap:14px;margin-bottom:14px}
+.kpi-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+.main-grid{grid-template-columns:minmax(0,1.6fr) minmax(0,1fr)}
+.config-grid{grid-template-columns:minmax(0,1.15fr) minmax(0,1fr)}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px 18px}
+.card-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:14px}
+.card-title{font-size:13.5px;letter-spacing:.01em}
+.card-meta{font-size:11.5px;color:var(--muted);font-variant-numeric:tabular-nums}
+.card-foot{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:14px;padding-top:12px;border-top:1px solid var(--border)}
+.kpi-label{font-size:12px;color:var(--muted);letter-spacing:.01em}
+.kpi-value{margin-top:6px;font-size:28px;line-height:1.15;font-weight:600;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+.kpi-unit{margin-left:5px;font-size:12.5px;font-weight:400;color:var(--muted);letter-spacing:0}
+.kpi-value.is-none{color:var(--muted)}
+.kpi-foot{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:11.5px;color:var(--muted)}
+.delta{font-variant-numeric:tabular-nums;font-weight:500}
+.delta.up{color:var(--success)}
+.delta.down{color:var(--danger)}
+.delta.flat{color:var(--muted)}
+
+.chart{display:block;width:100%;height:auto}
+.chart-grid{stroke:var(--border);stroke-width:1;stroke-dasharray:2 5}
+.chart-axis{fill:var(--muted);font-size:11px;font-family:var(--font-ui)}
+.chart-area{fill:var(--chart-soft)}
+.chart-line{fill:none;stroke:var(--chart);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.chart-dot{fill:var(--surface);stroke:var(--chart);stroke-width:2.2}
+.chart-bar{fill:var(--chart);opacity:.45}
+.chart-bar.is-peak{opacity:1}
+
+.hbars{display:flex;flex-direction:column;gap:12px}
+.hbar{display:grid;grid-template-columns:72px minmax(0,1fr) 50px;align-items:center;gap:10px}
+.hbar-key{font-size:12.5px;color:var(--fg)}
+.hbar-track{height:9px;border-radius:99px;background:var(--track);overflow:hidden}
+.hbar-track i{display:block;height:100%;border-radius:99px;background:var(--chart)}
+.hbar-track i.is-neutral{background:var(--muted-fill)}
+.hbar-track i.is-warn{background:var(--danger)}
+.hbar-val{font-size:12px;color:var(--muted);text-align:right;font-variant-numeric:tabular-nums}
+
+.list{display:flex;flex-direction:column}
+.list-row{display:flex;align-items:center;gap:14px;padding:11px 0;border-top:1px solid var(--border)}
+.list-row:first-child{border-top:0;padding-top:2px}
+.list-main{flex:1;min-width:0}
+.list-title{font-size:13px;line-height:1.5}
+.list-sub{margin-top:2px;font-size:11.5px;color:var(--muted)}
+.list-right{display:flex;align-items:center;gap:14px;flex:none}
+.tag{display:inline-flex;align-items:center;height:22px;padding:0 8px;border-radius:6px;font-size:11px;letter-spacing:.02em;border:1px solid var(--border);color:var(--muted);background:var(--surface)}
+.tag-neg{color:var(--danger);border-color:oklch(88% 0.05 27);background:var(--danger-soft)}
+.tag-pos{color:var(--success);border-color:oklch(89% 0.045 155);background:oklch(96% 0.022 155)}
+.heat{display:inline-flex;align-items:center;gap:7px}
+.heat-track{display:block;width:56px;height:6px;border-radius:99px;background:var(--track);overflow:hidden}
+.heat-track i{display:block;height:100%;background:var(--chart);border-radius:99px}
+.heat b{font-family:var(--font-mono);font-size:11.5px;font-weight:500;color:var(--muted);font-variant-numeric:tabular-nums}
+
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--border);white-space:normal}
+th{font-size:11.5px;font-weight:500;letter-spacing:.02em;color:var(--muted)}
+td.num,th.num{text-align:right;font-variant-numeric:tabular-nums;font-family:var(--font-mono);font-size:12px}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--panel-2)}
+
+.empty{display:flex;flex-direction:column;align-items:flex-start;gap:8px;padding:22px 18px;border:1px dashed var(--border);border-radius:12px;background:var(--panel-2);margin-bottom:14px}
+.empty .ico{width:20px;height:20px;color:var(--muted)}
+.empty-title{font-size:13px;font-weight:600}
+.empty-desc{margin:0;font-size:12.5px;color:var(--muted);max-width:46ch}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;height:38px;padding:0 18px;border-radius:10px;border:1px solid transparent;font-size:13px;letter-spacing:.02em;transition:background .16s ease,color .16s ease,border-color .16s ease,transform .12s ease}
+.btn:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.btn-primary{background:var(--accent);color:oklch(100% 0 0)}
+.btn-primary:hover{background:var(--accent-strong)}
+.btn-primary:active{transform:translateY(1px)}
+.btn-ghost{background:transparent;border-color:var(--border);color:var(--fg)}
+.btn-ghost:hover{background:var(--panel-2);border-color:var(--muted)}
+.btn-sm{height:32px;padding:0 13px;font-size:12.5px}
+
+.form-row{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:11px 0;border-top:1px solid var(--border)}
+.form-row:first-of-type{border-top:0}
+.form-row-main{min-width:0}
+.form-label{font-size:13px}
+.form-hint{margin-top:2px;font-size:11.5px;color:var(--muted)}
+.form-ctrl{flex:none;display:flex;align-items:center;gap:10px}
+.switch{position:relative;width:40px;height:23px;border-radius:99px;border:1px solid var(--border);background:var(--track);padding:0;transition:background .18s ease,border-color .18s ease;flex:none}
+.switch::after{content:"";position:absolute;top:2px;left:2px;width:17px;height:17px;border-radius:99px;background:var(--surface);box-shadow:0 1px 2px oklch(0% 0 0 / .22);transition:transform .18s ease}
+.switch[aria-checked="true"]{background:var(--fg);border-color:var(--fg)}
+.switch[aria-checked="true"]::after{transform:translateX(17px)}
+.switch:hover{border-color:var(--muted)}
+.switch:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.switch-state{font-size:12px;color:var(--muted);min-width:44px}
+.range{width:170px;accent-color:var(--fg)}
+.range:focus-visible{outline:2px solid var(--fg);outline-offset:3px;border-radius:99px}
+.range-val{font-family:var(--font-mono);font-size:12.5px;font-variant-numeric:tabular-nums;min-width:34px;text-align:right}
+.chips{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:10px}
+.chip-item{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 6px 0 11px;border:1px solid var(--border);border-radius:999px;background:var(--panel-2);font-size:12.5px}
+.chip-item button{display:inline-flex;align-items:center;justify-content:center;width:18px;height:18px;border:0;border-radius:99px;background:transparent;color:var(--muted);padding:0}
+.chip-item button:hover{background:var(--surface);color:var(--fg)}
+.chip-item button:focus-visible{outline:2px solid var(--fg);outline-offset:1px}
+.kw-input{display:flex;align-items:center;gap:8px}
+.kw-input input{flex:1;min-width:0;height:34px;padding:0 12px;border:1px solid var(--border);border-radius:9px;background:var(--surface);font:inherit;font-size:12.5px;color:var(--fg)}
+.kw-input input:focus-visible{outline:2px solid var(--fg);outline-offset:1px}
+.config-actions{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:12px 18px;border:1px solid var(--border);border-radius:var(--radius);background:var(--surface)}
+.action-note{font-size:11.5px;color:var(--muted)}
+.action-group{display:flex;gap:10px}
+
+.composer-row{padding:8px 24px 10px}
+.composer{display:flex;align-items:center;gap:8px;max-width:980px;margin:0 auto;padding:6px 8px;background:var(--surface);border:1px solid var(--border);border-radius:14px;box-shadow:0 12px 30px -26px oklch(0% 0 0 / .5)}
+.composer:focus-within{border-color:var(--muted)}
+.composer input{flex:1;min-width:0;border:0;background:transparent;outline:none;font:inherit;font-size:13.5px;color:var(--fg);height:34px}
+.composer input::placeholder{color:var(--muted)}
+.pill{display:inline-flex;align-items:center;gap:6px;height:30px;padding:0 10px;border:0;border-radius:999px;background:transparent;color:var(--muted);font-size:12px;letter-spacing:.01em;transition:background .16s ease,color .16s ease}
+.pill:hover{background:var(--panel-2);color:var(--fg)}
+.pill:focus-visible{outline:2px solid var(--fg);outline-offset:1px}
+.send{display:inline-flex;align-items:center;justify-content:center;width:32px;height:32px;border:0;border-radius:999px;background:var(--fg);color:oklch(100% 0 0);transition:background .16s ease}
+.send:hover{background:oklch(16% 0.008 264)}
+.send:focus-visible{outline:2px solid var(--fg);outline-offset:2px}
+.statusbar{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:2px 24px 10px;font-size:11.5px;color:var(--muted)}
+.status-left,.status-right{display:flex;align-items:center;gap:14px}
+.status-item{display:inline-flex;align-items:center;gap:6px}
+.status-item .ico{width:13px;height:13px}
+.dot-ok{width:6px;height:6px;border-radius:99px;background:var(--success)}
+.toast{position:fixed;left:50%;bottom:96px;transform:translate(-50%,12px);opacity:0;pointer-events:none;padding:10px 18px;border-radius:11px;background:var(--fg);color:oklch(100% 0 0);font-size:13px;box-shadow:0 18px 40px -20px oklch(0% 0 0 / .6);transition:opacity .2s ease,transform .2s ease;z-index:20}
+.toast.is-on{opacity:1;transform:translate(-50%,0)}
+[hidden]{display:none !important}
+@media (max-width:1180px){.main-grid,.config-grid{grid-template-columns:minmax(0,1fr)}}
+@media (max-width:900px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .sidebar{display:none}
+  .kpi-grid{grid-template-columns:minmax(0,1fr)}
+  .board-scroll,.board-bar,.composer-row,.statusbar{padding-left:16px;padding-right:16px}
+  .bar-right{width:100%}
+}
+</style>
+</head>
+<body>
+<svg class="sprite" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+  <symbol id="ico-plus" viewBox="0 0 24 24"><path d="M12 5.5v13M5.5 12h13"/></symbol>
+  <symbol id="ico-sliders" viewBox="0 0 24 24"><path d="M4 7.5h8M16.5 7.5h3.5M4 16.5h3.5M12 16.5h8"/><circle cx="14.2" cy="7.5" r="2.1"/><circle cx="9.7" cy="16.5" r="2.1"/></symbol>
+  <symbol id="ico-chat" viewBox="0 0 24 24"><path d="M4.5 5.5h15v10h-8.5l-4 3.5v-3.5H4.5z"/></symbol>
+  <symbol id="ico-box" viewBox="0 0 24 24"><path d="M12 3.6 20 7.6v8.8L12 20.4 4 16.4V7.6z"/><path d="M4 7.6l8 4 8-4M12 11.6v8.8"/></symbol>
+  <symbol id="ico-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M12 7.6V12.4l3.2 2"/></symbol>
+  <symbol id="ico-kanban" viewBox="0 0 24 24"><rect x="3.8" y="4.6" width="4.6" height="14.8" rx="1.4"/><rect x="9.7" y="4.6" width="4.6" height="9.4" rx="1.4"/><rect x="15.6" y="4.6" width="4.6" height="12.2" rx="1.4"/></symbol>
+  <symbol id="ico-search" viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.2"/><path d="M15.6 15.6 20 20"/></symbol>
+  <symbol id="ico-home" viewBox="0 0 24 24"><path d="M4.5 11 12 4.6l7.5 6.4v7.4a1.6 1.6 0 0 1-1.6 1.6H6.1a1.6 1.6 0 0 1-1.6-1.6z"/><path d="M9.8 20v-5.6h4.4V20"/></symbol>
+  <symbol id="ico-help" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8"/><path d="M9.8 9.7a2.3 2.3 0 1 1 3 2.2c-.6.2-.9.7-.9 1.3v.4"/><path d="M12 16.4v.2"/></symbol>
+  <symbol id="ico-dots" viewBox="0 0 24 24"><circle cx="6" cy="12" r="1.4"/><circle cx="12" cy="12" r="1.4"/><circle cx="18" cy="12" r="1.4"/></symbol>
+  <symbol id="ico-panel" viewBox="0 0 24 24"><rect x="3.8" y="4.6" width="16.4" height="14.8" rx="2.2"/><path d="M9.6 4.6v14.8"/></symbol>
+  <symbol id="ico-pin" viewBox="0 0 24 24"><path d="M7.4 4.6h9.2v14.8l-4.6-3.3-4.6 3.3z"/></symbol>
+  <symbol id="ico-refresh" viewBox="0 0 24 24"><path d="M19.4 12a7.4 7.4 0 1 1-2.2-5.3"/><path d="M19.6 4.7v4.6h-4.6"/></symbol>
+  <symbol id="ico-chev" viewBox="0 0 24 24"><path d="M7.5 10 12 14.5 16.5 10"/></symbol>
+  <symbol id="ico-x" viewBox="0 0 24 24"><path d="M7 7l10 10M17 7 7 17"/></symbol>
+  <symbol id="ico-unplug" viewBox="0 0 24 24"><path d="M9 3.4v4.2M15 3.4v4.2"/><path d="M6.4 7.6h11.2v3.2a5.6 5.6 0 0 1-5.6 5.6 5.6 5.6 0 0 1-5.6-5.6z"/><path d="M12 16.4v4.2"/></symbol>
+  <symbol id="ico-mic" viewBox="0 0 24 24"><rect x="9.4" y="3.6" width="5.2" height="9.6" rx="2.6"/><path d="M6.4 11.4a5.6 5.6 0 0 0 11.2 0M12 17v3.4"/></symbol>
+  <symbol id="ico-arrow-up" viewBox="0 0 24 24"><path d="M12 19V5.6M6 11.6 12 5.6l6 6"/></symbol>
+</svg>
+<div class="app">
+  <aside class="sidebar" data-od-id="app-sidebar">
+    <div class="sb-top">
+      <button class="icon-btn" aria-label="收起侧边栏" data-od-id="action-collapse-sidebar"><svg class="ico"><use href="#ico-panel"/></svg></button>
+      <div class="sb-tabs" role="tablist" aria-label="视图切换">
+        <button class="sb-tab is-on" role="tab" aria-selected="true" data-od-id="tab-chat">会话</button>
+        <button class="sb-tab" role="tab" aria-selected="false" data-od-id="tab-bot">机器人</button>
+      </div>
+      <button class="icon-btn" aria-label="更多设置" data-od-id="action-sidebar-more"><svg class="ico"><use href="#ico-dots"/></svg></button>
+    </div>
+    <nav class="sb-nav" aria-label="主导航">
+      <button class="sb-item" data-od-id="nav-new-session"><svg class="ico"><use href="#ico-plus"/></svg><span>新建会话</span><kbd>Ctrl N</kbd></button>
+      <button class="sb-item" data-od-id="nav-skills"><svg class="ico"><use href="#ico-sliders"/></svg><span>技能与工具</span></button>
+      <button class="sb-item" data-od-id="nav-messaging"><svg class="ico"><use href="#ico-chat"/></svg><span>消息平台</span></button>
+      <button class="sb-item" data-od-id="nav-artifacts"><svg class="ico"><use href="#ico-box"/></svg><span>产物</span></button>
+      <button class="sb-item" data-od-id="nav-scheduled"><svg class="ico"><use href="#ico-clock"/></svg><span>定时任务</span></button>
+      <button class="sb-item is-active" data-od-id="nav-kanban"><svg class="ico"><use href="#ico-kanban"/></svg><span>Kanban</span></button>
+    </nav>
+    <div class="sb-search"><svg class="ico"><use href="#ico-search"/></svg><input type="search" placeholder="搜索会话…" aria-label="搜索会话" data-od-id="input-search"></div>
+    <div class="sb-scroll">
+      <div class="sb-group">
+        <div class="sb-label"><svg class="ico"><use href="#ico-pin"/></svg>已置顶</div>
+        <ul class="sb-list" id="pinnedList"></ul>
+        <p class="sb-hint">Shift + 单击对话以置顶 · 拖动以重新排序</p>
+      </div>
+      <div class="sb-group">
+        <div class="sb-label"><svg class="ico"><use href="#ico-chat"/></svg>会话</div>
+        <div id="sessionList"></div>
+      </div>
+      <div class="sb-group">
+        <div class="sb-label"><svg class="ico"><use href="#ico-clock"/></svg>定时任务</div>
+        <ul class="sb-list">
+          <li class="sb-row"><span class="dot"></span><span class="sb-row-title">AI-Daily-Digest</span><span class="sb-row-time">9 小时后</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="sb-foot">
+      <button class="icon-btn" aria-label="主页"><svg class="ico"><use href="#ico-home"/></svg></button>
+      <button class="icon-btn" aria-label="新建会话"><svg class="ico"><use href="#ico-plus"/></svg></button>
+      <button class="icon-btn" aria-label="帮助"><svg class="ico"><use href="#ico-help"/></svg></button>
+      <button class="icon-btn" aria-label="更多"><svg class="ico"><use href="#ico-dots"/></svg></button>
+    </div>
+  </aside>
+
+  <div class="main">
+    <header class="board-bar" id="boardBar" data-od-id="board-bar">
+      <div class="bar-left">
+        <span class="bar-brand"><svg class="ico"><use href="#ico-kanban"/></svg>看板</span>
+        <div class="seg" role="tablist" aria-label="看板板块">
+          <button class="seg-btn" id="tab-sentiment" role="tab" aria-selected="true" aria-controls="board-sentiment" data-board="sentiment" data-od-id="tab-sentiment">舆情</button>
+          <button class="seg-btn" id="tab-market" role="tab" aria-selected="false" aria-controls="board-market" data-board="market" tabindex="-1" data-od-id="tab-market">市场</button>
+          <span class="seg-div" aria-hidden="true"></span>
+          <button class="seg-btn" id="tab-config" role="tab" aria-selected="false" aria-controls="board-config" data-board="config" tabindex="-1" data-od-id="tab-config">配置</button>
+          <button class="seg-btn" id="tab-reputation" role="tab" aria-selected="false" aria-controls="board-reputation" data-board="reputation" tabindex="-1" data-od-id="tab-reputation">口碑</button>
+        </div>
+      </div>
+      <div class="bar-right">
+        <span class="chip" title="本原型中的数值均为演示用示例数据">示例数据</span>
+        <span class="bar-meta">更新于 <b id="barTime">--:--</b></span>
+        <button class="icon-btn" id="actionRefresh" data-od-id="action-refresh" aria-label="刷新看板数据"><svg class="ico"><use href="#ico-refresh"/></svg></button>
+      </div>
+    </header>
+
+    <div class="board-scroll" id="boardScroll">
+      <section class="board is-active" id="board-sentiment" role="tabpanel" aria-labelledby="tab-sentiment" data-od-id="board-sentiment">
+        <div class="board-head">
+          <div>
+            <div class="kicker">Sentiment</div>
+            <h2 class="board-title" data-od-id="heading-sentiment">舆情监测</h2>
+            <p class="board-desc">汇总公开渠道的声量与情绪，标记需要介入的议题。</p>
+          </div>
+          <div class="head-ctrl">
+            <label class="field-label" for="sentimentRange">时间范围</label>
+            <div class="select-wrap">
+              <select id="sentimentRange" data-od-id="select-sentiment-range"><option>近 7 天</option><option>近 24 小时</option><option>近 30 天</option></select>
+              <svg class="ico chev"><use href="#ico-chev"/></svg>
+            </div>
+          </div>
+        </div>
+        <div class="grid kpi-grid">
+          <div class="card" data-od-id="kpi-sentiment-volume">
+            <div class="kpi-label">声量总计 · 近 7 天</div>
+            <div class="kpi-value">1,284<span class="kpi-unit">条</span></div>
+            <div class="kpi-foot"><span class="delta up">+8.4%</span><span>较上一周期</span></div>
+          </div>
+          <div class="card" data-od-id="kpi-sentiment-negative">
+            <div class="kpi-label">负面占比</div>
+            <div class="kpi-value">12.6<span class="kpi-unit">%</span></div>
+            <div class="kpi-foot"><span class="delta up">-1.8 pt</span><span>低于预警阈值 15%</span></div>
+          </div>
+          <div class="card" data-od-id="kpi-sentiment-channels">
+            <div class="kpi-label">覆盖渠道</div>
+            <div class="kpi-value">6<span class="kpi-unit">个</span></div>
+            <div class="kpi-foot" id="channelFoot"><span class="delta flat">数据源 3 / 4 已连接</span></div>
+          </div>
+        </div>
+        <div class="grid main-grid">
+          <div class="card" data-od-id="card-sentiment-trend">
+            <div class="card-head"><h3 class="card-title">声量趋势</h3><span class="card-meta" id="trendRangeMeta">近 14 天 · 单位：条</span></div>
+            <div id="chartSentimentTrend"></div>
+          </div>
+          <div class="card" data-od-id="card-sentiment-emotion">
+            <div class="card-head"><h3 class="card-title">情绪分布</h3><span class="card-meta">近 7 天</span></div>
+            <div class="hbars" id="emotionBars"></div>
+          </div>
+        </div>
+        <div class="grid main-grid">
+          <div class="card" data-od-id="card-sentiment-topics">
+            <div class="card-head"><h3 class="card-title">热点议题</h3><span class="card-meta">按热度排序</span></div>
+            <div class="list" id="topicList"></div>
+          </div>
+          <div class="card" data-od-id="card-sentiment-alerts">
+            <div class="card-head"><h3 class="card-title">预警规则</h3><span class="card-meta">3 条 · 2 条生效</span></div>
+            <div class="list" id="alertList"></div>
+            <div class="card-foot">
+              <span class="action-note">阈值与推送方式在「配置」中调整</span>
+              <button class="btn btn-ghost btn-sm" data-goto="config" data-od-id="cta-alerts-to-config">前往配置</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="board" id="board-market" role="tabpanel" aria-labelledby="tab-market" data-od-id="board-market">
+        <div class="board-head">
+          <div>
+            <div class="kicker">Market</div>
+            <h2 class="board-title" data-od-id="heading-market">市场洞察</h2>
+            <p class="board-desc">跟踪竞品动作、价格变化与关键词热度，定位值得跟进的信号。</p>
+          </div>
+        </div>
+        <div class="grid kpi-grid">
+          <div class="card" data-od-id="kpi-market-moves">
+            <div class="kpi-label">竞品动态 · 近 7 天</div>
+            <div class="kpi-value">23<span class="kpi-unit">条</span></div>
+            <div class="kpi-foot"><span class="delta up">+5 条</span><span>较上一周期</span></div>
+          </div>
+          <div class="card" data-od-id="kpi-market-price">
+            <div class="kpi-label">价格异动</div>
+            <div class="kpi-value">3<span class="kpi-unit">项</span></div>
+            <div class="kpi-foot"><span class="delta down">1 项降幅超 1 万</span></div>
+          </div>
+          <div class="card" data-od-id="kpi-market-heat">
+            <div class="kpi-label">关键词平均热度</div>
+            <div class="kpi-value">74<span class="kpi-unit">/ 100</span></div>
+            <div class="kpi-foot"><span class="delta up">+6</span><span>「冬季续航」升幅最大</span></div>
+          </div>
+        </div>
+        <div class="grid main-grid">
+          <div class="card" data-od-id="card-market-keywords">
+            <div class="card-head"><h3 class="card-title">关键词热度</h3><span class="card-meta" id="keywordRangeMeta">近 12 周 · 单位：指数</span></div>
+            <div id="chartKeywordHeat"></div>
+          </div>
+          <div class="card" data-od-id="card-market-prices">
+            <div class="card-head"><h3 class="card-title">价格监测</h3><span class="card-meta">指导价 · 含补贴</span></div>
+            <table>
+              <thead><tr><th>车型 / 版本</th><th class="num">当前价</th><th class="num">环比</th></tr></thead>
+              <tbody id="priceBody"></tbody>
+            </table>
+          </div>
+        </div>
+        <div class="grid main-grid">
+          <div class="card" data-od-id="card-market-competitors">
+            <div class="card-head"><h3 class="card-title">竞品动态</h3><span class="card-meta">最近 3 条</span></div>
+            <div class="list" id="competitorList"></div>
+          </div>
+          <div class="card" data-od-id="card-market-signals">
+            <div class="card-head"><h3 class="card-title">渠道声量占比</h3><span class="card-meta">近 7 天</span></div>
+            <div class="hbars" id="channelBars"></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="board" id="board-config" role="tabpanel" aria-labelledby="tab-config" data-od-id="board-config">
+        <div class="board-head">
+          <div>
+            <div class="kicker">Settings</div>
+            <h2 class="board-title" data-od-id="heading-config">看板配置</h2>
+            <p class="board-desc">数据源、监测关键词与刷新策略。这里的改动会直接影响其余三个看板。</p>
+          </div>
+        </div>
+        <div class="grid config-grid">
+          <div class="card" data-od-id="card-config-sources">
+            <div class="card-head"><h3 class="card-title">数据源连接</h3><span class="card-meta" id="sourceCountMeta">3 / 4 已连接</span></div>
+            <div id="sourceRows"></div>
+          </div>
+          <div class="card" data-od-id="card-config-keywords">
+            <div class="card-head"><h3 class="card-title">监测关键词</h3><span class="card-meta">回车或逗号添加</span></div>
+            <div class="chips" id="keywordChips"></div>
+            <div class="kw-input">
+              <input id="keywordInput" type="text" placeholder="添加关键词，如「冬季续航」" aria-label="添加监测关键词" data-od-id="input-keyword">
+              <button class="btn btn-ghost btn-sm" id="actionAddKeyword" data-od-id="action-add-keyword">添加</button>
+            </div>
+            <div class="form-row" style="margin-top:14px">
+              <div class="form-row-main">
+                <div class="form-label">仅推送负面预警</div>
+                <div class="form-hint">关闭后推送全部命中规则的议题</div>
+              </div>
+              <div class="form-ctrl">
+                <span class="switch-state" id="pushNegState">已开启</span>
+                <button class="switch" id="switchPushNeg" role="switch" aria-checked="true" aria-label="仅推送负面预警" data-od-id="switch-push-negative"></button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="grid config-grid">
+          <div class="card" data-od-id="card-config-refresh">
+            <div class="card-head"><h3 class="card-title">刷新与预警</h3></div>
+            <div class="form-row">
+              <div class="form-row-main">
+                <div class="form-label">刷新频率</div>
+                <div class="form-hint">看板数据的自动拉取间隔</div>
+              </div>
+              <div class="form-ctrl">
+                <div class="select-wrap">
+                  <select id="selectRefresh" data-od-id="select-refresh"><option>每 15 分钟</option><option selected>每 1 小时</option><option>每 6 小时</option><option>每天 08:00</option></select>
+                  <svg class="ico chev"><use href="#ico-chev"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-row-main">
+                <div class="form-label">负面预警阈值</div>
+                <div class="form-hint">负面占比超过该值时触发预警</div>
+              </div>
+              <div class="form-ctrl">
+                <input class="range" id="rangeThreshold" type="range" min="5" max="50" step="1" value="15" aria-label="负面预警阈值" data-od-id="range-threshold">
+                <span class="range-val" id="rangeThresholdVal">15%</span>
+              </div>
+            </div>
+          </div>
+          <div class="card" data-od-id="card-config-agent">
+            <div class="card-head"><h3 class="card-title">Agent 行为</h3></div>
+            <div class="form-row">
+              <div class="form-row-main">
+                <div class="form-label">看板问答模型</div>
+                <div class="form-hint">用于解释指标与生成摘要</div>
+              </div>
+              <div class="form-ctrl">
+                <div class="select-wrap">
+                  <select id="selectModel" data-od-id="select-model"><option>Deepseek V4 Pro</option><option>Deepseek V4</option><option>本地模型</option></select>
+                  <svg class="ico chev"><use href="#ico-chev"/></svg>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-row-main">
+                <div class="form-label">摘要语气</div>
+                <div class="form-hint">影响自动生成的日报文本</div>
+              </div>
+              <div class="form-ctrl">
+                <div class="select-wrap">
+                  <select id="selectTone" data-od-id="select-tone"><option>简洁</option><option selected>详细</option><option>专家</option></select>
+                  <svg class="ico chev"><use href="#ico-chev"/></svg>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="config-actions">
+          <span class="action-note">未保存的修改不会应用到看板</span>
+          <div class="action-group">
+            <button class="btn btn-ghost" id="actionReset" data-od-id="cta-reset-config">恢复默认</button>
+            <button class="btn btn-primary" id="actionSave" data-od-id="cta-save-config">保存配置</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="board" id="board-reputation" role="tabpanel" aria-labelledby="tab-reputation" data-od-id="board-reputation">
+        <div class="board-head">
+          <div>
+            <div class="kicker">Reputation</div>
+            <h2 class="board-title" data-od-id="heading-reputation">用户口碑</h2>
+            <p class="board-desc">用户侧的评价与推荐意愿。与「舆情」不同，这里只看已有用户的真实反馈。</p>
+          </div>
+        </div>
+        <div class="grid kpi-grid">
+          <div class="card" data-od-id="kpi-reputation-score">
+            <div class="kpi-label">平均评分</div>
+            <div class="kpi-value" data-store-value>4.6<span class="kpi-unit">/ 5</span></div>
+            <div class="kpi-foot" data-store-foot><span class="delta up">+0.1</span><span>较上一周期</span></div>
+          </div>
+          <div class="card" data-od-id="kpi-reputation-count">
+            <div class="kpi-label">评价总数</div>
+            <div class="kpi-value" data-store-value>862<span class="kpi-unit">条</span></div>
+            <div class="kpi-foot" data-store-foot><span class="delta up">+64 条</span><span>近 30 天新增</span></div>
+          </div>
+          <div class="card" data-od-id="kpi-reputation-nps">
+            <div class="kpi-label">推荐意愿</div>
+            <div class="kpi-value" data-store-value>68<span class="kpi-unit">%</span></div>
+            <div class="kpi-foot" data-store-foot><span class="delta flat">持平</span><span>基于回访样本</span></div>
+          </div>
+        </div>
+        <div class="empty" id="reputationEmpty" hidden data-od-id="empty-reputation">
+          <svg class="ico"><use href="#ico-unplug"/></svg>
+          <div class="empty-title">应用商店数据源未连接</div>
+          <p class="empty-desc">连接后即可在「口碑」看板查看评分分布与最新评价。</p>
+          <button class="btn btn-ghost btn-sm" data-goto="config" data-od-id="cta-reputation-to-config">前往配置</button>
+        </div>
+        <div class="grid main-grid" id="reputationMain">
+          <div class="card" data-od-id="card-reputation-stars">
+            <div class="card-head"><h3 class="card-title">评分分布</h3><span class="card-meta">共 862 条</span></div>
+            <div class="hbars" id="starBars"></div>
+          </div>
+          <div class="card" data-od-id="card-reputation-trend">
+            <div class="card-head"><h3 class="card-title">口碑趋势</h3><span class="card-meta">近 12 周 · 平均评分</span></div>
+            <div id="chartReputationTrend"></div>
+          </div>
+        </div>
+        <div class="grid main-grid" id="reputationReviews">
+          <div class="card" data-od-id="card-reputation-reviews">
+            <div class="card-head"><h3 class="card-title">最新评价</h3><span class="card-meta">按时间排序</span></div>
+            <div class="list" id="reviewList"></div>
+          </div>
+          <div class="card" data-od-id="card-reputation-themes">
+            <div class="card-head"><h3 class="card-title">高频主题</h3><span class="card-meta">近 30 天</span></div>
+            <div class="hbars" id="themeBars"></div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <div class="composer-row">
+      <form class="composer" id="composerForm">
+        <button type="button" class="icon-btn" aria-label="添加附件" data-od-id="action-attach"><svg class="ico"><use href="#ico-plus"/></svg></button>
+        <input id="composerInput" type="text" placeholder="基于「舆情」提问，或直接输入指令…" aria-label="提问或指令" data-od-id="input-composer">
+        <button type="button" class="pill" data-od-id="pill-model">Deepseek V4 Pro <svg class="ico" style="width:13px;height:13px"><use href="#ico-chev"/></svg></button>
+        <button type="button" class="pill" data-od-id="pill-reasoning">High <svg class="ico" style="width:13px;height:13px"><use href="#ico-chev"/></svg></button>
+        <button type="button" class="icon-btn" aria-label="语音输入" data-od-id="action-voice"><svg class="ico"><use href="#ico-mic"/></svg></button>
+        <button type="submit" class="send" aria-label="发送" data-od-id="action-send"><svg class="ico"><use href="#ico-arrow-up"/></svg></button>
+      </form>
+    </div>
+
+    <div class="statusbar" data-od-id="app-statusbar">
+      <div class="status-left">
+        <span class="status-item"><span class="dot-ok"></span>网关 就绪</span>
+        <span class="status-item">本地模型已加载</span>
+      </div>
+      <div class="status-right">
+        <span class="status-item">GPU 1% · 6G / 12G</span>
+        <span class="status-item">智能</span>
+        <span class="status-item">v0.17.6</span>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(function(){
+  "use strict";
+  var NS = "http://www.w3.org/2000/svg";
+  var $ = function(id){ return document.getElementById(id); };
+  function mk(tag, attrs, parent){
+    var n = document.createElementNS(NS, tag);
+    for (var k in attrs) { n.setAttribute(k, attrs[k]); }
+    if (parent) parent.appendChild(n);
+    return n;
+  }
+  var LABEL = { sentiment: "舆情", market: "市场", config: "配置", reputation: "口碑" };
+  var BOARDS = ["sentiment","market","config","reputation"];
+  var state = {
+    board: localStorage.getItem("hermes.board") || "sentiment",
+    sources: { weibo: true, news: true, store: true, ecom: false },
+    threshold: 15,
+    pushNegative: true,
+    keywords: null
+  };
+  try {
+    var rawSources = JSON.parse(localStorage.getItem("hermes.sources") || "null");
+    if (rawSources && typeof rawSources === "object") state.sources = rawSources;
+    var rawKeywords = JSON.parse(localStorage.getItem("hermes.keywords") || "null");
+    if (Array.isArray(rawKeywords) && rawKeywords.length) state.keywords = rawKeywords;
+  } catch (e) {}
+  if (!state.keywords) state.keywords = ["风云 T7", "冬季续航", "城市 NOA", "增程", "充电桩", "智驾"];
+  var savedThreshold = Number(localStorage.getItem("hermes.threshold"));
+  if (savedThreshold >= 5 && savedThreshold <= 50) state.threshold = savedThreshold;
+  var prefs = { refresh: null, model: null, tone: null };
+  try {
+    var storedPrefs = JSON.parse(localStorage.getItem("hermes.prefs") || "null");
+    if (storedPrefs && typeof storedPrefs === "object") prefs = storedPrefs;
+  } catch (e) {}
+
+  /* ---------- 日期 ---------- */
+  function daysAgo(n){
+    var d = new Date(); d.setHours(0,0,0,0); d.setDate(d.getDate() - n); return d;
+  }
+  function md(d){ return (d.getMonth() + 1) + "/" + d.getDate(); }
+  function seriesDates(n, stepDays){
+    var out = [];
+    for (var i = n - 1; i >= 0; i--) out.push(daysAgo(i * stepDays));
+    return out;
+  }
+  function clock(d){
+    return String(d.getHours()).padStart(2, "0") + ":" + String(d.getMinutes()).padStart(2, "0");
+  }
+
+  /* ---------- 图表 ---------- */
+  function areaChart(hostId, data, dates){
+    var host = $(hostId); if (!host) return;
+    host.innerHTML = "";
+    var W = 720, H = 190, P = { t: 14, r: 14, b: 26, l: 34 };
+    var iw = W - P.l - P.r, ih = H - P.t - P.b;
+    var max = Math.max.apply(null, data) * 1.12;
+    var x = function(i){ return P.l + i * iw / (data.length - 1); };
+    var y = function(v){ return P.t + ih - (v / max) * ih; };
+    var svg = mk("svg", { viewBox: "0 0 " + W + " " + H, "class": "chart", role: "img" });
+    [0, 0.5, 1].forEach(function(t){
+      mk("line", { x1: P.l, x2: W - P.r, y1: P.t + ih * t, y2: P.t + ih * t, "class": "chart-grid" }, svg);
+    });
+    var pts = data.map(function(v, i){ return [x(i), y(v)]; });
+    var line = pts.map(function(p, i){ return (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); }).join(" ");
+    mk("path", { d: line + " L " + x(data.length - 1) + " " + (P.t + ih) + " L " + x(0) + " " + (P.t + ih) + " Z", "class": "chart-area" }, svg);
+    mk("path", { d: line, "class": "chart-line" }, svg);
+    var last = pts[pts.length - 1];
+    mk("circle", { cx: last[0], cy: last[1], r: 3.4, "class": "chart-dot" }, svg);
+    var step = Math.ceil(data.length / 5);
+    dates.forEach(function(d, i){
+      if (i % step !== 0 && i !== data.length - 1) return;
+      var anchor = i === 0 ? "start" : (i === data.length - 1 ? "end" : "middle");
+      var t = mk("text", { x: x(i), y: H - 6, "class": "chart-axis", "text-anchor": anchor }, svg);
+      t.textContent = md(d);
+    });
+    host.appendChild(svg);
+  }
+
+  function barChart(hostId, data, dates){
+    var host = $(hostId); if (!host) return;
+    host.innerHTML = "";
+    var W = 720, H = 190, P = { t: 14, r: 14, b: 26, l: 30 };
+    var iw = W - P.l - P.r, ih = H - P.t - P.b;
+    var max = Math.max.apply(null, data) * 1.1;
+    var slot = iw / data.length, bw = slot * 0.58;
+    var peak = data.indexOf(Math.max.apply(null, data));
+    var svg = mk("svg", { viewBox: "0 0 " + W + " " + H, "class": "chart", role: "img" });
+    [0, 0.5, 1].forEach(function(t){
+      mk("line", { x1: P.l, x2: W - P.r, y1: P.t + ih * t, y2: P.t + ih * t, "class": "chart-grid" }, svg);
+    });
+    data.forEach(function(v, i){
+      var h = (v / max) * ih;
+      mk("rect", {
+        x: (P.l + i * slot + (slot - bw) / 2).toFixed(1),
+        y: (P.t + ih - h).toFixed(1),
+        width: bw.toFixed(1),
+        height: h.toFixed(1),
+        rx: 3,
+        "class": "chart-bar" + (i === peak ? " is-peak" : "")
+      }, svg);
+    });
+    var step = Math.ceil(data.length / 5);
+    dates.forEach(function(d, i){
+      if (i % step !== 0 && i !== data.length - 1) return;
+      var t = mk("text", { x: P.l + i * slot + slot / 2, y: H - 6, "class": "chart-axis", "text-anchor": "middle" }, svg);
+      t.textContent = md(d);
+    });
+    host.appendChild(svg);
+  }
+
+  function hbars(hostId, rows){
+    var host = $(hostId); if (!host) return;
+    host.innerHTML = "";
+    rows.forEach(function(r){
+      var row = document.createElement("div"); row.className = "hbar";
+      var key = document.createElement("span"); key.className = "hbar-key"; key.textContent = r[0];
+      var track = document.createElement("span"); track.className = "hbar-track";
+      var fill = document.createElement("i");
+      fill.style.width = Math.max(2, Math.min(100, r[1])) + "%";
+      if (r[3]) fill.className = r[3];
+      track.appendChild(fill);
+      var val = document.createElement("span"); val.className = "hbar-val"; val.textContent = r[2];
+      row.appendChild(key); row.appendChild(track); row.appendChild(val);
+      host.appendChild(row);
+    });
+  }
+
+  /* ---------- 侧边栏 ---------- */
+  var PINNED = ["数智化产品经理岗位解读与能…"];
+  var SESSIONS = [
+    { m: "八月", items: [["数智化产品经理岗位解读与…", "6 天"], ["汽车舆情看板逻辑与内容建…", "6 天"], ["Analyze three AI projects fo…", "11 天"]] },
+    { m: "七月", items: [["为风云 T7 KC 视频制作文案", "33 天"], ["查看之前关于学习 CS336 …", "48 天"], ["SKILL 调整", "58 天"]] },
+    { m: "六月", items: [["Forward-looking Career Roadmap", "79 天"], ["AI 编程工具 Harness 框架解析", "92 天"], ["CS336 学习资料整理", "93 天"], ["今天有什么 AI 动态", "121 天"]] }
+  ];
+  function buildSidebar(){
+    var pin = $("pinnedList");
+    PINNED.forEach(function(title){
+      var li = document.createElement("li"); li.className = "sb-row";
+      var dot = document.createElement("span"); dot.className = "dot";
+      var span = document.createElement("span"); span.className = "sb-row-title"; span.textContent = title;
+      li.appendChild(dot); li.appendChild(span);
+      pin.appendChild(li);
+    });
+    var host = $("sessionList");
+    SESSIONS.forEach(function(group){
+      var head = document.createElement("div"); head.className = "sb-month"; head.textContent = group.m;
+      host.appendChild(head);
+      var ul = document.createElement("ul"); ul.className = "sb-list";
+      group.items.forEach(function(item){
+        var li = document.createElement("li"); li.className = "sb-row";
+        var a = document.createElement("span"); a.className = "sb-row-title"; a.textContent = item[0];
+        var b = document.createElement("span"); b.className = "sb-row-time"; b.textContent = item[1];
+        li.appendChild(a); li.appendChild(b); ul.appendChild(li);
+      });
+      host.appendChild(ul);
+    });
+  }
+
+  /* ---------- 看板内容 ---------- */
+  var TOPICS = [
+    ["风云 T7 冬季续航实测争议", "社交平台 · 2 小时前", "负面", "tag-neg", 86],
+    ["竞品发布新一代智驾方案", "科技媒体 · 5 小时前", "中性", "", 72],
+    ["车主社群讨论充电桩兼容性", "车主论坛 · 8 小时前", "中性", "", 61],
+    ["冬季服务月活动获车主好评", "新闻媒体 · 昨天", "正面", "tag-pos", 48]
+  ];
+  var ALERTS = [
+    ["负面占比超过阈值", "当前 12.6% / 阈值 15%", true],
+    ["1 小时内负面声量激增 50%", "近 7 天触发 2 次", true],
+    ["头部账号发布负面内容", "已停用", false]
+  ];
+  var COMPETITORS = [
+    ["竞品 A 发布新款中型 SUV，主打增程", "科技媒体 · 3 小时前"],
+    ["竞品 B 官降 1.2 万，覆盖主销配置", "官方公告 · 昨天"],
+    ["竞品 C 上线城市 NOA 公测", "社交平台 · 2 天前"]
+  ];
+  var PRICES = [
+    ["风云 T7 · 舒适版", "15.98 万", "持平", "flat"],
+    ["风云 T7 · 智驾版", "17.58 万", "-0.30 万", "up"],
+    ["竞品 A · 增程版", "16.80 万", "+0.20 万", "down"],
+    ["竞品 B · 主销版", "14.30 万", "-1.20 万", "up"]
+  ];
+  var REVIEWS = [
+    ["应用商店", "5 星", "提车三个月，高速智驾很稳，冬天续航打折明显。", "2 小时前"],
+    ["车主论坛", "4 星", "空间和座椅舒适度不错，车机偶尔需要重启。", "6 小时前"],
+    ["客服回访", "5 星", "预约保养流程顺畅，到店不用等。", "昨天"]
+  ];
+  var SOURCES = [
+    ["weibo", "微博舆情", "话题与关键词声量"],
+    ["news", "新闻聚合", "媒体报道与转载"],
+    ["store", "应用商店", "评分与用户评价"],
+    ["ecom", "电商平台", "订单评价与问答"]
+  ];
+
+  function buildBoardContent(){
+    var dates14 = seriesDates(14, 1), dates12 = seriesDates(12, 7);
+    areaChart("chartSentimentTrend", [92,104,88,120,132,118,141,150,138,162,171,158,176,188], dates14);
+    barChart("chartKeywordHeat", [42,55,48,61,73,68,82,76,88,95,86,102], dates12);
+    areaChart("chartReputationTrend", [4.30,4.35,4.40,4.38,4.45,4.50,4.48,4.55,4.58,4.60,4.62,4.60], dates12);
+    $("trendRangeMeta").textContent = "近 14 天 · " + md(dates14[0]) + " – " + md(dates14[13]);
+    $("keywordRangeMeta").textContent = "近 12 周 · " + md(dates12[0]) + " – " + md(dates12[11]);
+
+    hbars("emotionBars", [["正面", 41, "41%"], ["中性", 46, "46%", "is-neutral"], ["负面", 13, "13%", "is-warn"]]);
+    hbars("channelBars", [["社交平台", 38, "38%"], ["新闻媒体", 24, "24%", "is-neutral"], ["车主论坛", 21, "21%", "is-neutral"], ["应用商店", 17, "17%", "is-neutral"]]);
+    hbars("starBars", [["5 星", 59, "512"], ["4 星", 25, "214"], ["3 星", 10, "86", "is-neutral"], ["2 星", 4, "32", "is-neutral"], ["1 星", 2, "18", "is-warn"]]);
+    hbars("themeBars", [["智驾体验", 34, "34%"], ["冬季续航", 27, "27%", "is-neutral"], ["售后服务", 22, "22%", "is-neutral"], ["车机流畅度", 17, "17%", "is-neutral"]]);
+
+    var topicList = $("topicList");
+    TOPICS.forEach(function(t, i){
+      var row = document.createElement("div"); row.className = "list-row";
+      row.setAttribute("data-od-id", "topic-row-" + (i + 1));
+      row.innerHTML = '<div class="list-main"><div class="list-title"></div><div class="list-sub"></div></div>' +
+        '<div class="list-right"><span class="tag ' + t[3] + '">' + t[2] + '</span>' +
+        '<span class="heat"><span class="heat-track"><i style="width:' + t[4] + '%"></i></span><b>' + t[4] + '</b></span></div>';
+      row.querySelector(".list-title").textContent = t[0];
+      row.querySelector(".list-sub").textContent = t[1];
+      topicList.appendChild(row);
+    });
+
+    var alertList = $("alertList");
+    ALERTS.forEach(function(a, i){
+      var row = document.createElement("div"); row.className = "list-row";
+      row.setAttribute("data-od-id", "alert-row-" + (i + 1));
+      row.innerHTML = '<div class="list-main"><div class="list-title"></div><div class="list-sub"></div></div>' +
+        '<div class="list-right"><span class="tag ' + (a[2] ? "tag-pos" : "") + '">' + (a[2] ? "已启用" : "已停用") + '</span></div>';
+      row.querySelector(".list-title").textContent = a[0];
+      row.querySelector(".list-sub").textContent = a[1];
+      alertList.appendChild(row);
+    });
+
+    var competitorList = $("competitorList");
+    COMPETITORS.forEach(function(c, i){
+      var row = document.createElement("div"); row.className = "list-row";
+      row.setAttribute("data-od-id", "competitor-row-" + (i + 1));
+      row.innerHTML = '<div class="list-main"><div class="list-title"></div><div class="list-sub"></div></div>';
+      row.querySelector(".list-title").textContent = c[0];
+      row.querySelector(".list-sub").textContent = c[1];
+      competitorList.appendChild(row);
+    });
+
+    var priceBody = $("priceBody");
+    PRICES.forEach(function(p, i){
+      var tr = document.createElement("tr");
+      tr.setAttribute("data-od-id", "price-row-" + (i + 1));
+      tr.innerHTML = '<td></td><td class="num"></td><td class="num"><span class="delta ' + p[3] + '"></span></td>';
+      tr.children[0].textContent = p[0];
+      tr.children[1].textContent = p[1];
+      tr.querySelector(".delta").textContent = p[2];
+      priceBody.appendChild(tr);
+    });
+
+    var reviewList = $("reviewList");
+    REVIEWS.forEach(function(r, i){
+      var row = document.createElement("div"); row.className = "list-row";
+      row.setAttribute("data-od-id", "review-row-" + (i + 1));
+      row.innerHTML = '<div class="list-main"><div class="list-title"></div><div class="list-sub"></div></div>' +
+        '<div class="list-right"><span class="tag"></span></div>';
+      row.querySelector(".list-title").textContent = r[2];
+      row.querySelector(".list-sub").textContent = r[0] + " · " + r[3];
+      row.querySelector(".tag").textContent = r[1];
+      reviewList.appendChild(row);
+    });
+
+    renderSources();
+    renderKeywords();
+  }
+
+  /* ---------- 配置 ---------- */
+  function renderSources(){
+    var host = $("sourceRows");
+    host.innerHTML = "";
+    SOURCES.forEach(function(src){
+      var on = !!state.sources[src[0]];
+      var row = document.createElement("div"); row.className = "form-row";
+      row.setAttribute("data-od-id", "source-" + src[0]);
+      row.innerHTML =
+        '<div class="form-row-main"><div class="form-label"></div><div class="form-hint"></div></div>' +
+        '<div class="form-ctrl"><span class="switch-state"></span>' +
+        '<button class="switch" role="switch" aria-checked="' + on + '" aria-label="' + src[1] + ' 数据源"></button></div>';
+      row.querySelector(".form-label").textContent = src[1];
+      row.querySelector(".form-hint").textContent = src[2];
+      row.querySelector(".switch-state").textContent = on ? "已连接" : "未连接";
+      row.querySelector(".switch").addEventListener("click", function(){
+        state.sources[src[0]] = !state.sources[src[0]];
+        localStorage.setItem("hermes.sources", JSON.stringify(state.sources));
+        renderSources();
+        applySourceDependencies();
+      });
+      host.appendChild(row);
+    });
+    var online = Object.keys(state.sources).filter(function(k){ return state.sources[k]; }).length;
+    $("sourceCountMeta").textContent = online + " / 4 已连接";
+  }
+
+  function renderKeywords(){
+    var host = $("keywordChips");
+    host.innerHTML = "";
+    state.keywords.forEach(function(kw, i){
+      var chip = document.createElement("span"); chip.className = "chip-item";
+      chip.setAttribute("data-od-id", "keyword-chip-" + (i + 1));
+      var text = document.createElement("span"); text.textContent = kw;
+      var btn = document.createElement("button"); btn.type = "button";
+      btn.setAttribute("aria-label", "移除关键词 " + kw);
+      btn.innerHTML = '<svg class="ico" style="width:12px;height:12px"><use href="#ico-x"/></svg>';
+      btn.addEventListener("click", function(){
+        state.keywords.splice(i, 1);
+        localStorage.setItem("hermes.keywords", JSON.stringify(state.keywords));
+        renderKeywords();
+      });
+      chip.appendChild(text); chip.appendChild(btn); host.appendChild(chip);
+    });
+  }
+
+  function addKeyword(value){
+    var val = String(value || "").trim().replace(/[,，]$/, "");
+    if (!val || state.keywords.indexOf(val) > -1) return false;
+    state.keywords.push(val);
+    localStorage.setItem("hermes.keywords", JSON.stringify(state.keywords));
+    renderKeywords();
+    return true;
+  }
+
+  function applySourceDependencies(){
+    var connected = Object.keys(state.sources).filter(function(k){ return state.sources[k]; }).length;
+    $("channelFoot").innerHTML = '<span class="delta flat">数据源 ' + connected + ' / 4 已连接</span>';
+    var online = !!state.sources.store;
+    $("reputationEmpty").hidden = online;
+    $("reputationMain").hidden = !online;
+    $("reputationReviews").hidden = !online;
+    document.querySelectorAll("#board-reputation [data-store-value]").forEach(function(node){
+      if (!node.dataset.full) node.dataset.full = node.innerHTML;
+      node.innerHTML = online ? node.dataset.full : "&mdash;";
+      node.classList.toggle("is-none", !online);
+    });
+    document.querySelectorAll("#board-reputation [data-store-foot]").forEach(function(node){
+      if (!node.dataset.full) node.dataset.full = node.innerHTML;
+      node.innerHTML = online ? node.dataset.full : '<span class="delta flat">数据源未连接</span>';
+    });
+  }
+
+  /* ---------- 看板栏切换 ---------- */
+  var tabs = Array.prototype.slice.call(document.querySelectorAll(".seg-btn"));
+
+  function setBoard(id, focusTab){
+    if (BOARDS.indexOf(id) < 0) id = "sentiment";
+    state.board = id;
+    localStorage.setItem("hermes.board", id);
+    tabs.forEach(function(tab){
+      var on = tab.dataset.board === id;
+      tab.setAttribute("aria-selected", on ? "true" : "false");
+      tab.tabIndex = on ? 0 : -1;
+      if (on && focusTab) tab.focus();
+    });
+    document.querySelectorAll(".board").forEach(function(panel){
+      panel.classList.toggle("is-active", panel.id === "board-" + id);
+    });
+    $("boardScroll").scrollTop = 0;
+    $("composerInput").placeholder = "基于「" + LABEL[id] + "」提问，或直接输入指令…";
+  }
+
+  tabs.forEach(function(tab, index){
+    tab.addEventListener("click", function(){ setBoard(tab.dataset.board, false); });
+    tab.addEventListener("keydown", function(event){
+      var dir = event.key === "ArrowRight" ? 1 : (event.key === "ArrowLeft" ? -1 : 0);
+      if (!dir) return;
+      event.preventDefault();
+      var next = (index + dir + tabs.length) % tabs.length;
+      setBoard(tabs[next].dataset.board, true);
+    });
+  });
+
+  /* ---------- 反馈 ---------- */
+  var toastTimer;
+  function toast(message){
+    var node = $("toast");
+    node.textContent = message;
+    node.classList.add("is-on");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function(){ node.classList.remove("is-on"); }, 2200);
+  }
+  function stampTime(){ $("barTime").textContent = clock(new Date()); }
+
+  $("actionRefresh").addEventListener("click", function(){
+    var btn = this;
+    btn.classList.add("is-busy");
+    setTimeout(function(){
+      btn.classList.remove("is-busy");
+      stampTime();
+      toast("已刷新「" + LABEL[state.board] + "」看板数据");
+    }, 620);
+  });
+
+  $("boardScroll").addEventListener("scroll", function(){
+    $("boardBar").classList.toggle("is-scrolled", $("boardScroll").scrollTop > 4);
+  });
+
+  document.querySelectorAll("[data-goto]").forEach(function(btn){
+    btn.addEventListener("click", function(){ setBoard(btn.dataset.goto, false); });
+  });
+
+  $("switchPushNeg").addEventListener("click", function(){
+    state.pushNegative = !state.pushNegative;
+    this.setAttribute("aria-checked", String(state.pushNegative));
+    $("pushNegState").textContent = state.pushNegative ? "已开启" : "已关闭";
+  });
+
+  var range = $("rangeThreshold");
+  range.value = state.threshold;
+  $("rangeThresholdVal").textContent = state.threshold + "%";
+  range.addEventListener("input", function(){
+    $("rangeThresholdVal").textContent = this.value + "%";
+  });
+  range.addEventListener("change", function(){
+    state.threshold = Number(this.value);
+    localStorage.setItem("hermes.threshold", String(state.threshold));
+  });
+
+  $("keywordInput").addEventListener("keydown", function(event){
+    if (event.key !== "Enter" && event.key !== "," && event.key !== "，") return;
+    event.preventDefault();
+    if (addKeyword(this.value)) { this.value = ""; toast("已添加监测关键词"); }
+  });
+  $("actionAddKeyword").addEventListener("click", function(){
+    var input = $("keywordInput");
+    if (addKeyword(input.value)) { input.value = ""; toast("已添加监测关键词"); }
+    else toast("关键词为空或已存在");
+  });
+
+  $("actionSave").addEventListener("click", function(){
+    prefs = { refresh: $("selectRefresh").value, model: $("selectModel").value, tone: $("selectTone").value };
+    localStorage.setItem("hermes.prefs", JSON.stringify(prefs));
+    localStorage.setItem("hermes.sources", JSON.stringify(state.sources));
+    localStorage.setItem("hermes.keywords", JSON.stringify(state.keywords));
+    localStorage.setItem("hermes.threshold", String(state.threshold));
+    toast("看板配置已保存");
+  });
+
+  $("actionReset").addEventListener("click", function(){
+    state.sources = { weibo: true, news: true, store: true, ecom: false };
+    state.threshold = 15;
+    state.pushNegative = true;
+    state.keywords = ["风云 T7", "冬季续航", "城市 NOA", "增程", "充电桩", "智驾"];
+    localStorage.removeItem("hermes.sources");
+    localStorage.removeItem("hermes.keywords");
+    localStorage.removeItem("hermes.threshold");
+    range.value = 15;
+    $("rangeThresholdVal").textContent = "15%";
+    $("switchPushNeg").setAttribute("aria-checked", "true");
+    $("pushNegState").textContent = "已开启";
+    renderSources();
+    renderKeywords();
+    applySourceDependencies();
+    toast("已恢复默认配置");
+  });
+
+  $("composerForm").addEventListener("submit", function(event){
+    event.preventDefault();
+    var input = $("composerInput");
+    if (!input.value.trim()) return;
+    input.value = "";
+    toast("已加入「" + LABEL[state.board] + "」会话队列（原型演示）");
+  });
+
+  document.querySelectorAll(".sb-item").forEach(function(btn){
+    btn.addEventListener("click", function(){
+      if (btn.dataset.odId === "nav-kanban") { setBoard(state.board, false); return; }
+      toast("本原型仅演示看板栏与四个板块");
+    });
+  });
+  document.querySelectorAll(".sb-tab").forEach(function(tab){
+    tab.addEventListener("click", function(){
+      document.querySelectorAll(".sb-tab").forEach(function(other){
+        var on = other === tab;
+        other.classList.toggle("is-on", on);
+        other.setAttribute("aria-selected", String(on));
+      });
+    });
+  });
+
+  document.querySelectorAll(".icon-btn:not([id]), .pill").forEach(function(btn){
+    btn.addEventListener("click", function(){ toast("原型演示：该控件尚未接入"); });
+  });
+  $("sentimentRange").addEventListener("change", function(){
+    $("trendRangeMeta").textContent = this.value + " · 单位：条";
+    toast("时间范围已切换为" + this.value + "（示例数据）");
+  });
+
+  /* ---------- 初始化 ---------- */
+  buildSidebar();
+  buildBoardContent();
+  applySourceDependencies();
+  setBoard(state.board, false);
+  stampTime();
+  $("selectRefresh").value = prefs.refresh || "每 1 小时";
+  $("selectModel").value = prefs.model || "Deepseek V4 Pro";
+  $("selectTone").value = prefs.tone || "详细";
+})();
+</script>
+</body>
+</html>

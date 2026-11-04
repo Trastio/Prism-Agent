@@ -1,0 +1,214 @@
+{
+  "run_id": "challenger-smoke",
+  "started_at": "2026-10-27T10:29:46.455Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "82c9805dc29624baf7a91e80d9ccaf6c67f76f0e",
+  "snapshot_id": "snap-20261012-1222",
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "dc10c990e7af744474608d07479ad2b9",
+  "scoring_fingerprint": "aa49626b69451ac2",
+  "set_filter": "all",
+  "challenger": true,
+  "challenger_arm": "a",
+  "challenger_skill": "SKILL-A.md",
+  "challenger_note": "无轨迹/verdict 通道（verdict 恒 none）；覆盖率闸不适用；langfuse 不写（防污染 A0 dataset）；判分=challenger_check no-verdict 纯文本",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8004",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-27T10:30:13.136Z",
+  "results": [
+    {
+      "task": "sales-11",
+      "sessionId": "01a17ce8-bef4-771d-97d9-ba814fb4fab3",
+      "dimension": "销量",
+      "question": "风云T7 9月的销量是多少",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "trap value_grounding 被拦截（正文正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : read_file\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : read_file\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : run_sql\ninpu",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : run_sql\ninpu",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : run_sql\ninpu",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : run_sql\ninpu",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : run_sql\ninpu",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : run_sql\ninpu",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : run_sql\ninpu",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : run_sql\ninpu",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "[实验指示·取代性实验 B1a 臂] 你没有语义分析工具，只有 run_sql（快照库只读 SQL）与 read_file 两个工具。开始前必须先 read_f"
+      ],
+      "tools": [
+        "read_file",
+        "read_file",
+        "run_sql",
+        "run_sql",
+        "run_sql"
+      ],
+      "settled": true,
+      "verdict": "none",
+      "error": null,
+      "cost": {
+        "duration_s": 25,
+        "tool_calls": 10,
+        "tokens": {
+          "input": 1492,
+          "output": 2129,
+          "cacheRead": 76416,
+          "totalTokens": 80037,
+          "cost_usd": 0.001019
+        },
+        "partial": false
+      },
+      "replyLength": 1248,
+      "replyPreview": "## 对象核验\n\n库内“风云T7”唯一对应车系：**风云T7（奇瑞风云，紧凑型SUV，指导价 9.79–11.89 万，车系ID 8660）**，已排除 ARCFOX αT7、ET7、GT7 等同名近",
+      "reply_full": "## 对象核验\n\n库内“风云T7”唯一对应车系：**风云T7（奇瑞风云，紧凑型SUV，指导价 9.79–11.89 万，车系ID 8660）**，已排除 ARCFOX αT7、ET7、GT7 等同名近似车系。\n\n## 9月销量：库内无该数字（不编造）\n\n| 查询口径 | 结果 |\n|---|---|\n| 风云T7 在 2026年9月末 的版型行 | 3 行（悦享/舒享/智享 600km），**零售量字段全部为空**（QRQC-27-FYT7-EV-1/2/3） |\n| 风云T7 在 2026年9月中 | 3 行，零售量同样为空（月中批只带价格快照，按口径不落零售） |\n| 风云T7 历史月份 | 仅 9月中、9月末两批，无 8 月及更早行（8/26 上市，未进入 8 月入库口径） |\n| 全库 2026年9月末 | 5000 行零售量**全部为空**；对照 2025年9月末 4606 行中 4597 行有值 → 说明是**9月零售数据整体未发布（滞后一个月）**，并非风云T7单独缺 |\n\n数据截至：2026-10-12 快照（as_of＝2026年9月末批次，零售口径未落地）。\n\n**所以：风云T7 的 9月销量在库内不可得，我不能给数字。** 同理也不能用 8 月环比反推（8 月同样无行）。\n\n## 9月库内能拿到的部分（价格口径，可复算）\n\n| 版型 | MSRP（元） | 终端价 tp（元） | 主销标记 |\n|---|---|---|---|\n| 27款 600Km 悦享版 | 97,900 | 94,900 | 是 |\n| 27款 600Km 舒享版 | 108,900 | 105,900 | 否 |\n| 27款 600Km 智享版 | 118,900 | 115,900 | 否 |\n\n三款 tp 均低于 MSRP 3,000 元，9月末与9月中两批价格未变（降价未发生）。\n\n## 缺口说明与假设清单（不下结论）\n\n| 假设（画靶） | 证据强度 | 缺什么能坐实 |\n|---|---|---|\n| 9月零售量存在但不入库/未发布 | 强（全库同月零售皆空，属口径滞后） | — |\n| 风云T7 9月实际销量在 4 位数以下（新上市首个完整月、单车系月零售常见量级） | 弱，**不可验** | 下一批 10 月快照的 9 月零售回补，或厂商/乘联会月度公布 |\n| 9月销量低是因为产品力/口碑问题 | **不可验，且违规**（市场侧不归因产品力；且当前无销量基数） | 需要销量数据成立后才能谈相关性，因果更不成立 |\n\n## 要坐实需要什么\n\n1. **等数据回补**：下一批（10 月）快照若把 2026年9月末零售补齐，同一行可直接出数；\n2. 或用外部口径替代（乘联会/厂商批售），但那是**不可复算**的另一口径，与库内零售不可混用。\n\n需要我把「风云T7 8–9 月价格快照 + 口碑/配置侧」先拉齐，等销量回补后直接拼三维，可以说一声。",
+      "first_error_turn": null
+    }
+  ],
+  "audit": [],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "challenger-smoke",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "82c9805dc29624baf7a91e80d9ccaf6c67f76f0e",
+    "set_composition": {
+      "dev": 0,
+      "frozen": 1,
+      "blind": 0,
+      "other": 0,
+      "total": 1
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 5,
+    "passCount": 1,
+    "trapBlockedCount": 1,
+    "trap_total": 1,
+    "trap_cmp_excluded": [
+      "trap-04",
+      "trap-10",
+      "skill-01",
+      "skill-02"
+    ],
+    "trap_cmp_total": 1,
+    "trap_cmp_blocked": 1,
+    "anchored": {
+      "total": 1,
+      "pass": 1,
+      "pass_rate": 1,
+      "avg": 5
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 1,
+      "covered": 0,
+      "rate": 0,
+      "min": 1,
+      "missing": [
+        "sales-11"
+      ]
+    },
+    "truth": {
+      "checked": 0,
+      "fail": 0,
+      "failTasks": []
+    },
+    "regression": null
+  }
+}

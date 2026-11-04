@@ -1,0 +1,78 @@
+{
+  "run_id": "eval-2026-10-28T14-29-17-668Z",
+  "started_at": "2026-10-28T14:29:17.669Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "2f45771a700e732d726362eeb1419b4b04c01387",
+  "snapshot_id": null,
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "dc10c990e7af744474608d07479ad2b9",
+  "scoring_fingerprint": "ed713ad82e3d5bd6",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-28T14:29:20.366Z",
+  "results": [],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-10-28T14-29-17-668Z",
+    "snapshot_ids": [],
+    "tasks_git_hash": "2f45771a700e732d726362eeb1419b4b04c01387",
+    "set_composition": {
+      "dev": 0,
+      "frozen": 0,
+      "blind": 0,
+      "other": 0,
+      "total": 0
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": null,
+    "passCount": 0,
+    "trapBlockedCount": 0,
+    "trap_total": 0,
+    "anchored": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "repeat": {
+      "k": null,
+      "k_total": 0,
+      "k_pass": 0,
+      "k_pass_rate": null,
+      "inconsistent": []
+    },
+    "run_valid": false,
+    "trajectory_coverage": {
+      "considered": 0,
+      "covered": 0,
+      "rate": 0,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 0,
+      "fail": 0,
+      "failTasks": []
+    },
+    "regression": {
+      "skip_reason": "scoring_changed"
+    }
+  }
+}

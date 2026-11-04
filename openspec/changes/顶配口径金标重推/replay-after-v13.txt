@@ -1,0 +1,15 @@
+========================================================================
+重放报告: eval/reports/v13-repeat3-r3.json
+  run_id=v13-repeat3 题数=186 判分器=工作树现状（trap/truth/rubric/越界）
+========================================================================
+  cross-01  4 → 5      消除[rubric[elements] 缺要素]
+  cross-05  4 → 5      消除[rubric[causal_guard] 缺要素]
+  cross-06  4 → 5      消除[rubric[causal_guard] 缺要素]
+  sales-05  2 → 5      消除[truth 缺锚]
+  cross-05  2 → 5      消除[rubric[causal_guard] 命中禁项]
+  cross-06  3 → 4      消除[rubric[causal_guard] 缺要素] 新增[rubric[causal_guard] 缺要素]
+  cross-01  3 → 5      消除[rubric[elements] 缺要素]
+  cross-05  4 → 5      消除[rubric[causal_guard] 缺要素]
+
+  汇总: 186 题 | diff 8 题（逐题原因见上） | 基建行跳过 55（error/timeout，非判分器差异） | 其余 123 题重放分==报告分（零回归）
+  报告 avg=3.92（重放后 avg 以 diff 行自算；本脚本观测用，退出码恒 0）

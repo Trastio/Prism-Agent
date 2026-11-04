@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "run_id": "eval-2026-10-14T02-02-14-418Z",
+  "generated_at_utc": "2026-10-15T14:21:39.138Z",
+  "artifacts": [
+    {
+      "path": "C:\\Users\\<you>\\Desktop\\Prism-Agent\\eval\\reports\\eval-2026-10-14T02-02-14-418Z.json",
+      "bytes": 70652,
+      "sha256": "c632ed6eaa0b307c9fa7779b3d8d3f97dc21ad5848df8bd780b04e570716e589",
+      "description": "批跑报告（离线回填哈希）"
+    }
+  ]
+}

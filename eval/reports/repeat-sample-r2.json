@@ -1,0 +1,125 @@
+{
+  "run_id": "repeat-sample",
+  "started_at": "2026-10-13T17:31:31.122Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "d68ff517a960f9b9afc992bfa20ad8fb3a4f2eb6",
+  "snapshot_id": "snap-20261012-1222",
+  "agent_release": "0.3.0",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-13T17:31:52.750Z",
+  "results": [
+    {
+      "task": "sales-12",
+      "dimension": "销量",
+      "question": "银河E5 10月的最新销量是多少",
+      "repeat": 1,
+      "score": 2,
+      "reasons": [
+        "缺 supported_by 证据行 ID",
+        "truth 锚点全中(1)"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 1,
+        "missing": [],
+        "forbidHits": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 10.3,
+        "tool_calls": 3,
+        "tokens": {
+          "input": 1435,
+          "output": 1286,
+          "cacheRead": 31360,
+          "totalTokens": 34081,
+          "cost_usd": 0.000649
+        },
+        "partial": false
+      },
+      "replyLength": 473,
+      "replyPreview": "**一句话结论：10月销量还没结算——最新已结算的月度销量是 2026年8月，终端零售 4,436 台，同比下滑约 59%。**\n\n| 口径 | 终端零售量 |\n|---|---|\n| 2026年8月"
+    },
+    {
+      "task": "sales-12",
+      "dimension": "销量",
+      "question": "银河E5 10月的最新销量是多少",
+      "repeat": 2,
+      "score": 2,
+      "reasons": [
+        "缺 supported_by 证据行 ID",
+        "truth 锚点全中(1)"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 1,
+        "missing": [],
+        "forbidHits": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "get_sales_detail",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 11.2,
+        "tool_calls": 4,
+        "tokens": {
+          "input": 1613,
+          "output": 1315,
+          "cacheRead": 41984,
+          "totalTokens": 44912,
+          "cost_usd": 0.000712
+        },
+        "partial": false
+      },
+      "replyLength": 460,
+      "replyPreview": "**银河E5 10月销量尚未结算**，目前最新可得的是 **2026年8月零售 4,436 台**（环比7月 5,162 台，约 **-14%**）。\n\n| 月份 | 零售量（台） | 终端成交均价（"
+    }
+  ],
+  "conditional_skipped": [],
+  "summary": {
+    "avg": 2,
+    "passCount": 0,
+    "trapBlockedCount": 0,
+    "set_filter": "all",
+    "repeat": {
+      "k": 2,
+      "k_total": 1,
+      "k_pass": 1,
+      "k_pass_rate": 1,
+      "inconsistent": []
+    },
+    "truth": {
+      "checked": 2,
+      "fail": 0,
+      "failTasks": []
+    }
+  }
+}

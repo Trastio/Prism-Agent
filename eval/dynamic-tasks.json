@@ -1,0 +1,499 @@
+[
+  {
+    "id": "dyn-cross-05",
+    "set": "dynamic",
+    "dimension": "跨维度",
+    "question": "零跑D19增程8月销量腰斩，原因是什么？",
+    "turns": null,
+    "ui_strategy": null,
+    "source": "eval-badcase",
+    "source_run": "eval-2026-10-28T15-39-08-403Z",
+    "source_task": "cross-05",
+    "snapshot_id": "any",
+    "observed_score": 3,
+    "observed_reasons": [
+      "rubric[causal_guard] 缺要素: causal_disclaimer、evidence_strength"
+    ],
+    "deduction_steps": [
+      {
+        "from": 5,
+        "to": 3,
+        "reason": "rubric[causal_guard] 缺要素: causal_disclaimer、evidence_strength"
+      }
+    ],
+    "judge_rubric": "排除5假设；主嫌疑竞品分流；相关≠因果；供给侧无法排除要声明",
+    "truth": null,
+    "rubric_params": {
+      "kind": "causal_guard",
+      "elements": [
+        {
+          "id": "causal_disclaimer",
+          "re": "相关[^。\\n]{0,6}(不等于|≠|非)[^。\\n]{0,4}因果|不能归因|不足以[^。\\n]{0,8}(解释|归因)|无法[^。\\n]{0,8}(归因|证明)|非结论|不宜归因|不构成因果|不是因果|不成立因果|因果[^。\\n]{0,8}(不|未|无法|不能|难以)[^。\\n]{0,4}(证实|验证|证明|坐实|成立|认定)|无法[^。\\n]{0,8}(归因|证明|判定|认定)|不归因|不做归因|不作归因"
+        },
+        {
+          "id": "alternative",
+          "re": "竞品|分流|接盘|爬坡|终端价|价格"
+        },
+        {
+          "id": "evidence_strength",
+          "re": "证据[强弱]|证据强度|待验证|假设|无法坐实|缺口"
+        }
+      ],
+      "forbid": [
+        "(?<!不能[^。\\n]{0,30})(?<!并非[^。\\n]{0,12})(?<!不是[^。\\n]{0,12})(因为|由于)[^。\\n]{0,12}(产品力|配置|口碑)[^。\\n]{0,10}(导致|造成|所以|从而|使得)[^。\\n]{0,10}(销量|下滑|腰斩|下跌)",
+        "(?<!不能[^。\\n]{0,30})(?<!并非[^。\\n]{0,12})(?<!不是[^。\\n]{0,12})(产品力|配置|口碑)[^。\\n]{0,6}(差|不足|短板)[^。\\n]{0,6}(导致|造成|所以)[^。\\n]{0,8}(销量|下滑|腰斩)"
+      ]
+    },
+    "expected_evidence": "sales_trim + review_tags",
+    "requires_review": false,
+    "expected": "修正原题失败点：rubric[causal_guard] 缺要素: causal_disclaimer、evidence_strength"
+  },
+  {
+    "id": "dyn-sales-10",
+    "set": "dynamic",
+    "dimension": "销量",
+    "question": "目前A级别卖的最好的燃油车",
+    "turns": null,
+    "ui_strategy": null,
+    "source": "eval-badcase",
+    "source_run": "eval-2026-10-28T15-39-08-403Z",
+    "source_task": "sales-10",
+    "snapshot_id": "snap-20261012-1222",
+    "observed_score": 2,
+    "observed_reasons": [
+      "rubric[ranking] 缺要素: 荣放 双擎"
+    ],
+    "deduction_steps": [
+      {
+        "from": 5,
+        "to": 2,
+        "reason": "rubric[ranking] 缺要素: 荣放 双擎"
+      }
+    ],
+    "judge_rubric": "top3容差；能源映射正确性为判分点（漏油电混合=口径错）。",
+    "truth": null,
+    "rubric_params": {
+      "kind": "ranking",
+      "gold_top3": [
+        "荣放 双擎",
+        "星越L",
+        "博越L"
+      ],
+      "candidates": [
+        "荣放 双擎",
+        "星越L",
+        "博越L"
+      ],
+      "hard_first": "荣放 双擎"
+    },
+    "expected_evidence": "sales_trim",
+    "requires_review": false,
+    "expected": "修正原题失败点：rubric[ranking] 缺要素: 荣放 双擎"
+  },
+  {
+    "id": "dyn-config-07",
+    "set": "dynamic",
+    "dimension": "配置",
+    "question": "12万元左右哪个BEV车型的配置最好",
+    "turns": null,
+    "ui_strategy": null,
+    "source": "eval-badcase",
+    "source_run": "eval-2026-10-28T15-39-08-403Z",
+    "source_task": "config-07",
+    "snapshot_id": "snap-20261012-1222",
+    "observed_score": 2,
+    "observed_reasons": [
+      "rubric[ranking] 缺要素: 比亚迪 元UP、比亚迪 海豚、启源Q05 纯电"
+    ],
+    "deduction_steps": [
+      {
+        "from": 5,
+        "to": 2,
+        "reason": "rubric[ranking] 缺要素: 比亚迪 元UP、比亚迪 海豚、启源Q05 纯电"
+      }
+    ],
+    "judge_rubric": "top3容差（销量序）+配置对比方法判分；配置覆盖缺口声明为必要点。",
+    "truth": null,
+    "rubric_params": {
+      "kind": "ranking",
+      "gold_top3": [
+        "比亚迪 元UP",
+        "比亚迪 海豚",
+        "启源Q05 纯电"
+      ],
+      "candidates": [
+        "比亚迪 元UP",
+        "比亚迪 海豚",
+        "启源Q05 纯电"
+      ],
+      "hard_first": "比亚迪 元UP"
+    },
+    "expected_evidence": "sales_trim",
+    "requires_review": false,
+    "expected": "修正原题失败点：rubric[ranking] 缺要素: 比亚迪 元UP、比亚迪 海豚、启源Q05 纯电"
+  },
+  {
+    "id": "dyn-config-10",
+    "set": "dynamic",
+    "dimension": "配置",
+    "question": "保时捷911的配置怎么样",
+    "turns": null,
+    "ui_strategy": null,
+    "source": "eval-badcase",
+    "source_run": "eval-2026-10-28T15-39-08-403Z",
+    "source_task": "config-10",
+    "snapshot_id": "snap-20261012-1222",
+    "observed_score": 1,
+    "observed_reasons": [
+      "验证器否决: (轨迹行 fail)",
+      "rubric[gap] 缺要素: url、不可复算"
+    ],
+    "deduction_steps": [
+      {
+        "from": 5,
+        "to": 1,
+        "reason": "验证器否决: (轨迹行 fail)"
+      }
+    ],
+    "judge_rubric": "通过=库内缺口声明+不编配置；web补充合规加分；否决=编造配置或用其它保时捷车型顶替。",
+    "truth": null,
+    "rubric_params": {
+      "kind": "gap"
+    },
+    "expected_evidence": "（行为题：缺口声明/身份核验，无库行引用）",
+    "requires_review": false,
+    "expected": "修正原题失败点：验证器否决: (轨迹行 fail)"
+  },
+  {
+    "id": "dyn-config-12",
+    "set": "dynamic",
+    "dimension": "配置",
+    "question": "比较一下银河E5、零跑B10、风云T7以及MG 4X的配置",
+    "turns": null,
+    "ui_strategy": null,
+    "source": "eval-badcase",
+    "source_run": "eval-2026-10-28T15-39-08-403Z",
+    "source_task": "config-12",
+    "snapshot_id": "snap-20261012-1222",
+    "observed_score": 2,
+    "observed_reasons": [
+      "truth 缺锚: 14.98万"
+    ],
+    "deduction_steps": [
+      {
+        "from": 5,
+        "to": 2,
+        "reason": "truth 缺锚: 14.98万"
+      }
+    ],
+    "judge_rubric": "四对象正确+对比方法（分批不漏项）+T7完备性声明；数字抽验顶配价格4个。",
+    "truth": {
+      "anchors": [
+        "14.78万",
+        "14.98万",
+        "11.89万",
+        "11.68万"
+      ],
+      "text_anchors": [
+        "银河E5",
+        "零跑B10",
+        "风云T7",
+        "MG 4X"
+      ]
+    },
+    "rubric_params": null,
+    "expected_evidence": "config_snapshots",
+    "requires_review": false,
+    "expected": "修正原题失败点：truth 缺锚: 14.98万"
+  },
+  {
+    "id": "dyn-reviews-03",
+    "set": "dynamic",
+    "dimension": "口碑",
+    "question": "海狮05 2026款的口碑如何",
+    "turns": null,
+    "ui_strategy": null,
+    "source": "eval-badcase",
+    "source_run": "eval-2026-10-28T15-39-08-403Z",
+    "source_task": "reviews-03",
+    "snapshot_id": "snap-20261012-1222",
+    "observed_score": 3,
+    "observed_reasons": [
+      "验证器通过（行ID查库+越界+缺口+名称）",
+      "truth 锚点全中(0)",
+      "rubric[elements] 缺要素: best、worst"
+    ],
+    "deduction_steps": [
+      {
+        "from": 5,
+        "to": 3,
+        "reason": "rubric[elements] 缺要素: best、worst"
+      }
+    ],
+    "judge_rubric": "核心：好评率排序方向正确（驾驶感受>续航>…>内饰最差）+2026款口径+样本声明；数字±5pp容差。",
+    "truth": {
+      "anchors": [],
+      "text_forbid": [
+        "(海狮05|该车系)[^。\\n]{0,12}(暂无|没有|无)[^。\\n]{0,6}口碑(样本)?"
+      ]
+    },
+    "rubric_params": {
+      "kind": "elements",
+      "elements": [
+        {
+          "id": "y2026",
+          "re": "2026\\s*款|2026款"
+        },
+        {
+          "id": "best",
+          "re": "驾驶感受"
+        },
+        {
+          "id": "worst",
+          "re": "内饰"
+        },
+        {
+          "id": "sample",
+          "re": "样本|条|标签"
+        }
+      ],
+      "min_present": 4
+    },
+    "expected_evidence": "review_tags",
+    "requires_review": false,
+    "expected": "修正原题失败点：验证器通过（行ID查库+越界+缺口+名称）"
+  },
+  {
+    "id": "dyn-multi-07",
+    "set": "dynamic",
+    "dimension": "多轮",
+    "question": "E5和B10的智能座舱口碑，加上风云T7的舆情，一起说说",
+    "turns": [
+      {
+        "message": "E5和B10的智能座舱口碑，加上风云T7的舆情，一起说说",
+        "truth": {
+          "anchors": [
+            "418",
+            "305",
+            "25"
+          ]
+        }
+      },
+      {
+        "message": "把E5的智能座舱口碑展开讲讲",
+        "truth": {
+          "anchors": [
+            "418"
+          ]
+        }
+      }
+    ],
+    "ui_strategy": null,
+    "source": "eval-badcase",
+    "source_run": "eval-2026-10-28T15-39-08-403Z",
+    "source_task": "multi-07",
+    "snapshot_id": "snap-20261012-1222",
+    "observed_score": 2,
+    "observed_reasons": [
+      "truth 锚点全中(1)",
+      "truth[t1] 缺锚/违禁: 25"
+    ],
+    "deduction_steps": [
+      {
+        "from": 5,
+        "to": 2,
+        "reason": "truth[t1] 缺锚/违禁: 25"
+      }
+    ],
+    "judge_rubric": "t1 三对象各自给数不混不漏：E5 智能化 con 418/pro198（con率67.9%，1187条）/ B10 智能化 con 305/pro148（67.3%，1027条）/ T7 舆情 630帖=正488+中117+负25（负面4.0%，舆情快照 as_of）；t2 穿线：引用 t1 的 418/67.9% 必须同值（换口径或漂移=缺锚+漂移双扣）；设计注：t2 指定对象展开（E5/B10 con率过近，'最差'排序有歧义——10-25 查证驱动的设计变更）",
+    "truth": null,
+    "rubric_params": null,
+    "expected_evidence": "review_tags + sentiment（舆情 as_of 2026-10-12 快照）",
+    "requires_review": false,
+    "expected": "修正原题失败点：truth 锚点全中(1)"
+  },
+  {
+    "id": "dyn-config-09",
+    "set": "dynamic",
+    "dimension": "配置",
+    "question": "银河E5比零跑B10多哪些配置",
+    "turns": null,
+    "ui_strategy": null,
+    "source": "eval-badcase",
+    "source_run": "eval-2026-10-28T15-39-08-403Z",
+    "source_task": "config-09",
+    "snapshot_id": "snap-20261012-1222",
+    "observed_score": 3,
+    "observed_reasons": [
+      "rubric[elements] 缺要素: audio、b10"
+    ],
+    "deduction_steps": [
+      {
+        "from": 5,
+        "to": 3,
+        "reason": "rubric[elements] 缺要素: audio、b10"
+      }
+    ],
+    "judge_rubric": "核心判分：E5多出项至少含座椅功能类+音响类+智驾硬件类三组中两组；B10芯片/屏幕优势需提及（不提=单边叙事扣分）。",
+    "truth": null,
+    "rubric_params": {
+      "kind": "elements",
+      "elements": [
+        {
+          "id": "seat",
+          "re": "座椅[^。\\n]{0,10}(通风|加热|按摩)|通风|按摩"
+        },
+        {
+          "id": "audio",
+          "re": "23\\s*(喇叭|扬声器)|音响|SONY"
+        },
+        {
+          "id": "adas",
+          "re": "激光雷达|智驾|J6M|辅助驾驶"
+        },
+        {
+          "id": "b10",
+          "re": "8295|17\\.3|骁龙|中控屏|屏幕"
+        }
+      ],
+      "required": [
+        "b10"
+      ],
+      "min_present": 3
+    },
+    "expected_evidence": "config_snapshots",
+    "requires_review": false,
+    "expected": "修正原题失败点：rubric[elements] 缺要素: audio、b10"
+  },
+  {
+    "id": "dyn-reviews-11",
+    "set": "dynamic",
+    "dimension": "口碑",
+    "question": "轴距2700左右的燃油车，谁的口碑最好？",
+    "turns": null,
+    "ui_strategy": null,
+    "source": "eval-badcase",
+    "source_run": "eval-2026-10-28T15-39-08-403Z",
+    "source_task": "reviews-11",
+    "snapshot_id": "snap-20261012-1222",
+    "observed_score": 2,
+    "observed_reasons": [
+      "rubric[elements] 命中禁项: (荣放|速腾|探岳|轩逸|卡罗拉|朗逸|CR-V)[^。\\n]{0,10}口碑最好"
+    ],
+    "deduction_steps": [
+      {
+        "from": 5,
+        "to": 2,
+        "reason": "rubric[elements] 命中禁项: (荣放|速腾|探岳|轩逸|卡罗拉|朗逸|CR-V)[^。\\n]{0,10}口碑最好"
+      }
+    ],
+    "judge_rubric": "通过=候选筛选+口碑缺口声明+不排名；否决=直接给\"XX口碑最好\"（库内无据）。",
+    "truth": null,
+    "rubric_params": {
+      "kind": "elements",
+      "elements": [
+        {
+          "id": "wheelbase",
+          "re": "2700|2650|2750|轴距"
+        },
+        {
+          "id": "gap",
+          "re": "缺口|未收录|没有[^。\\n]{0,6}口碑|无[^。\\n]{0,6}口碑|不可得|零覆盖"
+        },
+        {
+          "id": "candidate",
+          "re": "荣放|速腾|探岳|轩逸|卡罗拉|朗逸|CR-V"
+        }
+      ],
+      "min_present": 3,
+      "forbid": [
+        "(荣放|速腾|探岳|轩逸|卡罗拉|朗逸|CR-V)[^。\\n]{0,10}口碑最好"
+      ]
+    },
+    "expected_evidence": "sales_trim",
+    "requires_review": false,
+    "expected": "修正原题失败点：rubric[elements] 命中禁项: (荣放|速腾|探岳|轩逸|卡罗拉|朗逸|CR-V)[^。\\n]{0,10}口碑最好"
+  },
+  {
+    "id": "dyn-sentiment-05",
+    "set": "dynamic",
+    "dimension": "舆情",
+    "question": "最近大家都在围绕QQ3讨论什么？",
+    "turns": null,
+    "ui_strategy": null,
+    "source": "eval-badcase",
+    "source_run": "eval-2026-10-28T15-39-08-403Z",
+    "source_task": "sentiment-05",
+    "snapshot_id": "snap-20261012-1222",
+    "observed_score": 3,
+    "observed_reasons": [
+      "truth 锚点全中(0)",
+      "rubric[sentiment_pattern] 缺要素: 声量规模、负面主题"
+    ],
+    "deduction_steps": [
+      {
+        "from": 5,
+        "to": 3,
+        "reason": "rubric[sentiment_pattern] 缺要素: 声量规模、负面主题"
+      }
+    ],
+    "judge_rubric": "要素：话题方向（售后/质量）+负面占比量级+来源+as_of。",
+    "truth": {
+      "anchors": []
+    },
+    "rubric_params": {
+      "kind": "sentiment_pattern"
+    },
+    "expected_evidence": "sentiment_dimension + sentiment_overview",
+    "requires_review": false,
+    "expected": "修正原题失败点：truth 锚点全中(0)"
+  },
+  {
+    "id": "dyn-cross-09",
+    "set": "dynamic",
+    "dimension": "跨维度",
+    "question": "铂智3X的产品形态和厂商是什么？全国销量表现如何？",
+    "turns": null,
+    "ui_strategy": null,
+    "source": "eval-badcase",
+    "source_run": "eval-2026-10-28T15-39-08-403Z",
+    "source_task": "cross-09",
+    "snapshot_id": "any",
+    "observed_score": 2,
+    "observed_reasons": [
+      "truth 缺锚: 8851",
+      "rubric[elements] 全要素命中"
+    ],
+    "deduction_steps": [
+      {
+        "from": 5,
+        "to": 2,
+        "reason": "truth 缺锚: 8851"
+      }
+    ],
+    "judge_rubric": "库内可复算为主：形态/厂商/销量趋势带行 ID（月末口径）；web 仅补充背景，标 URL + 不可复算",
+    "truth": {
+      "anchors": [
+        "8851",
+        "7793"
+      ],
+      "text_anchors": [
+        "SUV",
+        "广汽丰田"
+      ]
+    },
+    "rubric_params": {
+      "kind": "elements",
+      "elements": [
+        {
+          "id": "level",
+          "re": "紧凑型|A\\s*级|A级"
+        }
+      ],
+      "min_present": 1
+    },
+    "expected_evidence": "sales_trim + series_summaries（库内可复算为主）+ web 背景标注",
+    "requires_review": false,
+    "expected": "修正原题失败点：truth 缺锚: 8851"
+  }
+]

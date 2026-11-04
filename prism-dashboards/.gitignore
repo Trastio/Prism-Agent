@@ -1,0 +1,7 @@
+# 本地数据库与密钥不入库（体积大 / 含凭据）
+data/*.db
+data/*.db-wal
+data/*.db-shm
+.env
+__pycache__/
+*.pyc

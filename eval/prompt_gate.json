@@ -1,0 +1,184 @@
+{
+  "last_green": {
+    "hash": "0d05ccc07bf0294a0075601655e9fb3d",
+    "files": [
+      [
+        "AGENTS.md",
+        "a51fb3d121bea0fa"
+      ],
+      [
+        "SYSTEM.md",
+        "442ef269c5e5594f"
+      ],
+      [
+        ".pi/skills/car-reputation-research/SKILL.md",
+        "9cf3e66d7bd6fa7a"
+      ],
+      [
+        ".pi/skills/car-reputation-research/references/deliverable-spec.md",
+        "f19a76a6787afc38"
+      ],
+      [
+        ".pi/skills/car-reputation-research/references/platform-notes.md",
+        "c4a2a5ebeadf54ef"
+      ],
+      [
+        ".pi/skills/config-compare/SKILL.md",
+        "d93e4a63853a128f"
+      ],
+      [
+        "src/shared/verifier-prefix.ts",
+        "01de5608b1abf0df"
+      ]
+    ],
+    "marked_at": "2026-10-28T15:33:55.685Z",
+    "git_head": "2f45771",
+    "note": ""
+  },
+  "history": [
+    {
+      "hash": "4d52acba0126f605869b49d69f4b6486",
+      "files": [
+        [
+          "AGENTS.md",
+          "a51fb3d121bea0fa"
+        ],
+        [
+          "SYSTEM.md",
+          "97acfb5d3960fecd"
+        ],
+        [
+          ".pi/skills/car-reputation-research/SKILL.md",
+          "7294d230381e0df2"
+        ],
+        [
+          ".pi/skills/car-reputation-research/references/deliverable-spec.md",
+          "f19a76a6787afc38"
+        ],
+        [
+          ".pi/skills/car-reputation-research/references/platform-notes.md",
+          "c4a2a5ebeadf54ef"
+        ],
+        [
+          ".pi/skills/config-compare/SKILL.md",
+          "8a3b6b48b17022b5"
+        ],
+        [
+          "src/shared/verifier-prefix.ts",
+          "01de5608b1abf0df"
+        ]
+      ],
+      "marked_at": "2026-10-15T16:22:09.217Z",
+      "git_head": "9e742e0",
+      "note": "门禁上线首绿（trap冒烟绑定下轮批跑，本次以v1.1基线绿态起步）"
+    },
+    {
+      "hash": "ca7c4f7cec8662d8abd07d5f958c226a",
+      "files": [
+        [
+          "AGENTS.md",
+          "a51fb3d121bea0fa"
+        ],
+        [
+          "SYSTEM.md",
+          "97acfb5d3960fecd"
+        ],
+        [
+          ".pi/skills/car-reputation-research/SKILL.md",
+          "9cf3e66d7bd6fa7a"
+        ],
+        [
+          ".pi/skills/car-reputation-research/references/deliverable-spec.md",
+          "f19a76a6787afc38"
+        ],
+        [
+          ".pi/skills/car-reputation-research/references/platform-notes.md",
+          "c4a2a5ebeadf54ef"
+        ],
+        [
+          ".pi/skills/config-compare/SKILL.md",
+          "2440ff1a1d962b4c"
+        ],
+        [
+          "src/shared/verifier-prefix.ts",
+          "01de5608b1abf0df"
+        ]
+      ],
+      "marked_at": "2026-10-20T15:26:24.347Z",
+      "git_head": "c7483be",
+      "note": "skill 静态检查微change：①SKILL.md 文案去真值数字改指针（TikHub 配额 8 次→以护栏为准/61 项→清单口径/244 系→以库为准/C2 3000 元→以清单为准）②frontmatter version 对齐（2.3.0/2.0.0）③lintSkillFiles 三断言（A 双登记/B frontmatter/C 硬数字黑名单）入 check+单测 8 例+挂 smoke:all ④trap-01 判分扩词（正式版型名，28 测全绿）⑤冒烟 9/10→trap-01 归因=判分假阴（防线有效 verdict=pass）→修复后单题复跑 5 分"
+    },
+    {
+      "hash": "dc10c990e7af744474608d07479ad2b9",
+      "files": [
+        [
+          "AGENTS.md",
+          "a51fb3d121bea0fa"
+        ],
+        [
+          "SYSTEM.md",
+          "02db36e32d2f9873"
+        ],
+        [
+          ".pi/skills/car-reputation-research/SKILL.md",
+          "9cf3e66d7bd6fa7a"
+        ],
+        [
+          ".pi/skills/car-reputation-research/references/deliverable-spec.md",
+          "f19a76a6787afc38"
+        ],
+        [
+          ".pi/skills/car-reputation-research/references/platform-notes.md",
+          "c4a2a5ebeadf54ef"
+        ],
+        [
+          ".pi/skills/config-compare/SKILL.md",
+          "d93e4a63853a128f"
+        ],
+        [
+          "src/shared/verifier-prefix.ts",
+          "01de5608b1abf0df"
+        ]
+      ],
+      "marked_at": "2026-10-27T04:59:31.824Z",
+      "git_head": "aeded93",
+      "note": ""
+    },
+    {
+      "hash": "0d05ccc07bf0294a0075601655e9fb3d",
+      "files": [
+        [
+          "AGENTS.md",
+          "a51fb3d121bea0fa"
+        ],
+        [
+          "SYSTEM.md",
+          "442ef269c5e5594f"
+        ],
+        [
+          ".pi/skills/car-reputation-research/SKILL.md",
+          "9cf3e66d7bd6fa7a"
+        ],
+        [
+          ".pi/skills/car-reputation-research/references/deliverable-spec.md",
+          "f19a76a6787afc38"
+        ],
+        [
+          ".pi/skills/car-reputation-research/references/platform-notes.md",
+          "c4a2a5ebeadf54ef"
+        ],
+        [
+          ".pi/skills/config-compare/SKILL.md",
+          "d93e4a63853a128f"
+        ],
+        [
+          "src/shared/verifier-prefix.ts",
+          "01de5608b1abf0df"
+        ]
+      ],
+      "marked_at": "2026-10-28T15:33:55.685Z",
+      "git_head": "2f45771",
+      "note": ""
+    }
+  ]
+}

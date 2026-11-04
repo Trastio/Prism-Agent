@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<title>Prism-Agent 运行流程 · agent_loop</title>
+<style>
+  :root{
+    --bg:#f5f7fa; --panel:#ffffff; --panel2:#eef1f6; --line:#d4dae3;
+    --txt:#1a1f2b; --dim:#5b6472; --acc:#2b6cb0; --acc2:#0d8a6e;
+    --warn:#b9791f; --red:#c43d52; --purple:#6b46c1;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);
+    font-family:"PingFang SC","Microsoft YaHei",-apple-system,sans-serif;
+    line-height:1.6;padding:24px 16px 80px}
+  .wrap{max-width:1180px;margin:0 auto}
+  h1{font-size:22px;margin:0 0 4px;font-weight:600}
+  .sub{color:var(--dim);font-size:13px;margin-bottom:20px}
+
+  /* 双模式入口 */
+  .modes{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:10px}
+  @media(max-width:760px){.modes{grid-template-columns:1fr}}
+  .mode{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px}
+  .mode h3{margin:0 0 6px;font-size:15px}
+  .mode .badge{font-size:10px;padding:2px 7px;border-radius:3px;color:#fff;margin-left:8px}
+  .mode.a .badge{background:#5b6472}
+  .mode.b .badge{background:var(--acc)}
+  .mode p{margin:0;font-size:12.5px;color:var(--dim)}
+  .mode .lock{font-size:11px;color:var(--warn);margin-top:6px}
+
+  /* 主循环 */
+  .loop{background:var(--panel);border:2px solid var(--acc);border-radius:14px;padding:18px 20px;margin:10px 0}
+  .loop>h3{margin:0 0 4px;font-size:16px;color:var(--acc)}
+  .loop>.sub-l{color:var(--dim);font-size:12px;margin-bottom:16px}
+
+  .stage{display:flex;align-items:flex-start;gap:10px;margin-bottom:0;position:relative}
+  .stage-num{flex:0 0 28px;height:28px;border-radius:50%;background:var(--acc);color:#fff;
+    font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center;z-index:2}
+  .stage-body{flex:1;background:var(--panel2);border:1px solid var(--line);border-radius:9px;
+    padding:10px 14px;margin-bottom:0}
+  .stage-body h4{margin:0 0 4px;font-size:14px}
+  .stage-body p{margin:0;font-size:12px;color:var(--dim)}
+  .stage-body .meta{font-size:11px;color:var(--acc2);margin-top:4px}
+  .stage-body .red{color:var(--red);font-weight:600}
+
+  /* 竖向连线 */
+  .conn{margin-left:14px;border-left:2px dashed var(--line);height:14px}
+
+  /* 分支（三维度并行） */
+  .parallel{margin-left:42px;display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:8px}
+  @media(max-width:760px){.parallel{grid-template-columns:1fr}}
+  .pcol{border:1px solid var(--line);border-radius:8px;padding:10px 12px;background:#fff}
+  .pcol h5{margin:0 0 4px;font-size:12.5px;color:var(--purple)}
+  .pcol p{margin:0;font-size:11px;color:var(--dim)}
+  .pcol .tool{font-size:10px;background:#e6ecf2;color:var(--acc);padding:1px 5px;border-radius:3px;display:inline-block;margin-top:4px}
+
+  /* 护栏标注 */
+  .guard{background:#fdf3f4;border:1px solid #e9c3c9;border-radius:8px;padding:8px 12px;font-size:11px;color:var(--red);margin-top:6px}
+  .guard b{color:var(--red)}
+
+  /* 底部数据层 */
+  .datalayer{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 18px;margin-top:10px}
+  .datalayer h3{margin:0 0 10px;font-size:14px;color:var(--purple)}
+  .dlgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:10px}
+  .dl{background:#f4eef9;border:1px solid #d8c8ed;border-radius:8px;padding:10px 12px}
+  .dl h5{margin:0 0 3px;font-size:12px;color:var(--purple)}
+  .dl p{margin:0;font-size:11px;color:var(--dim)}
+  .ro{font-size:10px;color:var(--red);font-weight:600}
+
+  /* 图例 */
+  .legend{display:flex;gap:14px;flex-wrap:wrap;font-size:11px;color:var(--dim);margin-bottom:18px}
+  .legend span{display:inline-flex;align-items:center;gap:5px}
+  .dot{width:10px;height:10px;border-radius:2px;display:inline-block}
+
+  .note{background:#eef7f2;border:1px solid #b8dcc8;border-radius:10px;padding:12px 16px;font-size:12.5px;color:var(--acc2);margin-top:14px}
+  .note b{color:var(--acc2)}
+  code{background:#e6ecf2;padding:1px 5px;border-radius:3px;font-size:11.5px;color:var(--acc)}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Prism-Agent 运行流程 · agent_loop</h1>
+<div class="sub">v0.2（2026-10-02：补"不跳步vs双向交叉验证"分层规则）。继承 v0.1：单次 Agent 模式请求的完整生命周期。BI 看板模式不走此循环（直读库渲染，见右下注）。PM 性落点见提纲 §5.1.1，部署架构见运行架构.html。</div>
+
+<div class="legend">
+  <span><span class="dot" style="background:var(--acc)"></span>主循环（pi SDK 进程内）</span>
+  <span><span class="dot" style="background:var(--red)"></span>红线/护栏</span>
+  <span><span class="dot" style="background:var(--purple)"></span>三维度并行/数据层</span>
+  <span><span class="dot" style="background:var(--acc2)"></span>PM 性承载</span>
+</div>
+
+<!-- ===== 双模式入口 ===== -->
+<div class="modes">
+  <div class="mode a">
+    <h3>模式 A · BI 看板<span class="badge">不走 agent_loop</span></h3>
+    <p>直读口径视图渲染图表 + 内嵌 AI 对话锁当前筛选态（服务端锁死数据范围，越权面小）。无语义工具。</p>
+    <div class="lock">⚠️ 不走本流程图，独立路径</div>
+  </div>
+  <div class="mode b">
+    <h3>模式 B · Agent 对话<span class="badge">走 agent_loop</span></h3>
+    <p>用户提问 → 浏览器 localStorage 本地 ID（usr_xxx）→ HTTPS → 本地 Nginx → pi SDK 进程。全库走语义工具。</p>
+  </div>
+</div>
+
+<div class="arrow" style="text-align:center;color:var(--acc);margin:6px 0">▼ 模式 B 进入主循环</div>
+
+<!-- ===== 主循环 ===== -->
+<div class="loop">
+  <h3>agent_loop（pi SDK 进程内 · DeepSeek-v4-flash）</h3>
+  <div class="sub-l">本地 ID → DeepSeek user_id 贯穿（KVCache/调度/内容安全隔离）。每轮：注入→思考→工具→验证→(续或收尾)。max_iterations 硬闸门。</div>
+
+  <!-- Stage 1 -->
+  <div class="stage">
+    <div class="stage-num">1</div>
+    <div class="stage-body">
+      <h4>before_agent_start · 注入棱镜 SOP</h4>
+      <p>动态注入 system prompt（非静态 AGENTS.md）：①全局层=棱镜三层推进纪律(配置→口碑→销量不跳步)+红线+结论定义；②会话层=锁当前车型/过滤态/已查维度快照。BI 嵌入会话注入受限子集。<b>分层规则</b>：默认按顺序推进；查完一维后允许带疑问回查另一维（双向交叉验证）；但禁止某维没查完就用别的维度下结论。</p>
+      <div class="meta">PM性·①流程骨架 | 两层提示词：全局永不动 + 会话锁快照 | 依据:chapter10/staged-system-prompt</div>
+    </div>
+  </div>
+  <div class="conn"></div>
+
+  <!-- Stage 2 -->
+  <div class="stage">
+    <div class="stage-num">2</div>
+    <div class="stage-body">
+      <h4>状态栏装配 · 维度完成度</h4>
+      <p>状态栏挂当前车型 / 配置✓口碑✓销量✓ 完成度（棱镜三维度主轴）+ 舆情✓（外挂，按需） / 工具调用计数(≥3告警) / 剩余 token 预算。agent 自见哪维没查。</p>
+      <div class="meta">PM性·②checklist | 状态栏 hook + compaction 保留完成度标记 | 舆情标记为外挂，不强制完成</div>
+    </div>
+  </div>
+  <div class="conn"></div>
+
+  <!-- Stage 3 -->
+  <div class="stage">
+    <div class="stage-num">3</div>
+    <div class="stage-body">
+      <h4>DeepSeek 思考 · 决定本轮动作</h4>
+      <p>模型基于 SOP + 状态栏 + 历史 → 输出：调用某语义工具 OR 给出最终结论。主轴遵循"配置→口碑→销量"顺序（棱镜三维度，未查配置时倾向先查配置）。<b>舆情是外挂第四组</b>——不在三维度主轴，但三个时机触发：①销量波动需找外部解释；②口碑与销量背离（口碑好销量差或反之）；③用户主动问舆情。</p>
+      <div class="meta">tool_call 事件触发 | 模型可提议结论，不能批准自己的结论（红线#1） | 舆情只与销量双向绑定（棱镜理论：营销变量非产品力）</div>
+    </div>
+  </div>
+  <div class="conn"></div>
+
+  <!-- Stage 4: 工具调用 + 护栏 -->
+  <div class="stage">
+    <div class="stage-num">4</div>
+    <div class="stage-body">
+      <h4>tool_call 护栏 → 语义工具执行 → tool_result 改写</h4>
+      <p>① <b>tool_call 拦截</b>：cc-safety-net + 自建红线拦截（fail-closed，抛错=拦）。② <b>工具门控</b>：setActiveTools 按阶段/角色解锁——普通用户锁只读白名单，管理者解锁采集。③ <b>工具执行</b>：query_config/reviews/sales（只读直连 SQLite）或 sentiment_*（GET only REST）。④ <b>tool_result 改写</b>：grounding 分维度配阈值，编造数字判 unsupported。</p>
+      <div class="guard"><b>红线闸</b>：工具函数体无写操作代码=结构上不可增删改；SQLite 只读连接；REST GET only。管理者写能力需弹密码（红线#3）。</div>
+      <div class="meta">PM性·③棱镜物化 | 3核心工具=棱镜三维度物化 | 依据:chapter9/safety_policy_gate.py:322</div>
+
+      <!-- 三维度并行（Stage 4 内嵌） -->
+      <div style="font-size:11px;color:var(--purple);margin-top:10px;margin-bottom:4px"><b>三维度并行（pi-subagents，复杂归因时触发）</b>：</div>
+      <div class="parallel">
+        <div class="pcol">
+          <h5>配置子agent</h5>
+          <p>query_config 独立调查产品力</p>
+          <span class="tool">query_config</span>
+        </div>
+        <div class="pcol">
+          <h5>口碑子agent</h5>
+          <p>query_reviews 维度聚合+原文</p>
+          <span class="tool">query_reviews</span>
+        </div>
+        <div class="pcol">
+          <h5>销量子agent</h5>
+          <p>query_sales 趋势+同级对比</p>
+          <span class="tool">query_sales</span>
+        </div>
+      </div>
+      <div class="meta" style="margin-top:6px">PM性·⑤多源交叉 | 结构化摘要回传主agent综合，不做辩论/级联终止 | 依据:chapter10/parallel-web-research</div>
+
+      <!-- 舆情工具组（外挂第四组·按需触发） -->
+      <div style="font-size:11px;color:var(--warn);margin-top:10px;margin-bottom:4px"><b>舆情工具组（外挂第四组 · 按需触发，不强制并行）</b>：</div>
+      <div style="background:#fdf6ec;border:1px dashed var(--warn);border-radius:6px;padding:8px 10px;font-size:11px;color:var(--dim)">
+        <b>触发时机</b>：① 销量波动需外部解释（如某车系销量骤降，查舆情是否负面事件）；② 口碑与销量背离（口碑好销量差或反之，舆情解释背离原因）；③ 用户主动问舆情。<b>6 个 sentiment_* 工具</b>（对接舆情 Board 21 个 dashboard GET）：sentiment_overview / sentiment_trend / sentiment_dimension(含 dim-examples 幻觉溯源) / sentiment_posts / sentiment_competitive / sentiment_events。<b>定位</b>：舆情是营销/外部变量，不是产品力维度——只与销量双向绑定，不进三维度主轴。
+      </div>
+    </div>
+  </div>
+  <div class="conn"></div>
+
+  <!-- Stage 5 -->
+  <div class="stage">
+    <div class="stage-num">5</div>
+    <div class="stage-body">
+      <h4>循环判断 · 续 or 收尾</h4>
+      <p>工具结果回填上下文 → 回 Stage 3 继续思考（若三维度未查完或结论未成型）→ 触发收尾（若结论成型）。max_iterations 硬闸门防死循环。</p>
+    </div>
+  </div>
+  <div class="conn"></div>
+
+  <!-- Stage 6 -->
+  <div class="stage">
+    <div class="stage-num">6</div>
+    <div class="stage-body">
+      <h4>agent_settled · 完成验证器（max 1 次 continuation）</h4>
+      <p>① <b>grounding 校验</b>：销量/配置数值维度，每个数字必有 evidence:[row_id]。② <b>结论完整性</b>：每条结论带结构性判断 + 证据行 ID + as_of 时点。③ <b>口碑定性结论</b>：claim 溯源 + 人工抽检（六分制对口碑失效）。④ n 与覆盖率<b>绝不采信模型自报</b>，服务端真值校验。不过 → max 1 次 continuation 回 Stage 3，再不过 fail。</p>
+      <div class="guard"><b>红线#1 闸</b>：模型可提出完成，不能批准自己的完成。独立验证器替 agent 做 PM 的"复核"。</div>
+      <div class="meta">PM性·④PM复核 | 依据:chapter8/premature-completion-dpo + chapter10/staged-system-prompt approve信号</div>
+    </div>
+  </div>
+  <div class="conn"></div>
+
+  <!-- Stage 7 -->
+  <div class="stage">
+    <div class="stage-num">7</div>
+    <div class="stage-body">
+      <h4>agent_end · 产出交付物 + 轨迹落盘</h4>
+      <p>① <b>交付物</b>：结论文本（带证据行 ID + as_of）/ 可选 excel·word 文件。② <b>轨迹落盘</b>：trajectories.jsonl 按 session_id 记完整对话 + tool_call/tool_result + 状态栏快照 + final conclusion + evidence 行 ID + as_of。③ <b>langfuse 写回 trace</b>（已核实 2026-10-01）：插件 `@langfuse/pi-observability-plugin` hook `tool_execution_start`/`tool_execution_end`，自建工具完整覆盖，trace 含工具名+参数(input,脱敏截断20K)+返回值(output,截断20K)+is_error+usage/成本+耗时；验证器分数+失败维度+成本 4 维度写回 trace 完全可行。④ HTTPS 回前端，用户可点踩（带 session_id 入库）。</p>
+      <div class="meta">badcase 回放：用户点踩 → 按 session_id 拉轨迹 → 区分"数据过期 vs 推理错 vs 工具选错"</div>
+    </div>
+  </div>
+</div>
+
+<!-- ===== 数据层（被 Stage 4 调用） ===== -->
+<div class="datalayer">
+  <h3>数据层（Stage 4 工具调用的供给端 · 全只读）</h3>
+  <div class="dlgrid">
+    <div class="dl">
+      <h5>生产库 autohome.db</h5>
+      <p>口碑/配置/销量 SQLite 只读直连</p>
+      <span class="ro">READ-ONLY 红线#1</span>
+    </div>
+    <div class="dl">
+      <h5>口径视图（Prism 侧）</h5>
+      <p>车系×维度×极性聚合 + n 随行。BI 与 agent 共用。</p>
+      <span class="ro">消费者口径资产</span>
+    </div>
+    <div class="dl">
+      <h5>舆情 Board REST</h5>
+      <p>21 个 dashboard GET（声量/趋势/维度/帖评论/事件/缺陷话题，分 6 个 sentiment_* 工具组）</p>
+      <span class="ro">GET only</span>
+    </div>
+    <div class="dl">
+      <h5>运行时写存储（独立）</h5>
+      <p>trajectories / mem0 记忆 / 反馈点踩。独立 SQLite（起步）/ Redis（建议加）</p>
+      <span class="ro">不混入生产库</span>
+    </div>
+  </div>
+</div>
+
+<div class="note">
+<b>读图要点</b>：<br>
+① <b>红线三闸都在执行层不在提示词</b>——Stage 4 tool_call 护栏（结构上不可写）+ Stage 6 完成验证器（独立复核）+ Stage 4 工具门控（角色解锁）。提示词层（Stage 1）只管"怎么想"，护栏层管"不能做什么"。<br>
+② <b>PM 性六层落点全图可见</b>：①Stage1 棱镜SOP / ②Stage2 状态栏完成度 / ③Stage4 三核心工具棱镜物化+门控 / ④Stage6 完成验证器PM复核 / ⑤Stage4 三维度并行多源交叉。外围支柱：口径视图（数据层）+ 评估集（跑完后回灌 Stage 6 验证标准）。<br>
+③ <b>舆情是外挂第四组</b>——棱镜三维度（配置/口碑/销量）是主轴，舆情不进主轴（是营销/外部变量，只与销量双向绑定），但 agent 有 6 个 sentiment_* 工具按需触发：销量波动找外部解释 / 口碑销量背离 / 用户主动问。Stage 4 三维度并行下方有舆情工具组独立块。<br>
+④ <b>BI 看板模式不走此循环</b>——直读口径视图渲染，内嵌 AI 锁筛选态，越权面小。<br>
+⑤ <b>40 并发 = 1-2 个 pi 进程异步跑多个这样的循环</b>，DeepSeek 远程 API I/O bound，单机 4c16g 富余 3 倍。
+</div>
+
+<!-- phase3-convergence 更新（2026-10-06）-->
+<div style="position:fixed;bottom:12px;right:12px;max-width:360px;background:#fffbe6;border:1px solid #e0c36b;border-radius:8px;padding:12px 14px;font-size:12px;line-height:1.6;color:#5a4a1a;box-shadow:0 2px 8px rgba(0,0,0,0.12);z-index:9999">
+<div style="font-weight:700;margin-bottom:4px">📌 运行流程更新（2026-10-06 phase3）</div>
+<div>agent_loop 7 stage 完整化：①前端带 series_key ②FastAPI 透传 ③pi_gateway 拼 prompt 前缀 ④before_agent_start 强制核验+setActiveTools ⑤agent 调工具（fail-closed 白名单）⑥tool_result grounding（verifyNames）⑦agent_settled verifyCompletion+verdict.json+trajectories / verdict 事件流到前端 / 点踩→/attribution 五维归因</div>
+</div>
+</body>
+</html>

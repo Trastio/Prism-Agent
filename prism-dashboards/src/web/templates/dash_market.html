@@ -1,0 +1,1172 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>市场看板 · Autohome Agent</title>
+<!-- 共享设计系统 v2（与 docs/原型-v2.css 同内容）：统一页头 / 卡片头 .mhead / 数据表 .tbl（含表头行）等 -->
+<link rel="stylesheet" href="/dash/static/dashboard-v2.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- 2026-10：ECharts 本地化（原 jsdelivr CDN 在本机不可达 → 图表降级成表格撑爆页面） -->
+<script src="/dash/static/echarts.min.js"></script>
+<style>
+  :root {
+    --accent: #b85638;  --accent-d: #a44f33;  --accent-bg: #fdf4ef;
+    --pos: #2348b8;  --neg: #9c2a25;  --neu: #7a7670;  --info: #3a6ea5;
+    --positive-bg: #eef2fc;  --negative-bg: #fdf2f2;  --neutral-bg: #f5f5f5;
+    --bg: #fafaf7;  --card-bg: #ffffff;
+    --ink: #15140f;  --muted: #5a564e;  --muted-2: #6b665e;
+    --border: #e7e5e0;  --thead: #f4f1ec;  --grid: #f0ece5;
+    /* 图表序列色（对齐原型 docs/原型-市场看板.html 的 --chart-series-* / --chart-other） */
+    --chart-1: #b85638;  --chart-2: #3a6ea5;  --chart-3: #c9a27a;  --chart-other: #d3d4da;
+    --radius: 12px;  --radius-sm: 8px;  --radius-lg: 16px;
+    --shadow: 0 1px 0 var(--grid);
+    --shadow-md: 0 2px 8px rgba(21,20,15,0.06);
+    /* 兼容旧变量名 */
+    --ink2: var(--muted);  --line: var(--border);  --bg-soft: var(--grid);
+    --warn: var(--neg);  --pro: var(--pos);  --con: var(--neg);
+    --blue: var(--info);  --good: var(--pos);  --red: var(--neg);  --green: var(--pos);
+  }
+  body { font-family: 'Inter', 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--ink); margin:0; }
+  /* 组件库 */
+  .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow-md); }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .kpi-value { font-size: 19px; font-weight: 700; font-feature-settings: 'tnum'; letter-spacing: -.01em; }
+  .alert-bar { background: var(--card-bg); border-left: 3px solid var(--accent); border-radius: var(--radius-sm); padding: 12px 16px; }
+  .hint { color: var(--muted); font-size: 12px; }
+  .sec { margin-bottom: 36px; }
+  .sec-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .18em; color: var(--muted); margin-bottom: 12px; }
+  /* details.panel 已移除（本页无 <details> 元素，零引用），见 git 历史 */
+  nav { background:#fff; border-bottom:1px solid var(--line); padding:10px 24px; display:flex; gap:18px; align-items:center; }
+  nav a { color:var(--ink2); text-decoration:none; font-size:14px; padding:4px 10px; border-radius:6px; }
+  nav a:hover { background:var(--thead); }
+  /* 冷蓝残留 → 暖色令牌（与配置页统一） */
+  nav a.on { color:var(--accent); background:var(--accent-bg); font-weight:600; }
+  main { max-width:1080px; margin:0 auto; padding:24px; }
+  /* market-polish-v2：卡片标题统一走共享 `.mhead-title`（15px），此处不再定义
+     `.card h2/h3` 巨型字号规则——避免与共享设计系统出现两套标题样式。 */
+  /* 已移除 5 条失效规则：.bar / .bar select,input[type=text],button,.btn-like /
+     .bar button,.btn-like / .bar button:disabled / .bar label.combo——本页工具栏已改用
+     共享 `.chips` / `.combo`，页面内无 class="bar" 元素（口碑页的覆盖率条 .bar 是另一组件，另行核验）；见 git 历史。 */
+  #import-result { margin:-8px 0 16px; font-size:13px; }
+  #import-result.ok { color:#15803d; }
+  #import-result.err { color:#b91c1c; }
+  #import-result ul { margin:4px 0 0 18px; padding:0; color:var(--ink2); }
+  /* 真实图表容器：沿用共享 .chart-host 尺寸，仅把原型占位虚线改成实线边框 */
+  .chart-host { position:relative; height:320px; margin-top:12px; border-style:solid; }
+  /* 2026-10：定位散点加高，给底部「缩放滑条」留出空间（.tall 仅用于该图） */
+  .chart-host.tall { height: 340px; }
+  /* 2026-10：ECharts 不可用时的降级表——去掉 .chart-host 的 flex 居中，改为限高内滚动，
+     避免整张表（散点可达 900+ 行）撑爆页面高度、覆盖其它卡片。 */
+  .chart-host.is-fallback { display:block; overflow:auto; align-items:initial; justify-content:initial; }
+  /* 数据表统一使用共享 `.tbl`（自带 thead 表头行样式）——不再保留 `.card table` 兜底规则 */
+  .err { color:#b91c1c; font-size:13px; margin-top:10px; }
+  .empty { color:var(--ink2); font-size:13px; margin-top:12px; }
+  .pill { display:inline-block; padding:1px 8px; border-radius:10px; font-size:11px; }
+  .pill.warn { background:#fef3c7; color:#b45309; }
+  .pill.up { background:#dcfce7; color:#15803d; }
+  /* v11 结论卡 */
+  #insight-card { border-left:4px solid var(--accent); }
+  /* 已移除 1 条失效规则：.insight-sentence（结论句已改由共享 `.concl` 承载，全页无 class="insight-sentence"）；见 git 历史。 */
+  /* 原型 §01 结论卡：4 个 KPI（本月零售 / 环比 / 细分份额 / 终端价 TP） */
+  .kpis { display:flex; gap:28px; flex-wrap:wrap; margin-top:12px; }
+  .kpi .n { font-size:20px; font-weight:700; font-variant-numeric:tabular-nums; letter-spacing:-.01em; }
+  .kpi .n.up { color:var(--pos); } .kpi .n.down { color:var(--neg); }
+  .kpi .l { font-size:12px; color:var(--muted); margin-top:2px; }
+  /* 原型 §04：月份切换 chips 改用共享 `.chips` / `.chip`（不再自定义 .mchips） */
+  .cmp-tools { display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-bottom:8px; }
+  .cmp-tools input[type="text"] { padding:6px 12px; border:1px solid var(--line); border-radius:8px; font-size:14px; }
+  /* §05 搜索框位于 .combo 内——高度应统一由 .combo 提供；覆盖上面的 input 内边距，避免比顶部车系选择器高一截 */
+  .cmp-tools .combo input { padding:0; font-size:13px; width:200px; }
+  /* 2026-11：车系 combobox = 输入框 + datalist，浏览器会给 input[list] 额外画一个原生下拉箭头，
+     与模板自带的 ▾ 叠成"两个箭头"——这里隐藏原生箭头，只保留模板 ▾（与页面其余控件一致） */
+  .combo input::-webkit-calendar-picker-indicator { display:none !important; opacity:0; width:0; height:0; }
+  .combo-arrow { opacity:.55; font-size:12px; line-height:1; }
+  /* 2026-10：候选列表改用 grid（原 columns:3 + max-height 会向右侧溢出生成十几列，出现横向滚动、大量项不可见） */
+  #cmp-list { max-height:150px; overflow-y:auto; border:1px solid var(--line); border-radius:8px; padding:6px 10px; margin:8px 0;
+              display:grid; grid-template-columns:repeat(3, 1fr); gap:2px 16px; align-content:start; }
+  #cmp-list label { display:block; font-size:13px; padding:2px 0; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+  #cmp-count { color:var(--ink2); font-size:13px; }
+  #cmp-total { color:var(--ink2); font-size:12px; }
+  /* 2026-10：已选车系独立展示区——搜索会重建候选列表，已选需独立可见、可单点移除 */
+  .cmp-selected { display:flex; gap:6px; flex-wrap:wrap; align-items:center; margin:6px 0; font-size:13px; color:var(--ink2); min-height:22px; }
+  .cmp-chip { display:inline-flex; align-items:center; gap:2px; background:var(--accent-bg); color:var(--accent); border-radius:12px; padding:1px 4px 1px 10px; font-size:12px; }
+  .cmp-chip button { border:0; background:transparent; color:inherit; cursor:pointer; font-size:14px; line-height:1; padding:0 4px; }
+  .foot { color:var(--ink2); font-size:12px; margin-top:8px; line-height:1.8; }
+  .spinner { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; background:rgba(255,255,255,.7); font-size:14px; color:var(--ink2); z-index:2; }
+  .chart-host.loading::before { content:"加载中…"; }
+  /* P1-15/P2-28：窄屏响应式——工具条换行、图表高度收缩、竞品列表单列 */
+  @media (max-width: 768px) {
+    main { padding: 12px; }
+    /* 已移除 2 条失效规则：媒体查询内的 .bar 与 .bar select,input[type=text]（同因页面无 class="bar"）；见 git 历史。 */
+    .chart-host { height: 240px; }
+    #cmp-list { grid-template-columns: 1fr; }
+    .tbl { font-size: 12px; }
+  }
+  /* dashboard-v10 Task 2.3：全局键盘焦点可见样式（无障碍） */
+  :focus-visible { outline: 2px solid var(--blue, #3182ce); outline-offset: 2px; }
+  /* 已移除 2 条失效规则：.band / .band:first-of-type（data-layer-tag-system 分隔带，
+     本页无 class="band" 元素，已由 .sec-title / .card 结构取代）；见 git 历史。 */
+  /* 竞品对比汇总表：改用共享 `.tbl`（表头静态写在 <thead>，JS 只填 <tbody>） */
+  #cmp-summary { margin-top: 14px; }
+</style>
+</head>
+<body>
+<nav class="nav"><a href="/dash/koubei">口碑</a><a href="/dash/config">配置</a><a class="on" href="/dash/market">市场</a></nav>
+{# Task7 review 遗留：本页全部模块由 JS 拉取渲染，禁用 JS 时给出显式提示而非空白 #}
+<noscript>
+  <div class="card" style="margin:24px auto;max-width:1032px;">
+    <div class="mhead"><span class="mhead-title">⚠ 本页需要启用 JavaScript</span></div>
+    <p class="hint">市场看板的图表与数据均由浏览器端脚本拉取渲染。请启用 JavaScript 后刷新页面。</p>
+  </div>
+</noscript>
+<main>
+{% if not months and not series_list %}
+  {# P1-11: 空库引导——不显示全空白页面，置顶提示用户导入 CAM Excel（下方工具栏/模块仍渲染，JS 加载后显示空态提示）#}
+  <div class="card" style="text-align:center;padding:32px 24px;border-color:#fbbf24;background:#fffbeb;">
+    <div class="mhead" style="justify-content:center;"><span class="mhead-title">⚠ 市场看板还没有数据</span></div>
+    <p class="hint" style="margin:12px 0 20px;">市场销量/价格数据由 CAM 终端分版型监测 Excel 通过后端脚本定期导入。当前库内无数据，请联系维护人员运行导入脚本（scripts/import_sales_excel.py）后刷新本页。</p>
+    <label class="btn-like" style="display:none;font-size:15px;padding:10px 24px;">导入 Excel<input type="file" id="import-file-empty" accept=".xlsx" hidden></label>
+  </div>
+{% endif %}
+  <!-- 页头：MARKET + 「市场看板」 + 数据源副标 + 右侧「月末快照」pill -->
+  <div class="page-head">
+    <div>
+      <div class="eyebrow">MARKET</div>
+      <div class="page-title">市场看板</div>
+      <div class="page-sub">数据源：CAM 终端分版型监测（单表 · 仅月末）</div>
+    </div>
+    <span class="spacer"></span>
+    {% if default_month %}<span class="pill">月末快照 {{ default_month }}</span>{% endif %}
+  </div>
+
+  <!-- 控制卡：车系 + 月份（车系下拉驱动 §01–§05；月份下拉驱动 §02 散点与 §04 版型结构） -->
+  <div class="card">
+    <div class="mhead">
+      <span class="mhead-title">车系与月份</span>
+      <span class="spacer"></span>
+      <span class="mhead-note">车系下拉 → 结论卡 / 量价同屏 / 版型结构 / 竞品对比；月份下拉 → 定位散点（不影响单系视角模块）</span>
+    </div>
+    <div class="chips">
+    <label class="combo" title="输入车系名筛选，或点击下拉选择">
+      <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true" style="opacity:.55"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"></circle><line x1="11" y1="11" x2="15" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line></svg>
+      <input type="text" id="series-input" list="mkt-series-options" placeholder="搜索/选择车系…" autocomplete="off" aria-label="搜索并选择车系" style="border:0;outline:0;padding:0;width:150px;font:inherit;background:transparent;color:inherit">
+      <span class="combo-arrow" aria-hidden="true">▾</span>
+      <datalist id="mkt-series-options">{% for s in series_list %}<option value="{{ s.series }}"></option>{% endfor %}</datalist>
+    </label>
+    <label class="hint">月份 <select id="month-select">
+      {# Task 4.2: 只暴露月末快照（不含月中）—— Q7 #}
+      {% for m in months if '月末' in m %}<option value="{{ m }}"{% if m == default_month %} selected{% endif %}>{{ m }}</option>{% endfor %}
+    </select></label>
+      <label class="btn-like" style="display:none">导入 Excel<input type="file" id="import-file" accept=".xlsx" hidden></label>
+    </div>
+  </div>
+  <div id="import-result"></div>
+
+
+  {# ======================= §01 结论条 ======================= #}
+  <section class="sec">
+    <div class="sec-title">§01 结论条</div>
+    <div class="card" id="insight-card">
+      <div class="mhead">
+        <span class="mhead-title">结论卡</span>
+        <span class="spacer"></span>
+        <span class="mhead-note">基于销量趋势 / TP 稳定性 / 主销版型的规则洞察</span>
+      </div>
+      <div id="insight-body"><p class="empty">请先选择车系。</p></div>
+    </div>
+  </section>
+
+  {# ======================= §02 散点（定位散点，选中车系高亮聚焦） ======================= #}
+  <section class="sec">
+    <div class="sec-title">§02 散点</div>
+    <div class="card">
+      <div class="mhead">
+        <span class="mhead-title">定位散点</span>
+        <span class="spacer"></span>
+        <span class="mhead-note">轴距×TP 定位｜X 轴距(mm) · Y 终端价(万元) · 气泡＝零售数 · 按级别分色</span>
+      </div>
+      <div class="chips hint-mb">
+        <label class="hint">级别 <select id="scatter-level" onchange="loadScatter()"><option value="">全部</option></select></label>
+        <label class="hint">车身 <select id="scatter-body" onchange="loadScatter()"><option value="">全部</option></select></label>
+        <label class="hint">能源 <select id="scatter-energy" onchange="loadScatter()"><option value="">全部</option></select></label>
+        <label class="hint">价格段 <select id="scatter-price" onchange="loadScatter()">
+          <option value="">全部</option>
+          <option value="0-5">0-5 万</option>
+          <option value="5-10">5-10 万</option>
+          <option value="10-15">10-15 万</option>
+          <option value="15-20">15-20 万</option>
+          <option value="20-25">20-25 万</option>
+          <option value="25-30">25-30 万</option>
+          <option value="30+">30 万以上</option>
+        </select></label>
+      </div>
+      <div class="chart-host tall" id="scatter-host"></div>
+      <p class="hint" id="scatter-note"></p>
+      <p class="legend">气泡大小＝零售数 · 同级车系按级别分色 · 当前车系（--chart-1 陶土橙，放大标注）· 滚轮缩放 / 拖动平移 / 底部滑条缩放</p>
+    </div>
+  </section>
+
+  {# ======================= §03 趋势（量价同屏） ======================= #}
+  <section class="sec">
+    <div class="sec-title">§03 趋势</div>
+    <div class="card">
+      <div class="mhead">
+        <span class="mhead-title">量价同屏</span>
+        <span class="spacer"></span>
+        <span class="mhead-note">月度销量（左轴）× TP/MSRP（右轴，万元）；优惠随 tooltip 展示</span>
+      </div>
+      <div class="chart-host" id="volprice-host"></div>
+      <p class="legend">零售（辆）＝--chart-1 ｜ 终端价 TP＝--chart-2 ｜ 指导价 MSRP＝--muted</p>
+      <p class="hint">两线间距＝渠道优惠；优惠仅入 tooltip，不再单列卡片。</p>
+    </div>
+  </section>
+
+  {# ======================= §04 结构（版型结构） ======================= #}
+  <section class="sec">
+    <div class="sec-title">§04 结构</div>
+    <div class="card">
+      <div class="mhead">
+        <span class="mhead-title">版型结构</span>
+        <span class="spacer"></span>
+        <span class="mhead-note">版型级（选中车系的版型集中度）</span>
+      </div>
+      {# 原型 §04：版型结构的月份切换 chips（近 6 个月末，随所选月份联动） #}
+      <div class="chips hint-mb" id="trim-month-chips" role="group" aria-label="版型结构月份"></div>
+      {# 三个 mini：Top1 / Top3 版型占比 + 在售版型数（JS 填充） #}
+      <div class="grid3 hint-mb">
+        <div class="mini"><div class="l">Top1 版型占比</div><div class="n" id="trim-top1">—</div><div class="s" id="trim-top1-name">&nbsp;</div></div>
+        <div class="mini"><div class="l">Top3 版型占比</div><div class="n" id="trim-top3">—</div><div class="s" id="trim-top3-note">&nbsp;</div></div>
+        <div class="mini"><div class="l">在售版型数</div><div class="n" id="trim-count">—</div><div class="s">本月有零售的版型</div></div>
+      </div>
+      {# 版型明细表：表头静态写在 <thead>，JS 只填 <tbody>（列名与原型一致：版型 / 零售（辆）/ Mix（%）） #}
+      <table class="tbl" id="trim-table">
+        <thead>
+          <tr><th>版型</th><th class="num">零售（辆）</th><th class="num">Mix（%）</th></tr>
+        </thead>
+        <tbody id="trim-table-body"><tr><td colspan="3" class="hint">请先选择车系。</td></tr></tbody>
+      </table>
+      <p class="hint">集中度＝本月零售份额 Top N 版型 ÷ 车系总零售；Mix 取源表标注。</p>
+      <div class="mhead-sub">版型集中度（Top 版型 mix）</div>
+      <div class="chart-host" id="trim-conc-host" style="height:240px;"></div>
+      <div class="mhead-sub">版型集中度趋势（近 12 个月 Top1/Top3 版型零售占比）</div>
+      <div class="chart-host" id="trim-conc-trend-host" style="height:300px;"></div>
+    </div>
+  </section>
+
+  {# ======================= §05 竞品对比（2-4 车系，搜索 + checkbox 列表） ======================= #}
+  <section class="sec">
+    <div class="sec-title">§05 竞品对比</div>
+    <div class="card">
+      <div class="mhead">
+        <span class="mhead-title">竞品对比</span>
+        <span class="spacer"></span>
+        <span class="mhead-note">2-4 个车系同轨对比（TP/MSRP/优惠为零售加权；销量为月度零售合计）</span>
+      </div>
+      <div class="cmp-tools">
+        <span class="combo">
+          <svg width="12" height="12" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="5" fill="none" stroke="currentColor" stroke-width="2"></circle><line x1="11" y1="11" x2="15" y2="15" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line></svg>
+          <input type="text" id="cmp-search" placeholder="搜索并添加对比车系…" autocomplete="off" aria-label="搜索对比车系">
+          <span aria-hidden="true">▾</span>
+        </span>
+        <label class="hint">指标 <select id="cmp-metric">
+          <option value="tp" selected>TP</option>
+          <option value="msrp">MSRP</option>
+          <option value="discount">优惠</option>
+          <option value="retail">销量</option>
+        </select></label>
+        <span id="cmp-count" class="hint">已选 0 / 4</span>
+        <span id="cmp-total" class="hint"></span>
+        <button id="btn-compare" class="btn sm" disabled>对比</button>
+      </div>
+      <div id="cmp-selected" class="cmp-selected"></div>
+      <div id="cmp-list"></div>
+      <div class="chart-host" id="compare-host"></div>
+      <p class="hint" id="cmp-stale" hidden style="color:#b45309;margin-top:6px">已选车系变化，上图<span style="font-weight:600">已过期</span>——点「对比」刷新。</p>
+      {# 竞品汇总表：表头静态写在 <thead>，JS 只填 <tbody>
+         （列名与原型一致：车型 / 零售（辆）/ 环比 / TP（万）/ MSRP（万）/ 优惠（万））#}
+      <table class="tbl" id="cmp-summary">
+        <thead>
+          <tr>
+            <th>车型</th>
+            <th class="num">零售（辆）</th>
+            <th class="num">环比</th>
+            <th class="num">TP（万）</th>
+            <th class="num">MSRP（万）</th>
+            <th class="num">优惠（万）</th>
+          </tr>
+        </thead>
+        <tbody id="cmp-summary-body"><tr><td colspan="6" class="hint">请先勾选 2-4 个车系并点「对比」。</td></tr></tbody>
+      </table>
+      <p class="hint" id="cmp-summary-note">优惠 = MSRP − TP，可为负（终端价高于指导价）；仅月末快照。</p>
+    </div>
+  </section>
+
+  <div class="foot">
+    · 数据来自 CAM 终端分版型监测 Excel（单表·版型级），经"导入 Excel"存入本地库；查询均只读。车系销量＝SUM(零售)，车系价格＝零售加权。<br>
+    · 月中快照的零售数滞后到月末文件才发布，最新月零售可能为空（如实展示，不填 0）。<br>
+    {% if freshness and freshness.month_range %}
+    · 数据时效：覆盖月份 {{ freshness.month_range }}；最后导入批次月份 {{ freshness.latest_month }}。
+    {% endif %}
+  </div>
+</main>
+
+<script>
+"use strict";
+// ============ 通用 ============
+// XSS 纪律：API 返回值插入 innerHTML 一律过 _esc（同 dash_config P3#40）
+function _esc(s){
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+function _chartAvail(){ return typeof echarts !== "undefined"; }
+
+async function fetchJSON(url, opts){
+  try {
+    const r = await fetch(url, opts);
+    const j = await r.json().catch(() => ({ok:false, error:`HTTP ${r.status}`}));
+    if (!r.ok && j.error === undefined) j.error = `HTTP ${r.status}`;
+    j._status = r.status;
+    return j;
+  } catch (e) { return {ok:false, error:String(e)}; }
+}
+
+// dashboards-design-system：ECharts 实例池（hostId → echarts 实例，重绘前 dispose 防泄漏）
+const _charts = {};
+function paintE(hostId, option, headers, rows){
+  const host = document.getElementById(hostId);
+  if (!host) return;
+  clearSpinner(hostId);
+  if (_charts[hostId]) { _charts[hostId].dispose(); delete _charts[hostId]; }
+  if (_chartAvail() && option) {
+    host.classList.remove("is-fallback");  // 2026-10：恢复正常渲染态
+    host.innerHTML = "";
+    const inst = echarts.init(host);
+    inst.setOption(option);
+    _charts[hostId] = inst;
+    // 响应式：窗口缩放时重绘
+    if (!_charts._resizeBound) {
+      window.addEventListener("resize", () => {
+        Object.values(_charts).forEach(c => { if (c && c.resize) c.resize(); });
+      });
+      _charts._resizeBound = true;
+    }
+  } else {
+    renderFallbackTable(hostId, headers, rows);  // CDN 失败 → 表格降级
+  }
+}
+
+// 通用降级表格（ECharts 不可用时所有模块共用）
+function renderFallbackTable(containerId, headers, rows){
+  const host = document.getElementById(containerId);
+  if (!host) return;
+  if (!rows || !rows.length) {
+    host.innerHTML = '<p class="empty">暂无数据。</p>';
+    return;
+  }
+  host.classList.add("is-fallback");  // 2026-10：限高内滚动，防降级表（散点 900+ 行）撑爆页面
+  host.innerHTML = '<table class="tbl"><thead><tr>' +  // 降级表统一带 .tbl 表头样式
+    headers.map(h => `<th>${_esc(h)}</th>`).join("") +
+    "</tr></thead><tbody>" +
+    rows.map(r => "<tr>" + r.map(c => `<td>${_esc(c ?? "—")}</td>`).join("") + "</tr>").join("") +
+    "</tbody></table>";
+}
+
+function setMsg(hostId, text, cls){  // 模块内提示/报错
+  const host = document.getElementById(hostId);
+  if (host) {
+    clearSpinner(hostId);
+    if (_charts[hostId]) { _charts[hostId].dispose(); delete _charts[hostId]; }
+    host.classList.remove("is-fallback");
+    host.innerHTML = `<p class="${cls === "err" ? "err" : "empty"}">${_esc(text)}</p>`;
+  }
+}
+
+// P2-20：加载指示——切车系时旧图不保留到新图完成，先清空再显 spinner
+function showSpinner(hostId){
+  const host = document.getElementById(hostId);
+  if (!host) return;
+  if (_charts[hostId]) { _charts[hostId].dispose(); delete _charts[hostId]; }
+  host.classList.remove("is-fallback");
+  host.classList.add("loading");
+  host.innerHTML = '<div class="spinner" role="status" aria-live="polite">加载中…</div>';
+}
+function clearSpinner(hostId){
+  const host = document.getElementById(hostId);
+  if (host) host.classList.remove("loading");
+}
+
+// 单位换算：元 → 万元（1 位小数；null 保持 null，不编造 0）
+function wan(v){ return v == null ? null : Math.round(v / 1000) / 10; }
+function fmtW(v){ return v == null ? "—" : String(v); }
+function fmtNum(v){ return v == null ? "—" : Number(v).toLocaleString("zh-CN"); }
+function fmtMix(v){
+  if (v == null) return "—";
+  return v <= 1 ? `${Math.round(v * 100)}%` : String(v);
+}
+
+// dashboards-design-system：调色板（按原型令牌排序：主序列=品牌陶土橙 →
+// 次序列=信息蓝 → 浅棕 → 语义色…，与 CSS :root 的 --chart-1/2/3/other 一致）
+const PALETTE = ["#b85638","#3a6ea5","#c9a27a","#2348b8","#9c2a25",
+                 "#7a7670","#0d9488","#b45309","#65a30d","#475569"];
+const NEU_COLOR = "#7a7670";  // 淡化色（非选中点）
+const ACCENT_COLOR = "#b85638";  // 选中高亮色
+
+// ============ 车系选择（M-5：可搜索 combobox = 输入框 + datalist） ============
+let _seriesSet = new Set();  // 有效车系名集合——combobox 值合法性校验（半输入不触发查询）
+function _currentSeries(){
+  const v = (document.getElementById("series-input") || {}).value || "";
+  return _seriesSet.has(v) ? v : "";  // 仅精确匹配已知车系才视为有效选中
+}
+
+// ============ 模块 1：结论卡（v11） ============
+async function loadInsight(){
+  const host = "insight-body";
+  const name = _currentSeries();
+  if (!name) {
+    document.getElementById(host).innerHTML = '<p class="empty">请先选择车系。</p>';
+    return;
+  }
+  const res = await fetchJSON(`/dash/market/api/insight?series=${encodeURIComponent(name)}`);
+  if (!res.ok) { document.getElementById(host).innerHTML = `<p class="err">${_esc(res.error || "加载失败")}</p>`; return; }
+  const parts = res.parts || {};
+  const tp = parts.tp_stability || {};
+  const lr = parts.latest_retail || {};
+  const mom = parts.mom_pct;
+  const ls = parts.level_share || {};
+  // 原型 §01：结论卡 4 个 KPI——本月零售 / 环比 / 细分份额 / 终端价 TP
+  // （趋势与主销版型信息仍由上方 sentence 承载，不重复占位）
+  const momCls = mom == null ? "" : (mom > 0 ? "up" : mom < 0 ? "down" : "");
+  const momTxt = mom == null ? "—" : `${mom > 0 ? "+" : ""}${mom}%`;
+  const shareTxt = ls.share == null ? "—" : `${(ls.share * 100).toFixed(1)}%`;
+  const shareLbl = ls.level ? `细分份额（${_esc(ls.level)}）` : "细分份额";
+  document.getElementById(host).innerHTML =
+    `<div class="concl"><p>${_esc(res.sentence)}</p></div>` +
+    `<div class="kpis">` +
+      `<div class="kpi"><div class="n">${fmtNum(lr.value)}</div>`
+      + `<div class="l">本月零售（辆）${lr.month ? " · " + _esc(lr.month) : ""}</div></div>` +
+      `<div class="kpi"><div class="n ${momCls}">${momTxt}</div><div class="l">环比</div></div>` +
+      `<div class="kpi"><div class="n">${shareTxt}</div><div class="l">${shareLbl}</div></div>` +
+      `<div class="kpi"><div class="n">${tp.latest_wan == null ? "—" : tp.latest_wan}</div>`
+      + `<div class="l">终端价 TP（万）</div></div>` +
+    `</div>`;
+}
+
+// ============ 模块 3：量价同屏（v11：bar 销量 / line TP+MSRP / dual Y，优惠入 tooltip） ============
+// 月份归一（v7 单表化）：trend 与 retail 均取自 sales_trim，月份标签同形"2026-9月末"；
+// 归一为"年-月号"作合并键，抹掉中/末后缀（retail 保留中+末全轴，月末值覆盖月中空值）。
+function _normMonthKey(label){
+  // "2026-9月末" → "2026-9"；"2026-9月中" → "2026-9"
+  return String(label || "").replace(/[中末]$/, "");
+}
+async function loadVolPrice(){
+  const host = "volprice-host";
+  const name = _currentSeries();
+  if (!name) { setMsg(host, "请先选择车系。"); return; }
+  showSpinner(host);
+  const [tr, rt] = await Promise.all([
+    fetchJSON(`/dash/market/api/trend?series=${encodeURIComponent(name)}`),
+    fetchJSON(`/dash/market/api/retail?series=${encodeURIComponent(name)}`)
+  ]);
+  if (!tr.ok || !rt.ok) { setMsg(host, (tr.error || rt.error || "加载失败"), "err"); return; }
+  // 合并月份：trend 月 + retail 月，按 key 去重排序
+  const keySet = new Map();  // key → display label（优先用 retail 的原文，信息更全）
+  tr.months.forEach(m => { const k = _normMonthKey(m); if (!keySet.has(k)) keySet.set(k, m); });
+  rt.months.forEach(m => { const k = _normMonthKey(m); keySet.set(k, m); });  // retail 原文优先
+  const keys = [...keySet.keys()].sort((a, b) => {
+    const [ya, ma] = a.split("-").map(Number);
+    const [yb, mb] = b.split("-").map(Number);
+    return (ya - yb) || (ma - mb);
+  });
+  if (!keys.length) { setMsg(host, `「${name}」暂无量价数据。`); return; }
+  const trMap = new Map(tr.months.map((m, i) => [_normMonthKey(m), i]));
+  const rtMap = new Map(rt.months.map((m, i) => [_normMonthKey(m), i]));
+  const labels = keys.map(k => keySet.get(k));
+  const retail = keys.map(k => { const i = rtMap.get(k); return i == null ? null : rt.retail[i]; });
+  const tp = keys.map(k => { const i = trMap.get(k); return i == null ? null : wan(tr.tp[i]); });
+  const msrp = keys.map(k => { const i = trMap.get(k); return i == null ? null : wan(tr.msrp[i]); });
+  const disc = keys.map(k => { const i = trMap.get(k); return i == null ? null : wan(tr.discount[i]); });
+  const rows = labels.map((m, i) => [m, fmtNum(retail[i]), fmtW(tp[i]), fmtW(msrp[i]), fmtW(disc[i])]);
+  // dashboards-design-system：ECharts bar（销量）+ line（TP/MSRP）双 Y 轴，优惠入 tooltip
+  const option = {
+    tooltip: { trigger: "axis", axisPointer: { type: "cross" },
+      formatter: function(params){
+        let lines = [params[0].axisValueLabel];
+        params.forEach(p => {
+          if (p.seriesName === "销量") {
+            lines.push(`销量：${p.value == null ? "未发布" : fmtNum(p.value) + " 辆"}`);
+          } else {
+            lines.push(`${p.seriesName}：${p.value == null ? "—" : p.value} 万`);
+          }
+        });
+        const i = params[0].dataIndex;
+        const d = disc[i];
+        lines.push(d == null ? "优惠：—" : `优惠：${d} 万`);
+        return lines.join("<br>");
+      } },
+    legend: { top: "top", textStyle: { color: "#5a564e" } },
+    grid: { left: "8%", right: "8%", top: "15%", bottom: "12%" },
+    xAxis: { type: "category", data: labels,
+             axisLine: { lineStyle: { color: "#e7e5e0" } },
+             axisLabel: { color: "#5a564e" } },
+    yAxis: [
+      { type: "value", name: "销量（辆）", position: "left",
+        axisLine: { lineStyle: { color: "#e7e5e0" } },
+        axisLabel: { color: "#5a564e" },
+        splitLine: { lineStyle: { color: "#f0ece5" } } },
+      { type: "value", name: "TP/MSRP（万）", position: "right",
+        axisLine: { lineStyle: { color: "#e7e5e0" } },
+        axisLabel: { color: "#5a564e" },
+        splitLine: { show: false } }
+    ],
+    series: [
+      // 配色对齐原型 §03：零售柱=--chart-1（陶土橙）、TP=--chart-2（信息蓝）、
+      // MSRP=中性灰（原型 --text-muted），不再用默认亮蓝/亮红/冷灰
+      { name: "销量", type: "bar", yAxisIndex: 0, data: retail,
+        itemStyle: { color: "#b85638" } },
+      { name: "TP", type: "line", yAxisIndex: 1, data: tp,
+        smooth: true, symbol: "circle", symbolSize: 6,
+        lineStyle: { color: "#3a6ea5", width: 2 },
+        itemStyle: { color: "#3a6ea5" }, connectNulls: false },
+      { name: "MSRP", type: "line", yAxisIndex: 1, data: msrp,
+        smooth: true, symbol: "circle", symbolSize: 6,
+        lineStyle: { color: "#5a564e", width: 2 },
+        itemStyle: { color: "#5a564e" }, connectNulls: false }
+    ]
+  };
+  paintE(host, option, ["月份","销量（辆）","TP（万）","MSRP（万）","优惠（万）"], rows);
+}
+
+// ============ 模块 4：版型结构（v11） ============
+// 原型 §04：月份切换 chips——局部选择，初值跟随顶部月份下拉；
+// 顶部月份变化时把 §04 重置回该月，保证两个控件不打架。
+let _trimMonth = "";
+function renderTrimMonthChips(){
+  const box = document.getElementById("trim-month-chips");
+  const msel = document.getElementById("month-select");
+  if (!box || !msel) return;
+  const months = [...msel.options].map(o => o.value).slice(-6);  // 近 6 个月末，避免长条
+  if (!months.length) { box.innerHTML = ""; return; }
+  if (!_trimMonth || !months.includes(_trimMonth)) _trimMonth = months[months.length - 1];
+  box.innerHTML = months.map(m =>
+    `<span class="chip${m === _trimMonth ? " on" : ""}" data-m="${_esc(m)}">${_esc(m)}</span>`
+  ).join("");
+}
+// §04 三个 mini：Top1 / Top3 版型占比 + 在售版型数（数据来自 trim-structure，不编造）
+function _renderTrimMini(res, tops){
+  const pct = v => v == null ? "—" : `${(v * 100).toFixed(1)}%`;
+  const top1 = document.getElementById("trim-top1");
+  const top1n = document.getElementById("trim-top1-name");
+  const top3 = document.getElementById("trim-top3");
+  const top3n = document.getElementById("trim-top3-note");
+  const cnt = document.getElementById("trim-count");
+  if (top1) top1.textContent = pct(res.top1_mix);
+  if (top1n) top1n.textContent = tops.length ? tops[0].model_name : "—";
+  if (top3) top3.textContent = pct(res.top3_mix);
+  if (top3n) top3n.textContent = res.top3_mix == null ? "—"
+    : (res.top3_mix >= 0.7 ? "高集中（Top3 ≥ 70%）" : "集中度一般");
+  if (cnt) cnt.textContent = tops.length ? String(tops.length) : "—";
+}
+
+// §04 版型明细表：只填 <tbody>，表头见静态 <thead>（版型 / 零售（辆）/ Mix（%））
+function _renderTrimTable(tops){
+  const body = document.getElementById("trim-table-body");
+  if (!body) return;
+  if (!tops.length) {
+    body.innerHTML = '<tr><td colspan="3" class="hint">暂无版型数据。</td></tr>';
+    return;
+  }
+  body.innerHTML = tops.map(t =>
+    `<tr><td>${_esc(t.model_name)}</td>`
+    + `<td class="num">${fmtNum(t.retail)}</td>`
+    + `<td class="num">${fmtMix(t.mix)}</td></tr>`
+  ).join("");
+}
+
+async function loadTrimStructure(){
+  const name = _currentSeries();
+  // 原型 §04：优先用 §04 自身的月份 chips 选择，未初始化时回退顶部月份下拉
+  const month = _trimMonth || (document.getElementById("month-select") || {}).value || "";
+  const host = "trim-conc-host";
+  if (!name) { setMsg(host, "请先选择车系。"); return; }
+  showSpinner(host);
+  // dashboard-interaction-polish Task 3.2：版型结构随月份刷新
+  let url = `/dash/market/api/trim-structure?series=${encodeURIComponent(name)}`;
+  if (month) url += `&month=${encodeURIComponent(month)}`;
+  const res = await fetchJSON(url);
+  if (!res.ok) { setMsg(host, res.error || "加载失败", "err"); return; }
+  // §04：三个 mini（Top1/Top3 占比、在售版型数）+ 版型明细表 + 集中度条形图
+  const tops = res.top_trims || [];
+  _renderTrimMini(res, tops);
+  _renderTrimTable(tops);
+  if (!tops.length) {
+    setMsg(host, `「${name}」暂无版型数据。`);
+  } else {
+    const rows = tops.map(t => [t.model_name, fmtNum(t.retail), fmtMix(t.mix)]);
+    const option = {
+      tooltip: { trigger: "axis", axisPointer: { type: "shadow" },
+        formatter: function(params){ return `${params[0].name}<br>Mix ${fmtMix(tops[params[0].dataIndex].mix)}`; } },
+      grid: { left: "30%", right: "8%", top: "5%", bottom: "5%" },
+      xAxis: { type: "value", max: 100,
+        axisLine: { lineStyle: { color: "#e7e5e0" } },
+        axisLabel: { color: "#5a564e", formatter: "{value}%" },
+        splitLine: { lineStyle: { color: "#f0ece5" } } },
+      yAxis: { type: "category", data: tops.map(t => t.model_name).reverse(),
+        axisLine: { lineStyle: { color: "#e7e5e0" } },
+        axisLabel: { color: "#15140f" } },
+      series: [{ type: "bar",
+        data: tops.map(t => t.mix == null ? 0 : Math.round(t.mix*100)).reverse(),
+        itemStyle: { color: PALETTE[0] } }]
+    };
+    paintE(host, option, ["版型", "零售（辆）", "Mix（%）"], rows);
+  }
+}
+
+// ============ 模块 4b：版型集中度趋势（Q8） ============
+async function loadConcentration(){
+  const name = _currentSeries();
+  const host = document.getElementById("trim-conc-trend-host");
+  if (!host) return;
+  if (!name) { host.innerHTML = '<p class="empty">请先选择车系。</p>'; return; }
+  showSpinner("trim-conc-trend-host");
+  const res = await fetchJSON(`/dash/market/api/trim-concentration-trend?series=${encodeURIComponent(name)}&months=12`);
+  if (!res.ok) { setMsg("trim-conc-trend-host", res.error || "加载失败", "err"); return; }
+  const ms = res.months || [];
+  if (!ms.length) { setMsg("trim-conc-trend-host", "暂无多月集中度数据。"); return; }
+  const option = {
+    tooltip: { trigger: "axis",
+      formatter: function(params){
+        return params.map(p => `${p.seriesName} ${(p.value * 100).toFixed(1)}%`).join("<br>");
+      } },
+    legend: { top: "top", textStyle: { color: "#5a564e" } },
+    grid: { left: "8%", right: "5%", top: "15%", bottom: "12%" },
+    xAxis: { type: "category", data: ms.map(m => m.month),
+             axisLine: { lineStyle: { color: "#e7e5e0" } },
+             axisLabel: { color: "#5a564e" } },
+    yAxis: { type: "value", min: 0, max: 1,
+             axisLine: { lineStyle: { color: "#e7e5e0" } },
+             axisLabel: { color: "#5a564e", formatter: v => (v * 100).toFixed(0) + "%" },
+             splitLine: { lineStyle: { color: "#f0ece5" } } },
+    series: [
+      { name: "Top1 集中度", type: "line", data: ms.map(m => m.top1_mix),
+        smooth: true, symbol: "circle", symbolSize: 6,
+        lineStyle: { color: PALETTE[0], width: 2 }, itemStyle: { color: PALETTE[0] } },
+      { name: "Top3 集中度", type: "line", data: ms.map(m => m.top3_mix),
+        smooth: true, symbol: "circle", symbolSize: 6,
+        lineStyle: { color: PALETTE[1], width: 2 }, itemStyle: { color: PALETTE[1] } }
+    ]
+  };
+  const rows = ms.map(m => [m.month, (m.top1_mix * 100).toFixed(1) + "%", (m.top3_mix * 100).toFixed(1) + "%"]);
+  paintE("trim-conc-trend-host", option, ["月份", "Top1", "Top3"], rows);
+}
+
+// renderFallbackTableHTML：返回 HTML 字符串（不直接写入 host，供组合场景用）
+function renderFallbackTableHTML(headers, rows){
+  if (!rows || !rows.length) return '<p class="empty">暂无数据。</p>';
+  return '<table class="tbl"><thead><tr>' +
+    headers.map(h => `<th>${_esc(h)}</th>`).join("") +
+    "</tr></thead><tbody>" +
+    rows.map(r => "<tr>" + r.map(c => `<td>${c == null ? "—" : c}</td>`).join("") + "</tr>").join("") +
+    "</tbody></table>";
+}
+
+// ============ 模块 3：竞品对比 ============
+let _seriesCache = [];  // [{series, latest_retail}]，来自 series-list（顶部车系下拉，最新有零售月口径）
+// 2026-10 改造：竞品对比候选改用全库车系（/api/series-all），修「历史月有数据、最新月无数据的车系选不到」
+let _cmpCache = [];     // [{series, latest_retail}]，来自 series-all（全库车系，latest_retail=该车系自身最新月）
+// 2026-10 修复：已选集合与候选列表解耦。原实现搜索时重建 #cmp-list 会把已勾选一起清掉
+//（"搜一个勾一个、再搜下一个前一个就没了"）；现用 Set 保存，重建时按 Set 回填 checked。
+let _cmpSelected = new Set();
+
+function _cmpLabel(s){
+  const on = _cmpSelected.has(s.series) ? " checked" : "";
+  return `<label><input type="checkbox" value="${_esc(s.series)}"${on}> ${_esc(s.series)}</label>`;
+}
+
+// 绑定候选列表勾选：更新 _cmpSelected（硬上限 4），再刷新计数/已选区/按钮态
+function _bindCmpBox(box){
+  box.querySelectorAll("input").forEach(cb => cb.addEventListener("change", () => {
+    if (cb.checked) {
+      if (_cmpSelected.size >= 4 && !_cmpSelected.has(cb.value)) { cb.checked = false; return; }
+      _cmpSelected.add(cb.value);
+    } else {
+      _cmpSelected.delete(cb.value);
+    }
+    cmpRefresh();
+  }));
+}
+
+function buildCompareList(){
+  cmpFilter();   // 按当前搜索词渲染候选（空词 → 全量候选）
+  cmpRefresh();
+}
+
+function cmpChecked(){ return Array.from(_cmpSelected); }
+
+function cmpRefresh(){
+  const n = _cmpSelected.size;
+  document.getElementById("cmp-count").textContent = `已选 ${n} / 4`;
+  const totalEl = document.getElementById("cmp-total");
+  if (totalEl) totalEl.textContent = `候选 ${_cmpCache.length} 个（库内有销量数据的车系）`;
+  document.getElementById("btn-compare").disabled = !(n >= 2 && n <= 4);
+  // 同步列表内勾选/禁用态（列表可能刚被搜索重建）
+  document.querySelectorAll("#cmp-list input").forEach(cb => {
+    cb.checked = _cmpSelected.has(cb.value);
+    cb.disabled = !cb.checked && n >= 4;  // 满 4 后未勾选禁用（硬上限，防超发 400）
+  });
+  _renderCmpSelected();
+  // P1-8：选区变化且已有图 → 标"已过期"
+  const staleEl = document.getElementById("cmp-stale");
+  if (staleEl && _charts["compare-host"]) staleEl.hidden = false;
+}
+
+// 已选区：独立于候选列表展示，搜索后仍可见、可单点移除
+function _renderCmpSelected(){
+  const box = document.getElementById("cmp-selected");
+  if (!box) return;
+  const arr = Array.from(_cmpSelected);
+  box.innerHTML = arr.length
+    ? "已选：" + arr.map(n =>
+        `<span class="cmp-chip">${_esc(n)}<button type="button" data-rm="${_esc(n)}" aria-label="移除 ${_esc(n)}">×</button></span>`).join("")
+    : '<span class="hint">尚未选择（至少 2 个、最多 4 个）</span>';
+  box.querySelectorAll("button[data-rm]").forEach(b =>
+    b.addEventListener("click", () => { _cmpSelected.delete(b.dataset.rm); cmpRefresh(); }));
+}
+
+function cmpFilter(){
+  const q = document.getElementById("cmp-search").value.trim();
+  const box = document.getElementById("cmp-list");
+  // 2026-10：无搜索词时渲染**全量候选**（原只渲染前 50，用户误以为车系不全）；
+  // 匹配不区分大小写（可搜 "model y"）；已勾选由 _cmpLabel 按 _cmpSelected 回填，不丢。
+  const ql = q.toLowerCase();
+  const list = ql ? _cmpCache.filter(s => String(s.series).toLowerCase().includes(ql)) : _cmpCache;
+  box.innerHTML = list.map(_cmpLabel).join("");
+  _bindCmpBox(box);
+  cmpRefresh();
+}
+
+async function loadCompare(){
+  const host = "compare-host";
+  const names = cmpChecked();   // 2026-10：直接取已选集合（Set 顺序即勾选顺序）
+  if (names.length < 2) { setMsg(host, "请先勾选 2-4 个车系。"); return; }
+  const metric = document.getElementById("cmp-metric").value;
+  // P1-8：刷新前清除过期提示（成功重绘后不再是过期态）
+  const staleEl = document.getElementById("cmp-stale");
+  if (staleEl) staleEl.hidden = true;
+  const res = await fetchJSON(
+    `/dash/market/api/compare?series=${names.map(encodeURIComponent).join(",")}&metric=${encodeURIComponent(metric)}`);
+  if (!res.ok) { setMsg(host, res.error || "加载失败", "err"); return; }
+  if (!res.months.length) { setMsg(host, "所选车系均无数据。"); return; }
+  // P1-9：逐条检查 res.data[name] 是否全 null——全 null 的车系显式标注"无数据"且不画线
+  // （旧仅检查 months.length，另一车系贡献 months 时静默少画一条线）。
+  const noData = res.series.filter(n => (res.data[n] || []).every(v => v == null));
+  const withData = res.series.filter(n => !(res.data[n] || []).every(v => v == null));
+  if (!withData.length) { setMsg(host, "所选车系均无数据。"); return; }
+  const metricName = { tp:"TP", msrp:"MSRP", discount:"优惠", retail:"销量" }[metric] || metric;
+  // 2026-10：新增「销量」维度。价格为元→万元换算；销量为辆（不换算）。
+  const isRetail = metric === "retail";
+  const unit = isRetail ? "辆" : "万";
+  const conv = isRetail ? (v => v) : wan;   // 销量不做单位换算
+  const fmtVal = (v) => v == null ? "—" : (isRetail ? fmtNum(v) : String(v));
+  const rows = res.months.map((m, i) =>
+    [m, ...res.series.map(n => fmtVal(conv((res.data[n] || [])[i])))]);
+  const noDataNote = noData.length
+    ? `无数据（未绘制）：${noData.map(_esc).join("、")}` : "";
+  // dashboards-design-system：ECharts 多线对比
+  const option = {
+    title: noDataNote ? { subtext: noDataNote, textStyle: { fontSize: 12, color: "#b45309" } } : undefined,
+    tooltip: { trigger: "axis",
+      formatter: function(params){
+        let lines = [params[0].axisValueLabel];
+        params.forEach(p => {
+          lines.push(`${p.seriesName}：${p.value == null ? "—" : fmtVal(p.value)} ${unit}`);
+        });
+        return lines.join("<br>");
+      } },
+    legend: { top: "top", textStyle: { color: "#5a564e" } },
+    grid: { left: "8%", right: "5%", top: "15%", bottom: "12%" },
+    xAxis: { type: "category", data: res.months,
+             axisLine: { lineStyle: { color: "#e7e5e0" } },
+             axisLabel: { color: "#5a564e" } },
+    yAxis: { type: "value", name: isRetail ? `${metricName}（辆）` : `${metricName}（万元）`,
+             axisLine: { lineStyle: { color: "#e7e5e0" } },
+             axisLabel: { color: "#5a564e" },
+             splitLine: { lineStyle: { color: "#f0ece5" } } },
+    series: withData.map((n, i) => ({
+      name: n, type: "line", data: res.data[n].map(conv),
+      smooth: true, symbol: "circle", symbolSize: 6, connectNulls: false,
+      lineStyle: { color: PALETTE[i % PALETTE.length], width: 2 },
+      itemStyle: { color: PALETTE[i % PALETTE.length] }
+    }))
+  };
+  paintE(host, option, ["月份", ...res.series.map(n => isRetail ? `${n}（辆）` : `${n}（万）`)], rows);
+  // Task 4.2: 竞品对比汇总表——车型 | 零售 | 环比 | TP | MSRP | 优惠（表头见静态 <thead>）
+  await renderCmpSummary(res, metricName, names);
+}
+
+// —— 竞品汇总表取值助手 ——
+// 最后一个非 null 值（数组按时间升序，末位即最新）
+function _lastVal(arr){
+  for (let i = (arr || []).length - 1; i >= 0; i--) if (arr[i] != null) return arr[i];
+  return null;
+}
+// 指定月份取值，缺失则回退该车系自身最新值（不编造）
+function _valAtMonth(months, arr, month){
+  const i = (months || []).indexOf(month);
+  if (i >= 0 && arr && arr[i] != null) return arr[i];
+  return _lastVal(arr);
+}
+// 零售环比：最近两个有零售点的变化率（%）
+function _retailMomPct(arr){
+  const pts = (arr || []).filter(v => v != null);
+  if (pts.length < 2) return null;
+  const cur = pts[pts.length - 1], prev = pts[pts.length - 2];
+  return prev ? Math.round((cur - prev) / prev * 1000) / 10 : null;
+}
+
+// 竞品汇总表：车型 | 零售（辆）| 环比 | TP（万）| MSRP（万）| 优惠（万）
+// 表头在静态 <thead>，本函数只填 <tbody>。零售取 series-list 最新一期口径；
+// TP/MSRP/优惠取各车系月末趋势（优先图末月，缺则取自身最新）；环比取最近两期零售。
+async function renderCmpSummary(res, metricName, names){
+  const body = document.getElementById("cmp-summary-body");
+  if (!body) return;
+  const months = res.months || [];
+  if (!months.length) {
+    body.innerHTML = '<tr><td colspan="6" class="hint">所选车系均无数据。</td></tr>';
+    return;
+  }
+  const lastMonth = months[months.length - 1];
+  // 并行取每个车系的量价趋势（TP/MSRP/优惠，仅月末）与零售趋势（算环比）
+  const per = await Promise.all(names.map(async n => {
+    const [tr, rt] = await Promise.all([
+      fetchJSON(`/dash/market/api/trend?series=${encodeURIComponent(n)}`),
+      fetchJSON(`/dash/market/api/retail?series=${encodeURIComponent(n)}`)
+    ]);
+    return { name: n, trend: tr.ok ? tr : null, retail: rt.ok ? rt : null };
+  }));
+  const retailOf = (name) => {
+    const hit = _cmpCache.find(s => s.series === name);
+    return hit ? hit.latest_retail : null;
+  };
+  body.innerHTML = per.map(p => {
+    const tr = p.trend || {}, rt = p.retail || {};
+    const tp = _valAtMonth(tr.months, tr.tp, lastMonth);
+    const msrp = _valAtMonth(tr.months, tr.msrp, lastMonth);
+    const disc = _valAtMonth(tr.months, tr.discount, lastMonth);
+    const mom = _retailMomPct(rt.retail);
+    const momCls = mom == null ? "" : (mom > 0 ? "up" : mom < 0 ? "down" : "");
+    const momTxt = mom == null ? "—" : `${mom > 0 ? "+" : ""}${mom}%`;
+    return `<tr><td>${_esc(p.name)}</td>`
+      + `<td class="num">${fmtNum(retailOf(p.name))}</td>`
+      + `<td class="num ${momCls}">${momTxt}</td>`
+      + `<td class="num">${fmtW(wan(tp))}</td>`
+      + `<td class="num">${fmtW(wan(msrp))}</td>`
+      + `<td class="num">${fmtW(wan(disc))}</td></tr>`;
+  }).join("");
+  // 口径标注（不编造：缺值一律显 —）
+  const note = document.getElementById("cmp-summary-note");
+  if (note) {
+    note.textContent = `零售＝各车系自身最新一期口径（全库候选，与图表月份可能不同）；`
+      + `TP/MSRP/优惠取月末趋势（优先 ${lastMonth}，缺则取该车系最新）；环比＝最近两期零售变化；`
+      + `图中指标线为 ${metricName}。`;
+  }
+}
+
+// ============ 模块 2：定位散点（2026-10 改造：X=轴距(mm/50) · Y=TP(万元) · 气泡=销量） ============
+// dashboards-design-system：ECharts scatter，选中车系 accent 高亮放大，
+// 其余 neu 淡化，气泡大小=销量（retail_sum 越大气泡越大）
+// dashboard-interaction-polish Task 3.2：三控件（级别/车身/能源）联合筛选 + 2026-10 价格段筛选
+// 2026-10：价格段（TP，万元）——5 万/档；最高档为开区间（30 万以上）。
+// 目的：库内含高价车，Y 轴跨度大导致缩放后仍难定位目标车——按价格段收窄后再缩放。
+const _PRICE_BANDS = {
+  "0-5": [0, 5], "5-10": [5, 10], "10-15": [10, 15], "15-20": [15, 20],
+  "20-25": [20, 25], "25-30": [25, 30], "30+": [30, Infinity],
+};
+function _inPriceBand(tpYuan, band){
+  const b = _PRICE_BANDS[band];
+  if (!b || tpYuan == null) return false;
+  const v = wan(tpYuan);   // 元 → 万元（与 Y 轴同口径）
+  return v != null && v >= b[0] && v < b[1];
+}
+async function loadScatter(){
+  const host = "scatter-host";
+  const month = document.getElementById("month-select").value;
+  const note = document.getElementById("scatter-note");
+  const selected = _currentSeries();
+  if (!month) { setMsg(host, "暂无可用月份（需先导入数据）。"); return; }
+  const res = await fetchJSON(`/dash/market/api/scatter?month=${encodeURIComponent(month)}`);
+  if (!res.ok) { setMsg(host, res.error || "加载失败", "err"); return; }
+  const pts = res.points || [];
+  if (!pts.length) { setMsg(host, `「${month}」暂无数据。`); note.textContent = ""; return; }
+  // 三控件下拉选项：从全量 pts 去重填充（保留已选值）
+  _fillScatterFilters(pts);
+  const fLevel = (document.getElementById("scatter-level") || {}).value || "";
+  const fBody = (document.getElementById("scatter-body") || {}).value || "";
+  const fEnergy = (document.getElementById("scatter-energy") || {}).value || "";
+  const fPrice = (document.getElementById("scatter-price") || {}).value || "";
+  // 联合筛选：同时满足级别/车身/能源条件的点才绘制（空值=不过滤）
+  const filtered = pts.filter(p =>
+    (!fLevel || p.level === fLevel) &&
+    (!fBody || p.body === fBody) &&
+    (!fEnergy || p.energy_type === fEnergy));
+  // 2026-10 改造：可用点需同时有 轴距/TP/零售（任一缺失不绘制，不填 0）
+  const complete = filtered.filter(p =>
+    p.wheelbase_avg != null && p.tp_avg != null && p.retail_sum != null);
+  const skipped = filtered.length - complete.length;
+  // 2026-10：价格段过滤（TP 万元，5 万/档，最高档为开区间）——收窄 Y 轴跨度，方便缩放定位目标车；
+  // 与上面「数据缺失」分开处理，避免把用户主动筛掉的车系误报成"未发布"。
+  const usable = fPrice
+    ? complete.filter(p => _inPriceBand(p.tp_avg, fPrice))
+    : complete;
+  note.textContent = skipped
+    ? `${skipped} 个车系当期零售/轴距/TP 未发布，未绘制（如实展示，不填 0）。` : "";
+  if (!usable.length) { setMsg(host, `「${month}」当前筛选下无可用点位。`); return; }
+  // 按级别分组：同级别同色
+  const groups = {};
+  usable.forEach(p => {
+    const lv = p.level || "未知";
+    (groups[lv] = groups[lv] || []).push(p);
+  });
+  const entries = Object.entries(groups);
+  // 气泡大小映射：retail_sum 越大气泡越大（8~28px 范围）
+  const maxRetail = Math.max(...usable.map(p => p.retail_sum || 0)) || 1;
+  function bubbleSize(retail){
+    const r = retail || 0;
+    return 8 + 20 * Math.sqrt(r / maxRetail);  // 平方根缩放，避免大值压小值
+  }
+  // 数据点：[轴距(mm), TP(万元), 销量(辆), 车系, 级别]
+  const mkPoint = (p) => [p.wheelbase_avg, wan(p.tp_avg), p.retail_sum, p.series, p.level || "未知"];
+  // 选中车系独立 series 叠在分组之上（accent 高亮放大）
+  const hasSel = selected && usable.some(p => p.series === selected);
+  const eSeries = entries.map(([lv, arr], i) => ({
+    name: lv, type: "scatter",
+    data: arr.filter(p => p.series !== selected).map(mkPoint),
+    symbolSize: function(d){ return bubbleSize(d[2]); },  // d[2]=销量
+    itemStyle: {
+      color: PALETTE[i % PALETTE.length],
+      opacity: hasSel ? 0.35 : 1,  // 有选中时其余淡化（neu 视觉）
+      borderColor: PALETTE[i % PALETTE.length]
+    },
+    emphasis: { itemStyle: { opacity: 0.8 } }
+  })).filter(s => s.data.length > 0);  // 空维度不渲染
+  // 选中车系独立高亮 series
+  if (hasSel) {
+    const selPts = usable.filter(p => p.series === selected);
+    eSeries.push({
+      name: "★ " + selected, type: "scatter",
+      data: selPts.map(mkPoint),
+      symbolSize: function(d){ return Math.max(bubbleSize(d[2]), 22); },  // 选中点更大
+      itemStyle: {
+        color: ACCENT_COLOR,
+        borderColor: "#15140f",
+        borderWidth: 2,
+        shadowBlur: 10, shadowColor: "rgba(184,86,56,0.4)"
+      },
+      label: { show: true, position: "top",
+        formatter: function(p){ return p.data[3]; },  // 显示车系名
+        color: "#15140f", fontSize: 12, fontWeight: 600 }
+    });
+  }
+  const option = {
+    tooltip: {
+      formatter: function(p){
+        const lines = [`<b>${p.data[3]}</b>`,
+          `轴距 ${p.data[0]} mm`,
+          `TP ${p.data[1]} 万 / 销量 ${fmtNum(p.data[2])} 辆`];
+        if (p.data[3] === selected) lines.push("★ 当前选中车系");
+        return lines.join("<br>");
+      } },
+    legend: { top: "top", textStyle: { color: "#5a564e" } },
+    // 2026-10：支持缩放/平移（用户主动操作）——滚轮缩放、按住拖动平移；
+    // 右上角工具栏可框选缩放 / 重置；底部滑条可拖动左右手柄缩放、拖中间平移。
+    toolbox: { right: 8, top: 4, itemSize: 14, feature: { dataZoom: {}, restore: {} } },
+    grid: { left: "8%", right: "5%", top: "15%", bottom: "22%" },
+    dataZoom: [
+      { type: "inside", xAxisIndex: 0, yAxisIndex: 0 },
+      // 可见的缩放滑条：拖左右手柄=缩放，拖中间=平移（与 inside 同一 X 轴，自动联动）
+      { type: "slider", xAxisIndex: 0, height: 16, bottom: 6,
+        borderColor: "#e7e5e0", fillerColor: "rgba(184,86,56,0.12)",
+        handleStyle: { color: "#b85638" }, textStyle: { color: "#5a564e", fontSize: 10 } },
+    ],
+    // 横轴＝轴距(mm)，刻度以 50mm 为单位（min/max 对齐到 50 的整数倍）
+    xAxis: { type: "value", name: "轴距（mm）", nameLocation: "middle", nameGap: 30,
+             min: function(v){ return Math.floor(v.min / 50) * 50; },
+             max: function(v){ return Math.ceil(v.max / 50) * 50; },
+             interval: 50,
+             axisLine: { lineStyle: { color: "#e7e5e0" } },
+             axisLabel: { color: "#5a564e", fontSize: 11, hideOverlap: true },
+             splitLine: { lineStyle: { color: "#f0ece5" } } },
+    // 纵轴＝终端价 TP（万元）
+    yAxis: { type: "value", name: "TP（万元）", nameLocation: "middle", nameGap: 40,
+             axisLine: { lineStyle: { color: "#e7e5e0" } },
+             axisLabel: { color: "#5a564e" },
+             splitLine: { lineStyle: { color: "#f0ece5" } } },
+    series: eSeries
+  };
+  const rows = entries.flatMap(([lv, arr]) =>
+    arr.map(pt => [pt.series, lv, `${pt.wheelbase_avg} mm`, fmtW(wan(pt.tp_avg)), fmtNum(pt.retail_sum)]));
+  paintE(host, option, ["车系","级别","轴距（mm）","TP（万）","零售（辆）"], rows);
+}
+
+// 三控件下拉填充：从全量 pts 去重排序，保留已选值（避免 onchange 重渲染丢失选中）
+function _fillScatterFilters(pts){
+  function _fill(id, key){
+    const sel = document.getElementById(id);
+    if (!sel) return;
+    const cur = sel.value;
+    const vals = Array.from(new Set(pts.map(p => p[key]).filter(v => v != null && v !== ""))).sort();
+    sel.innerHTML = '<option value="">全部</option>' +
+      vals.map(v => `<option value="${_esc(v)}"${v === cur ? " selected" : ""}>${_esc(v)}</option>`).join("");
+  }
+  _fill("scatter-level", "level");
+  _fill("scatter-body", "body");
+  _fill("scatter-energy", "energy_type");
+}
+
+// 散点聚焦缩放已移除（原 dashboard-v12 Task 3.1 的 _focusScatterPoint）：
+// 它会把坐标轴缩放到选中车系附近的 1/3 窗口，导致「定位散点里看不到其它车系」。
+// 选中车系的强调改由 series 样式承担（★ 独立 series、放大气泡 + 车系名标注）。
+
+// ============ 导入 ============
+async function onImportFile(ev){
+  const file = ev.target.files && ev.target.files[0];
+  const out = document.getElementById("import-result");
+  if (!file) return;
+  if (!confirm(`确认导入「${file.name}」？同主键行将被覆盖。`)) { ev.target.value = ""; return; }
+  out.className = ""; out.textContent = `正在导入 ${file.name} …`;
+  const fd = new FormData();
+  fd.append("file", file);
+  const res = await fetchJSON("/dash/market/import", { method: "POST", body: fd });
+  if (!res.ok) {
+    out.className = "err";
+    out.textContent = `导入失败：${res.error || "未知错误"}`;
+    ev.target.value = "";
+    return;
+  }
+  const st = res.stats || {};
+  // v7 单表化：导入结果只含版型表统计（trim）+ is_main 派生行数；加权表已退役
+  const t = st.trim || {};
+  let html = `导入完成「${_esc(res.filename || file.name)}」：` +
+    `版型新增 ${fmtNum(t.inserted)} / 覆盖 ${fmtNum(t.updated)} 行` +
+    (st.is_main != null ? `，主销标记 ${fmtNum(st.is_main)} 行` : "") +
+    (st.skipped ? `，跳过 ${fmtNum(st.skipped)} 行` : "");
+  if (st.errors && st.errors.length) {
+    html += `<ul>${st.errors.slice(0, 10).map(e => `<li>${_esc(e)}</li>`).join("")}</ul>`;
+  }
+  out.className = "ok";
+  out.innerHTML = html;
+  ev.target.value = "";
+  await refreshAll();  // 导入后刷新下拉与当前模块
+}
+
+// ============ 选择器 ============
+async function refreshSelectors(){
+  const [sl, mo, sa] = await Promise.all([
+    fetchJSON("/dash/market/api/series-list"),
+    fetchJSON("/dash/market/api/months"),
+    // 2026-10 改造：竞品对比候选改用全库车系（不限最新月）
+    fetchJSON("/dash/market/api/series-all")
+  ]);
+  // M-5：车系 combobox 的候选 = 原生 datalist（输入即浏览器端过滤，无需自写搜索框过滤）
+  const input = document.getElementById("series-input");
+  const dl = document.getElementById("mkt-series-options");
+  const prev = input ? input.value : "";
+  if (sl.ok && Array.isArray(sl.series)) {
+    // 按 latest_retail 降序（后端已排，前端兜底再排一次）
+    const list = [...sl.series].sort((a, b) =>
+      ((b.latest_retail || 0) - (a.latest_retail || 0)) || String(a.series).localeCompare(String(b.series), "zh"));
+    _seriesCache = list;
+    _seriesSet = new Set(list.map(s => s.series));
+    if (dl) dl.innerHTML = list.map(s => `<option value="${_esc(s.series)}"></option>`).join("");
+    // 保持既有选中：若旧值已不在候选集（如数据源变更），清空避免无效查询
+    if (input && prev && !_seriesSet.has(prev)) input.value = "";
+    // D4（2026-11-02）：对话侧车系联动——?q= 预选（仅库内有效车系）
+    const _preselect = {{ (preselect|default('', true))|tojson }};
+    if (input && _preselect && _seriesSet.has(_preselect)) input.value = _preselect;
+    // 首次加载默认选中榜首车系（与旧 select 默认首项一致，保证页面加载即出图）
+    if (input && !input.value && list.length) input.value = list[0].series;
+  }
+  // 竞品对比候选：全库车系（series-all）；失败时回退 series-list，保证列表不为空
+  if (sa.ok && Array.isArray(sa.series)) {
+    _cmpCache = [...sa.series].sort((a, b) =>
+      ((b.latest_retail || 0) - (a.latest_retail || 0)) || String(a.series).localeCompare(String(b.series), "zh"));
+  } else {
+    _cmpCache = _seriesCache;
+  }
+  const msel = document.getElementById("month-select");
+  const prevM = msel.value;
+  if (mo.ok && Array.isArray(mo.months)) {
+    // Task 4.2: 只暴露月末快照（Q7）—— 过滤掉月中
+    const monthEndOnly = mo.months.filter(m => String(m).includes("月末"));
+    msel.innerHTML = monthEndOnly.map(m => {
+      const opt = document.createElement("option");
+      opt.value = m; opt.text = m;
+      return opt.outerHTML;
+    }).join("");
+  }
+  if (prevM && [...msel.options].some(o => o.value === prevM)) msel.value = prevM;
+  renderTrimMonthChips();  // 原型 §04：月份下拉就绪后同步 §04 chips
+}
+
+async function refreshAll(){
+  // v11：单系视角模块（结论/量价/版型）随车系；散点随月份
+  await refreshSelectors();
+  buildCompareList();
+  if (_currentSeries()) {
+    loadInsight(); loadVolPrice(); loadTrimStructure(); loadConcentration();
+  }
+  if (document.getElementById("month-select").value) {
+    loadScatter();
+  }
+}
+
+// 车系变更 → 刷新全部单系视角模块（含散点高亮与已选竞品对比）
+function onSeriesChange(){
+  loadInsight(); loadVolPrice(); loadTrimStructure(); loadConcentration();
+  loadScatter();  // 选中车系变化 → 散点高亮重绘
+  if (cmpChecked().length >= 2) loadCompare();
+}
+
+// ============ 接线 ============
+// M-5：可搜索车系 combobox——change（datalist 选定/失焦确认有效值）与 Enter（输入完整名后回车）均触发
+document.getElementById("series-input").addEventListener("change", () => {
+  if (_currentSeries()) onSeriesChange();
+});
+document.getElementById("series-input").addEventListener("keydown", (ev) => {
+  if (ev.key === "Enter" && _currentSeries()) { ev.preventDefault(); onSeriesChange(); }
+});
+document.getElementById("month-select").addEventListener("change", () => {
+  loadScatter();
+  // dashboard-interaction-polish Task 3.2：版型结构随月份联动刷新
+  // 原型 §04：顶部月份变更 → §04 chips 重置到该月（两控件保持同步，不打架）
+  _trimMonth = document.getElementById("month-select").value || "";
+  renderTrimMonthChips();
+  if (_currentSeries()) loadTrimStructure();
+});
+// 原型 §04：§04 月份 chips 点击 → 局部切换该模块月份并重绘
+document.getElementById("trim-month-chips").addEventListener("click", (ev) => {
+  const el = ev.target.closest(".chip");
+  if (!el) return;
+  _trimMonth = el.dataset.m || "";
+  renderTrimMonthChips();
+  if (_currentSeries()) loadTrimStructure();
+});
+document.getElementById("cmp-search").addEventListener("input", cmpFilter);
+document.getElementById("cmp-metric").addEventListener("change", () => { if (cmpChecked().length >= 2) loadCompare(); });
+document.getElementById("btn-compare").addEventListener("click", loadCompare);
+document.getElementById("import-file").addEventListener("change", onImportFile);
+// P1-11: 空库引导的导入按钮（仅空库时存在）同步文件到主导入 input 并触发导入
+const _emptyImport = document.getElementById("import-file-empty");
+if (_emptyImport) _emptyImport.addEventListener("change", function(ev){
+  const main = document.getElementById("import-file");
+  if (ev.target.files && ev.target.files[0]) {
+    // 空态 input 的文件同步到主导入 input 再触发同一 onImportFile 逻辑
+    main.files = ev.target.files;
+    main.dispatchEvent(new Event("change"));
+  }
+});
+
+// 页面加载：fetch series-list + months → 填充下拉 → 自动加载各模块
+refreshAll();
+</script>
+</body>
+</html>

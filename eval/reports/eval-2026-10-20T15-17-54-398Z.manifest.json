@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "run_id": "eval-2026-10-20T15-17-54-398Z",
+  "generated_at_utc": "2026-10-20T15:20:27.564Z",
+  "artifacts": [
+    {
+      "path": "eval/eval-report.json",
+      "bytes": 26507,
+      "sha256": "89291eecf14d4d7fcf7df4da5d4485f38312164edbbb9270a27f8372465ec62a",
+      "description": "批跑报告主副本（eval-report.json）"
+    },
+    {
+      "path": "eval/reports/eval-2026-10-20T15-17-54-398Z.json",
+      "bytes": 26507,
+      "sha256": "89291eecf14d4d7fcf7df4da5d4485f38312164edbbb9270a27f8372465ec62a",
+      "description": "批跑报告归档副本"
+    }
+  ]
+}

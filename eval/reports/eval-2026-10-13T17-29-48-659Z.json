@@ -1,0 +1,74 @@
+{
+  "run_id": "eval-2026-10-13T17-29-48-659Z",
+  "started_at": "2026-10-13T17:29:48.660Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "d68ff517a960f9b9afc992bfa20ad8fb3a4f2eb6",
+  "snapshot_id": "snap-20261012-1222",
+  "agent_release": "0.3.0",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-13T17:30:00.299Z",
+  "results": [
+    {
+      "task": "sales-12",
+      "dimension": "销量",
+      "question": "银河E5 10月的最新销量是多少",
+      "repeat": 1,
+      "score": 2,
+      "reasons": [
+        "缺 supported_by 证据行 ID",
+        "truth 锚点全中(1)"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 1,
+        "missing": [],
+        "forbidHits": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 9.2,
+        "tool_calls": 3,
+        "tokens": {
+          "input": 3630,
+          "output": 1146,
+          "cacheRead": 28288,
+          "totalTokens": 33064,
+          "cost_usd": 0.000908
+        },
+        "partial": false
+      },
+      "replyLength": 454,
+      "replyPreview": "**结论：10月销量还没结算——库内目前查不到；最新完整月是 8 月的 4,436 台。**\n\n| 月份 | 零售量 | 终端成交均价 |\n|---|---|---|\n| 2026年6月 | 7,21"
+    }
+  ],
+  "conditional_skipped": [],
+  "summary": {
+    "avg": 2,
+    "passCount": 0,
+    "trapBlockedCount": 0,
+    "set_filter": "all",
+    "truth": {
+      "checked": 1,
+      "fail": 0,
+      "failTasks": []
+    }
+  }
+}

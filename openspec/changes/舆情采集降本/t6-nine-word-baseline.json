@@ -1,0 +1,274 @@
+{
+  "date": "2026-10-16",
+  "today_group": [
+    "投诉",
+    "故障",
+    "缺陷"
+  ],
+  "dropped_words": [
+    "问题",
+    "质量",
+    "售后",
+    "维修",
+    "退车",
+    "召回",
+    "异响",
+    "卡死",
+    "黑屏"
+  ],
+  "cars": 15,
+  "usage_before": 1342,
+  "usage_after": 2817,
+  "per_word": {
+    "问题": {
+      "posts": 641,
+      "new": 641,
+      "calls": 29
+    },
+    "质量": {
+      "posts": 624,
+      "new": 624,
+      "calls": 28
+    },
+    "售后": {
+      "posts": 616,
+      "new": 616,
+      "calls": 23
+    },
+    "维修": {
+      "posts": 604,
+      "new": 604,
+      "calls": 28
+    },
+    "退车": {
+      "posts": 702,
+      "new": 702,
+      "calls": 28
+    },
+    "召回": {
+      "posts": 697,
+      "new": 697,
+      "calls": 29
+    },
+    "异响": {
+      "posts": 625,
+      "new": 625,
+      "calls": 24
+    },
+    "卡死": {
+      "posts": 628,
+      "new": 628,
+      "calls": 23
+    },
+    "黑屏": {
+      "posts": 641,
+      "new": 641,
+      "calls": 25
+    }
+  },
+  "errors": [
+    {
+      "car": "海狮06",
+      "word": "问题",
+      "platform": "xiaohongshu",
+      "error": "TikHubError(\"TikHub xiaohongshu.search_notes 重试耗尽: TikHub xiaohongshu.search_notes 业务失败 code=-1: 400 Request failed. Please retry. Check the"
+    },
+    {
+      "car": "QQ3",
+      "word": "质量",
+      "platform": "xiaohongshu",
+      "error": "TikHubError(\"TikHub xiaohongshu.search_notes 重试耗尽: TikHub xiaohongshu.search_notes 业务失败 code=-1: 400 Request failed. Please retry. Check the"
+    },
+    {
+      "car": "MG4X",
+      "word": "质量",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "MG4X",
+      "word": "售后",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "小鹏MONA M03",
+      "word": "售后",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "零跑B01",
+      "word": "售后",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "银河E5",
+      "word": "售后",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "零跑B10",
+      "word": "售后",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "风云A9L",
+      "word": "售后",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "风云T9L",
+      "word": "售后",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "小米SU7",
+      "word": "维修",
+      "platform": "xiaohongshu",
+      "error": "TikHubError(\"TikHub xiaohongshu.search_notes 重试耗尽: TikHub xiaohongshu.search_notes 业务失败 code=-1: 400 Request failed. Please retry. Check the"
+    },
+    {
+      "car": "风云A9",
+      "word": "维修",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "小米SU7",
+      "word": "退车",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "特斯拉model 3",
+      "word": "退车",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "QQ3",
+      "word": "召回",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "小鹏MONA M03",
+      "word": "异响",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "MG4X",
+      "word": "异响",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "银河E5",
+      "word": "异响",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "风云T11",
+      "word": "异响",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "小米SU7",
+      "word": "异响",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "风云T9L",
+      "word": "异响",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "QQ3",
+      "word": "卡死",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "小鹏MONA M03",
+      "word": "卡死",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "风云A9L",
+      "word": "卡死",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "银河E5",
+      "word": "卡死",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "小米SU7",
+      "word": "卡死",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "零跑D19",
+      "word": "卡死",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "零跑B01",
+      "word": "卡死",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "QQ3",
+      "word": "黑屏",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "风云A9L",
+      "word": "黑屏",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "银河E5",
+      "word": "黑屏",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "小米SU7",
+      "word": "黑屏",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    },
+    {
+      "car": "零跑B10",
+      "word": "黑屏",
+      "platform": "douyin",
+      "error": "TikHubError(\"TikHub douyin.search 重试耗尽: TikHub douyin.search 业务失败 code=-1: 400 Request failed. Please retry. Check the docs below to verify "
+    }
+  ],
+  "summary": {
+    "total_posts": 5778,
+    "total_new_to_db": 5778,
+    "error_count": 33
+  }
+}

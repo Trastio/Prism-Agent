@@ -1,0 +1,186 @@
+{
+  "run_id": "eval-2026-10-25T14-33-10-408Z",
+  "started_at": "2026-10-25T14:33:10.408Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "69cc03a2fcd9bb543419a2bb207cf1da25e5e2dd",
+  "snapshot_id": "snap-20261012-1222",
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "ca7c4f7cec8662d8abd07d5f958c226a",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-25T14:34:06.101Z",
+  "results": [
+    {
+      "task": "multi-11",
+      "dimension": "多轮",
+      "question": "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "trap abort_residue 被拦截（正则）",
+        "truth 锚点全中(1)"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 1,
+        "missing": [],
+        "forbidHits": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass",
+        "pass"
+      ],
+      "abortedTurn": 1,
+      "traceId": "bcf499ebf67524d433569e25495a5f34",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_config_d",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？",
+        "算了别分析了，直接说E5售价"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_config",
+        "query_reviews",
+        "query_reviews",
+        "query_sales"
+      ],
+      "settled": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 52.8,
+        "tool_calls": 11,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 481,
+      "replyPreview": "**银河E5 官方指导价 10.78 万–14.78 万元**（2027 年款在售 6 个配置档）\n\n| 配置档 | 指导价 |\n|---|---|\n| 2027款 530 全球经典版 | 10.78",
+      "reply_full": "**银河E5 官方指导价 10.78 万–14.78 万元**（2027 年款在售 6 个配置档）\n\n| 配置档 | 指导价 |\n|---|---|\n| 2027款 530 全球经典版 | 10.78 万 |\n| 2027款 550 智充启航版 | 11.78 万 |\n| 2027款 550 智充探索版 | 12.58 万 |\n| 2027款 635 智充探索+版 | 13.58 万 |\n| 2027款 550 智充激光版 | 13.78 万 |\n| 2027款 635 智充激光版 | 14.78 万 |\n\n另外提醒两点：\n- **实际成交价比指导价低不少**：2026 年 8 月终端成交均价约 **10.68 万**，对比 2025 年 1 月的 12.74 万，价格下降了约 2 万。\n- 库里还留有 2026 年款（10.98 万–14.58 万）和 2024 年款公务版（17.98 万）的老配置档，如果你在门店看到这些价格，大概率是库存车。\n\n*数据时点：2026-10-25；指导价为当前在售款配置表，终端价为 2026 年 8 月成交均价*",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-10-25T14-33-10-408Z",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "69cc03a2fcd9bb543419a2bb207cf1da25e5e2dd",
+    "set_composition": {
+      "dev": 1,
+      "frozen": 0,
+      "other": 0,
+      "total": 1
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 5,
+    "passCount": 1,
+    "trapBlockedCount": 0,
+    "set_filter": "all",
+    "truth": {
+      "checked": 1,
+      "fail": 0,
+      "failTasks": []
+    }
+  }
+}

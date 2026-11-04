@@ -1,0 +1,1021 @@
+{
+  "run_id": "eval-2026-10-28T14-57-15-250Z",
+  "started_at": "2026-10-28T14:57:15.251Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "2f45771a700e732d726362eeb1419b4b04c01387",
+  "snapshot_id": "snap-20261012-1222",
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "0d05ccc07bf0294a0075601655e9fb3d",
+  "scoring_fingerprint": "401f89dc0ef4286d",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-28T15:02:56.805Z",
+  "results": [
+    {
+      "task": "social-01",
+      "sessionId": "01a18304-0854-720a-9701-b311af8b1c8e",
+      "dimension": "社媒",
+      "question": "在小红书上帮我找一下风云T7的真实用户。",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "验证器通过（行ID查库+越界+缺口+名称）",
+        "rubric[elements] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "elements",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "url",
+          "nonre",
+          "time",
+          "proof"
+        ],
+        "missing": [],
+        "missingRequired": [],
+        "forbidHits": [],
+        "note": "护栏全命中"
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "dd99882e1383346b2edfcccbfce0fd47",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : load_skill\ni",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "在小红书上帮我找一下风云T7的真实用户。"
+      ],
+      "tools": [
+        "load_skill",
+        "resolve_series",
+        "query_config",
+        "query_sales",
+        "social_search"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 46.5,
+        "tool_calls": 11,
+        "tokens": {
+          "input": 4544,
+          "output": 2983,
+          "cacheRead": 39040,
+          "totalTokens": 46567,
+          "cost_usd": 0.001581
+        },
+        "partial": false
+      },
+      "replyLength": 3639,
+      "replyPreview": "## 结论先行\n\n小红书上有 **6 位可确认的一手车主**（有提车/用车实证），另有 4 位只有单条感受。先给你候选人名单；**深挖哪 1-2 位，由你点名**（这是两阶段协议，不自行往下钻）。\n\n",
+      "reply_full": "## 结论先行\n\n小红书上有 **6 位可确认的一手车主**（有提车/用车实证），另有 4 位只有单条感受。先给你候选人名单；**深挖哪 1-2 位，由你点名**（这是两阶段协议，不自行往下钻）。\n\n> 抓取时间：**2026-10-28 14:57**（TikHub 外部 API 即时快照，**不可复算**，仅代表当次检索可见内容）\n> 库内基盘（可复算）：2026 款全系 600km（智享/悦享/舒享三版型，`config_snapshots:8660`）；9 月末终端均价 **10.56 万元**（`sales_trim:风云T7/2026/9`，但**零售汇总值为空**，销量侧无法归因）\n\n---\n\n## 一、真实车主候选人（按信息密度排序）\n\n| 信息密度评分 | 昵称 | 一手证据 | 关键帖（平台显示时间） | 链接 |\n|---|---|---|---|---|\n| ★★★★★ | **蒋** | 智享版，9 月提车、发帖时已跑 **3000 公里**，长测体 | 风云T7 600km智享版三千公里真实用车体验（2026-10-18） | [xiaohongshu.com/explore/6ad44827000000002703720c](https://www.xiaohongshu.com/explore/6ad44827000000002703720c) |\n| ★★★★☆ | **支除折减增** | 决策链最完整：预算 15 万、看车两个月、下定全记录，32 评 | 风云T7，从看车到下定的真实记录（2026-10-10） | [xiaohongshu.com/explore/6ac9fd9200000000020114c2](https://www.xiaohongshu.com/explore/6ac9fd9200000000020114c2) |\n| ★★★★☆ | **一条解说** | 跨两月持续更新：9/13 提车帖 + 10/4 综合路况实测（18%→93% 充电、211km 国道） | 综合路况实测续航（2026-10-04）／提车啦（2026-09-13） | [6ac1eb90000000001203df9a](https://www.xiaohongshu.com/explore/6ac1eb90000000001203df9a) ／ [6aa6140a000000001203d892](https://www.xiaohongshu.com/explore/6aa6140a000000001203d892) |\n| ★★★★☆ | **行摄纪** | 舒享版，写明 10/12 车管所自提牌→4S 提车、已跑 300 多公里，逐条列感受 | 风云T7舒享版提车日记（2026-10-21） | [6ad837b70000000033033da2](https://www.xiaohongshu.com/explore/6ad837b70000000033033da2) |\n| ★★★★ | **生如夏花** | 续航实证（城区经济/高速运动、全程空调、每 5km 掉 1%、400V 充电 20 余分钟），**84 条评论里在答疑** | 风云T7真实续航（2026-09-05） | [6a9c3f7c0000000026020ac1](https://www.xiaohongshu.com/explore/6a9c3f7c0000000026020ac1) |\n| ★★★★ | **铅笔** | 国庆高速续航实测：满电 100%、动态表显 550km，53 评 | 国庆出游奇瑞风云T7高速续航实测（2026-10-08） | [6ac74f890000000015015b1c](https://www.xiaohongshu.com/explore/6ac74f890000000015015b1c) |\n| ★★★☆ | **草莓姚姚奶昔-** | 紫色实车、8 月出厂 9 月提，48 评 27 赞 | 喜提风云T7（2026-09-10） | [6aa25e61000000000d025f49](https://www.xiaohongshu.com/explore/6aa25e61000000000d025f49) |\n| ★★★☆ | **百挑** | 原定零跑 B10 顶配→8/26 预售转风云T7，淘汰理由明确 | 风云T7提车日记（2026-10-27） | [6ae06c53000000002800af57](https://www.xiaohongshu.com/explore/6ae06c53000000002800af57) |\n| ★★★☆ | **中央空调项目** | 真实痛点：开油车不晕、开 T7 晕 + 耗电疑问，42 评 | 风云T7大家开了会不会感觉有点晕（2026-10-14） | [6aced214000000000b0050a5](https://www.xiaohongshu.com/explore/6aced214000000000b0050a5) |\n| ★★★ | **我要上岸** | 青竹灰、连看车带提车三天，**100 评**（评论量最高，答疑价值大） | 风云T7到手啦（2026-10-07） | [6ac64a5b000000001801334c](https://www.xiaohongshu.com/explore/6ac64a5b000000001801334c) |\n| ★★★ | **羔小豆不宅** | 置换场景，做功课交给老公、本人试驾拍板（家庭决策样本） | 今日宜提车｜最终选了风云t7（2026-10-16） | [6ad18274000000000a02534b](https://www.xiaohongshu.com/explore/6ad18274000000000a02534b) |\n| ★★★ | **霖霖** | 第一次买电车、选长续航+后备箱能装，53 评 | 骑上我心爱的小车车（2026-09-28） | [6ab9c31e000000001a028f81](https://www.xiaohongshu.com/explore/6ab9c31e000000001a028f81) |\n\n**边缘样本（单条感受，密度低）**：呵屋昂王（海口—陵水两地跑 600km 刚需，[6adca3aa](https://www.xiaohongshu.com/explore/6adca3aa000000002d00603c)）、人杰地灵（预算 10 万首台新能源，[6ab23364](https://www.xiaohongshu.com/explore/6ab23364000000003703d572)）、小红薯6A46F406（\"是不是买了假的T7\"续航落差质疑，[6adc568c](https://www.xiaohongshu.com/explore/6adc568c000000002c021868)）。\n\n---\n\n## 二、已剔除的账号（信源降级，避免误当车主）\n\n- **经销商/品牌号**（同一句交付话术）：枣庄安奇奇瑞风云总经理、奇瑞QQ漳州宁泰4S店、云南霆瑞4S店、桂平中辉汽车城-阿丽、漯河乾正奇瑞风云体验中心、韶关宏瑞体验中心\n- **疑似 KOC/媒体合作稿**（结构高度模板化、无提车实锤）：是11啊（1000 赞）、Max允大栗（602 赞）、王宇昆、Willa Wu、淏爸不懂车、张麻子说车、大熊试车、懂车小观、泊车老油条\n- **意向用户非车主**：Carmen爱开车（对比元 PLUS/零跑 B10/银河 E5）、Mr. Tian（求续航实测）\n\n---\n\n## 三、建议优先深挖的 3 位（我的判断依据）\n\n1. **蒋** —— 唯一 3000km 级长测，能出\"用车 1 个月后的真实满意度\"，信息密度最高\n2. **支除折减增** —— 看车两个月、15 万预算的完整决策链，是产品经理最想要的\"对比池 + 淘汰原因\"素材\n3. **生如夏花** —— 续航数字最硬（每 5km 掉 1%）且评论区在答疑，能捞到真实电耗集合\n\n**下一步**：回复这 3 位的昵称（或名单里任意 1-2 位，含\"草莓姚姚奶昔-\"这类），我就进入深挖轮——主页画像 + 逐页翻发帖轨迹 + 评论区一手引语，最后出带溯源的 xlsx 个案详解。要不要我按上面 3 位直接开？\n\n**数据缺口（如实声明）**：本轮只做了小红书单平台扫描，抖音/微博/快手/B站未扫；库内 9 月零售汇总行缺失，故\"车主基数\"无法与发帖量对照验证。",
+      "first_error_turn": null
+    },
+    {
+      "task": "config-05",
+      "sessionId": "01a18304-b3cc-720a-9701-b3123e1e5685",
+      "dimension": "配置",
+      "question": "风云T7的配置比银河E5好么？",
+      "repeat": 1,
+      "score": 4,
+      "reasons": [
+        "rubric[elements] 缺要素: gap"
+      ],
+      "rubric": {
+        "kind": "elements",
+        "checked": true,
+        "pass": false,
+        "cap": 4,
+        "present": [
+          "e5_win",
+          "t7_win"
+        ],
+        "missing": [
+          "gap"
+        ],
+        "missingRequired": [],
+        "forbidHits": [],
+        "note": "要素不足"
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "ad153bb83b48287a2b2170e72bb9596d",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_config_d",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "风云T7的配置比银河E5好么？"
+      ],
+      "tools": [
+        "resolve_series",
+        "resolve_series",
+        "get_trims",
+        "get_trims",
+        "compare_configs_valued"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 37.5,
+        "tool_calls": 9,
+        "tokens": {
+          "input": 29264,
+          "output": 24970,
+          "cacheRead": 340736,
+          "totalTokens": 394970,
+          "cost_usd": 0.012043
+        },
+        "partial": false
+      },
+      "replyLength": 982,
+      "replyPreview": "**结论：银河E5 的配置绝对值确实更好；但把价格拉平后，它的配置并不值这个价，风云T7 的配置性价比更高。**\n\n对比口径：两车都取最新年款里指导价最高的版型（风云T7 2026款 600km 智享",
+      "reply_full": "**结论：银河E5 的配置绝对值确实更好；但把价格拉平后，它的配置并不值这个价，风云T7 的配置性价比更高。**\n\n对比口径：两车都取最新年款里指导价最高的版型（风云T7 2026款 600km 智享版 11.89 万，银河E5 2027款 635 智充激光版 14.78 万），逐项比对 57 项配置。\n\n### 银河E5 明显更强的方面\n| 类别 | 银河E5 有、风云T7 没有 |\n|---|---|\n| 三电 | 635km 续航（对比 600km）、**800V 高压平台** |\n| 智能驾驶 | **城市 NOA**、记忆/代客泊车（风云T7 只有高速 NOA） |\n| 舒适 | 前排座椅按摩、座椅记忆、方向盘加热、车载冰箱、256 色氛围灯 |\n| 座舱 | HUD 抬头显示、10.2 英寸仪表、**23 个扬声器**（风云T7 8 个）、面部识别、内置行车记录仪、前备厢 160L |\n| 底盘/车身 | 悬架软硬调节、19 寸轮毂（风云T7 18 寸）、侧窗多层隔音玻璃、车顶行李架 |\n\n### 风云T7 反而占优的方面\n- 四门无钥匙进入（银河E5 该版型没有）\n- 前排中间气囊、后排侧气囊（银河E5 没有）\n- 对外放电 6.6kW（银河E5 6kW）、前排 USB 接口多一个、中控屏 15.6 英寸略大\n\n### 价格差异是关键\n- 银河E5 比风云T7 贵 **2.89 万元**（14.78 万对比 11.89 万）\n- 银河E5 多出来的配置折算价值约 **1.82 万元**\n- 因此，把这几项配置的价值扣掉后，银河E5 仍贵约 **1.07 万元**\n\n**这意味着：如果预算能到 14.8 万，又看重高阶智驾和舒适性配置（城市 NOA、按摩座椅、冰箱、HUD、23 个扬声器），银河E5 的配置更值得考虑；如果预算在 12 万左右，风云T7 把成本用在了实用配置上，多花的钱买不到对应价值，除非确实需要城市 NOA 和 800V 快充。**\n\n数据说明：配置数据截至 2026-10-01 抓取，价格口径为厂家指导价；两车该版型都有部分配置项在数据源中未覆盖（风云T7 27 项、银河E5 15 项），未纳入本次对比。另外，银河E5 还有更早的 2024 款公务版（17.98 万，行业采购口径），未参与本次对比。",
+      "first_error_turn": null
+    },
+    {
+      "task": "sentiment-05",
+      "sessionId": "01a18305-45fa-720a-9701-b3152d615683",
+      "dimension": "舆情",
+      "question": "最近大家都在围绕QQ3讨论什么？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "truth 锚点全中(0)",
+        "rubric[sentiment_pattern] 全要素命中"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 0,
+        "missing": [],
+        "forbidHits": []
+      },
+      "rubric": {
+        "kind": "sentiment_pattern",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "声量规模",
+          "情感方向",
+          "负面主题",
+          "来源",
+          "as_of"
+        ],
+        "missing": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "afe920ca9dd2ca385136d0c1f6b93296",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ov",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_di",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_po",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ev",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_tr",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "最近大家都在围绕QQ3讨论什么？"
+      ],
+      "tools": [
+        "resolve_series",
+        "sentiment_overview",
+        "search_cars",
+        "resolve_series",
+        "sentiment_dimension"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 44.8,
+        "tool_calls": 12,
+        "tokens": {
+          "input": 21864,
+          "output": 8957,
+          "cacheRead": 190976,
+          "totalTokens": 221797,
+          "cost_usd": 0.006104
+        },
+        "partial": false
+      },
+      "replyLength": 2063,
+      "replyPreview": "**一句话结论：QQ3 目前的讨论主要集中在两条主线上：一是全新 QQ3 摩登版上市和国庆车展带来的“颜值、性价比”热度；二是底盘用料、售后服务和空调漏水等质量质疑。前者带动声量，后者拖累口碑。**\n",
+      "reply_full": "**一句话结论：QQ3 目前的讨论主要集中在两条主线上：一是全新 QQ3 摩登版上市和国庆车展带来的“颜值、性价比”热度；二是底盘用料、售后服务和空调漏水等质量质疑。前者带动声量，后者拖累口碑。**\n\n> 数据基准：舆情库近 30 天窗口，截至 2026-10-05；平台以抖音、小红书为主\n\n---\n\n## 一、热度主线：上市 + 颜值 + 性价比（占讨论量最多）\n\n- **摩登版上市与国庆车展带来流量高峰**：9 月 22 日芜湖发布会（孙俪站台）后，国庆车展上“全新 QQ3 vs 摩登版”对比内容集中爆发，声量在 **10 月 2 日单日达到峰值**（讨论量从日均 70～150 条升至 890 条）。\n  - 孙俪发布会现场：https://www.douyin.com/video/7688333069107838095\n  - 国庆车展双车对比：https://www.douyin.com/video/7692810819515979683\n  - http://xiaohongshu.com/explore/6a75c11a000000003300b9b4?xsec_token=YBrrjwWpu_qwyuKahaGTCKaQrIBae8iBOTKiU2I6BAb5E=\n- **外观是全维度评价最好的项**（109 条提及，净态度 1.0、满分正向），“复古调性、比 MINI 更 MINI、出片”是高频词。\n  - 涂鸦/QQshow 二创：https://www.douyin.com/video/7689412830163910095\n  - 颜值讨论：https://www.douyin.com/video/7692300220885549514\n- **性价比排第二热门**（128 条提及）：“5.98 万起 + 前后独立悬架 + 液冷电池”是传播最广的卖点。\n- **空间认知反差**：“买之前没想到这么大、不是 A0 级吗”（801 条评论），空间维度净态度 0.871，是该车的第二亮点。\n  - https://www.douyin.com/video/7684940964126286746\n\n## 二、热度主线：续航实测 + 用车技巧（长尾高互动）\n\n- **续航测试类内容 6 条全为正向**（9/29–10/5），车主自行晒出电耗成绩（如“9500 公里电费 460 元”）。\n- **“隐藏功能/全车按键教程”**累计 17 条以上，属于典型的新车期涨粉型内容，也说明新车主群体正在快速扩大。\n\n## 三、反向主线：质量与售后疑虑（真正影响购买决策的部分）\n\n- **售后服务是全部维度中最差的项**（144 条提及、净态度为负），叠加“断电、提车维权、售后响应慢”等事件。\n- **底盘质疑声量最高**：“不到 6 万的 QQ3，底盘是不是纸糊的”单条 3810 赞、935 评论（9/11）；“底盘疑虑/底盘改进”相关事件累计 16 条。\n  - https://www.douyin.com/video/7683909181981094464\n- **车身用料与偷工减料质疑**（7/13 测评三连，2694 赞）：\n  - https://www.douyin.com/video/7661975395809496366\n- **空调漏水**是典型缺陷簇（9 条评论聚合，用户自述“只要这个位置没有密封胶的必漏，只是时间问题”）：\n  - https://www.douyin.com/video/7691131067231035109\n- **座椅滑轨间隙大需更换**（12 帖）、**悬浮顶“免费赠送”争议**（15 帖、8 负）、**L2 缺失与安全配置争议**（称停产版不带 L2）。\n\n## 四、情绪整体评价\n\n| 指标 | 数值 |\n|---|---|\n| 近 30 天讨论量 | 350 条（已分析 347） |\n| 正向 / 负向 / 中性 | 191 / 104 / 52 |\n| 健康分 | 62.5（中等偏上） |\n| 最强维度 | 外观（1.0）、辅助驾驶（1.0）、空间（0.87） |\n| 最弱维度 | 售后服务（负）、安全性（0.125）、内饰（0.333） |\n\n**给你的判断视角：** QQ3 现在处于“上市期热度高峰”与“首批车主质量反馈开始累积”的叠加阶段。短期内，颜值和价格仍是主要的流量来源；但在底盘、用料和安全配置这三点上，官方还没有给出明确说法，舆论已从“测评质疑”转向“车主自述”，是后续最可能出现负面扩散的方向。\n\n**数据缺口：** ①舆情库窗口为 30 天，周环比指标为空，无法给出周对周变化；②样本集中在抖音、小红书，微博、快手、B 站偏少，不代表全网全量。\n\n需要我把这个话题拆得更细吗？比如专门整理一份“缺陷与负面事件时间线”，或者深挖 QQ3 的真实车主画像与决策链（走全网社媒口碑调研工作流）。",
+      "first_error_turn": null
+    },
+    {
+      "task": "skill-01",
+      "sessionId": "01a18305-f514-720a-9701-b316149e3d04",
+      "dimension": "社媒",
+      "question": "帮我把风云T7在小红书和抖音上的车主真实反馈调研一下，整理成一份带来源链接的调研",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "trap skill_must_trigger 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "9c006671c6d54b7570a8ae8d13ae8688",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : load_skill\ni",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : load_skill\ni",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : export_docum",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "帮我把风云T7在小红书和抖音上的车主真实反馈调研一下，整理成一份带来源链接的调研报告。"
+      ],
+      "tools": [
+        "load_skill",
+        "resolve_series",
+        "load_skill",
+        "query_sales",
+        "query_reviews"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 93.6,
+        "tool_calls": 21,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 3464,
+      "replyPreview": "## 结论\n\n**风云T7 的车主反馈整体偏正面，但吐槽点非常集中——车机与智能化是最大的短板。** 小红书用户更关注\"续航扎实、颜值、性价比\"，抖音车主更关注\"高速能耗和车机小毛病\"；抖音上的长里程",
+      "reply_full": "## 结论\n\n**风云T7 的车主反馈整体偏正面，但吐槽点非常集中——车机与智能化是最大的短板。** 小红书用户更关注\"续航扎实、颜值、性价比\"，抖音车主更关注\"高速能耗和车机小毛病\"；抖音上的长里程车主几乎一致给出同一个建议：**\"要买就买顶配，别碰中低配\"**。\n\n📎 **完整调研报告（7 个工作表，含全部溯源链接）**：[下载 xlsx](/export/download/b2d95e07e11d4d4d87db7e0fa99e69ea)\n\n---\n\n## 一、车主满意的三点\n\n| 维度 | 车主原话 | 来源 |\n|---|---|---|\n| **续航扎实（城区）** | 「跑了473.8km，平均电耗12.0kWh/100km，日常代步续航表现挺实在」 | [小红书](https://www.xiaohongshu.com/explore/6aa15f3f000000002902e975) |\n| **电耗线性、通勤省心** | 「全程开空调，平均每5km掉1%的电」 | [小红书](https://www.xiaohongshu.com/explore/6a9c3f7c0000000026020ac1) |\n| **性价比（论坛口径最强）** | 「9.49万起的置换价，全系标配600km续航，这操作在10万级纯电里真的少见」 | [小红书](https://www.xiaohongshu.com/explore/6a95610f00000000290365db) |\n| **底盘质感越级** | 「开T7一个月后再开回传祺M8（2.0T商务车），感觉避震操控跟T7比低一个档次」 | [抖音](https://www.douyin.com/video/7697094226568467071) |\n\n站内口碑样本也印证了这一点：**性价比（好评 15 条 / 差评 7 条）、续航（好评 13 / 差评 6）、空间（好评 10 / 差评 4）** 是净态度最好的三个维度。\n\n---\n\n## 二、差评集中在两处：车机与舒适细节\n\n**1. 车机是压倒性短板**——站内口碑里智能化维度差评占比高达 **85.7%（24/28）**，社媒侧完全对应：\n\n- 「车机我到现在没用明白，主要是我感觉它没什么东西，但是就是用不明白……但是车开起来还感觉挺好的」——[抖音 · 阿六啊](https://www.douyin.com/video/7700602284975472825)\n- 「车机的声音消失……转向灯不响，语音助手不响，音乐也不响，重启车机之后一切恢复」——[抖音评论区](https://www.douyin.com/video/7697094226568467071)\n- 「经常与手机app失联……预约充电总是失效，枪一插上去就充电」——[抖音评论区](https://www.douyin.com/video/7697094226568467071)\n- 「哨兵模式啊，可太急人了，时好时坏，就怕真用到它的时候再不好用了」——[抖音 · 阿六啊](https://www.douyin.com/video/7689374349657084389)\n\n**2. 高速能耗分歧极大，是目前最大的争议点**：\n\n| 场景 | 车主自报能耗 | 满电实跑 | 来源 |\n|---|---|---|---|\n| 高速 120 巡航、2 人 | 18 kWh/100km | 不到 300km | [抖音](https://www.douyin.com/video/7691844105416551355) |\n| 高速 110—120、满载 | 16 kWh/100km | 约 300km | [抖音](https://www.douyin.com/video/7691963462880588261) |\n| 高速 120 / 100 | 17 / 不到 14 | 300 / 约 400km | [抖音](https://www.douyin.com/video/7699843608275667066) |\n| 高速 100、带空调音乐 | 约 14 | 430km | [抖音评论区](https://www.douyin.com/video/7690182629361990267) |\n| 官方口径（4 人满载、经济模式） | — | 94%→0 实跑 342km（表显 499） | [抖音](https://www.douyin.com/video/7678945233887130545) |\n\n→ 同一台车、不同人差了 4 个电耗点，**说明能耗对车速和载重极其敏感**，买前别只看\"600km\"标签。\n\n**3. 舒适性差评占比 66.7%（14/21）**，主要是：座椅偏硬硌人（「硌得慌，开了4600了」）、刹车点头顿挫、底盘高导致发晃。\n\n**4. 中低配与顶配的落差被反复提到**：\n> 「不要买中低配！不要买中低配！不要买中低配！！！因为中低配遇到的问题很多高配车友都说没有遇到过！」——[抖音 · 阿六啊](https://www.douyin.com/video/7690182629361990267)\n\n配置端确实存在差异：中低配用骁龙 8155 芯片，智驾版用 8775，这也是评论区\"算力不够\"猜想的来源。\n\n---\n\n## 三、多人复现的问题清单（按严重度）\n\n| 问题 | 复现人数 | 性质 |\n|---|---|---|\n| 车机功能难上手、声音丢失需重启、App 失联 | 4 人以上 | ✅ 共性问题 |\n| 高速能耗 16—18 个（满电约 300km） | 3 人以上 | ✅ 共性，但条件依赖强 |\n| 哨兵模式不稳定 + 仪表小车图标消失 | 2 人 + 多人追问 | ⚠️ 中低配集中 |\n| 刹车点头 / 底盘发晃 | 2—3 人 | ⚠️ 主观感受偏多 |\n| 预约充电失效、家充时风扇常转 | 2 人 | ⚠️ 待验证 |\n| 充电偏慢（30%—80% 约 1.5 小时） | 1 人（换桩复测） | ❓ 单人，未核验 |\n| 座椅硌 / 电机高频啸叫 | 各 1 人 | ❓ 单人，未核验 |\n\n另外有 3 位车主点出**配置缺失**：「全系没有行车记录仪，顶配也没有尾门防夹」「全系没 NFC，最低配连蓝牙都没有，意味着必须带钥匙」。\n\n---\n\n## 四、价格口径要分清（车主自述差得不少）\n\n- 官方上市价 **9.79 万起**，抢先置换价 **9.49 万起**\n- 智驾版落地 **不到 11 万**（[小红书](https://www.xiaohongshu.com/explore/6ae0bda0000000003401d99d)）\n- 中配无置换落地 **11.2 万**（[评论区](https://www.xiaohongshu.com/explore/6ac64a5b000000001801334c)）\n- 高配按销售报价测算落地 **约 12.25—12.65 万**（[评论区](https://www.douyin.com/video/7690182629361990267)）\n- 需要注意：山烟紫、炽焰橙高定车漆 **6,000 元，10 月起需加钱才能订**\n\n---\n\n## 五、数据缺口（先说清楚）\n\n1. **9 月终端零售量尚未结算**，目前只有 9 月终端成交均价 10.56 万元，所以本报告**不做销量与口碑的因果归因**。\n2. 样本仍在早期累积阶段（8 月上市），**单人单次反馈不等于共性问题**，标 ❓ 的三项建议再观察 1—2 个月。\n3. 本次仅覆盖小红书与抖音，**汽车之家论坛长帖未纳入**；小红书抓取以标题与首段为主，部分长文细节未逐字获取。\n4. 本篇引用的社媒内容均为 **2026 年 10 月 28 日抓取的公开帖快照，属外部数据、不可复算**，最终以平台页面为准；站内口碑与配置数据截至 2026 年 10 月 7 日，销量为 2026 年 9 月月末口径。\n\n---\n\n需要我把抖音上那两位\"高信息密度车主\"（阿六啊、一路顺风车主）做成**典型用户画像 + 决策链深挖**吗？可以还原他们的对比车型、砍价话术和提车时间线。",
+      "first_error_turn": null
+    },
+    {
+      "task": "multi-07",
+      "sessionId": "01a18307-62dd-720a-9701-b3194fcd6091",
+      "dimension": "多轮",
+      "question": "E5和B10的智能座舱口碑，加上风云T7的舆情，一起说说",
+      "repeat": 1,
+      "score": 2,
+      "reasons": [
+        "truth 锚点全中(1)",
+        "truth[t1] 缺锚/违禁: 25"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 1,
+        "missing": [],
+        "forbidHits": []
+      },
+      "perTurnTruth": [
+        {
+          "turn": 1,
+          "missing": [
+            "25"
+          ],
+          "forbidHits": []
+        }
+      ],
+      "turnVerdicts": [
+        "pass",
+        "pass"
+      ],
+      "traceId": "3659a50173a0598ebbbfa4ddfe3509a1",
+      "carry": {
+        "from": 1,
+        "keys": [
+          "418"
+        ],
+        "results": [
+          {
+            "turn": 2,
+            "key": 418,
+            "status": "consistent"
+          }
+        ],
+        "hasDrift": false
+      },
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ov",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_di",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ev",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_review_a",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_review_a",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_similar_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "E5和B10的智能座舱口碑，加上风云T7的舆情，一起说说",
+        "把E5的智能座舱口碑展开讲讲"
+      ],
+      "tools": [
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "search_cars",
+        "resolve_series"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 115,
+        "tool_calls": 26,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 2385,
+      "replyPreview": "## 一句话结论\n**银河E5 的智能座舱是\"日常交互好评、冷启动和智驾挨批\"：语音、账号互联、分屏这些天天用的功能被夸；车主一致的抱怨是冷启动后一段时间内响应变慢（倒车影像最明显）——再加上低配没有",
+      "reply_full": "## 一句话结论\n**银河E5 的智能座舱是\"日常交互好评、冷启动和智驾挨批\"：语音、账号互联、分屏这些天天用的功能被夸；车主一致的抱怨是冷启动后一段时间内响应变慢（倒车影像最明显）——再加上低配没有高阶辅助驾驶、HUD 只在顶配，智驾体验也成了主要失分点。**\n\n---\n\n## 一、量化定位：智能化是 E5 口碑中差评最多的维度\n\n| 口径 | 数值 |\n|---|---|\n| 智能化维度好评标签 | 198 |\n| 智能化维度差评标签 | 418 |\n| 合计 | 616 |\n| 负面占比 | **67.9%**（全车各维度中差评绝对量最高，高于\"舒适\"313 条的次高值） |\n\n也就是说：这台车\"空间大、外观好看、性价比高\"的评价非常稳，**只有智能座舱这一项会出现\"一半以上是负面\"**。它是产品口碑的核心风险点，并非可有可无的长板。\n\n## 二、被夸的到底是什么（不是\"智能\"，是\"顺手\"）\n\n1. **语音控制可无需手动操作**——\"导航音乐空调都是一句话的事\"（上海，2026款 610km 星舰版，落地 13.58 万）\n2. **手机与车机无缝衔接**——手机上搜好地址直接发到车机，上车不用重输（同上车主，明确称为\"特别顺手\"的细节）\n3. **分屏互不干扰**——副驾刷视频、主驾用导航，两块任务并行（南宁，2026款 610km 探索+版）\n4. **场景模式 + 对外放电联动**——\"车机里场景模式一键把座椅放倒，配合外放电煮茶烤串\"（南通，2026款 610km 探索+版）→ 好评来自**功能场景化组合**，不是参数表\n5. **音响超出预期**（上海车主主动提及）\n\n**可迁移的结论**：E5 的座舱好感来源于\"高频交互路径短\"（语音、地址流转、分屏），而不是算力或屏幕规格。\n\n## 三、被骂的三件事（按一致性排序）\n\n**① 冷启动阶段响应慢、倒车影像延迟 —— 最一致、也最可解决**\n- 上海车主：\"车机刚启动那十几秒确实有点慢，倒车影像要等一会儿才出来，有时候赶时间急着倒车会有点急\"\n- 南宁车主：\"车机偶尔会卡一下，特别是刚启动那几十秒，倒车影像弹出来慢半拍\"\n- 广州车主：\"屏幕反应偶尔会慢一下，特别是刚启动那会儿，倒车影像要等一等才出来\"\n→ 三次独立提及，且都指向**同一场景：冷启动 + 倒车影像**。这属于典型的开机调度问题，而非\"用户觉得不够智能\"，是投入最小、见效最快的改动项。\n\n**② 智驾能力弱、且集中在低配版型**\n- 温州（2026款 530km 探索版，落地 10.98 万）：\"作为一个纯电车型很多入门就有的配置没有，比如高级辅助驾驶，HUD 只有顶配才有……都哪个时代了，搞个电车还不上自动驾驶\"\n- 泰安（2026款 530km 探索版）：\"城区复杂路况开辅助驾驶就不顺心，堵车时开 L2 在城区完全不行，被塞车是经常的，还会急刹车，头都发懵\"\n→ 抱怨来自**预期的落差**（\"这个价位该有\"），而不是\"用了不好用\"；并且集中在非顶配版型上。\n\n**③ 功能堆得多、但不是所有人用得上**\n- 广州车主（自称国企工作大半辈子）：\"车机功能对我来说有点多，很多用不上，平时就听广播、看倒车影像，在线视频语音控制基本不碰\"\n→ 这不是缺陷，而是**用户分层问题**：对保守用户而言，功能多本身也构成负担，需要\"简洁模式/一键回到常用\"。\n\n**④ 长尾小问题**：语音偶发识别不准（重庆、北京提及）、OTA 后的问题反馈（天津）、低速提示音在地库无法记忆关闭、每次上车手动关（上海）。\n\n## 四、版本与用户画像差异（产品层面最值得关注）\n\n- **配置落差带来的体感落差**：激光雷达/高阶智驾、HUD 都集中在高配，低配车主用\"入门款就该有\"的标准去评价，于是**同一套座舱在不同版型上口碑截然不同**——抱怨最集中的是落地 10–11 万区间的探索版/启航版，而非顶配星舰版。\n- **两类用户两种痛点**：年轻单身/小两口（上海、南通）夸语音与场景化玩法、骂启动卡顿；中年保守用户（广州）骂功能过剩。**同一个\"智能化不足\"标签下其实混着两类完全相反的诉求**，看标签数字会误判。\n\n## 五、如果你要动手，优先级建议\n\n| 优先级 | 动作 | 依据 |\n|---|---|---|\n| P0 | 优化冷启动阶段调度、倒车影像首帧速度 | 三地车主独立提及同一场景，改造范围小、感知强 |\n| P1 | 把 L2 在城区拥堵场景的能力或\"可用边界提示\"讲清楚；考虑高阶智驾下放到主销版型 | 抱怨来自预期落差 + 主销版型车主 |\n| P2 | 增加\"简洁模式/常用功能置顶\"，降低功能密度对保守用户的负担 | 存在明确的反向诉求人群 |\n| P3 | 语音识别边缘场景、OTA 后的回归问题、提示音记忆 | 长尾但重复出现 |\n\n---\n\n## 口径与缺口\n- **口径**：汽车之家车主口碑，样本 1,187 条，覆盖 2024/2026 两个年款共 10 个在售版型，时间截至 2026-09-30，统计时点 2026-10-07；上述 198/418/616 与 67.9% 为\"智能化\"单维度内好评与差评标签分布，不与其它维度混算。\n- **缺什么能坐实**：① 冷启动慢属于\"感知问题\"，要坐实需车载系统启动耗时埋点数据（当前只有车主主观描述，无客观测量）；② 智驾抱怨无法区分\"能力不足\"与\"用户不会用\"，需补充用户手册阅读/功能使用率数据；③ 版型间差异目前只能定性判断，若要给出版型级评分排名，需要按版型重算该维度口径。\n\n需要的话我可以把这份展开做成**带原文引用与版型标注的 Excel**，或进一步下钻\"低配版型 vs 顶配版型\"的座舱口碑对照。",
+      "first_error_turn": 1
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-10-28T14-57-15-250Z",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "2f45771a700e732d726362eeb1419b4b04c01387",
+    "set_composition": {
+      "dev": 4,
+      "frozen": 1,
+      "blind": 0,
+      "other": 0,
+      "total": 5
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 4.2,
+    "passCount": 4,
+    "trapBlockedCount": 1,
+    "trap_total": 1,
+    "anchored": {
+      "total": 5,
+      "pass": 4,
+      "pass_rate": 0.8,
+      "avg": 4.2
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 5,
+      "covered": 5,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 2,
+      "fail": 0,
+      "failTasks": []
+    },
+    "regression": {
+      "skip_reason": "scoring_changed"
+    }
+  }
+}

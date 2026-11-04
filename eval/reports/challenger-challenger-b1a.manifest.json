@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "run_id": "challenger-challenger-b1a",
+  "generated_at_utc": "2026-10-27T11:45:05.642Z",
+  "artifacts": [
+    {
+      "path": "eval/eval-report.json",
+      "bytes": 791580,
+      "sha256": "43b19a3783b6bb065ab8b8aa13c83748eda803b1cecef07268295b215b181333",
+      "description": "批跑报告主副本（eval-report.json）"
+    },
+    {
+      "path": "eval/reports/challenger-challenger-b1a.json",
+      "bytes": 791580,
+      "sha256": "43b19a3783b6bb065ab8b8aa13c83748eda803b1cecef07268295b215b181333",
+      "description": "批跑报告归档副本"
+    }
+  ]
+}

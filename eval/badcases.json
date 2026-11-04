@@ -1,0 +1,119 @@
+[
+  {
+    "signal": "verdict_fail",
+    "signals": [
+      "verdict_fail"
+    ],
+    "sessionId": "01a14aed-b376-771d-9764-d46fa9f95e4a",
+    "timestamp": "2026-10-17T17:35:16.691Z",
+    "source_line": 3,
+    "ref_line": null,
+    "question": "宋Pro新能源这台车，车主口碑整体怎么样？好评和差评主要集中在哪里？",
+    "answer": "## 一句话结论\n\n**整体是“买它算务实、用起来省钱、但别指望精致”的正面口碑**——第三方口碑评分 4.50/5，好评高度集中在**用车成本、后排空间、平顺好开**；差评高度集中在**隔音/胎噪风噪 + 内饰材质异味**，长期使用端最扎眼的是**车身生锈、OTA 不推送、经销商承诺不兑现**。\n\n> 口径声明：库内口碑聚合服务本轮鉴权异常（未授权），以下全部来自**外部公开页面快照**（汽车之家口碑/车质网/小红书/抖音/微博/B站），属**不可复算**数据，抓取时间 2026-10-17；每条附原始链接。**样本非随机**，社媒以提车帖为主，负面多来自高互动帖评论区。\n\n---\n\n## 一、好评集中点（汽车之家口碑标签频次）\n\n| 好评点 | 标签提及次数 | 车主语境 |\n|---|---|---|\n| 油耗低 | 53 | 家充桩谷电通勤，日常几乎不烧油 |\n| 后排空间大 | 44 | 家用带娃/露营装载够用 |\n| 换挡平顺 | 42 | 市区走走停停无顿挫 |\n| 方向盘轻重合适 | 36 | 新手/女性车主友好 |\n| 中控屏设计不错 | 33 | 车机大屏 + 语音",
+    "tools": [
+      "resolve_series",
+      "search_cars",
+      "query_reviews",
+      "sentiment_overview",
+      "query_sales",
+      "ask_user_question",
+      "load_skill",
+      "social_search",
+      "social_post_comments",
+      "web_search",
+      "fetch_content",
+      "get_search_content",
+      "submit_conclusion"
+    ],
+    "has_sys_inject": false,
+    "verdict": "fail",
+    "verdict_reason": "缺少 supported_by 行 ID",
+    "evidence_ids": []
+  },
+  {
+    "signal": "verdict_fail",
+    "signals": [
+      "verdict_fail",
+      "user_rephrase"
+    ],
+    "sessionId": "01a14aed-b376-771d-9764-d46fa9f95e4a",
+    "timestamp": "2026-10-17T17:35:28.133Z",
+    "source_line": 4,
+    "ref_line": 3,
+    "question": "宋Pro新能源这台车，车主口碑整体怎么样？好评和差评主要集中在哪里？",
+    "answer": "已按验收反馈修正两处：**① 引用 URL 改为本轮真值集里的原始地址**（之家口碑页带 `summarykey` 参数，之前我漏了）；**② 行 ID 问题如实声明**——库内服务本轮仍返回未授权（重试 `resolve_series`/`query_reviews` 依旧 401），我无法生成 `review_tags:...` 这类 supported_by 行 ID，也不会伪造，因此本轮证据层级只能是 **web 公开快照（不可复算）**，不冒充库口径。\n\n## 修正后的结论（口径不变，出处已改）\n\n**整体正面，但属于“务实型正面”**：省钱、空间大、好开撑起好评；隔音胎噪、内饰用料撑起差评；长期端投诉集中在生锈、OTA 不更新、经销商承诺不兑现。\n\n## 溯源清单（URL 均为本轮工具返回原文，抓取 2026-10-17）\n\n| # | 用途 | 来源 URL |\n|---|---|---|\n| 1 | 口碑评分 4.50、好评/差评标签频次、百车故障数 93（42 人）、故障 TOP（胎噪 9/风噪 8/跑偏 3） | `https://k.autohome.com.cn",
+    "tools": [
+      "resolve_series",
+      "search_cars",
+      "query_reviews",
+      "sentiment_overview",
+      "query_sales",
+      "ask_user_question",
+      "load_skill",
+      "social_search",
+      "social_post_comments",
+      "web_search",
+      "fetch_content",
+      "get_search_content",
+      "submit_conclusion"
+    ],
+    "has_sys_inject": true,
+    "verdict": "fail",
+    "verdict_reason": "数字结论未经出口闸提交（漏提交）",
+    "evidence_ids": [
+      "review_tags:...`"
+    ]
+  },
+  {
+    "signal": "verdict_fail",
+    "signals": [
+      "verdict_fail"
+    ],
+    "sessionId": "01a159f7-bd0d-7577-aa8a-ac8d05648e60",
+    "timestamp": "2026-10-20T15:40:50.608Z",
+    "source_line": 9,
+    "ref_line": null,
+    "question": "银河E5 舆情怎么样",
+    "answer": "## 结论\n\n银河E5 的舆情**整体偏正面，但已经停止更新**：362 条声量中正面 220、负面 38、中性 90，健康度 76.1。强项是动力、车机、空间、续航这些产品硬指标；短板是**售后服务**——它是唯一为负的维度。同时，“故障频发”“测评争议”这类负向话题仍在传播。\n\n⚠️ **同一份停更前的冻结快照**（和刚才那轮完全一致，数据未更新）：声量采集已停止，逐日数据止于 10-15，**不代表近期动态**。\n\n## 情绪与声量\n\n| 指标 | 数值 |\n|---|---|\n| 声量总数、完成情绪分析 | 362 / 348 条 |\n| 正面、负面、中性 | 220 / 38 / 90 |\n| 正面占比 | 60.8% |\n| 健康度 | 76.1 |\n| 声量峰值 | 2026-09-23（单日讨论 938 条） |\n\n峰值由“续航实测”话题带动：该事件簇累计 201 帖，正面 140、负面仅 7。\n\n## 维度强弱（-1~1）\n\n| 强项 | 分值 | 弱项 | 分值 |\n|---|---|---|---|\n| 动力/加速 | 0.94 | 内饰 | 0.37 |\n| 智",
+    "tools": [
+      "resolve_series",
+      "sentiment_overview",
+      "sentiment_trend",
+      "sentiment_dimension",
+      "sentiment_events",
+      "sentiment_defects",
+      "submit_conclusion",
+      "sentiment_posts"
+    ],
+    "has_sys_inject": false,
+    "verdict": "fail",
+    "verdict_reason": "凭空编造数字（不在会话台账）: 13.7",
+    "evidence_ids": []
+  },
+  {
+    "signal": "user_rephrase",
+    "signals": [
+      "user_rephrase"
+    ],
+    "sessionId": "01a159f7-bd0d-7577-aa8a-ac8d05648e60",
+    "timestamp": "2026-10-20T15:40:56.079Z",
+    "source_line": 10,
+    "ref_line": 9,
+    "question": "银河E5 舆情怎么样",
+    "answer": "已复核，结论维持：13.7% 是“底盘和悬架”话题簇的负向评论占比（117 条评论中），数据来源已补入引用并通过验证；该簇内代表评论仍是“悬架支撑强化、过弯更稳”等正向表述，因此把这项数据理解为“讨论热度高、非集中投诉”即可。",
+    "tools": [
+      "resolve_series",
+      "sentiment_overview",
+      "sentiment_trend",
+      "sentiment_dimension",
+      "sentiment_events",
+      "sentiment_defects",
+      "submit_conclusion",
+      "sentiment_posts"
+    ],
+    "has_sys_inject": true,
+    "verdict": "pass",
+    "verdict_reason": "出口闸通过",
+    "evidence_ids": []
+  }
+]

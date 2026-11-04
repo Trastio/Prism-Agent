@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>数据看板 · Autohome Agent</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --accent: #b85638;  --accent-d: #a44f33;  --accent-bg: #fdf4ef;
+    --pos: #2348b8;  --neg: #9c2a25;  --neu: #7a7670;  --info: #3a6ea5;
+    --positive-bg: #eef2fc;  --negative-bg: #fdf2f2;  --neutral-bg: #f5f5f5;
+    --bg: #fafaf7;  --card-bg: #ffffff;
+    --ink: #15140f;  --muted: #5a564e;  --muted-2: #6b665e;
+    --border: #e7e5e0;  --thead: #f4f1ec;  --grid: #f0ece5;
+    --radius: 12px;  --radius-sm: 8px;  --radius-lg: 16px;
+    --shadow: 0 1px 0 var(--grid);
+    --shadow-md: 0 2px 8px rgba(21,20,15,0.06);
+    /* 兼容旧变量名 */
+    --ink2: var(--muted);  --line: var(--border);  --bg-soft: var(--grid);
+    --warn: var(--neg);  --pro: var(--pos);  --con: var(--neg);
+    --blue: var(--info);  --good: var(--pos);  --red: var(--neg);  --green: var(--pos);
+  }
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--ink); margin: 0; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; padding: 0 16px; }
+  /* 顶栏品牌位 */
+  .brand { display: flex; align-items: center; gap: 10px; margin-bottom: 28px; }
+  .brand .swatch { display: inline-flex; gap: 4px; }
+  .brand .swatch i { width: 14px; height: 14px; border-radius: 3px; display: inline-block; }
+  .brand .name { font-size: 18px; font-weight: 800; letter-spacing: -.01em; }
+  .brand .name small { color: var(--muted); font-weight: 600; font-size: 12px; margin-left: 8px; letter-spacing: .12em; text-transform: uppercase; }
+  .wrap { display: flex; gap: 24px; }
+  a.card { display: block; width: 300px; padding: 28px; background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-lg); text-decoration: none; color: var(--ink); transition: box-shadow .15s; box-shadow: var(--shadow-md); }
+  a.card:hover { box-shadow: 0 6px 20px rgba(21,20,15,.10); }
+  .card h2 { margin: 0 0 8px; font-size: 20px; }
+  .card p { margin: 0; color: var(--muted); font-size: 13px; line-height: 1.7; }
+  .card .tag { display: inline-block; margin-top: 14px; font-size: 12px; color: var(--accent); background: var(--accent-bg); border-radius: 4px; padding: 2px 8px; }
+  .selfcheck { max-width: 960px; margin: 0 auto 16px; }
+  .selfcheck .warn { background: var(--negative-bg); border: 1px solid var(--border); border-left: 3px solid var(--neg); border-radius: var(--radius-sm); padding: 12px 16px; color: var(--neg); font-size: 13px; line-height: 1.6; margin-bottom: 8px; }
+  .selfcheck .warn code { background: var(--neutral-bg); border-radius: 3px; padding: 1px 4px; font-size: 12px; }
+  .mismatch { max-width: 960px; margin: 0 auto 16px; background: var(--negative-bg); border: 1px solid var(--border); border-left: 3px solid var(--neg); border-radius: var(--radius-sm); padding: 12px 16px; color: var(--neg); font-size: 13px; line-height: 1.6; }
+  .mismatch b { color: var(--neg); }
+  /* P1-15/P2-27：窄屏响应式——卡片纵向堆叠，不横向溢出 */
+  @media (max-width: 768px) {
+    body { padding: 12px; }
+    .wrap { flex-direction: column; gap: 12px; }
+    a.card { width: auto; padding: 20px; }
+    .selfcheck, .mismatch { max-width: 100%; }
+  }
+  /* dashboard-v10 Task 2.3：全局键盘焦点可见样式（无障碍） */
+  :focus-visible { outline: 2px solid var(--info); outline-offset: 2px; }
+  /* 组件库 */
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .kpi-value { font-size: 30px; font-weight: 800; font-feature-settings: 'tnum'; letter-spacing: -.02em; }
+  .alert-bar { background: var(--card-bg); border-left: 3px solid var(--accent); border-radius: var(--radius-sm); padding: 12px 16px; }
+  .hint { color: var(--muted); font-size: 12px; }
+  .sec { margin-bottom: 36px; }
+  .sec-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .18em; color: var(--muted); margin-bottom: 12px; }
+  details.panel { border: 1px solid var(--border); border-radius: var(--radius); padding: 12px 16px; }
+</style>
+</head>
+<body>
+{% if selfcheck_warnings %}
+<div class="selfcheck">
+  {% for w in selfcheck_warnings %}
+  <div class="warn">⚠ {{ w.msg }}</div>
+  {% endfor %}
+</div>
+{% endif %}
+{% if snap_only_n or koubei_only_n %}
+<div class="mismatch">
+  ⚠ <b>两看板车系集合不一致</b>：配置看板 {{ config_series_n }} 系 vs 口碑看板 {{ koubei_series_n }} 系——
+  {{ snap_only_n }} 系有快照无口碑（配置可查但无车主评价）、{{ koubei_only_n }} 系有口碑无快照（口碑可查但无配置数据）。
+  跨看板对比时请注意口径差异。
+</div>
+{% endif %}
+<div class="brand" role="banner">
+  <span class="swatch" aria-hidden="true"><i style="background:var(--accent)"></i><i style="background:var(--pos)"></i><i style="background:var(--neg)"></i></span>
+  <span class="name">看板中心 <small>Autohome Agent</small></span>
+</div>
+<div class="wrap" role="main">
+  <a class="card" href="/dash/koubei" role="link">
+    <h2>口碑看板</h2>
+    <p>{{ koubei_series_n }} 车系口碑覆盖、标签量、Top 优缺点、维度分布、数据新鲜度与质量——全部实测自本地数据库。</p>
+    <span class="tag">SQLite 实时读取</span>
+  </a>
+  <a class="card" href="/dash/config" role="link">
+    <h2>配置看板</h2>
+    <p>{{ config_series_n }} 车系配置快照、版型列表（指导价/spec_id）与分类配置参数——配置快照表 + 口碑本地库。</p>
+    <span class="tag">配置快照表</span>
+  </a>
+  <a class="card" href="/dash/market" role="link">
+    <h2>市场看板</h2>
+    <p>CAM 终端价格监测：车系价格趋势、零售走势、竞品对比、价格×销量散点、级别/能源结构。</p>
+    <span class="tag">Excel 导入库</span>
+  </a>
+</div>
+</body>
+</html>

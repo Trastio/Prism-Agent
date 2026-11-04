@@ -1,0 +1,31 @@
+{
+  "date": "2026-10-13 20:33:26",
+  "gpu": "NVIDIA GeForce RTX 4080 Laptop GPU",
+  "n": 300,
+  "backlog_pool": 5523,
+  "batch": 16,
+  "load_s": 60.2,
+  "infer_s": 45.2,
+  "throughput_per_s": 6.63,
+  "per_item_ms": 150.7,
+  "vram_peak_gb": 5.77,
+  "batch_times_head": [
+    3.12,
+    2.27,
+    2.5,
+    2.38,
+    5.55
+  ],
+  "batch_times_tail": [
+    2.39,
+    1.77,
+    2.02,
+    2.26,
+    2.02
+  ],
+  "extrapolate_hours": {
+    "daily_10k": 0.42,
+    "peak_44k": 1.84,
+    "backlog_5845": 0.24
+  }
+}

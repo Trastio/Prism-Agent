@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>看板对比 · hermes 参照稿 vs 当前实现</title>
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%;font-family:"PingFang SC","Microsoft YaHei","Noto Sans SC",system-ui,sans-serif;background:#eef0f3;color:#1e1f22}
+  .bar{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;padding:10px 18px;background:#fff;border-bottom:1px solid #e3e4e8}
+  .brand{font-size:14px;font-weight:600}
+  .brand small{font-weight:400;color:#8a8f98;font-size:11.5px;margin-left:8px}
+  .widths{display:flex;align-items:center;gap:6px;font-size:12px;color:#6b6f76}
+  .widths button{height:30px;padding:0 12px;border:1px solid #dfe1e6;border-radius:8px;background:#fff;font:inherit;font-size:12px;color:#3a3d42;cursor:pointer;transition:background .15s,color .15s,border-color .15s}
+  .widths button:hover{border-color:#b9bec7}
+  .widths button.on{background:#2f6bff;border-color:#2f6bff;color:#fff}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px;height:calc(100vh - 52px - 32px)}
+  .panel{display:flex;flex-direction:column;min-height:0;background:#fff;border:1px solid #e3e4e8;border-radius:10px;overflow:hidden}
+  .ph{display:flex;align-items:baseline;gap:10px;padding:8px 12px;border-bottom:1px solid #eef0f3}
+  .ph b{font-size:13px}
+  .ph span{color:#8a8f98;font-size:11.5px}
+  .ph .dot{width:7px;height:7px;border-radius:99px;flex:none;align-self:center}
+  .vp{position:relative;flex:1;min-height:0;overflow:auto;background:#e6e9ee}
+  .frame{position:relative;overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08)}
+  .frame iframe{position:absolute;top:0;left:0;border:0;transform-origin:top left;background:#fff}
+  .hint{padding:0 18px 10px;font-size:11.5px;color:#6b6f76}
+  .hint b{color:#3a3d42}
+</style>
+</head>
+<body>
+  <header class="bar">
+    <div class="brand">看板对比 · hermes 参照稿 ⟷ 当前实现<small>两侧都是活的，可直接在框内点 tab 对齐维度</small></div>
+    <div class="widths">
+      <span>内层视口宽度</span>
+      <button data-w="1440" class="on">桌面 1440</button>
+      <button data-w="1180">笔记本 1180</button>
+      <button data-w="860">窄窗 860</button>
+      <button data-w="760">更窄 760</button>
+    </div>
+  </header>
+
+  <main class="cols">
+    <section class="panel">
+      <div class="ph"><span class="dot" style="background:#94a3b8"></span><b>hermes 参照稿</b><span>原始设计系统（含 3 组响应式断点）</span></div>
+      <div class="vp"><div class="frame"><iframe src="./hermes-agent-kanban.html" title="hermes 参照稿"></iframe></div></div>
+    </section>
+    <section class="panel">
+      <div class="ph"><span class="dot" style="background:#2f6bff"></span><b>当前实现</b><span>localhost:5173 · 无任何 @media</span></div>
+      <div class="vp"><div class="frame"><iframe src="http://localhost:5173/" title="当前实现"></iframe></div></div>
+    </section>
+  </main>
+
+  <div class="hint">提示：把内层视口调到 <b>1180 及以下</b>，观察左侧 hermes 的双栏会塌成单栏、860 及以下侧栏会隐藏；右侧当前实现不会 —— 这正是"挤/扁"的来源。舆情 tab 两侧差异也建议对比（hermes 有完整内容，当前实现近乎空白）。</div>
+
+<script>
+  // 内层视口高度（px）：模拟一个常见的笔记本可视高度
+  var INNER_H = 1100;
+  var innerW = 1440;
+
+  // 依据每栏可用宽度，计算缩放比例并应用 transform scale，
+  // 使两侧都以相同的"内层视口宽度"渲染布局，从而可比。
+  function apply() {
+    document.querySelectorAll('.panel').forEach(function (panel) {
+      var vp = panel.querySelector('.vp');
+      var frame = panel.querySelector('.frame');
+      var iframe = panel.querySelector('iframe');
+      var avail = vp.clientWidth;
+      if (!avail) return;
+      var s = avail / innerW;
+      frame.style.width = (innerW * s) + 'px';
+      frame.style.height = (INNER_H * s) + 'px';
+      iframe.style.width = innerW + 'px';
+      iframe.style.height = INNER_H + 'px';
+      iframe.style.transform = 'scale(' + s + ')';
+    });
+  }
+
+  document.querySelectorAll('.widths button').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      innerW = parseInt(btn.dataset.w, 10);
+      document.querySelectorAll('.widths button').forEach(function (b) { b.classList.remove('on'); });
+      btn.classList.add('on');
+      apply();
+    });
+  });
+
+  window.addEventListener('resize', apply);
+  window.addEventListener('load', apply);
+  apply();
+</script>
+</body>
+</html>

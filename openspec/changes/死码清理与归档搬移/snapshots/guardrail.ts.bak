@@ -1,0 +1,116 @@
+/**
+ * Prism-Agent · tool_call 护栏（T-2.2.4）
+ *
+ * 三道闸（spec §2.2.4）：
+ * 1. cc-safety-net@2.4.15（全局已装）：GitHub 读写拦截
+ * 2. 自建红线拦截：禁裸 SQL / 禁触发表写 / 禁越权
+ * 3. fail-closed：工具抛错 = 拦截（不静默放行）
+ *
+ * 设计依据：教材 §3.4 chapter5/airline_env.py 三重保障
+ * 红线#3：护栏在执行层非提示词
+ */
+
+// ---------------------------------------------------------------------------
+// 拦截规则
+// ---------------------------------------------------------------------------
+
+export interface BlockResult {
+  block: boolean;
+  reason?: string;
+  terminate?: boolean;   // 严重违规直接终止会话
+}
+
+/** 禁止的工具名（裸 SQL / 写操作 / 越权） */
+const FORBIDDEN_TOOLS = new Set<string>([
+  'execute_sql',       // 禁裸 SQL（红线#2）
+  'write_sales',       // 禁写销量
+  'write_reviews',     // 禁写口碑
+  'write_config',      // 禁写配置
+  'delete_*',          // 通配禁删除
+]);
+
+/** 允许的只读工具白名单 */
+const ALLOWED_READONLY_TOOLS = new Set<string>([
+  'query_sales',
+  'query_reviews',
+  'query_config',
+  'query_energy',
+  'query_score',
+  'query_events',
+  'query_defects',
+  'sentiment_overview',
+  'sentiment_trend',
+  'sentiment_dimension',
+  'sentiment_posts',
+  'sentiment_competitive',
+  'sentiment_events',
+  'resolve_series',
+  'discover_tools',
+]);
+
+/** 管理者专属工具（普通用户禁用，需密码弹窗） */
+const MANAGER_ONLY_TOOLS = new Set<string>([
+  'trigger_collect',    // 触发采集（红线：需管理者授权）
+  'edit_scores',        // 编辑赋分表
+  'edit_sales_default', // 编辑默认赋分
+]);
+
+// ---------------------------------------------------------------------------
+// 拦截主入口
+// ---------------------------------------------------------------------------
+
+/**
+ * tool_call 拦截：在 pi.on('tool_call') 里调用
+ * 返回 {block:true} 即拦截，{terminate:true} 终止会话
+ */
+export function guardToolCall(
+  toolName: string,
+  params: Record<string, unknown>,
+  ctx: { userId: string; isManager: boolean }
+): BlockResult {
+  // 1. 禁止清单
+  for (const forbidden of FORBIDDEN_TOOLS) {
+    if (forbidden.endsWith('*') && toolName.startsWith(forbidden.slice(0, -1))) {
+      return { block: true, reason: `工具 ${toolName} 匹配禁止模式 ${forbidden}（红线#2 不写裸SQL/不触发表写）`, terminate: true };
+    }
+    if (toolName === forbidden) {
+      return { block: true, reason: `工具 ${toolName} 被禁止（红线#2 不写裸SQL/不触发表写）`, terminate: true };
+    }
+  }
+
+  // 2. 管理者专属
+  if (MANAGER_ONLY_TOOLS.has(toolName) && !ctx.isManager) {
+    return { block: true, reason: `工具 ${toolName} 需管理者授权（红线：触发采集/编辑赋分需密码弹窗）` };
+  }
+
+  // 3. 非白名单工具：fail-closed（默认拒绝）
+  if (!ALLOWED_READONLY_TOOLS.has(toolName)) {
+    return { block: true, reason: `工具 ${toolName} 不在白名单，fail-closed 拒绝（红线#3 护栏在执行层）` };
+  }
+
+  // 4. 参数安全检查：禁 params 里夹带 SQL
+  const paramsJson = JSON.stringify(params);
+  if (/(DROP|DELETE|INSERT|UPDATE|ALTER)\s/i.test(paramsJson)) {
+    return { block: true, reason: `参数含可疑 SQL 关键字（红线#2 不写裸SQL）`, terminate: true };
+  }
+
+  return { block: false };
+}
+
+// ---------------------------------------------------------------------------
+// pi 集成接口（供 pi_bridge 调用注册 hook）
+// ---------------------------------------------------------------------------
+
+/**
+ * 返回给 pi.on('tool_call') 的处理器
+ * pi 文档：返回 {block:true, reason, terminate} 即拦截
+ */
+export function createToolCallGuard(ctx: { userId: string; isManager: boolean }) {
+  return (toolCall: { name: string; arguments?: Record<string, unknown> }) => {
+    const result = guardToolCall(toolCall.name, toolCall.arguments ?? {}, ctx);
+    if (result.block) {
+      // 抛错 = fail-closed 拦截（pi 0.85.1 行为：tool_call 处理器抛错=拦截工具）
+      throw new Error(`[Prism 护栏] ${result.reason}`);
+    }
+  };
+}

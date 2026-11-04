@@ -1,0 +1,60 @@
+{
+  "$comment": "质量裁判红绿校准集（proposal-mini 防病三件③）。人工锚 8 题——排序与锚定依据来自工单拍板（不许改），依据短语已对源报告逐条核实存在（核实记录见 施工报告.md W2 节）。回复源=eval/reports/eval-2026-10-26T15-23-07-811Z.json 的 reply_full。准用条件：Spearman(judge 总分, 人工序) ≥ pass_threshold。",
+  "report": "eval/reports/eval-2026-10-26T15-23-07-811Z.json",
+  "pass_threshold": 0.7,
+  "policy": {
+    "status": "reference_only",
+    "decided": "2026-10-29 用户拍板",
+    "reason": "人工锚仅 8 题，全锚 Spearman=0.551（未达 0.7 准用线）；扩样到 20 题需人工逐题排序，用户决定不投入。故质量分不进入发版门槛（stats.py 四条件本就不含质量分），报告内只作参考值展示，不得用于发布判定或回归结论。",
+    "scope": "任何引用质量分的结论必须标注『未经金标校准，仅参考』；恢复准用需人工锚 ≥20 题且 Spearman ≥ pass_threshold。"
+  },
+  "human_ranked": [
+    {
+      "rank": 1,
+      "task": "cross-02",
+      "basis": "结论先行+口径完整（同比口径、同版型对比、口径与缺口节自然交代）"
+    },
+    {
+      "rank": 2,
+      "task": "config-05",
+      "basis": "对比对象与差价口径清晰，结论量化可执行"
+    },
+    {
+      "rank": 3,
+      "task": "sales-09",
+      "basis": "结构好+口径提醒佳（两点口径提醒），但有一句内部术语泄漏（降级模式/别名表）小扣"
+    },
+    {
+      "rank": 4,
+      "task": "reviews-04",
+      "basis": "结论明确、分层可读，版本口碑定位清楚"
+    },
+    {
+      "rank": 5,
+      "task": "sentiment-05",
+      "basis": "结构可读但 as_of 内部字段名直接入正文，篇幅偏长"
+    },
+    {
+      "rank": 6,
+      "task": "multi-07",
+      "basis": "冗长失度（2.8K 字符表格墙倾向）"
+    },
+    {
+      "rank": 7,
+      "task": "skill-01",
+      "basis": "过程性语言泄漏开篇（我将加载口碑调研工作流）+冗长（3.4K）"
+    },
+    {
+      "rank": 8,
+      "task": "social-01",
+      "basis": "冗长失度（3.2K）+内部字段/ID/基建名泄漏（series_id、retail_sum、TikHub）"
+    }
+  ],
+  "alignment_exclusions": [
+    {
+      "task": "multi-07",
+      "decided": "2026-10-29 用户拍板（剔除对齐+分层声明）",
+      "reason": "锚混层：人工第6名的理由=T7负面帖25条量化缺失（内容层缺口），质量层六维按设计不测内容完整性（数字真伪/完整性归验证层，主分truth锚已扣）。任何LLM裁判结构性不可对齐——v7三轮实证：全8锚rho=0.551/0.469/null全FAIL，剔此锚=0.926/0.730/0.926全过；v6过闸轮0.73剔后亦0.926。剔除仅作用于对齐计算：人工排序原样保留可复算，multi-07重判照常产出质量分（只是不对齐人工锚）。"
+    }
+  ]
+}

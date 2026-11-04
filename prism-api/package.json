@@ -1,0 +1,15 @@
+{
+  "name": "prism-api",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "python -X utf8 main.py",
+    "gateway": "node pi_gateway.mjs",
+    "dev:all": "node pi_gateway.mjs & python -X utf8 main.py"
+  },
+  "dependencies": {
+    "@earendil-works/pi-coding-agent": "0.85.1",
+    "@earendil-works/pi-ai": "0.85.1"
+  }
+}

@@ -1,0 +1,210 @@
+{
+ "reports": [
+  "eval/reports/eval-2026-11-02T14-14-18-012Z-r2.json",
+  "eval/reports/eval-2026-11-02T14-29-45-973Z-r2.json",
+  "eval/reports/eval-2026-11-02T14-55-29-808Z-r2.json",
+  "eval/reports/eval-2026-11-02T15-18-56-216Z-r2.json"
+ ],
+ "pass_rate_threshold": 0.75,
+ "per_task": {
+  "a3-01|A": {
+   "n": 4,
+   "pass_n": 0,
+   "pass": false,
+   "median": 2.0,
+   "scores": [
+    2,
+    2,
+    2,
+    2
+   ],
+   "duration_s": 306.5
+  },
+  "a3-01|B": {
+   "n": 4,
+   "pass_n": 4,
+   "pass": true,
+   "median": 5.0,
+   "scores": [
+    5,
+    5,
+    5,
+    5
+   ],
+   "duration_s": 459.5
+  },
+  "a3-02|A": {
+   "n": 4,
+   "pass_n": 4,
+   "pass": true,
+   "median": 5.0,
+   "scores": [
+    5,
+    5,
+    5,
+    5
+   ],
+   "duration_s": 329.2
+  },
+  "a3-02|B": {
+   "n": 4,
+   "pass_n": 4,
+   "pass": true,
+   "median": 5.0,
+   "scores": [
+    5,
+    5,
+    5,
+    5
+   ],
+   "duration_s": 490.5
+  },
+  "a3-03|A": {
+   "n": 4,
+   "pass_n": 2,
+   "pass": false,
+   "median": 3.5,
+   "scores": [
+    5,
+    5,
+    2,
+    2
+   ],
+   "duration_s": 361.1
+  },
+  "a3-03|B": {
+   "n": 4,
+   "pass_n": 2,
+   "pass": false,
+   "median": 3.5,
+   "scores": [
+    2,
+    5,
+    5,
+    2
+   ],
+   "duration_s": 547.6
+  },
+  "a3-04|A": {
+   "n": 4,
+   "pass_n": 2,
+   "pass": false,
+   "median": 3.5,
+   "scores": [
+    2,
+    5,
+    5,
+    2
+   ],
+   "duration_s": 281.6
+  },
+  "a3-04|B": {
+   "n": 4,
+   "pass_n": 4,
+   "pass": true,
+   "median": 5.0,
+   "scores": [
+    5,
+    5,
+    5,
+    5
+   ],
+   "duration_s": 450.1
+  },
+  "a3-05|A": {
+   "n": 4,
+   "pass_n": 4,
+   "pass": true,
+   "median": 5.0,
+   "scores": [
+    5,
+    5,
+    5,
+    5
+   ],
+   "duration_s": 303.2
+  },
+  "a3-05|B": {
+   "n": 4,
+   "pass_n": 4,
+   "pass": true,
+   "median": 5.0,
+   "scores": [
+    5,
+    5,
+    5,
+    5
+   ],
+   "duration_s": 535.9
+  },
+  "a3-06|A": {
+   "n": 4,
+   "pass_n": 3,
+   "pass": true,
+   "median": 5.0,
+   "scores": [
+    5,
+    2,
+    5,
+    5
+   ],
+   "duration_s": 280.0
+  },
+  "a3-06|B": {
+   "n": 4,
+   "pass_n": 4,
+   "pass": true,
+   "median": 5.0,
+   "scores": [
+    5,
+    5,
+    5,
+    5
+   ],
+   "duration_s": 462.3
+  }
+ },
+ "pairs": [
+  {
+   "task": "a3-01",
+   "A_pass": false,
+   "B_pass": true
+  },
+  {
+   "task": "a3-02",
+   "A_pass": true,
+   "B_pass": true
+  },
+  {
+   "task": "a3-03",
+   "A_pass": false,
+   "B_pass": false
+  },
+  {
+   "task": "a3-04",
+   "A_pass": false,
+   "B_pass": true
+  },
+  {
+   "task": "a3-05",
+   "A_pass": true,
+   "B_pass": true
+  },
+  {
+   "task": "a3-06",
+   "A_pass": true,
+   "B_pass": true
+  }
+ ],
+ "n01": 2,
+ "n10": 0,
+ "b": 2,
+ "p_one_sided_exact": 0.25,
+ "improve_share_ci95": {
+  "point": 1.0,
+  "lo": 0.15811388300841894,
+  "hi": 1.0
+ },
+ "verdict": "未达统计显著",
+ "dropped": []
+}

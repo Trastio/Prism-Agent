@@ -1,0 +1,37 @@
+{
+  "name": "prism-agent",
+  "version": "0.3.0",
+  "private": true,
+  "type": "module",
+  "description": "Prism-Agent · 汽车 PM 竞品分析数据 agent",
+  "scripts": {
+    "smoke:datasource": "tsx src/registry/smoke.ts",
+    "smoke:grounding": "tsx src/verify/smoke.ts",
+    "smoke:m3": "tsx src/verify/smoke_m3.ts",
+    "smoke:guard": "tsx .pi/extensions/prism-guardrails/smoke.ts",
+    "smoke:verify": "node --test --import tsx src/verify/completion.test.ts src/verify/grounding.test.ts src/verify/numeric-ledger.test.ts .pi/extensions/prism-guardrails/tool_call.test.ts tests/identity_api.test.ts tests/verify_claim_api.test.ts tests/sentiment_tools.test.ts tests/abort_api.test.ts tests/tikhub_tools.test.ts tests/load_skill.test.ts tests/social_wiring.test.ts tests/truncate.test.ts tests/truth_envelope.test.ts tests/workflow_gate.test.ts tests/map_event.test.mjs",
+    "smoke:trap": "node --test eval/trap_check.test.mjs",
+    "smoke:prompt": "node --test eval/prompt_gate.test.mjs",
+    "smoke:truth": "node --test eval/truth_check.test.mjs",
+    "smoke:rubric": "node --test eval/rubric_check.test.mjs",
+    "smoke:value_diff": "python -m pytest prism-dashboards/tests/test_value_diff.py -q",
+    "smoke:all": "npm run smoke:datasource && npm run smoke:grounding && npm run smoke:m3 && npm run smoke:guard && npm run smoke:verify && npm run smoke:trap && npm run smoke:truth && npm run smoke:rubric && npm run smoke:value_diff && npm run smoke:prompt",
+    "build": "tsc",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@earendil-works/pi-ai": "^1.0.1",
+    "@earendil-works/pi-coding-agent": "^1.0.1",
+    "@sinclair/typebox": "^0.32.37",
+    "better-sqlite3": "^13.0.3"
+  },
+  "devDependencies": {
+    "@types/better-sqlite3": "^7.6.11",
+    "@types/node": "^22.0.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

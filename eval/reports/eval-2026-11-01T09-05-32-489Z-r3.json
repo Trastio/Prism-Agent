@@ -1,0 +1,1800 @@
+{
+  "run_id": "eval-2026-11-01T09-05-32-489Z",
+  "started_at": "2026-11-01T09:05:32.490Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "013fd93c7076679336361c9eaf57f84b5e4ad6d2",
+  "snapshot_id": "snap-20261012-1222",
+  "runtime_snapshot": "snap-20261012-1222",
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "0d05ccc07bf0294a0075601655e9fb3d",
+  "scoring_fingerprint": "5b516aa6de15d490",
+  "content_fingerprint": "bc05692fb8d9419f",
+  "invalid_rows": 0,
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-11-01T09:11:43.007Z",
+  "results": [
+    {
+      "task": "config-07",
+      "sessionId": "01a1965b-6ce9-7387-82f4-3a3d0ca234ab",
+      "dimension": "配置",
+      "question": "12万元左右哪个BEV车型的配置最好",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "rubric[ranking] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "ranking",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "比亚迪 元UP",
+          "比亚迪 海豚",
+          "启源Q05 纯电"
+        ],
+        "missing": [],
+        "note": "金标 top3 落前5: 3/3"
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 5,
+        "consistent": true,
+        "steps": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "e5f79eec8eefaaa6538523700aed891f",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "12万元左右哪个BEV车型的配置最好"
+      ],
+      "tools": [
+        "search_cars",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "compare_configs_valued",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "get_trims",
+        "resolve_series",
+        "resolve_series",
+        "get_trims",
+        "get_trims",
+        "compare_configs_valued",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 89,
+        "tool_calls": 31,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 1363,
+      "replyPreview": "## 结论\n\n**12 万元左右买纯电汽车，配置最全的是零跑B01 2027款 670激光雷达版（11.98 万）**——670km 续航 + 800V 平台 + 激光雷达 + 城市 NOA，在这个价",
+      "reply_full": "## 结论\n\n**12 万元左右买纯电汽车，配置最全的是零跑B01 2027款 670激光雷达版（11.98 万）**——670km 续航 + 800V 平台 + 激光雷达 + 城市 NOA，在这个价格带没有对手。如果你更看重 SUV 车身，同为 11.98 万的零跑B10 2027款 540激光雷达版是次优选择。\n\n## 横向对比（各车取 12 万价位段配置最高的在售版型）\n\n| 版型 | 指导价 | 配置价值对比 | 主要看点 |\n|---|---|---|---|\n| **零跑B01 2027款 670激光雷达版** | 11.98 万 | **基准最高（比 B10 多约 1.43 万）** | 670km、800V 平台、激光雷达、高速+城市 NOA、自动/遥控泊车 |\n| 零跑B10 2027款 540激光雷达版 | 11.98 万 | 基准 | 540km、激光雷达、城市 NOA、19 寸轮毂、SUV 车身 |\n| 深蓝S05 2027款 520智行版 | 11.99 万 | 少 6,150 元 | 520km、高速 NOA、软硬可调悬架、6kW 对外放电 |\n| 小鹏MONA M03 2026款 540 长续航 Plus | 11.98 万 | 少 9,500 元 | 540km、自动/遥控泊车；高阶智驾要上到 12.98 万 |\n| 海豚 2025款 智驾版 520km 骑士版 | 12.58 万 | 少 13,450 元 | 520km、高速 NOA、5G 车机；A0 级小车 |\n| 银河E5 2027款 550 智充启航版 | 11.78 万 | 少 14,210 元 | 550km、**该价位少见 800V**、6kW 放电；智驾是短板 |\n| 元PLUS 2026款 540KM 领先型 | 11.99 万 | 少 19,150 元 | 540km、品牌与保值优势，配置偏素 |\n| 海狮05 EV 2026款 540领航版 | 11.99 万 | 少 19,250 元 | 540km、空间好，智驾与舒适配置少 |\n| 元UP 2025款 智驾版 401KM 超越型 | 11.98 万 | 少 24,750 元 | A0 级，续航仅 401km，同样预算不划算 |\n\n## 怎么选\n\n- **只想要配置最高**：零跑B01 670激光雷达版（11.98 万）—— 续航、补能、智驾三项同时拉满。\n- **要 SUV 形态、又不想牺牲智驾**：零跑B10 540激光雷达版（11.98 万），同价，续航少 130km。\n- **更看重充电速度、品牌与售后网络**：银河E5 550 智充启航版（11.78 万），是这个价位少有的 800V。\n- **看重空间和舒适（悬架可调）**：深蓝S05 520智行版（11.99 万），和头部差距最小。\n\n## 数据说明\n\n配置数据截至 2026 年 10 月初，为厂商公开配置口径；配置价值对比基于已采集的配置项按等价差价折算，**不是终端成交价差**，实际落地价请以当地经销商为准。本次未纳入：铂智3X（配置数据暂不可得）、埃安RT 与启源Q05 纯电（对象身份未核验通过）。另外各车都有少量配置项暂未采集，对比结果以已采集项为准。",
+      "first_error_turn": null
+    },
+    {
+      "task": "config-10",
+      "sessionId": "01a1965c-bfd1-7387-82f4-3a3e35b7dc0e",
+      "dimension": "配置",
+      "question": "保时捷911的配置怎么样",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "rubric[gap] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "gap",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "direction"
+        ],
+        "missing": []
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 5,
+        "consistent": true,
+        "steps": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "68c8945d789c1575e3353d89f23a6e42",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "保时捷911的配置怎么样"
+      ],
+      "tools": [
+        "resolve_series",
+        "search_cars",
+        "search_cars",
+        "resolve_series",
+        "query_config",
+        "query_sales",
+        "query_config",
+        "query_reviews",
+        "get_trims",
+        "query_sales",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 44.3,
+        "tool_calls": 12,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 1016,
+      "replyPreview": "**一句话结论**：保时捷 911 当前在售覆盖 25、26、27 三个年款，指导价 **146.8 万–226.8 万元**；但逐项配置参数（座椅、隔音、轮毂、智驾、车机等）库内暂不可得，无法给出配",
+      "reply_full": "**一句话结论**：保时捷 911 当前在售覆盖 25、26、27 三个年款，指导价 **146.8 万–226.8 万元**；但逐项配置参数（座椅、隔音、轮毂、智驾、车机等）库内暂不可得，无法给出配置能力评价。\n\n## 在售版型结构（价格口径）\n\n| 年款 | 版型 | 指导价 |\n|---|---|---|\n| 25 款 | 3.0T Carrera、Carrera Cabriolet、Carrera T | 146.8 万、166.8 万、163.3 万 |\n| 25 款 | 4.0 DCT、4.0 MT 旅行版 | 226.8 万 |\n| 26 款 | 3.0T Carrera、Carrera Cabriolet、Carrera T | 146.8 万、166.8 万、163.3 万 |\n| 27 款 | 3.0T Carrera、Carrera Cabriolet、Carrera T | 151.8 万、166.8 万、163.8 万 |\n| 27 款 | 4.0 DCT、4.0 DCT 旅行版 | 226.8 万 |\n\n**从版型命名可见的结构**：两条产品线，一条是 3.0T 的 Carrera 家族（硬顶、敞篷 Cabriolet、轻量化 T），另一条是 4.0 升的高性能线（含手动挡与旅行版车身）。27 款 Carrera 指导价较 26 款上调约 5 万元。\n\n**走量情况**：8 月终端零售 76 台，其中 26 款 3.0T Carrera 单一版型贡献 64 台，是绝对主销；4.0 DCT 零售 8 台、Carrera T 零售 4 台，其余版型当月无零售。\n\n## 数据缺口（如实说明）\n\n- **逐项配置参数不可得**：库内该车系没有配置快照，座椅材质、隔音、轮毂规格、智驾硬件、车机芯片等无法对标——所以\"配置好不好\"这个问题，我只能给版型骨架，不能给能力结论。\n- **口碑样本为零**：该车系无车主口碑标签，无法交叉验证配置实际体验。\n- 另有两个独立车系（911 Carrera GTS 混动、911 Turbo S 混动）单独统计，未纳入本表。\n\n要坐实配置能力，需要补：官方配置表（保时捷官网各版型逐项参数）与实车/媒体测评数据；补上后我可以按版型做横向配置差异对标。\n\n数据时点：版型与指导价为 2026 年 8 月末终端口径，销量为 2026 年 8 月终端零售。",
+      "first_error_turn": null
+    },
+    {
+      "task": "config-07",
+      "sessionId": "01a1965d-6ce3-7387-82f4-3a406cb36273",
+      "dimension": "配置",
+      "question": "12万元左右哪个BEV车型的配置最好",
+      "repeat": 2,
+      "score": 2,
+      "reasons": [
+        "rubric[ranking] 缺要素: 启源Q05 纯电"
+      ],
+      "rubric": {
+        "kind": "ranking",
+        "checked": true,
+        "pass": false,
+        "cap": 2,
+        "present": [
+          "比亚迪 元UP",
+          "比亚迪 海豚"
+        ],
+        "missing": [
+          "启源Q05 纯电"
+        ],
+        "note": "金标 top3 落前5: 2/3"
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 2,
+        "consistent": true,
+        "steps": [
+          {
+            "from": 5,
+            "to": 2,
+            "reason": "rubric[ranking] 缺要素: 启源Q05 纯电"
+          }
+        ]
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "220c5efaf871c7015aa12b5be1c44d48",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : ask_user_que",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "[级别口径] 12 万左右的纯电车跨度很大（A0 级小车到 B 级轿车都有），想",
+          "value": "1. 不限级别，分档给结论（推荐） — A0 / A 级（SUV与轿车）、B 级各选一台配置最满的，告诉你 12 万在每一档分别能买到什么，最后给一个综合推荐",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "[价格口径] 「12 万」按哪个价算？这直接决定推荐哪一档配置。",
+          "value": "1. 指导价 12 万±1 万（推荐） — 以厂商指导价 11–13 万的版型为准，配置对比口径干净、可比",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "12万元左右哪个BEV车型的配置最好"
+      ],
+      "tools": [
+        "search_cars",
+        "ask_user_question",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "get_trims",
+        "get_trims"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 105.7,
+        "tool_calls": 55,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 1590,
+      "replyPreview": "**结论：把「12 万」定在指导价 11–13 万这一档、按配置值逐项折算，最强的是零跑B01 2027款 670激光雷达版（11.98 万）**——它在同价位里既是最便宜的，也是配置堆得最满的。\n\n",
+      "reply_full": "**结论：把「12 万」定在指导价 11–13 万这一档、按配置值逐项折算，最强的是零跑B01 2027款 670激光雷达版（11.98 万）**——它在同价位里既是最便宜的，也是配置堆得最满的。\n\n## 12 万档主力版型配置值排名（以 B01 670激光雷达版为基准）\n\n| 排名 | 版型 | 指导价 | 配置值差 | 关键强弱项 |\n|---|---|---|---|---|\n| 1 | 零跑B01 2027款 670激光雷达版 | 11.98 万 | 基准（最高） | 670km 最长续航、800V 高压、城区智驾、前排按摩、电尾门 |\n| 2 | 风云A9 2026款 纯电 655 MAX激光雷达版 | 12.99 万 | −1,942 元 | 655km、激光雷达城区智驾、**B 级车 2900mm 轴距**、后排侧气囊 |\n| 3 | 零跑B10 2027款 610激光雷达版 | 12.58 万 | −5,300 元 | 610km、800V、城区智驾、**19 寸轮毂 + HUD**、前备箱 |\n| 4 | 小鹏MONA M03 2026款 640 超长续航 Plus | 12.98 万 | −13,800 元 | 640km，但这一档只有基础 L2，**没有城区智驾** |\n| 5 | 元PLUS 2026款 540KM 超越型 | 12.99 万 | −17,950 元 | 540km、城区智驾、540 影像、中央气囊，无 800V |\n| 6 | 海狮05 EV 2026款 540智航版 | 12.99 万 | −18,050 元 | 540km、城区智驾、540 影像，无 800V |\n| 7 | 银河E5 2027款 550 智充探索版 | 12.58 万 | −20,710 元 | 550km、800V，但**城区智驾缺位** |\n| 8 | 银河A7 EV 2026款 EV 550km 臻享版 | 11.98 万 | −30,560 元 | 550km，唯一可开启全景天窗，配置基础，无智驾 |\n\n## 分档各取一台\n\n- **A 级轿车（配置冠军）**：零跑B01 670激光雷达版 —— 670km + 800V + 激光雷达城区智驾 + 座椅按摩，11.98 万，一分不多。\n- **A 级 SUV**：零跑B10 610激光雷达版（12.58 万）—— 只比 B01 少 5,300 元配置值，换来 SUV 车身、19 寸轮毂和 HUD。\n- **B 级/大空间**：风云A9 655 MAX激光雷达版（12.99 万）—— 配置值仅低 1,942 元，却是全场唯一 2900mm 轴距的 B 级车，**空间这一项它完全赢**。\n- **A0 级小车**：海豚 2025款智驾版 520km 骑士版（12.58 万），配置价值比元UP 2025款智驾版 401KM 超越型（11.98 万）高 11,300 元，扣掉 6,000 元价差仍净赢 5,300 元（多 119km 续航、车载冰箱、多色氛围灯）。\n\n## 两个提醒\n\n- 这套排名是**纯配置折算**，不含车身尺寸和级别溢价。所以把「空间 + 配置」合在一起看，风云A9 是最容易被低估的那台；如果你要 SUV 的姿态和通过性，B10 更对路。\n- 12 万档真正的分野在**城区智驾**：有激光雷达/城区 NOA 的（B01、B10、风云A9、元PLUS、海狮05）比没有的（银河E5、银河A7 EV、M03 Plus 版）整体高出 1 万以上。\n\n配置数据截至 2026-10-01（厂商指导价、逐项配置折算口径）；海豹06 EV、启源A06、埃安RT、埃安i60、ARCFOX βS3 等车系本轮对象核验未通过，未纳入排序，如需要我可补齐再排一次。",
+      "first_error_turn": 1
+    },
+    {
+      "task": "config-10",
+      "sessionId": "01a1965f-09a4-7387-82f4-3a43df18d25b",
+      "dimension": "配置",
+      "question": "保时捷911的配置怎么样",
+      "repeat": 2,
+      "score": 5,
+      "reasons": [
+        "rubric[gap] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "gap",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "direction"
+        ],
+        "missing": []
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 5,
+        "consistent": true,
+        "steps": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "4655c2e31390d5103a5cfe7caf578e84",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "保时捷911的配置怎么样"
+      ],
+      "tools": [
+        "resolve_series",
+        "search_cars",
+        "resolve_series",
+        "query_config",
+        "query_config",
+        "query_config",
+        "query_config",
+        "query_sales",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 22.2,
+        "tool_calls": 10,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 429,
+      "replyPreview": "**结论：保时捷 911 的逐项配置明细目前不在库内覆盖范围（座椅、轮毂、智驾、车机等维度没有可用数据），我没法给你做配置对比。**\n\n库内关于这款车能确认的只有市场侧结果：\n\n| 项目 | 2026",
+      "reply_full": "**结论：保时捷 911 的逐项配置明细目前不在库内覆盖范围（座椅、轮毂、智驾、车机等维度没有可用数据），我没法给你做配置对比。**\n\n库内关于这款车能确认的只有市场侧结果：\n\n| 项目 | 2026 年 8 月 |\n|---|---|\n| 终端零售量 | 76 台 |\n| 终端成交均价 | 约 169.3 万元 |\n\n也就是说，这款进口跑车在库内的配置数据是缺失的；即便有销量数据，也无法由此推断它的产品力。\n\n**填补数据缺口还需要补充哪些信息**：需要该车系各版型（Carrera / Carrera S / Turbo 等）的官方配置清单入库，才能做逐项对标。\n\n如果你想了解的是选买层面的判断，我可以换个角度帮你——例如从终端成交价梯度和在售版型结构切入，或者去社媒看看 911 车主的实际用车反馈（这部分靠公开帖子，属外部数据，不可复算）。你希望从哪个方向继续？\n\n数据口径：终端零售口径截至 2026 年 8 月末；配置数据在该车系暂无采集。",
+      "first_error_turn": null
+    },
+    {
+      "task": "config-07",
+      "sessionId": "01a1965f-6033-7387-82f4-3a44721998be",
+      "dimension": "配置",
+      "question": "12万元左右哪个BEV车型的配置最好",
+      "repeat": 3,
+      "score": 2,
+      "reasons": [
+        "rubric[ranking] 缺要素: 比亚迪 元UP、启源Q05 纯电"
+      ],
+      "rubric": {
+        "kind": "ranking",
+        "checked": true,
+        "pass": false,
+        "cap": 2,
+        "present": [
+          "比亚迪 海豚"
+        ],
+        "missing": [
+          "比亚迪 元UP",
+          "启源Q05 纯电"
+        ],
+        "note": "金标 top3 落前5: 1/3"
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 2,
+        "consistent": true,
+        "steps": [
+          {
+            "from": 5,
+            "to": 2,
+            "reason": "rubric[ranking] 缺要素: 比亚迪 元UP、启源Q05 纯电"
+          }
+        ]
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "9c41ef2189c7b5ac5f5c8d4849a213df",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "12万元左右哪个BEV车型的配置最好"
+      ],
+      "tools": [
+        "search_cars",
+        "search_cars",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "compare_configs_valued",
+        "compare_configs_valued",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 68.1,
+        "tool_calls": 29,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 1322,
+      "replyPreview": "## 结论\n\n**在 12 万元上下的纯电车型中，零跑B01 2027款 670激光雷达版（指导价 11.98 万）的配置最全**：它同时具备 670km 续航、城市领航辅助和激光雷达硬件，按逐项配置",
+      "reply_full": "## 结论\n\n**在 12 万元上下的纯电车型中，零跑B01 2027款 670激光雷达版（指导价 11.98 万）的配置最全**：它同时具备 670km 续航、城市领航辅助和激光雷达硬件，按逐项配置折算的价值，比同价位的银河E5 550 智充探索版高出约 **2.07 万元**。\n\n## 同价位横向对比（统一按指导价 11.98–12.99 万选代表版型）\n\n| 版型 | 指导价 | CLTC续航 | 配置价值 vs 银河E5 550 智充探索版 |\n|---|---|---|---|\n| **零跑B01 2027款 670激光雷达版** | **11.98万** | **670km** | **+20,710 元** |\n| 零跑B10 2027款 610激光雷达版 | 12.58万 | 610km | +15,410 元 |\n| 小鹏MONA M03 2026款 510 长续航 Max | 12.98万 | 510km | +4,200 元 |\n| 元PLUS 2026款 540KM 超越型 | 12.99万 | 540km | +2,760 元 |\n| 银河E5 2027款 550 智充探索版 | 12.58万 | 550km | 基准 |\n| 海豚 2025款 智驾版 520km 骑士版 | 12.58万 | 520km | −6,540 元 |\n\n另外，深蓝S05 2027款 520智臻版（12.99 万）按同口径折算，比零跑B01 低约 1.8 万元。\n\n## 关键判断依据\n\n- **零跑B01 670激光雷达版的优势**：续航 670km 为对比组最高；城市领航辅助和激光雷达在本价位不多见；还有前排座椅按摩、800V 高压平台等偏高阶的配置。它是本次几款里唯一在 12 万以内把“长续航、城市智驾、舒适配置”三项都同时拿到的。\n- **零跑B10 与 B01 高度同源**：B10 610激光雷达版配置价值仅比 B01 少约 0.5 万元，售价却高 0.6 万元；同样的钱如果偏好 SUV 坐姿和空间，选 B10 不算亏，但纯粹按配置性价比，B01 更高。\n- **海豚在这次对比中明显吃亏**：受 A0 级车型尺寸限制，12.58 万只能买到 520km 骑士版，配置价值比同价位的银河E5 还低 6,540 元。\n- **小鹏MONA M03 和元PLUS属于“配置齐全但无越级项”**：比银河E5 略高，但比零跑B01 少了近 1.6–1.7 万元的配置价值。\n\n## 数据缺口（如实说明）\n\n- 零跑B01 有 22 项细分配置未采集到，实际配置价值**可能被低估**，并不影响它排在第一位这个方向。\n- 铂智3X、埃安i60 等在 12 万区间也有对应车型，但库里缺少它们的完整配置明细，本次没有纳入对比；如果需要，可以单独做一轮。\n- 以上是**指导价口径**的配置价值折算（逐项判定后按行业通用单价折算，非厂商官方口径），终端实际成交价另算。\n\n数据说明：配置信息采集至 2026 年 10 月 1 日，指导价为厂商建议零售价口径，对比版型为各车系 12 万上下的代表版型（非全系最高配）。",
+      "first_error_turn": 1
+    },
+    {
+      "task": "config-10",
+      "sessionId": "01a19660-6a4e-7387-82f4-3a46609362c7",
+      "dimension": "配置",
+      "question": "保时捷911的配置怎么样",
+      "repeat": 3,
+      "score": 5,
+      "reasons": [
+        "rubric[gap] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "gap",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "direction"
+        ],
+        "missing": []
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 5,
+        "consistent": true,
+        "steps": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "ff1be6510b91df2bf41ba9096fd78d29",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "保时捷911的配置怎么样"
+      ],
+      "tools": [
+        "resolve_series",
+        "search_cars",
+        "search_cars",
+        "resolve_series",
+        "query_config",
+        "search_cars",
+        "query_config",
+        "query_sales",
+        "query_sales",
+        "get_trims",
+        "query_reviews",
+        "query_config",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 39.4,
+        "tool_calls": 14,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 663,
+      "replyPreview": "**结论：保时捷 911 的配置明细目前查不到。** 这款进口车系还没进配置库，逐项的座椅、智驾、车机、轮毂等配置我无法给出结论，也不会用印象补上。\n\n**能确认的（价格结构）：**\n- 指导价区间：",
+      "reply_full": "**结论：保时捷 911 的配置明细目前查不到。** 这款进口车系还没进配置库，逐项的座椅、智驾、车机、轮毂等配置我无法给出结论，也不会用印象补上。\n\n**能确认的（价格结构）：**\n- 指导价区间：**146.8 万 – 226.8 万元**（含 3.0T 入门到 4.0 自吸顶配）\n- 版本族构成（在售年款中可见）：3.0T Carrera、3.0T Carrera Cabriolet（敞篷）、3.0T Carrera T、4.0 自吸（DCT、手动、旅行版）\n- 分年款看有 25 款、26 款、27 款三代同时在列，26 款是当前主力，27 款只露出少量\n\n**数据缺口与缺口说明：**\n| 缺什么 | 影响 | 补上后能坐实 |\n|---|---|---|\n| 配置明细 | 无法做逐项对比（隔音、座椅功能、智驾等级、车机芯片） | 拿到官方配置表或指定具体年款版型后可补 |\n| 车主口碑样本 | 配置实际体验（如 PDK 日常性、运动排气、隔音）无法从车主侧验证 | 需要口碑样本采集 |\n| 舆情数据 | 近期声量与负面事件看不到 | 需要舆情窗口覆盖 |\n\n如果你告诉我具体想看哪一款（比如「26 款 3.0T Carrera」），或想对比 911 和同价位竞品（如 Taycan、AMG GT），我可以做当前能做的价格和版本层面对比。要是你想看它现在卖得怎么样，市场数据是有的，告诉我一声，我也可以拉出来。\n\n数据时点：价格基于 2026 年 8 月末终端零售口径的版本行，27 款信息只到 8 月末。",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-11-01T09-05-32-489Z",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "013fd93c7076679336361c9eaf57f84b5e4ad6d2",
+    "set_composition": {
+      "dev": 3,
+      "frozen": 3,
+      "blind": 0,
+      "other": 0,
+      "total": 6
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 4,
+    "passCount": 4,
+    "trapBlockedCount": 0,
+    "trap_total": 0,
+    "anchored": {
+      "total": 6,
+      "pass": 4,
+      "pass_rate": 0.6666666666666666,
+      "avg": 4
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "repeat": {
+      "k": 3,
+      "k_total": 2,
+      "k_pass": 1,
+      "k_pass_rate": 0.5,
+      "inconsistent": [
+        "config-07(分差3,verdictpass)"
+      ]
+    },
+    "pass_at_k": {
+      "k": 3,
+      "tasks": 2,
+      "pass": 2,
+      "rate": 1,
+      "missed": []
+    },
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 6,
+      "covered": 6,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 0,
+      "fail": 0,
+      "failTasks": []
+    },
+    "regression": {
+      "skip_reason": "scoring_changed"
+    }
+  },
+  "release_gate": {
+    "baseline": null,
+    "candidate": null,
+    "conditions": {},
+    "pass_all": null,
+    "notes": [
+      "--status-only：未做配对判定"
+    ],
+    "gate_file": "eval/reports/gate-eval-2026-11-01T09-05-32-489Z-r3.json",
+    "baseline_source": null
+  }
+}

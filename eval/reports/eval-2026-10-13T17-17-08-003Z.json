@@ -1,0 +1,36 @@
+{
+  "run_id": "eval-2026-10-13T17-17-08-003Z",
+  "started_at": "2026-10-13T17:17:08.004Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "d68ff517a960f9b9afc992bfa20ad8fb3a4f2eb6",
+  "snapshot_id": "snap-20261012-1222",
+  "agent_release": "0.3.0",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-13T17:17:10.284Z",
+  "results": [],
+  "conditional_skipped": [
+    {
+      "task": "config-03",
+      "requires": "web",
+      "reason": "PRISM_EVAL_WEB=off"
+    }
+  ],
+  "summary": {
+    "avg": null,
+    "passCount": 0,
+    "trapBlockedCount": 0,
+    "set_filter": "all",
+    "truth": {
+      "checked": 0,
+      "fail": 0,
+      "failTasks": []
+    }
+  }
+}

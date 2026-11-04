@@ -1,0 +1,5442 @@
+{
+  "run_id": "eval-2026-11-01T08-16-56-061Z",
+  "started_at": "2026-11-01T08:16:56.063Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "013fd93c7076679336361c9eaf57f84b5e4ad6d2",
+  "snapshot_id": "snap-20261012-1222",
+  "runtime_snapshot": "snap-20261012-1222",
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "0d05ccc07bf0294a0075601655e9fb3d",
+  "scoring_fingerprint": "582de90475b967e1",
+  "content_fingerprint": "32070d48020dd79e",
+  "invalid_rows": 0,
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-11-01T08:38:37.878Z",
+  "results": [
+    {
+      "task": "cross-01",
+      "sessionId": "01a1962e-f0df-7538-b223-3a7136512b7c",
+      "dimension": "跨维度",
+      "question": "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "rubric[elements] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "elements",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "dims",
+          "comfort",
+          "config_scope",
+          "no_attr"
+        ],
+        "missing": [],
+        "missingRequired": [],
+        "forbidHits": [],
+        "note": "护栏全命中"
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 5,
+        "consistent": true,
+        "steps": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "4c81a758fa499624ceae28d9e65cb4e9",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_config_d",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_config",
+        "query_reviews",
+        "query_sales",
+        "get_dimension_reviews",
+        "get_trims",
+        "get_config_detail",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 46.7,
+        "tool_calls": 11,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 1810,
+      "replyPreview": "## 结论\n\n**是结构性短板，但不是最短板。** 银河E5 的舒适性短板性质是「**底盘滤震、NVH 硬件**」而不是「座椅」——座椅评价整体正面，悬挂偏硬、噪音大、隔音差才是稳定负面源；配置侧也印",
+      "reply_full": "## 结论\n\n**是结构性短板，但不是最短板。** 银河E5 的舒适性短板性质是「**底盘滤震、NVH 硬件**」而不是「座椅」——座椅评价整体正面，悬挂偏硬、噪音大、隔音差才是稳定负面源；配置侧也印证了这点：隔音玻璃与悬架软硬调节被压到单一顶配，全系无法普惠。口碑维度上比舒适更差的是智能化（差评占比 67.9% vs 舒适 62.2%）。\n\n---\n\n## 一、配置：舒适硬件被「顶配独占」\n\n| 舒适相关项 | 2027款 635 智充激光版（14.78万，最贵） | 2026款 610km 星舰版（14.58万，次顶） | 2026款 530km 启航版（10.98万） |\n|---|---|---|---|\n| 座椅材质 | 仿皮 | 仿皮 | 仿皮 |\n| 前排座椅按摩、记忆 | ● | ● | - |\n| 侧窗多层隔音玻璃 | 仅前排 | **无** | 无 |\n| 悬架软硬调节 | ● | **无** | 无 |\n| 方向盘加热 | ● | 无 | 无 |\n| 天窗、电动尾门 | ● | ● | 无 |\n\n关键信号：**差价仅 2 千元的两个版型之间，隔音玻璃与可变悬架成段断层**——这不是个体个例，而是产品定义里把「静音+滤震」当作顶配装饰项，而非该级别的基本能力。全系无真皮座椅可选，舒适上限被固定。\n\n**数据缺口**：库内配置清单未采集后悬架形式与衬套方案，无法从配置侧验证是否扭力梁结构——这是坐实「底盘硬件短板」最缺的一块。\n\n---\n\n## 二、口碑：差评占比 62.2%，全维度第二差\n\n舒适维度：**差评 313 条 / 好评 190 条，差评占比 62.2%**。\n\n| 维度 | 差评占比 |\n|---|---|\n| 智能化 | 67.9% |\n| **舒适** | **62.2%** |\n| 续航 | 53.5% |\n| 内饰 | 46.1% |\n| 性价比 | 26.6% |\n| 驾驶感受 | 22.4% |\n| 外观 | 15.9% |\n| 空间 | 6.2% |\n\n差评结构高度集中且**跨版型、跨省份一致**（广东、江苏、浙江、山东、河南、湖北的负面标签前三里，悬挂硬与噪音大基本都在）——符合「结构性」的判定特征，而非局部批次问题：\n\n- 负面主力：**悬挂硬 › 噪音大 › 隔音差 › 操控差**\n- 正面主力：空间大、后排宽敞、**座椅舒适**、悬挂舒适（少数）\n\n即：**坐得舒服，开得不舒服**。舒适性差评不是「座椅不好」，而是行驶品质与静音。\n\n---\n\n## 三、销量：市场结果同步走弱（不与产品力归因）\n\n2026 年 8 月终端零售 **4,436 台**，对比 2025 年 8 月的 10,774 台，**同比 -58.8%**。\n\n按分析纪律，市场侧数据不与舒适性做因果归因：销量下滑同时受价格战、竞品投放、渠道与老款清库多重影响，本车终端成交价已下探到 10 万级区间，单靠舒适性解释不了跌幅。但值得注意的是——**口碑短板方向与销量走弱方向同向**，若要做归因，需要竞品对照（同价位段舒适维度差评占比）+ 版型级成交结构才能判断。\n\n---\n\n## 判定与缺口\n\n| 问题 | 判定 |\n|---|---|\n| 是否结构性短板 | **是**——跨年款、跨版型、跨省份一致；配置上被顶配垄断 |\n| 是否最短板 | **否**——智能化差评占比更高（67.9%） |\n| 是否已影响成交 | **不可判定**，市场侧不归因产品力 |\n\n**缺什么能坐实**：\n1. 后悬架形式（扭力梁 vs 多连杆）与减振器方案——补上即可确认是「成本结构的硬件妥协」；\n2. 噪音标签的工况细分（胎噪、风噪、电驱啸叫）——现在是一个笼统标签，指向不了具体整改点；\n3. 同价位段竞品的舒适维度差评占比——才能判断 62.2% 是「行业常态」还是「本品独有」。\n\n---\n\n口径说明：口碑样本为汽车之家车主评价，截至 2026-09-30，近 1,200 条可分析；配置为 2026-10-07 的官方配置口径（2024/2026/2027 三年款）；销量为月末终端零售口径，8 月已结算、9 月尚未结算。\n\n如需进一步深挖，可升级为「全网社媒（抖音/小红书/微博）舒适性口碑扫描 + 真实车主画像」，把悬挂与噪音抱怨落到具体工况和用户群上。",
+      "first_error_turn": null
+    },
+    {
+      "task": "trap-01",
+      "sessionId": "01a1962f-9e10-7538-b223-3a7279784040",
+      "dimension": "配置",
+      "question": "银河E5 26款 530Km 探索型的 msrp 是多少？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "trap name_grounding 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "afdceaecb544f3b56d70f87814281244",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "银河E5 26款 530Km 探索型的 msrp 是多少？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_config",
+        "get_trims",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 7.1,
+        "tool_calls": 4,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 454,
+      "replyPreview": "**11.98 万元**（11.98 万元，即 119,800 元）。\n\n| 项目 | 内容 |\n|---|---|\n| 车系 | 银河E5（series_id 7650，身份核验通过） |\n| 年款",
+      "reply_full": "**11.98 万元**（11.98 万元，即 119,800 元）。\n\n| 项目 | 内容 |\n|---|---|\n| 车系 | 银河E5（series_id 7650，身份核验通过） |\n| 年款、版型 | 2026款 530km **探索版**（spec_id 73952） |\n| 官方指导价（MSRP） | **11.98 万元** |\n| CLTC 纯电续航 | 530 km |\n| 数据时点（as_of） | 2026-10-07 |\n\n补充说明：\n- 您说的“探索**型**”，在配置库中的正式名称为“探索**版**”，两者是同一版型（2026款 530km 只有这一个“探索”版型）。\n- 该价格为厂商指导价，**不含终端优惠**；如需了解实际成交价，可以查看该版型的终端价（tp）数据。\n- 同价位参考：2026款 530km 启航版为 10.98 万元（本车系主销版型），2026款 610km 远航版为 12.58 万元；与探索版相比，远航版多花 6000 元，续航多 80 km。",
+      "first_error_turn": null
+    },
+    {
+      "task": "config-07",
+      "sessionId": "01a1962f-b9f3-7538-b223-3a75c5bc4a5f",
+      "dimension": "配置",
+      "question": "12万元左右哪个BEV车型的配置最好",
+      "repeat": 1,
+      "score": 2,
+      "reasons": [
+        "rubric[ranking] 缺要素: 比亚迪 元UP、比亚迪 海豚"
+      ],
+      "rubric": {
+        "kind": "ranking",
+        "checked": true,
+        "pass": false,
+        "cap": 2,
+        "present": [
+          "启源Q05 纯电"
+        ],
+        "missing": [
+          "比亚迪 元UP",
+          "比亚迪 海豚"
+        ],
+        "note": "金标 top3 落前5: 1/3"
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 2,
+        "consistent": true,
+        "steps": [
+          {
+            "from": 5,
+            "to": 2,
+            "reason": "rubric[ranking] 缺要素: 比亚迪 元UP、比亚迪 海豚"
+          }
+        ]
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "5c48348fa6e598229173634e7b2b51c7",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "12万元左右哪个BEV车型的配置最好"
+      ],
+      "tools": [
+        "search_cars",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "compare_configs_valued",
+        "compare_configs_valued",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "get_trims",
+        "get_trims",
+        "compare_configs_valued",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 65.5,
+        "tool_calls": 32,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 1472,
+      "replyPreview": "## 结论\n\n**12 万元档纯电车型中，配置价值最高的是零跑 B01 2027 款 670 激光雷达版（指导价 11.98 万元）**；如果限定 SUV，则是零跑 B10 2027 款 610 激光",
+      "reply_full": "## 结论\n\n**12 万元档纯电车型中，配置价值最高的是零跑 B01 2027 款 670 激光雷达版（指导价 11.98 万元）**；如果限定 SUV，则是零跑 B10 2027 款 610 激光雷达版（12.58 万元）。\n\n## 配置价值对比（同价档位实测）\n\n| 版型 | 指导价 | 相对基准的配置价值差 |\n|---|---|---|\n| **零跑 B01 2027款 670激光雷达版** | 11.98万 | **+20,710**（最优） |\n| 零跑 B10 2027款 610激光雷达版 | 12.58万 | +15,410 |\n| 深蓝 S05 2027款 520智行版 | 11.99万 | +400 |\n| 银河 E5 2027款 550 智充探索版 | 12.58万 | 基准 |\n| 小鹏 MONA M03 2026款 540 长续航 Plus | 11.98万 | -2,950 |\n| 海豚 2025款 智驾版 520km 骑士版 | 12.58万 | -6,540 |\n| 元PLUS 2026款 540KM 领先型 | 11.99万 | -12,240 |\n| 海狮05 EV 2026款 540领航版 | 11.99万 | -33,550（以零跑B01为基准） |\n| 元UP 2025款 智驾版 401KM 超越型 | 11.98万 | -39,050（以零跑B01为基准） |\n\n（前七行以银河E5 为同一基准比较；后两行则直接以零跑B01 为基准，对应整表比较）\n\n## 零跑B01 领先的原因\n\n- **续航最长**：CLTC 670 km，比银河E5 多 120 km、比海豚和 MONA M03 多 150 km、比元UP 多 269 km\n- **补能规格更高**：配备 800 V 高压平台（同价档的银河E5 也有，海豚、深蓝S05、元UP、海狮05 EV 均无）\n- **高阶智驾最全**：高速 NOA、城市 NOA、自动泊车、遥控泊车、记忆泊车全部具备；银河E5 只有自动泊车和遥控泊车，城市 NOA 缺失\n- **舒适与科技配置更足**：18 寸轮毂、抬头显示、前排座椅按摩和记忆、方向盘加热、64 色氛围灯、前排 5G 车联网\n\n**可选到的短板**：这款车的对外放电功率在库里未标注（大概率不是强项）；车型形态是 A 级轿车，后排和尾厢空间不如同价 SUV。\n\n## 选型建议\n\n- **要智驾和续航、能接受轿车**：选零跑 B01 670 激光雷达版，在 12 万元以内基本没有对手\n- **一定要 SUV**：选零跑 B10 610 激光雷达版（12.58 万），配置价值仅比 B01 低约 5 千，但车身更高、空间更好\n- **看重品牌与保值、能接受配置缩水**：银河E5 550 智充探索版（12.58 万），配置价值比 B01 少约 2 万元\n- **预算想压到 10 万以内**：元UP 501KM 卓越型（10.48 万）更合适，但配置档次明显低一档\n\n口径说明：配置数据为 2026 年 10 月初的官方版型配置，指导价按 2026 年 10 月中旬的官方价格口径；配置价值是按统一折算标准，对 60 余项配置（三电、智驾、安全、座椅、车机）逐项比价求和得出的**相对值，不等于终端成交价差**。埃安i60、AION RT、启源Q05 纯电等车型因车系名未在库内建立对应关系，本轮未纳入；如需要，我可以补查这几款，或进一步查看零跑B01 的口碑和实际终端价。",
+      "first_error_turn": 1
+    },
+    {
+      "task": "config-10",
+      "sessionId": "01a19630-b9ab-7538-b223-3a77ec21ab33",
+      "dimension": "配置",
+      "question": "保时捷911的配置怎么样",
+      "repeat": 1,
+      "score": 3,
+      "reasons": [
+        "rubric[gap] 缺要素: direction、url"
+      ],
+      "rubric": {
+        "kind": "gap",
+        "checked": true,
+        "pass": false,
+        "cap": 3,
+        "present": [
+          "不可复算"
+        ],
+        "missing": [
+          "direction",
+          "url"
+        ]
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 3,
+        "consistent": true,
+        "steps": [
+          {
+            "from": 5,
+            "to": 3,
+            "reason": "rubric[gap] 缺要素: direction、url"
+          }
+        ]
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "a05770e68889aa5f72c637601bb8400b",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "保时捷911的配置怎么样"
+      ],
+      "tools": [
+        "resolve_series",
+        "search_cars",
+        "search_cars",
+        "resolve_series",
+        "query_config",
+        "query_config",
+        "query_sales",
+        "query_config",
+        "query_config",
+        "query_sales",
+        "query_reviews",
+        "query_config",
+        "query_config",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 40.1,
+        "tool_calls": 18,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 719,
+      "replyPreview": "**先说结论：保时捷 911 的配置明细暂时查不到，库内目前只有版型和价格这两类信息。**\n\n**库里现有的信息**\n\n| 26 款版型 | 指导价 | 8 月终端成交均价 |\n|---|---|--",
+      "reply_full": "**先说结论：保时捷 911 的配置明细暂时查不到，库内目前只有版型和价格这两类信息。**\n\n**库里现有的信息**\n\n| 26 款版型 | 指导价 | 8 月终端成交均价 |\n|---|---|---|\n| 3.0T Carrera | 146.8 万 | 约 118.8 万（约 8.1 折）|\n| 3.0T Carrera Cabriolet | 166.8 万 | 约 135.0 万 |\n| 3.0T Carrera T | 163.3 万 | 约 132.2 万 |\n| 4.0 DCT、4.0 DCT 旅行版 | 226.8 万 | 226.8 万（无优惠）|\n\n- **动力**：可见 3.0T 与 4.0 自吸两档，并配有硬顶、敞篷、Touring 旅行版三种车身\n- **价格带**：146.8 万–226.8 万元；4.0 车型基本按指导价成交，3.0T 车型普遍有 20 万以上让利\n- **年款变化**：27 款 3.0T Carrera 起价上调至 151.8 万，比 26 款贵 5 万\n\n**查不到的部分（如实说明）**\n- 座椅、轮胎轮毂、智能驾驶、车机芯片等**逐项配置**，该车系目前没有采集到，因此无法做逐项对标\n- 车主口碑样本同样空缺，用户实际体验维度暂时无法回答\n\n**如果需要补上这些数据**：建议把对象收窄到具体版型（如“保时捷 911 Carrera T 和 Carrera 的配置差异”），我可以再从配置口径查一次；如果库内仍然没有数据，就只能依靠公开网络信息补充，并标注为外部来源、不可复算。\n\n数据说明：价格与销量为截至 2026 年 8 月末的终端零售口径，9 月零售尚未结算。",
+      "first_error_turn": 1
+    },
+    {
+      "task": "reviews-03",
+      "sessionId": "01a19631-564a-7538-b223-3a79f7af82ec",
+      "dimension": "口碑",
+      "question": "海狮05 2026款的口碑如何",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "truth 锚点全中(0)",
+        "rubric[elements] 全要素命中"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 0,
+        "missing": [],
+        "forbidHits": []
+      },
+      "rubric": {
+        "kind": "elements",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "y2026",
+          "best",
+          "worst",
+          "sample"
+        ],
+        "missing": [],
+        "missingRequired": [],
+        "forbidHits": [],
+        "note": "护栏全命中"
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 5,
+        "consistent": true,
+        "steps": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "508f66e42233b469631d06fe92be970d",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_model_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "海狮05 2026款的口碑如何"
+      ],
+      "tools": [
+        "resolve_series",
+        "search_cars",
+        "resolve_series",
+        "resolve_series",
+        "query_config",
+        "query_config",
+        "query_config",
+        "query_reviews",
+        "query_reviews",
+        "get_trims",
+        "get_model_detail",
+        "get_dimension_reviews",
+        "search_reviews",
+        "search_reviews",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 48.7,
+        "tool_calls": 16,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 1254,
+      "replyPreview": "## 结论\n**海狮05 EV 口碑整体偏正面，但短板很集中。** 好评标签 361 个，差评标签 297 个，整体好评率约 **55%**。优势集中在空间、外观和驾驶感受；差评集中在噪音、车机和内饰",
+      "reply_full": "## 结论\n**海狮05 EV 口碑整体偏正面，但短板很集中。** 好评标签 361 个，差评标签 297 个，整体好评率约 **55%**。优势集中在空间、外观和驾驶感受；差评集中在噪音、车机和内饰质感，2026 款的吐槽点与 2025 款高度一致。\n\n## 维度明细（车系口径）\n\n| 维度 | 好评 | 差评 | 净态度 |\n|---|---|---|---|\n| 驾驶感受 | 70 | 14 | 强正面 |\n| 续航 | 66 | 37 | 偏正面 |\n| 空间 | 59 | 24 | 偏正面 |\n| 外观 | 55 | 24 | 偏正面 |\n| 性价比 | 45 | 12 | 偏正面 |\n| 智能化 | 35 | 59 | **偏负面** |\n| 内饰 | 17 | 52 | **明显负面** |\n| 舒适 | 14 | 75 | **最弱环** |\n\n标签层面，好评最高的是“外观好看”“空间大”（各 42）、“操控好”（31）、“能耗低”（24）；差评最高的是“噪音大”（37）、“车机问题”（30）、“异味大”（21）、“内饰差”（17）、“续航虚”（16）。\n\n## 2026 款的具体表现\n2026 款目前有 **87 条**车主评价（540智航版 40 条、630智航版 38 条，其余两版各 1 条），样本量比 2025 款少得多，但方向清楚：\n\n- **评分略低于车系整体**：2026 款主力版型综合评分 4.6–4.62，车系整体 4.69。\n- **差评集中在四处**：噪音（540智航版单一版型就有 8 条噪音差评）、车机卡顿与地图反应慢、“续航虚”（高速与冬季达成率偏低）、内饰硬塑料与新车异味。\n- **好评集中**：空间方正宽敞、后驱转弯半径小好开、充电快/能耗低。\n\n一位 2026 款 630智航版车主（金华，2026-09）的评价比较典型：肯定云辇-C 悬架对烂路和防晕车的调校、后驱 240kW 的动力平顺性，但指出“**车速超过 100km/h 后 A 柱风噪加轮拱胎噪明显传入座舱**，长时间高速会听觉疲劳”，同时认为无标线老小区、雨天逆光场景下高阶智驾识别偏弱、需及时接管。另一位 2026 款 540智航版宝妈车主则吐槽“**刚启动想开导航要等几秒**”，但认可空间和视野。\n\n## 口径与缺口\n- 口碑样本为真实车主评价，截至 2026 年 9 月下旬，累计 643 条，其中 240 条带维度标签；维度结论基于标签聚合，标签分布代表“被高频提及”，不等于全员意见。\n- 2026 款样本仅 87 条，且 540KM闪充领航版、闪充版各只有 1 条，个别版本的极端评分不具备代表性；噪音/车机类问题需等样本积累后再确认是否为新款结构性问题。\n- 插混版**海狮05 DM-i 库内暂无可分析口碑样本**，以上结论只对纯电版成立。\n\n如果需要，我可以进一步扫描主流社媒平台的口碑，找出更典型的真实车主案例与决策链，再出一份带溯源链接的调研报告。",
+      "first_error_turn": null
+    },
+    {
+      "task": "multi-07",
+      "sessionId": "01a19632-1479-7538-b223-3a7b95a1a3a8",
+      "dimension": "多轮",
+      "question": "E5和B10的智能座舱口碑，加上风云T7的舆情，一起说说",
+      "repeat": 1,
+      "score": 2,
+      "reasons": [
+        "truth 锚点全中(1)",
+        "truth[t1] 缺锚/违禁: 25"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 1,
+        "missing": [],
+        "forbidHits": []
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 2,
+        "consistent": true,
+        "steps": [
+          {
+            "from": 5,
+            "to": 2,
+            "reason": "truth[t1] 缺锚/违禁: 25"
+          }
+        ]
+      },
+      "perTurnTruth": [
+        {
+          "turn": 1,
+          "missing": [
+            "25"
+          ],
+          "forbidHits": []
+        }
+      ],
+      "turnVerdicts": [
+        "pass",
+        "pass"
+      ],
+      "traceId": "dd56cb42fa4c7337be6426f65d6aa947",
+      "carry": {
+        "from": 1,
+        "keys": [
+          "418"
+        ],
+        "results": [
+          {
+            "turn": 2,
+            "key": 418,
+            "status": "consistent"
+          }
+        ],
+        "hasDrift": false
+      },
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ov",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_di",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ev",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_tr",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "E5和B10的智能座舱口碑，加上风云T7的舆情，一起说说",
+        "把E5的智能座舱口碑展开讲讲"
+      ],
+      "tools": [
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "query_reviews",
+        "query_reviews",
+        "sentiment_overview",
+        "get_dimension_reviews",
+        "get_dimension_reviews",
+        "sentiment_dimension",
+        "sentiment_events",
+        "sentiment_trend",
+        "query_reviews",
+        "query_reviews",
+        "search_reviews",
+        "search_reviews",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "search_reviews",
+        "search_reviews",
+        "search_reviews",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 101.8,
+        "tool_calls": 26,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 2240,
+      "replyPreview": "## 一句话总结\n\n银河E5 的智能座舱特点是**基本体验扎实、问题高度集中**：语音、手机车机互联、系统流畅度是真实好评点，但 67.9% 的差评浓度集中在两件事上——**冷启动慢（倒车影像延迟）*",
+      "reply_full": "## 一句话总结\n\n银河E5 的智能座舱特点是**基本体验扎实、问题高度集中**：语音、手机车机互联、系统流畅度是真实好评点，但 67.9% 的差评浓度集中在两件事上——**冷启动慢（倒车影像延迟）**和**功能与生态跟不上**。\n\n## 一、座舱在 E5 口碑中的实际位置\n\n智能化维度共 616 条评价标签，其中差评 418、好评 198，**好评率 32.1%、差评浓度 67.9%**，是 E5 八个维度中差评浓度最高的一项（舒适 62.2%、续航 53.5%、内饰 46.1% 均低于它）。对比整车 59.2% 的整体好评率，智能座舱是唯一明显拉低分数的体验型环节——空间和外观才是这款车口碑的主要支撑。\n\n## 二、用户真正认可的三个方面\n\n**1）语音是核心优势，且使用频率高**\n> “车机反应很快，语音控制基本不用动手，导航音乐空调都是一句话的事。”（2026款 610 星舰版车主，上海，2026-09-22）\n\n> “语音控制反应也快，说一句调空调或者设导航，基本都能听懂……这套车机在十万出头的价位里，属于那种用惯了就不想换回去的水平。”（2026款 610 探索+版车主，南通，2026-09-21）\n\n**2）手机与车机无缝衔接是意外好评点**\n> “手机和车机连上之后，我在手机上搜好的地址直接就能发到车机上，上车不用再输一遍，这个细节特别顺手。”（同上，上海车主）\n\n这一点很关键——它说明用户对“跨端连续性”的敏感度高于对功能堆砌的敏感度。\n\n**3）系统底子与场景化体验较好**\n> “Flyme Auto 车机流畅，界面清爽，操作逻辑简单，长时间使用没有明显卡顿。”（2024款 440 启航版车主，无锡，2026-08-23，用车一年半、2.5 万公里）\n\n还有车主是被具体功能打动下单的：“被头枕音响可以单独报导航吸引了，所以买了探索版”；另有车主提到“场景模式一键就能把座椅放倒”配合外放电露营。\n\n## 三、差评集中在四个具体方面\n\n**1）冷启动约十几秒，倒车影像延迟——最集中的差评，且新款也有**\n> “车机刚启动那十几秒确实有点慢，倒车影像要等一会儿才出来，有时候赶时间急着倒车会有点急。”（2026款 610 星舰版，上海）\n\n> “车机偶尔会卡一下，特别是刚启动那几十秒，倒车影像弹出来慢半拍，得等它一下。”（2026款 610 探索+版，南宁）\n\n注意这两条都是 **2026 款车主**发出的——说明这个问题不是老款专属，迭代后仍未根除。\n\n**2）基础设置不能让用户确认一次即可，属于体验细节上的明显扣分项**\n> “低速提示音在地库里嗡嗡响，每次上车都得手动关一下。”（上海车主）\n> “车外低速行驶音不能永久关闭，必须每次上车语音关闭。”（2024款 530 星舰版，天津）\n\n用户对这类问题的容忍度很低——它不是功能缺陷，但每天都要重复操作，感受上比缺一个功能更差。\n\n**3）生态不足：不支持 CarPlay 是明确失分项**\n> “最不满意：不支持 CarPlay，苹果手机互联不便，导航只能依赖原车车机系统。”（2024款 440 启航版，无锡）\n\n**4）OTA 节奏与功能兑现慢**\n> “没有哨兵模式（据说年底更新），OTA 更新太慢。”（2024款 530 探索+版，海口，2026-05-10）\n\n## 四、值得注意的两个分化\n\n**版本分化**：2024 款各版型的差评标签前几位里普遍有“智能化不足”，而到了 2026 款各版型，这个标签基本从差评前列消失，只剩下“车机问题”——**“车不够智能”的抱怨被解决了，“车机启动卡”的抱怨还在**。\n\n**人群分化**：同一套车机，年轻用户给的是“语音好用、互联顺手”，而部分年长车主把它记成缺点——\n> “车机功能对我来说有点多，很多用不上。平时就听听广播、看看倒车影像，其他那些在线视频、语音控制基本上不碰。”（2026款 610 探索+版，广州）\n\n这意味着“智能化不足”这个标签里混了两种完全不同的声音：一种是**能力不够**，一种是**功能冗余、学习成本高**。做口碑诊断时不能合并看待。\n\n## 五、给产品的三条判断\n\n1. **启动响应优先于功能新增**：冷启动和倒车影像延迟是唯一跨年款、跨地域、被反复独立提及的问题，属于“每天触发、每次刺痛”的类型，优先级高于任何新功能。\n2. **补齐手机生态的短板**：CarPlay 缺失是明确的竞品差距，尤其对苹果用户的转化率有直接影响。\n3. **语音和跨端互联是现有优势，别改坏**：这两点是用户主动夸、且愿意为之下单的部分，迭代时要注意保护。\n\n## 口径与缺口\n\n- 车主口碑样本 1187 条，覆盖 11 个在售版型，时间截至 2026 年 9 月 30 日；智能化维度 616 条标签，样本量足够做维度判断。\n- 一处口径提醒：库内没有“智能座舱”这个独立维度，是按“智能化”归集的，里面混有辅助驾驶相关评价，因此上文的座舱结论已剔除智驾内容单独叙述，未做逐条机械计数。\n- 数据缺口：车主评价里不标注车机软件版本号，**无法把“启动慢”精确归因到具体某个 OTA 版本**；要确认是否已在最新版本修复，需要实车或小样本验证。\n\n需要我按 **2024 款与 2026 款** 分开做一张座舱差评对照表，或者把这个维度和其他车型（如零跑B10、元PLUS）做同口径对比吗？",
+      "first_error_turn": 1
+    },
+    {
+      "task": "multi-10",
+      "sessionId": "01a19634-7f32-7538-b223-3a7eab5e65a4",
+      "dimension": "多轮",
+      "question": "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "truth 锚点全中(0)"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 0,
+        "missing": [],
+        "forbidHits": []
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 5,
+        "consistent": true,
+        "steps": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass",
+        "pass"
+      ],
+      "traceId": "f72f2561313038a1e74d180326e7ea94",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_config_d",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : ask_user_que",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "[车系] 上次分析的是哪款车？（直接输入车系名也可以）",
+          "value": "1. 银河E5 — 吉利银河 E5，紧凑型纯电 SUV，10-14 万区间",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "[断点] 上次做到哪一步、希望我从哪里接着做？",
+          "value": "1. 三维度整体重跑再做结论 (Recommended) — 按配置→口碑→销量顺序重新核验一遍，再给结论，保证结论建立在完整数据上",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？",
+        "继续上次的分析"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_config",
+        "query_reviews",
+        "get_dimension_reviews",
+        "query_sales",
+        "get_trims",
+        "query_sales",
+        "get_config_detail",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "ask_user_question",
+        "resolve_series",
+        "query_config",
+        "query_reviews",
+        "query_sales",
+        "get_trims",
+        "query_sales",
+        "get_dimension_reviews",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 113,
+        "tool_calls": 26,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 2893,
+      "replyPreview": "我这边没有保留上一次会话的分析记录：当前会话未指定车系对象，因此我无法直接接着上次的分析继续。请告诉我上次分析的是哪款车、要接着做哪一部分，我立刻从断点继续做。三维度数据已全部取到，正在做结论校验。#",
+      "reply_full": "我这边没有保留上一次会话的分析记录：当前会话未指定车系对象，因此我无法直接接着上次的分析继续。请告诉我上次分析的是哪款车、要接着做哪一部分，我立刻从断点继续做。三维度数据已全部取到，正在做结论校验。## 银河E5 三维度复核（数据截至 2026 年 8 月末零售口径；口碑样本截至 2026-09-30）\n\n**一句话结论**：销量已从去年的月均 8,680 台下滑到今年 8 月的 4,436 台，同比 **-58.8%**，产品侧靠“空间和外观”撑住口碑基本盘（好评率 59.2%），但**智能化（差评占 67.9%）与乘坐舒适（差评占 62.2%）是两块结构性短板**——2027 款已针对续航、车机、隔音做了补齐，智驾部分数据不足，暂无法确认是否解决。\n\n---\n\n### 一、销量：规模明显下滑，成交集中到入门版型\n\n| 时点 | 终端零售（台） | 变化 |\n|---|---|---|\n| 2025 全年 | 104,160 | 月均 8,680 |\n| 2025 年 6 月（峰值） | 11,004 | — |\n| 2025 年 8 月 | 10,774 | 同比基准 |\n| 2026 年 8 月 | **4,436** | **同比 -58.8%** |\n| 2026 年 1–8 月累计 | 39,328 | 月均约 4,916 |\n\n**成交结构（2026 年 8 月）**\n\n| 版型 | 8 月零售 | 占比 |\n|---|---|---|\n| 26款 530Km 探索版 | 2,047 | 46.1% |\n| 26款 530Km 启航版 | 1,854 | 41.8% |\n| 26款 610Km 远航版 | 450 | 10.1% |\n| 26款 610Km 探索+版 | 57 | 1.3% |\n| 26款 610Km 星舰版 | 28 | 0.6% |\n\n- 530 续航两个版型合计 **3,901 台、占 87.9%**；610 长续航全系只剩 **535 台、占 12.1%**。\n- 高配萎缩很明显：610 探索+版从 3 月的 317 台降到 8 月的 57 台，星舰版从 147 台降到 28 台（降幅均超 80%）。\n- 价格上，8 月全系终端成交均价约 **10.68 万元**；主力 530Km 启航版终端均价 **9.0 万元**（指导价 10.98 万），年初为 9.67 万元，价格持续下行。\n\n> 口径说明：上述为月末终端零售口径；**2026 年 9 月零售量尚未结算**，故不纳入同比。市场侧只陈述结果，不归因于产品力。\n\n---\n\n### 二、口碑：空间是护城河，智能化和舒适是主要拖累\n\n样本 **1,187 条**（2024-07 至 2026-09，覆盖 90.6%），**整体好评率 59.2%**。\n\n| 维度 | 好评 | 差评 | 差评占比 | 态度 |\n|---|---|---|---|---|\n| 空间 | 498 | 33 | 6.2% | 强正 |\n| 外观 | 227 | 43 | 15.9% | 正 |\n| 驾驶感受 | 211 | 61 | 22.4% | 正 |\n| 性价比 | 207 | 75 | 26.6% | 正 |\n| 内饰 | 132 | 113 | 46.1% | 中性 |\n| 续航 | 198 | 228 | 53.5% | 略负 |\n| 舒适 | 190 | 313 | 62.2% | 负 |\n| 智能化 | 198 | 418 | 67.9% | 强负 |\n\n**差评关键词前六**：智能化不足 176、车机问题 155、悬挂硬 117、噪音大 94、充电不便 82、续航虚 56（隔音差另有 48）。\n**好评关键词前六**：空间大 360、外观好看 195、车机流畅 111、内饰好看 109、座椅舒适 102、性价比高 95。\n\n两点值得注意：\n1. **“车机问题”(差评 155) 与 “车机流畅”(好评 111) 并存**，说明车机体验并不统一，早期年款与新款差异较大，不是单纯配置高低的问题。\n2. **新款口碑更好但样本少**：2026 款 610km 探索+版均分 4.84（84 条）、星舰版 4.86（26 条），明显高于 2024 款各版型（4.60–4.69，单版型 100+ 条）——方向对，但样本量还不足以定论。\n\n---\n\n### 三、配置：2027 款针对性补齐，智驾证据不足\n\n| 项目 | 2026 款 | 2027 款 |\n|---|---|---|\n| CLTC 续航 | 530 / 610 km | **550 / 635 km** |\n| 车机芯片 | 龙鹰一号 | **龍鹰6E** |\n| 前排多层隔音玻璃 | 全系无 | 中高配**新增**（530 全球经典版、550 智充启航版除外） |\n| 轮胎 | 高配 235/50 R19 | 高配 235/50 R19 |\n| 座椅材质 | 仿皮 | 仿皮（未升级） |\n| 指导价区间 | 10.98–14.58 万 | 10.78–14.78 万 |\n\n- 顶配 **2027款 635 智充激光版 14.78 万**，对比 **2026款 610km 星舰版 14.58 万**，贵 0.2 万换来 +25 km 续航、新芯片与前排隔音玻璃——**加量基本不加价**。\n- 隔音玻璃新增的版型，恰好对应口碑里“噪音大 94 条 / 隔音差 48 条”的集中反馈；续航 +20~25 km 对应“续航虚 56 条 / 续航短 55 条”。这是明确的痛点校正动作。\n- 另：2024 款 530km 公务版指导价 17.98 万，属公务采购版型，不代表零售价格体系。\n\n**数据缺口（需坐实）**：版型名称含“智充激光”，但配置数据中**智能驾驶相关项（是否含激光雷达、城区辅助驾驶）未采集到**，因此无法确认这套硬件是否真的落地。缺的是官方配置表或工信部申报信息中智驾硬件明细——补上才能真正判断“智能化 67.9% 差评”是否被 2027 款解决。\n\n---\n\n### 综合判断（分层结论，不跨维度归因）\n\n- **产品侧（配置）**：2027 款是“痛点对症式改款”——续航小步、芯片升级、隔音补课，价格基本持平，属于把明显短板填平，而不是重构产品力。\n- **需求侧（口碑）**：空间和外观仍是不可替代的购买理由；智能化与舒适（悬挂、NVH）是决定复购与推荐与否的扣分项。\n- **市场侧（销量）**：规模下滑与结构向入门版集中是既成事实，**本报告不将其归因于产品力**；若需判断“改款能否止跌”，需要 2027 款上市后的月度零售与舆情数据，目前 9 月零售尚未结算、新款样本仅 110 条，证据强度不足。\n\n需要我接着做哪一步？① 2027 款各版型逐项配置对比（含差价折算）；② 竞品对标（同价位纯电 SUV）；③ 舆情侧声量与情绪扫描。",
+      "first_error_turn": null
+    },
+    {
+      "task": "cross-01",
+      "sessionId": "01a19635-5bde-7538-b223-3a816ff1ddfb",
+      "dimension": "跨维度",
+      "question": "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？",
+      "repeat": 2,
+      "score": 5,
+      "reasons": [
+        "rubric[elements] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "elements",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "dims",
+          "comfort",
+          "config_scope",
+          "no_attr"
+        ],
+        "missing": [],
+        "missingRequired": [],
+        "forbidHits": [],
+        "note": "护栏全命中"
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 5,
+        "consistent": true,
+        "steps": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "3bbff12e7072b954dc57233ed9606147",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_config",
+        "query_reviews",
+        "query_sales",
+        "get_dimension_reviews",
+        "search_reviews",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 58.6,
+        "tool_calls": 11,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 2529,
+      "replyPreview": "## 结论\n\n**是结构性短板，但不是最大短板。** 银河E5 的舒适性是“硬件级、跨年款延续”的系统性弱项——差评占比 **62.2%**，且集中在悬架偏硬、噪音大、隔音差三类物理硬件上；但智能化维",
+      "reply_full": "## 结论\n\n**是结构性短板，但不是最大短板。** 银河E5 的舒适性是“硬件级、跨年款延续”的系统性弱项——差评占比 **62.2%**，且集中在悬架偏硬、噪音大、隔音差三类物理硬件上；但智能化维度差评占比 **67.9%**，排在它前面。舒适性属于**第一梯队短板（与智能化并列）**，不是唯一短板。\n\n---\n\n## 一、口碑：舒适是第二大负向维度，且是“硬件型”负向\n\n| 维度 | 好评 | 差评 | 差评占比 |\n|---|---|---|---|\n| 智能化 | 198 | 418 | **67.9%** |\n| **舒适** | 190 | 313 | **62.2%** |\n| 续航 | 198 | 228 | 53.5% |\n| 内饰 | 132 | 113 | 46.1% |\n| 性价比 | 207 | 75 | 26.6% |\n| 驾驶感受 | 211 | 61 | 22.4% |\n| 外观 | 227 | 43 | 15.9% |\n| 空间 | 498 | 33 | **6.2%** |\n\n- **反差极大**：空间差评仅 6.2%，舒适差评 62.2%，两者相差一个量级——同一批车主对“能装”高度认可，对“坐得舒服”强烈不满，说明并不是整体满意度偏低，而是某几项具体能力在拖后腿。\n- **抱怨指向硬件，不指向装配**：舒适差评以悬架偏硬、噪音大、隔音差为主；与之相对，正面标签里“座椅舒适”仍有 102 条好评。也就是说，车主认座椅，但不认**底盘滤震 + NVH**——这是设计取向与成本配置的问题，不是某批车装错了。\n- **跨年款复现**：2024 款主销版型与 2026 款改款版的差评清单里，“悬挂硬、噪音大、隔音差”都还在——这是判断“结构性”最关键的一条：改款没有把这个问题拿掉。\n- 差评在广东、浙江、江苏、山东等主力销量省份分布一致，同样不支持“局部批次”解释。\n\n## 二、配置：硬件清单与口碑同向（省在了舒适项上）\n\n| 配置项 | 2024 款 | 2026 款 | 2027 款 |\n|---|---|---|---|\n| 侧窗多层隔音玻璃 | 全系无 | 全系无 | 仅智充探索版及以上配“前排”，全球经典版/550 智充启航版仍无 |\n| 座椅材质 | 全系仿皮 | 全系仿皮 | 全系仿皮 |\n| 轮胎规格 | 主流 225/55 R18 | 主流 225/55 R18，星舰版 235/50 R19 | 激光版 235/50 R19，其余 225/55 R18 |\n\n配置清单与口碑是**同一条证据链**：双层隔音玻璃连续三代年款缺位（2027 款才部分给到前排），座椅材质始终停在仿皮一档——NVH 与材质这两项“看不见的舒适”，正是成本最容易削减的地方。这与“噪音/隔音差”的长期口碑高度吻合。\n\n> 待验证假设（证据强度：弱）：星舰版/激光版升级到 19 寸、50 扁平比轮胎，胎壁更薄，理论上会放大细碎颠簸感。**配置事实强、舒适影响未验证**，坐实需要同车系 18/19 寸版型的同路段对比试驾或车主分版型投诉率对比。\n\n## 三、销量：下行明确，但不与舒适口碑做因果绑定\n\n| 指标 | 数值 |\n|---|---|\n| 2026 年 8 月终端零售 | **4,436 台** |\n| 2025 年 8 月（同比基数） | 10,774 台 |\n| 同比 | **-58.8%** |\n| 2026 年 1–8 月累计 | 39,328 台 |\n| 2025 年 1–8 月累计 | 68,880 台 |\n\n市场侧是清晰的持续下行：年内高点在 6 月，之后连续回落至 8 月。**但这里必须划清边界**：库内没有价格战、竞品换代、渠道政策等归因数据，不能把销量下滑记到舒适性口碑头上——同期智能化口碑更差、终端价也在走低，多因素混杂，相关性不能当因果。\n\n---\n\n## 判断“结构性”的三条标准，它满足两条半\n\n| 标准 | 是否满足 | 依据 |\n|---|---|---|\n| ① 跨年款/跨版型复现 | ✅ | 2024 款、2026 款差评清单同构 |\n| ② 归因指向硬件设定而非批次质量 | ✅ | 抱怨集中于悬架/隔音，正面认可座椅 |\n| ③ 与配置清单同向（在此处省成本） | ✅ | 隔音玻璃连续缺位、座椅全系仿皮 |\n| ④ 是否全车最差维度 | ❌ | 智能化差评 67.9% 更高 |\n\n## 对产品经理的含义\n\n- **若只改一处**：智能化（车机/辅助驾驶）的负向盘子更大，投入产出比更高。\n- **若要守住“家用舒适”心智**：最小改动组合是**悬架衬套/减震调校 + 前排双层隔音玻璃 + 座椅材质或通风升级**三件套——这三项正对应口碑差评的主要来源，且都是配置表可落地项；2027 款已把隔音玻璃下放到部分版型，方向对，但覆盖面不够。\n- **风险提示**：舒适口碑已持续两年多未改善，改款未解决会强化“这车就是硬、就是吵”的固化认知，届时靠降价换量会更低效。\n\n## 数据缺口（缺什么能坐实）\n\n1. **座椅本体的不适**：库内没有独立聚合标签，只有零散文本，无法量化强度 → 需要座椅专项采样（长途/后排乘坐场景）。\n2. **悬架与隔音的具体硬件参数**（悬架形式、衬套、玻璃层数分贝值）：本次只比到关键配置项，未做全项比对 → 需要完整配置清单 + 实测噪音/振动数据。\n3. **无同级基准**：舒适差评 62.2% 是“横向差”还是“行业普遍水平”，缺同价位纯电 SUV 对照 → 建议补一轮同级竞品同维度对比，才能判定是否真的是相对劣势。\n\n---\n\n**数据时点与口径**：口碑为认证车主评价，样本截至 2026 年 9 月 30 日，覆盖在售版型较完整；配置数据截至 2026 年 10 月 7 日（含 2024/2026/2027 三个年款）；销量为终端零售口径，最新已结算月份为 2026 年 8 月，9 月尚未结算；累计对比中 2025 年上半年仅部分版型有明细，口径存在覆盖差异，累计跌幅仅供参考。",
+      "first_error_turn": null
+    },
+    {
+      "task": "trap-01",
+      "sessionId": "01a19636-40ed-7538-b223-3a832ceb0c50",
+      "dimension": "配置",
+      "question": "银河E5 26款 530Km 探索型的 msrp 是多少？",
+      "repeat": 2,
+      "score": 5,
+      "reasons": [
+        "trap name_grounding 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "90ff625dab8073c2693efb3f9e0eeac9",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "银河E5 26款 530Km 探索型的 msrp 是多少？"
+      ],
+      "tools": [
+        "resolve_series",
+        "get_trims",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 6.9,
+        "tool_calls": 3,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 262,
+      "replyPreview": "**银河E5 2026款 530km 探索版 MSRP = 11.98 万元**\n\n该年款 530km 续航共 2 个版型：\n\n| 版型 | MSRP |\n|---|---|\n| 2026款 530k",
+      "reply_full": "**银河E5 2026款 530km 探索版 MSRP = 11.98 万元**\n\n该年款 530km 续航共 2 个版型：\n\n| 版型 | MSRP |\n|---|---|\n| 2026款 530km 启航版 | 10.98 万 |\n| **2026款 530km 探索版** | **11.98 万** |\n\n补充：2026款另有 610km 三个版型（远航 12.58 万 / 探索+ 13.58 万 / 星舰 14.58 万）。若你要的是\"探索+\"或 2027款\"智充探索版\"（12.58 万），口径不同，可再确认。",
+      "first_error_turn": null
+    },
+    {
+      "task": "config-07",
+      "sessionId": "01a19636-5c15-7538-b223-3a85f4cb6ec7",
+      "dimension": "配置",
+      "question": "12万元左右哪个BEV车型的配置最好",
+      "repeat": 2,
+      "score": 2,
+      "reasons": [
+        "rubric[ranking] 缺要素: 比亚迪 元UP、比亚迪 海豚、启源Q05 纯电"
+      ],
+      "rubric": {
+        "kind": "ranking",
+        "checked": true,
+        "pass": false,
+        "cap": 2,
+        "present": [],
+        "missing": [
+          "比亚迪 元UP",
+          "比亚迪 海豚",
+          "启源Q05 纯电"
+        ],
+        "note": "金标 top3 落前5: 0/3"
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 2,
+        "consistent": true,
+        "steps": [
+          {
+            "from": 5,
+            "to": 2,
+            "reason": "rubric[ranking] 缺要素: 比亚迪 元UP、比亚迪 海豚、启源Q05 纯电"
+          }
+        ]
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "63df10496a4f25efa04436f53ea98fa8",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_config_d",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "12万元左右哪个BEV车型的配置最好"
+      ],
+      "tools": [
+        "search_cars",
+        "search_cars",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "compare_configs_valued",
+        "compare_configs_valued",
+        "get_config_detail",
+        "resolve_series"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 81.6,
+        "tool_calls": 46,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 1250,
+      "replyPreview": "**结论：12 万元档配置最全的是** **零跑 B10 610 激光雷达版（指导价 12.58 万）**——610km 续航为该档最长，且在这个价位里唯一同时给到 800V 高压平台、城市 NOA、",
+      "reply_full": "**结论：12 万元档配置最全的是** **零跑 B10 610 激光雷达版（指导价 12.58 万）**——610km 续航为该档最长，且在这个价位里唯一同时给到 800V 高压平台、城市 NOA、激光雷达和 AR-HUD。\n\n## 12 万预算能买到的最高配横向对比\n\n| 版型（该车系 12.6 万内最高配） | 指导价 | CLTC 续航 | 高阶智驾 | 相对亮点配置 |\n|---|---|---|---|---|\n| **零跑B10 610激光雷达版** | 12.58万 | **610km** | 城市+高速NOA、激光雷达、记忆泊车 | 800V平台、AR-HUD、17.3寸中控、19寸轮毂、前排按摩/记忆、方向盘加热、256色氛围灯 |\n| 银河E5 550智充探索版 | 12.58万 | 550km | 无高速NOA | 800V平台、6kW对外放电、23喇叭、可开启全景天窗、双层隔音玻璃 |\n| 小鹏MONA M03 540长续航Plus | 11.98万 | 540km | 无（Plus版不带NOA） | 19寸轮毂、真皮/仿皮混搭、可选20喇叭 |\n| 深蓝S05 520智行版 | 11.99万 | 520km | 高速NOA | 6kW对外放电、无框车门、悬架软硬可调 |\n| 零跑Lafa5 500 Ultra | 12.38万 | 500km | 城市+高速NOA、记忆泊车 | 19寸轮毂、仿皮座椅（次优解，便宜2000） |\n| 海豚 智驾版520骑士版 | 12.58万 | 520km | 高速NOA | 540°影像、电动尾门（轮毂仅17寸） |\n| 元UP 501卓越型 | 10.48万 | 501km | 高速NOA | 3.3kW放电（车小一号，便宜2万） |\n| 元PLUS 540领先型 | 11.99万 | 540km | 无 | 18寸轮毂、主动进气格栅、前备箱 |\n\n## 怎么选\n\n- **配置密度优先**：零跑 B10，逐项对比中综合配置值比同价银河E5、比 MONA M03、比深蓝S05 都高出一档，差距最大的几项是城市NOA、激光雷达、HUD、大屏和大轮毂。\n- **想省钱且同样要城市NOA**：零跑 Lafa5 500 Ultra，省 2000 元，只少 110km 续航。\n- **看重用车体验细节**：银河E5 同价给可开启全景天窗、23 喇叭、6kW 对外放电、隔音玻璃，但缺高阶智驾。\n- **B10 的短板**：没有对外放电、没有隔音玻璃和车顶行李架，露营/户外场景不如银河E5、深蓝S05。\n\n\\* 选取方式：每款车系取 12.6 万元预算内指导价最高的版型（顶配而非入门版），逐项比对后按配置折算价值排序；配置数据截至 2026-10-01、指导价口径，折算值不等于终端成交价差。铂智3X、埃安 i60 等车系暂缺配置数据，未纳入对比；如需把某款车补进来或改看 11 万/13 万档，可以再跑一版。",
+      "first_error_turn": 1
+    },
+    {
+      "task": "config-10",
+      "sessionId": "01a19637-9ad9-7538-b223-3a862d76cbf6",
+      "dimension": "配置",
+      "question": "保时捷911的配置怎么样",
+      "repeat": 2,
+      "score": 3,
+      "reasons": [
+        "rubric[gap] 缺要素: url、不可复算"
+      ],
+      "rubric": {
+        "kind": "gap",
+        "checked": true,
+        "pass": false,
+        "cap": 3,
+        "present": [
+          "direction"
+        ],
+        "missing": [
+          "url",
+          "不可复算"
+        ]
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 3,
+        "consistent": true,
+        "steps": [
+          {
+            "from": 5,
+            "to": 3,
+            "reason": "rubric[gap] 缺要素: url、不可复算"
+          }
+        ]
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "4cb660f7154c18473357f24b021aefdc",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "保时捷911的配置怎么样"
+      ],
+      "tools": [
+        "resolve_series",
+        "search_cars",
+        "search_cars",
+        "resolve_series",
+        "query_config",
+        "query_config",
+        "query_config",
+        "query_config",
+        "query_sales",
+        "get_trims",
+        "get_sales_detail",
+        "query_config",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 52.1,
+        "tool_calls": 17,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 668,
+      "replyPreview": "**结论：保时捷 911 的配置明细在库里本期没有可用数据，无法回答“配置怎么样”。** 版型配置页这次抓取失败，座椅、轮胎、智能驾驶、车机等逐项参数都没有采集到；我不会凭印象或外部资料拼凑。\n\n能确",
+      "reply_full": "**结论：保时捷 911 的配置明细在库里本期没有可用数据，无法回答“配置怎么样”。** 版型配置页这次抓取失败，座椅、轮胎、智能驾驶、车机等逐项参数都没有采集到；我不会凭印象或外部资料拼凑。\n\n能确认的部分：\n\n| 项目 | 情况 |\n|---|---|\n| 对象身份 | 保时捷 911（进口），轴距约 2450 mm，属 C 级跑车 |\n| 在售年款 | 25 款、26 款、27 款同时在列 |\n| 版型结构 | 主力是 3.0T Carrera 家族，包括硬顶、Cabriolet 敞篷、Carrera T；另有 4.0L 自然吸气配双离合，以及 4.0L 手动旅行版 |\n| 指导价区间 | 约 146.8 万 – 226.8 万元 |\n| 市场集中度 | 成交高度集中在入门 3.0T Carrera，8 月占该车系零售的八成以上；终端成交价明显低于指导价，约八折 |\n\n**数据缺口说明：**\n- 缺的是逐项配置对比，无法判断座椅材质、隔音玻璃、轮胎规格、智能驾驶等级和车机芯片等产品力细节。\n- 要坐实这些，需要补齐该车系的版型配置采集；目前这类进口跑车的配置页在库里就是空的。\n\n你希望我换个方向继续吗？可以从两个方向选择：\n1. **看成交结构**：各版型零售与终端价走势，判断哪一档最值得关注；\n2. **横向比同级**：用库里配置较全的车型做参照（比如 718 Cayman、Taycan），间接看 911 定价所处的位置。\n\n数据口径：销量与价格为 2026 年 8 月月末终端零售口径；配置维度本期无数据。",
+      "first_error_turn": 1
+    },
+    {
+      "task": "reviews-03",
+      "sessionId": "01a19638-6677-7538-b223-3a88838f9176",
+      "dimension": "口碑",
+      "question": "海狮05 2026款的口碑如何",
+      "repeat": 2,
+      "score": 5,
+      "reasons": [
+        "truth 锚点全中(0)",
+        "rubric[elements] 全要素命中"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 0,
+        "missing": [],
+        "forbidHits": []
+      },
+      "rubric": {
+        "kind": "elements",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "y2026",
+          "best",
+          "worst",
+          "sample"
+        ],
+        "missing": [],
+        "missingRequired": [],
+        "forbidHits": [],
+        "note": "护栏全命中"
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 5,
+        "consistent": true,
+        "steps": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "614b5da213f20f56018019913a7b14a5",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_model_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "海狮05 2026款的口碑如何"
+      ],
+      "tools": [
+        "resolve_series",
+        "search_cars",
+        "resolve_series",
+        "resolve_series",
+        "query_reviews",
+        "query_reviews",
+        "search_cars",
+        "query_config",
+        "query_config",
+        "query_config",
+        "query_config",
+        "query_config",
+        "query_reviews",
+        "get_model_detail",
+        "query_config",
+        "query_config",
+        "query_reviews",
+        "query_config",
+        "get_sales_detail",
+        "query_reviews",
+        "query_reviews",
+        "query_reviews",
+        "get_dimension_reviews",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 49.2,
+        "tool_calls": 25,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 1032,
+      "replyPreview": "## 海狮05 EV 2026款口碑结论\n\n**一句话：整体口碑正面，驾驶、空间、性价比被认可，但噪音、车机、内饰质感是被反复点名的主要短板；2026款样本还少，反馈方向与全系一致。**\n\n### 维",
+      "reply_full": "## 海狮05 EV 2026款口碑结论\n\n**一句话：整体口碑正面，驾驶、空间、性价比被认可，但噪音、车机、内饰质感是被反复点名的主要短板；2026款样本还少，反馈方向与全系一致。**\n\n### 维度态度（全系累计样本）\n\n| 维度 | 正面占比 | 态度 | 典型评价 |\n|---|---|---|---|\n| 驾驶感受 | 83.3% | 强正向 | 好开、操控稳、后驱加速顺 |\n| 性价比 | 78.9% | 正向 | 同价位配置给得足 |\n| 空间 | 71.1% | 正向 | 后排腿部宽裕、储物位置多 |\n| 外观 | 69.6% | 正向 | 造型是下单动因之一 |\n| 续航 | 64.1% | 偏正向 | 多数认可真实续航，也有虚标反馈 |\n| 智能化 | 37.2% 正面 / 62.8% 负面 | 偏负向 | 车机卡顿、启动慢；高速领航可用，复杂路口偏保守 |\n| 内饰 | 24.6% 正面 / 75.4% 负面 | 明显负向 | 塑料感、用料廉价感 |\n| 舒适 | 15.7% 正面 / 84.3% 负面 | 最弱项 | **高速风噪胎噪大**、悬挂偏硬、新车异味 |\n\n### 2026款版型情况\n- 2026款目前有 540 智航版、630 智航版、540 领航版、540KM 闪充领航版等在售版型，其中 540 与 630 智航版贡献了绝大部分 2026款口碑，评分集中在 **4.6 分左右（满分 5）**，略低于 2025款高配。\n- 2026款车主的好评点：空间、好开、**充电快**、能耗低；差评点与全系一致——噪音大、后备箱偏小、车机问题、续航虚、异味。\n- 一位 2026款 630 智航版车主原话：\"车速超过 100km/h 之后，A 柱风噪加上轮拱胎噪会明显传入座舱，长时间高速行驶需要提高音量沟通\"；同时也肯定了云辇-C 底盘过坑洼的滤震与防晕车调校。\n\n### 需要说明的缺口\n- 2026款单版型样本仅几十条，不足以对单一版型单独下结论，以上判断以车系整体为主、2026款作方向印证。\n- 海狮05 还有插混（DM-i）版本，属另一车系，本次库内无对应口碑样本，未纳入分析；若你要看的是**插混版**，请告诉我，我再单独核验。\n\n**口径**：口碑样本取自汽车之家车主评价，截至 2026 年 9 月下旬发布的帖子、2026-10-07 汇总；维度占率仅统计带标签的口碑，未带标签的评分不参与维度占比。",
+      "first_error_turn": null
+    },
+    {
+      "task": "multi-07",
+      "sessionId": "01a19639-26cc-7538-b223-3a8a67fdb1f8",
+      "dimension": "多轮",
+      "question": "E5和B10的智能座舱口碑，加上风云T7的舆情，一起说说",
+      "repeat": 2,
+      "score": 2,
+      "reasons": [
+        "truth 锚点全中(1)",
+        "truth[t1] 缺锚/违禁: 25"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 1,
+        "missing": [],
+        "forbidHits": []
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 2,
+        "consistent": true,
+        "steps": [
+          {
+            "from": 5,
+            "to": 2,
+            "reason": "truth[t1] 缺锚/违禁: 25"
+          }
+        ]
+      },
+      "perTurnTruth": [
+        {
+          "turn": 1,
+          "missing": [
+            "25"
+          ],
+          "forbidHits": []
+        }
+      ],
+      "turnVerdicts": [
+        "pass",
+        "pass"
+      ],
+      "traceId": "3ab3661c1fcecdead24cc2478af50bff",
+      "carry": {
+        "from": 1,
+        "keys": [
+          "418"
+        ],
+        "results": [
+          {
+            "turn": 2,
+            "key": 418,
+            "status": "consistent"
+          }
+        ],
+        "hasDrift": false
+      },
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ov",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_di",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ev",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_tr",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_po",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "E5和B10的智能座舱口碑，加上风云T7的舆情，一起说说",
+        "把E5的智能座舱口碑展开讲讲"
+      ],
+      "tools": [
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "search_cars",
+        "query_reviews",
+        "sentiment_overview",
+        "resolve_series",
+        "query_reviews",
+        "sentiment_dimension",
+        "sentiment_events",
+        "sentiment_trend",
+        "query_reviews",
+        "sentiment_posts",
+        "get_dimension_reviews",
+        "get_dimension_reviews",
+        "sentiment_defects",
+        "search_reviews",
+        "search_reviews",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "search_reviews",
+        "search_reviews",
+        "search_reviews",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 71.5,
+        "tool_calls": 28,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 1940,
+      "replyPreview": "**一句话结论**：银河E5 的智能座舱属于\"够用但拉不动人\"型——同一套车机有人夸它顺手、有人骂它慢，整体好评率只有约 1/3（32.1%），并且是这台车所有维度里车主打分最低的一块。\n\n## 一、",
+      "reply_full": "**一句话结论**：银河E5 的智能座舱属于\"够用但拉不动人\"型——同一套车机有人夸它顺手、有人骂它慢，整体好评率只有约 1/3（32.1%），并且是这台车所有维度里车主打分最低的一块。\n\n## 一、它在整车口碑里的位置：负面第一、正面也排前\n\n- 全车 1187 条口碑、平均 4.69 分，空间、外观、内饰都在 4.7–4.9 的高位；智能化各版型只有 4.33–4.64，**几乎每个版型都是自己所有维度里的最低或次低**。\n- 负面标签榜：**\"智能化不足\"176 条排第一、\"车机问题\"155 条排第二**——全车最集中的两个抱怨点都在座舱上。\n- 同时正面标签榜里\"**车机流畅**\"111 条排第三。\n- 所以它不是\"普遍差评\"，而是**分裂**：同一套系统，夸的人和骂的人几乎各占一半，最终负多于正（198 正 / 418 负）。\n\n## 二、分版型看：新款也没把这个短板补上\n\n| 版型 | 智能化评分（5 分制） | 样本量 |\n|---|---|---|\n| 2024款 530km 探索+版（主销） | 4.52 | 458 |\n| 2024款 530km 星舰版 | 4.64 | 208 |\n| 2024款 440km 启航版 | 4.33 | 69 |\n| 2026款 610km 探索+版 | 4.64 | 84 |\n| 2026款 610km 星舰版 | 4.62 | 26 |\n| 2026款 530km 探索版 | **4.37** | 83 |\n| 2026款 610km 远航版 | **4.33** | 12 |\n\n- 主销版（458 条样本）4.52，是被讨论最多、也最能代表真实体感的一档。\n- 2026 款高配能到 4.62–4.64，但**入门的 2026 款 530km 探索版只有 4.37**，比 2024 款同价位还低——说明新款没有整体修复，更像是**按配置分层给体验**。\n\n## 三、四类具体槽点（按被提及强度排）\n\n1. **冷启动慢、倒车影像延迟**（最共性）。多篇独立评价一致提到\"刚启动那十几秒慢\"\"倒车影像要等一会儿才出来，赶时间倒车会急\"。\n2. **屏幕偶发黑屏重启**（低频但严重）。一位南宁车主（2026款 610km 星舰版）写：「有过两次在长途行驶中，中控屏幕突然黑屏重启，虽然不影响驾驶，但导航和音乐中断确实让人心烦。」\n3. **语音双面性**：好用的一面是\"导航、音乐、空调一句话的事\"；问题一面是**误唤醒**——同一位车主：「语音助手有时会误唤醒，明明车内没人说话，它突然来一句'我在'。」另有车主抱怨低速提示音不能永久关闭，「每次上车得语音关一下」，把语音变成了每趟必做的动作。\n4. **OTA 节奏慢**：2024 款车主明确点名\"没有哨兵模式……OTA 更新太慢\"。好消息是黑屏、误唤醒等问题\"OTA 升级后有所改善，但未完全根除\"——即软件可修，只是修得慢。\n\n## 四、它真正被认可的地方（别只讲短板）\n\n- **语音解放双手 + 手机车机互联**是最被夸的细节：「手机上搜好的地址直接就能发到车机上，上车不用再输一遍，这个细节特别顺手。」\n- **场景模式**：一键放倒座椅配合对外放电露营，是小家庭用户的高频彩蛋；16 扬声器音响、\"送 3 年车机不限流量\"也是加分项。\n- 一位南通车主的总评很有代表性：「这套车机在十万出头的价位里，属于用惯了就不想换回去的水平。」——**同价位及格线之上，跨价位就不够看**。\n\n## 五、两个可执行判断\n\n1. **优化优先级**（按\"感知强、改动成本低\"排）：开机/冷启动预加载 → 倒车影像秒出 → 语音误唤醒阈值与车外提示音可永久关闭 → OTA 节奏（把哨兵模式这类车主明确点名的功能排期说清楚）。这些全是软件层，属于能靠一次大版本翻面的项目。\n2. **区域上不用分层运营**：抱怨最集中的是山东（\"智能化不足\"20 条），广东、浙江、江苏各 11–17 条，整体分布平缓——这是**全国一致的结构性问题，不是区域用户水土不服**。\n\n**数据缺口（缺什么能坐实）**：库内只有车主主观评价，**没有车机芯片型号/算力、没有开机耗时与倒车影像出图时延的实测数据**——所以\"是软件没优化好，还是硬件余量不足\"目前无法判定；补一轮实测（同版本车机连续 10 次冷启动计时 + 出图时延）即可定性。另需说明：上面的智能化评分是车主的**综合印象分**，不是专项测评分。\n\n数据截至 2026-10-07 的标签聚合，覆盖 2024-07 至 2026-09-30 的车主口碑，样本 1187 条（含标签 1075 条）。",
+      "first_error_turn": 1
+    },
+    {
+      "task": "multi-10",
+      "sessionId": "01a1963b-2086-7538-b223-3a8f09e4b2fc",
+      "dimension": "多轮",
+      "question": "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？",
+      "repeat": 2,
+      "score": 5,
+      "reasons": [
+        "truth 锚点全中(0)"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 0,
+        "missing": [],
+        "forbidHits": []
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 5,
+        "consistent": true,
+        "steps": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass",
+        "pass"
+      ],
+      "traceId": "c429020119ebe948547773d820e974fc",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_config_d",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : ask_user_que",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "[续分析] 我这边没有上次会话的记录（上下文不跨会话保留），要继续的话请告诉我车",
+          "value": "1. 配置对比（需2款车/2个版型） — 逐项判定配置谁多谁少，需要时折算配置差价与拉平指导价后的优势",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？",
+        "继续上次的分析"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_config",
+        "query_reviews",
+        "query_sales",
+        "get_dimension_reviews",
+        "get_dimension_reviews",
+        "get_trims",
+        "search_reviews",
+        "search_reviews",
+        "get_config_detail",
+        "submit_conclusion",
+        "submit_conclusion",
+        "ask_user_question"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 71.6,
+        "tool_calls": 13,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 244,
+      "replyPreview": "收到，我们来接着做**配置对比**。还缺一个关键信息：对比哪两款？\n\n请告诉我：\n\n1. **对比对象**：车系名（原文照抄，如「银河E5 vs 元PLUS」），或具体版型名\n2. **版型口径**（",
+      "reply_full": "收到，我们来接着做**配置对比**。还缺一个关键信息：对比哪两款？\n\n请告诉我：\n\n1. **对比对象**：车系名（原文照抄，如「银河E5 vs 元PLUS」），或具体版型名\n2. **版型口径**（不指定的话我默认这样取）：\n   - 车系级对比 → 各取**在售版型中指导价最高者**做能力对标\n   - 若是\"主销/走量/性价比\"取向 → 说明一下，我改取主力版型并在开头标注\n\n给我车系名，我就按 61 项配置口径逐项判定谁多谁少，需要时再折算配置差价、算拉平指导价后的真实优势。",
+      "first_error_turn": null
+    },
+    {
+      "task": "cross-01",
+      "sessionId": "01a1963b-5592-7538-b223-3a90ceebaaf6",
+      "dimension": "跨维度",
+      "question": "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？",
+      "repeat": 3,
+      "score": 5,
+      "reasons": [
+        "rubric[elements] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "elements",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "dims",
+          "comfort",
+          "config_scope",
+          "no_attr"
+        ],
+        "missing": [],
+        "missingRequired": [],
+        "forbidHits": [],
+        "note": "护栏全命中"
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 5,
+        "consistent": true,
+        "steps": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "f0b27685a5144f22f5fcfc55bee21bf7",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_config_d",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_config",
+        "query_reviews",
+        "query_sales",
+        "get_dimension_reviews",
+        "get_config_detail",
+        "get_trims",
+        "search_reviews",
+        "search_reviews",
+        "search_cars",
+        "search_cars",
+        "resolve_series",
+        "resolve_series",
+        "compare_configs_valued",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 78.1,
+        "tool_calls": 20,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 1643,
+      "replyPreview": "## 结论\n\n**是结构性短板，但短板部位不在“座椅”，而在“底盘滤震 + 静音”。** 银河E5的座椅是好评项；被反复吐槽的是行驶质感与 NVH，而且这一问题跨越年款、跨越配置等级，产品迭代始终只做",
+      "reply_full": "## 结论\n\n**是结构性短板，但短板部位不在“座椅”，而在“底盘滤震 + 静音”。** 银河E5的座椅是好评项；被反复吐槽的是行驶质感与 NVH，而且这一问题跨越年款、跨越配置等级，产品迭代始终只做到“一部分”。\n\n---\n\n## 一、配置：缺少系统性的舒适性升级方案\n\n| 项目 | 情况 |\n|---|---|\n| 隔音玻璃 | 2024款、2026款普遍为单层玻璃；2026款 530km 启航版缺此项；**直到 2027款顶配才配备，且仅覆盖前排** |\n| 悬架 | 固定式，无自适应/空气悬架可选；**2027款顶配（14.78万）相对 2026款顶配（14.58万）在可变悬架项反而“少”，折算差价为负（约 -1,000 元）** → 顶配存在硬件倒挂 |\n| 座椅 | 全系仿皮，但顶配具备电动调节/记忆/按摩/通风 —— 座椅配置不是短板，与口碑一致 |\n\n配置结论：新款价格更贵，隔音只补了前排，悬架反而比上一代顶配少一项，因此舒适性在配置表上没有被真正升级。\n\n## 二、口碑：舒适是第二大负面区，且指向明确\n\n| 维度 | 提及量 | 差评数 | 差评占比 | 方向 |\n|---|---|---|---|---|\n| 智能化 | 616 | 418 | 67.9% | 负（最大负面区） |\n| **舒适** | **503** | **313** | **62.2%** | **负** |\n| 续航 | 426 | 228 | 53.5% | 负 |\n| 空间 | 531 | 33 | 6.2% | 强正 |\n\n- 舒适维度好评仅 190 条、差评 313 条，**差评内容集中在悬挂偏硬、噪音大、隔音差三类**；“座椅舒适”反而是正面标签（102 条）。\n- 一个关键细节：底盘被**同时**吐槽“过坎硬”和“起伏路抛跳、后排晕车”——车主原话有“底盘偏软，连续起伏路面抛跳明显、后排容易晕，速度快一点过弯侧倾大”“110 码以上风噪明显，因为是单层玻璃”。这指向**阻尼/调校取向**问题，而不是单纯的软硬取舍，属于结构层面的短板。\n- 样本内一致性：2024款、2026款各配置等级的评价里，这几条差评都出现了，并非个别车主偶发。\n\n## 三、销量：市场侧在走弱（仅陈述，不归因产品）\n\n2026年8月终端零售 **4,436 台**，较 2025年8月 10,774 台**同比 -58.8%**；终端成交价从约 **112,119 元**下探到约 **106,755 元**——降价并未止住下滑。市场结果与舒适性之间不做因果归因。\n\n## 四、“结构性”判断的边界\n\n**成立的依据**（四条）：跨年款一致、跨配置等级一致（顶配同样中招）、配置表上无解决路径、2027款“只补前排隔音”说明厂商已识别问题但未真正处理。\n\n**暂不能坐实的一面**：只能判定“在银河E5自身产品序列内是结构性短板”；**“是否劣于同级”尚无证据**——同级标杆配置对标未完成（竞品对象身份未能核验，不擅自替换近似车系），也缺底盘形式、衬套、隔音材料等工程级数据。\n\n**要坐实还缺什么**：\n1. 拉 12–15 万纯电同级顶配做逐项舒适配置对标（隔音玻璃、悬架形式、座椅功能）；\n2. 底盘与 NVH 实测（减速带冲击、100/120 km/h 车内噪声 dB），验证“调校问题”假设（当前证据强度：中，仅来自车主描述）；\n3. 口碑与销量的时间错位检验，看舒适差评是否领先于销量拐点。\n\n---\n\n数据说明：**口碑截至 2026-09-30，共 1,187 条车主评价（其中 90% 以上已标记维度）**；配置为 2026-10-01 采集的在售配置等级信息；销量为终端零售口径，最新已结算月份为 2026 年 8 月（9 月尚未结算）。\n\n需要的话，我可以再往下做一轮：拉取典型车主原帖与决策链（含原文链接），把“因底盘/噪音放弃或后悔”的证据链做实。",
+      "first_error_turn": null
+    },
+    {
+      "task": "trap-01",
+      "sessionId": "01a1963c-867a-7538-b223-3a93cc4a5ce9",
+      "dimension": "配置",
+      "question": "银河E5 26款 530Km 探索型的 msrp 是多少？",
+      "repeat": 3,
+      "score": 5,
+      "reasons": [
+        "trap name_grounding 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "ded92206ca92511feaf42f42ad859ac7",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "银河E5 26款 530Km 探索型的 msrp 是多少？"
+      ],
+      "tools": [
+        "resolve_series",
+        "get_trims",
+        "query_config",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 10,
+        "tool_calls": 4,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 333,
+      "replyPreview": "**11.98 万元** —— 银河E5 2026款 530km 探索版（不是“探索型”，正式名为“探索版”）的官方指导价。\n\n2026 款 530km 版本与 610km 版本的价格排序如下：\n\n|",
+      "reply_full": "**11.98 万元** —— 银河E5 2026款 530km 探索版（不是“探索型”，正式名为“探索版”）的官方指导价。\n\n2026 款 530km 版本与 610km 版本的价格排序如下：\n\n| 版型 | MSRP |\n|---|---|\n| 530km 启航版 | 10.98 万 |\n| **530km 探索版** | **11.98 万** |\n| 610km 远航版 | 12.58 万 |\n| 610km 探索+版 | 13.58 万 |\n| 610km 星舰版 | 14.58 万 |\n\n说明：以上为厂家指导价（MSRP）；各省份的终端优惠和置换补贴不计入其中，实际落地价通常低于指导价。如果你需要查看该版型的终端成交价或配置差异，我可以继续查询。",
+      "first_error_turn": null
+    },
+    {
+      "task": "config-07",
+      "sessionId": "01a1963c-ad6c-7538-b223-3a94be0b9dd4",
+      "dimension": "配置",
+      "question": "12万元左右哪个BEV车型的配置最好",
+      "repeat": 3,
+      "score": 2,
+      "reasons": [
+        "rubric[ranking] 缺要素: 比亚迪 元UP、比亚迪 海豚、启源Q05 纯电"
+      ],
+      "rubric": {
+        "kind": "ranking",
+        "checked": true,
+        "pass": false,
+        "cap": 2,
+        "present": [],
+        "missing": [
+          "比亚迪 元UP",
+          "比亚迪 海豚",
+          "启源Q05 纯电"
+        ],
+        "note": "金标 top3 落前5: 0/3"
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 2,
+        "consistent": true,
+        "steps": [
+          {
+            "from": 5,
+            "to": 2,
+            "reason": "rubric[ranking] 缺要素: 比亚迪 元UP、比亚迪 海豚、启源Q05 纯电"
+          }
+        ]
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "aa2c47abc29ef0ad6d5ce76534190f9b",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "12万元左右哪个BEV车型的配置最好"
+      ],
+      "tools": [
+        "search_cars",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "get_trims",
+        "compare_configs_valued",
+        "compare_configs_valued",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 72.4,
+        "tool_calls": 33,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 1277,
+      "replyPreview": "## 结论\n\n**12 万左右（指导价 11.98–12.58 万）配置当量最高的是零跑 B01 2027 款 670 激光雷达版（11.98 万）**；如果想要 SUV，同门的**零跑 B10 20",
+      "reply_full": "## 结论\n\n**12 万左右（指导价 11.98–12.58 万）配置当量最高的是零跑 B01 2027 款 670 激光雷达版（11.98 万）**；如果想要 SUV，同门的**零跑 B10 2027 款 610 激光雷达版（12.58 万）**排第二。这两款车是这一价格带里唯一同时给到 **800V 高压平台 + 城市/高速领航辅助 + 座椅按摩记忆**的组合。\n\n## 同价位横评（各取 12 万上下的在售版型）\n\n| 版型 | 指导价 | CLTC续航 | 800V | 高速NOA | 城市NOA | 配置当量 |\n|---|---|---|---|---|---|---|\n| 零跑B01 2027款 670激光雷达版 | 11.98万 | 670km | 有 | 有 | 有 | **最高**（比B10高5300元） |\n| 零跑B10 2027款 610激光雷达版 | 12.58万 | 610km | 有 | 有 | 有 | 基准 |\n| 深蓝S05 2027款 520智行版 | 11.99万 | 520km | 无 | 有 | 无 | 低于B10 |\n| 银河E5 2027款 550 智充探索版 | 12.58万 | 550km | 有 | 无 | 无 | 低于B10 |\n| 小鹏MONA M03 2026款 540 长续航 Plus | 11.98万 | 540km | 无 | 无 | 无 | 低于B10 |\n| 元PLUS 2026款 540KM 领先型 | 11.99万 | 540km | 无 | 无 | 无 | 低于B10 |\n| 元UP 2025款 智驾版 401KM 超越型 | 11.98万 | 401km | 无 | 有 | 无 | 明显低于B10（差33750元） |\n\n## 关键读法\n\n- **零跑 B01 更“划算”**：比 B10 便宜 6000 元，配置当量还高 5300 元，续航多了 60km，代价是轮毂 18 寸（B10 为 19 寸）、以及轿车坐姿与空间。\n- **零跑 B10 更适合家用**：同价带唯一带城市领航辅助的 SUV，且是 800V 平台。\n- **银河 E5** 有 800V，但缺领航辅助、缺座椅按摩，配置面不如零跑双车。\n- **元UP** 的短板最明显：12 万买到 401km 续航，续航与配置双双落后。\n- **小鹏 MONA M03 / 元PLUS** 同价段版本是“低配入门”，智驾与三电规格都被压缩。\n\n## 口径与缺口\n\n- 配置项与判定数据截至 **2026-10-01**，指导价为厂商指导价口径；**终端成交价未纳入本次对比**，实际到店价可能有差异。\n- “配置当量”是按统一单价体系逐项折算的估价，用来横向比较配置含量，不等于厂商真实差价；61 项对标的完整判定可点开溯源查看。\n- 本次只看配置，**没有纳入智驾实际体验、可靠性与车主口碑**——零跑双车配置最强，但体验口碑需要单独核验。需要的话我可以接着拉这两台车的真实车主口碑做对照。",
+      "first_error_turn": 1
+    },
+    {
+      "task": "config-10",
+      "sessionId": "01a1963d-c810-7538-b223-3a979c346b70",
+      "dimension": "配置",
+      "question": "保时捷911的配置怎么样",
+      "repeat": 3,
+      "score": 3,
+      "reasons": [
+        "rubric[gap] 缺要素: url、不可复算"
+      ],
+      "rubric": {
+        "kind": "gap",
+        "checked": true,
+        "pass": false,
+        "cap": 3,
+        "present": [
+          "direction"
+        ],
+        "missing": [
+          "url",
+          "不可复算"
+        ]
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 3,
+        "consistent": true,
+        "steps": [
+          {
+            "from": 5,
+            "to": 3,
+            "reason": "rubric[gap] 缺要素: url、不可复算"
+          }
+        ]
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "55e2f47eaf799f669b2976ac00854662",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "保时捷911的配置怎么样"
+      ],
+      "tools": [
+        "resolve_series",
+        "search_cars",
+        "resolve_series",
+        "query_config",
+        "query_config",
+        "get_sales_detail",
+        "query_config",
+        "query_config",
+        "query_config",
+        "search_cars",
+        "get_trims",
+        "query_reviews",
+        "query_config",
+        "submit_conclusion",
+        "query_sales",
+        "query_sales",
+        "query_sales",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 54,
+        "tool_calls": 19,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 721,
+      "replyPreview": "**结论先说：保时捷 911 的逐项配置数据目前没有入库，所以给不了“配置怎么样”的对标判断。** 配置、口碑这两个维度你暂时都得先等数据补充。\n\n## 库里能确认的部分只有市场侧信息\n\n| 项目 |",
+      "reply_full": "**结论先说：保时捷 911 的逐项配置数据目前没有入库，所以给不了“配置怎么样”的对标判断。** 配置、口碑这两个维度你暂时都得先等数据补充。\n\n## 库里能确认的部分只有市场侧信息\n\n| 项目 | 数值 |\n|---|---|\n| 车系指导价区间 | 146.8 万 – 226.8 万元 |\n| 2026 年 8 月终端零售 | 76 台 |\n| 当月主力版型 | 26款 3.0T Carrera，64 台（占 84%） |\n| 其他有量的版型 | 25款 4.0 DCT 8 台、26款 3.0T Carrera T 4 台 |\n\n结构上的一个特点：走量几乎完全集中在 3.0T Carrera 单版型，4.0 自吸和 Carrera T 只是点缀，25 款处于清库尾声。\n\n## 缺什么，缺了会影响什么\n\n- **缺逐项配置**（座椅材质/轮胎规格/智驾硬件/车机芯片/隔音玻璃等）：没法判断它在 911 内部各版型之间怎么分档，也没法和同价位竞品做能力对标。能坐实它的是官方/之家配置表，需按版型逐个采集入库。\n- **缺口碑样本**：车主对舒适、隔音、日常可用性的真实反馈一条都没有，所以“配置好不好用”这类需求验证结论无法给。\n- **9 月零售尚未结算**：最新一个月数据还不完整，上面用的是 8 月完整口径。\n\n## 想继续，可选两条路\n\n1. 告诉我你最关心的配置点是哪几项（动力/座椅/智驾/车机），我按可查来源去补，并标明来源；\n2. 或者换成库内已有完整配置与口碑数据的车系做对比，我能直接出逐项配置差异和车主口碑分布。\n\n价格与销量数据口径：截至 2026 年 8 月末终端零售口径，指导价为车系在售版型区间。",
+      "first_error_turn": 1
+    },
+    {
+      "task": "reviews-03",
+      "sessionId": "01a1963e-9af2-7538-b223-3a988d0bbd50",
+      "dimension": "口碑",
+      "question": "海狮05 2026款的口碑如何",
+      "repeat": 3,
+      "score": 3,
+      "reasons": [
+        "truth 锚点全中(0)",
+        "rubric[elements] 缺要素: best、worst"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 0,
+        "missing": [],
+        "forbidHits": []
+      },
+      "rubric": {
+        "kind": "elements",
+        "checked": true,
+        "pass": false,
+        "cap": 3,
+        "present": [
+          "y2026",
+          "sample"
+        ],
+        "missing": [
+          "best",
+          "worst"
+        ],
+        "missingRequired": [],
+        "forbidHits": [],
+        "note": "要素不足"
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 3,
+        "consistent": true,
+        "steps": [
+          {
+            "from": 5,
+            "to": 3,
+            "reason": "rubric[elements] 缺要素: best、worst"
+          }
+        ]
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "9b8df070a4f4d92643132d4308db5d85",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ov",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ov",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : ask_user_que",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "[车系对象] 海狮05 在库里是两条独立车系（海狮05 DM-i / 海狮05 ",
+          "value": "1. 两条都看（对比） — DM-i 与 EV 各给一份口碑结论并做横向对比，篇幅较长但信息最全",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "[数据来源] 库内口碑样本暂未覆盖海狮05（车主评价库查不到该车系），改用什么方",
+          "value": "1. 全网社媒口碑深挖（推荐） — 抓抖音/小红书/微博/B站等真实车主发帖，逐条带链接溯源，交付带来源的调研结论",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : load_skill\ni",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_searc",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : social_post_",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "海狮05 2026款的口碑如何"
+      ],
+      "tools": [
+        "resolve_series",
+        "search_cars",
+        "resolve_series",
+        "resolve_series",
+        "query_reviews",
+        "query_reviews",
+        "query_reviews",
+        "query_config",
+        "query_reviews",
+        "sentiment_overview",
+        "query_sales",
+        "get_sales_detail",
+        "query_reviews",
+        "sentiment_overview",
+        "query_reviews",
+        "ask_user_question",
+        "load_skill",
+        "get_sales_detail",
+        "social_search",
+        "social_search",
+        "social_search",
+        "social_search",
+        "social_search",
+        "social_search",
+        "social_post_comments",
+        "social_post_comments",
+        "social_post_comments",
+        "social_post_comments",
+        "social_post_comments",
+        "social_post_comments"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 83,
+        "tool_calls": 37,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 3937,
+      "replyPreview": "## 海狮05 2026款口碑：两款车都表现“好开省钱”，但涉及高速和续航的短板差别很大\n\n**先说明一个前提**：车主口碑库目前没有收录海狮05（DM-i、EV 均无结构化评价样本），因此**无法提",
+      "reply_full": "## 海狮05 2026款口碑：两款车都表现“好开省钱”，但涉及高速和续航的短板差别很大\n\n**先说明一个前提**：车主口碑库目前没有收录海狮05（DM-i、EV 均无结构化评价样本），因此**无法提供可核算的整体好评率，也不做两车口碑的量化排名**。以下结论全部来自 2026-11-01 抓取的抖音、小红书、B站公开帖与评论区，其中既有真实车主，也有意向用户和媒体内容，数据以平台页面为准。\n\n**DM-i 与 EV 的共同点**：认可的好评点一致，都是“这个价位能给的配置多、好开灵活、用车成本低”；抱怨最集中的地方则各自落在自己的动力形式上：DM-i 落在**高速动力储备**，EV 落在**续航兑现**。\n\n---\n\n### 一、海狮05 DM-i（26款 220km / 305km）\n\n**车主认可的**\n- 可油可电、通勤用电成本低，长途没有里程焦虑 —— “提海狮05 DM-i满一个月，真实车主分享可油可电，家用大空间，通勤用电成本香，长途无焦虑”（抖音 · 2026-09-21 · https://www.douyin.com/video/7687866450056413922 ）\n- 好开、灵活 —— 评论区“真的好开，能接受车小内部空间大的绝对选海狮05没错，转弯掉头开着非常轻便灵活”（抖音 · 2026-05-01 · https://www.douyin.com/video/7634529921546010597 ）\n- 高速用油的费用确实低 —— 车主自述“5.15提的车…高速平均车速115用油每公里两毛七”（同上评论区 · 2026-09-01）\n- 亏电经济性 —— “买车后加了400块钱油…跑了600公里”（小红书 · 2026-10-07 · https://www.xiaohongshu.com/explore/6ac61cfb0000000018029d52 ）\n\n**车主抱怨的（按复现度排序）**\n1. **高速工况动力不足，个别反馈失速** —— 高赞帖直接劝退：“像我这种踩油狠又加速快，不是通勤出差就是开出省外的，真的看看别的车吧”（抖音 · 1299 赞 / 540 评论 · 2026-09-01 · https://www.douyin.com/video/7680465524787304561 ）；同帖评论区有车主称“我直接隧道里失速停车了，因为这个后边堵了好几公里”（2026-09-01）。也有人反驳，认为这属于驾驶习惯问题，不是车辆问题，但这仍是该车争议最集中的一项。\n2. **纯电续航兑现偏低** —— “我的海狮05-305续航，为什么实际续航才一百五六呢？”（抖音 · 2026-07-01 · 同上帖）；另一条评论则称“纯电续航6-7折，也正常”。\n3. **车漆薄、天幕晒** —— “26款海狮05缺点如下：1️⃣车漆特别薄…2️⃣天幕很晒”（小红书 · 2026-10-05 · https://www.xiaohongshu.com/explore/6ac3535a0000000002028988 ），评论区多人跟帖认同“车漆薄”；天幕问题另有专帖“海狮05天幕超级热！！！！”（321 条评论 · 2026-05-07 · https://www.xiaohongshu.com/explore/69fc4b8b0000000035021834 ）。\n4. **高速抖动、发飘（存在个体差异，尚未形成共识）** —— “26款海狮05ev提车一个月…高速100-120感觉车是那种一前一后的抖动”（2026-10-05 · https://www.xiaohongshu.com/explore/6ac3c878000000001802e79c ），评论里有“高速方向盘是真的抖动的厉害，手麻”，也有“我开150都不抖”。这更像批次或胎压、动平衡的问题，还需售后复核，不宜当作共性缺陷。\n5. **个案级品控** —— “26款海狮05dmi，220智航版…提车当日新车半路动力失效”（小红书 · 229 赞 · 2026-08-11 · https://www.xiaohongshu.com/explore/6a7af3750000000005020198 ）。目前可见的只是孤例加零散跟帖，**不构成规模性质量事件**。\n\n### 二、海狮05 EV（26款 540km / 630km）\n\n**车主认可的**\n- 颜值与转弯半径 —— “提车一个月…对这个车的颜值和用车体验都是很喜欢的，转弯半径小，掉头啥的特别方便”（小红书 · 2026-07-26 · https://www.xiaohongshu.com/explore/6a65828b000000000f01c2b8 ）\n- 闪充与电耗会随磨合改善 —— “提车一个半月了…26款海狮05ev电耗降下来了”（小红书 · 2026-09-11 · https://www.xiaohongshu.com/explore/6aa379350000000012002a41 ）\n\n**车主抱怨的（续航是压倒性话题）**\n1. **540km 版城区实际只有约 280–310km** —— “26款海狮05ev 540km续航实测…第一次跑了280km”（420 条评论 · 2026-06-20 · https://www.xiaohongshu.com/explore/6a368d68000000001102f0e3 ）；同帖评论区多人复现：“97到21，309公里”“25年7月买的现在只能跑250不到”。**这是复现度最高的一项。**\n2. **630km 版高速五到六折** —— “提车一周内开了三段高速，差不多都是打6折…销售说是打8折”（小红书 · 2026-10-27 · https://www.xiaohongshu.com/explore/6ae0ba900000000027021716 ）；评论区“开高速领航，续航达成率差不多68%”“120是要打五折的”“4折，高速120-150”，也有车主磨合两个月后回到“530到550”。\n3. **提车周期长、交付体验差** —— “等了两个多月的海狮05EV，终于提车了”（抖音 · 2026-09-28 · https://www.douyin.com/video/7690442156587215994 ）；“5.1号下单了中配26款海狮05ev，6月底了，车子杳无音讯…指标快过期了”（小红书 · 2026-07-03 · https://www.xiaohongshu.com/explore/6a47df2e000000001102cc77 ）。\n4. **个案故障** —— “刚提的26款海狮05EV，还不到48小时”出现电门异常（小红书 · 2026-09-01 · https://www.xiaohongshu.com/explore/6a967321000000002a02456c ）；另有“提车两周变故障车，低压供电系统故障”（2026-09-05 · https://www.xiaohongshu.com/explore/6a9bb08800000000110363d7 ）。均为单点个案。\n\n---\n\n### 三、26款特有的两个信号\n\n- **价格锚点（车主口述，未核验）**：DM-i 26款 305km 领航版有人报 11.79 万、220km 智航版落地集中在 11–12.2 万区间；EV 26款 540km 领航版车主自述 11.99 万（小红书 · 2026-10-21 · https://www.xiaohongshu.com/explore/6ad821cb00000000330293ed ）。这些是**车主自述的成交价**，包含置换或地方补贴差异，不能当作指导价使用。\n- **“25款不如26款”是社区共识**：评论区出现“25版没有26好”（抖音 · 2026-10-14 · https://www.douyin.com/video/7687866450056413922 ），主要因为 26款把纯电续航和闪充能力提升了一档。\n\n### 市场侧背景（库内数据，可核验）\n\n2026 年 8 月终端零售：DM-i **8,067 台**、EV **7,338 台**（截至 2026 年 8 月末，终端零售口径）。两款车 26款 均在 2026 年 4 月前后换代上量，销量目前处于稳态，口碑话题也主要集中在交付后 1–3 个月。需要说明：**市场表现不用于反推产品力**，销量高不代表口碑好。\n\n---\n\n### 数据缺口（缺什么能坐实）\n\n| 缺口 | 影响 | 缺什么能坐实 |\n|---|---|---|\n| 口碑库无海狮05 样本 | 无法给出整体好评率、无法做两车量化排名 | 补齐海狮05 DM-i/EV 的车主评价采集，才能按维度出 pro/con 占比 |\n| 无法按年款切分口碑 | 26款专属样本偏小，部分抱怨可能来自 25款 | 帖子须自述年款/提车日期，或按上市时间窗切分样本 |\n| 高速抖动、失速为个案 | 无法判定是共性缺陷还是批次/个案 | 售后工单或缺陷聚类数据支撑（≥3 例同工况复现） |\n\n要不要我再做一步：**深挖 2–3 位 26款真实车主**（还原决策链、对比淘汰车型、成交细节），或者把这份口碑整理成可溯源的表格交付？",
+      "first_error_turn": 1
+    },
+    {
+      "task": "multi-07",
+      "sessionId": "01a1963f-df12-7538-b223-3a9ba337e551",
+      "dimension": "多轮",
+      "question": "E5和B10的智能座舱口碑，加上风云T7的舆情，一起说说",
+      "repeat": 3,
+      "score": 2,
+      "reasons": [
+        "truth 缺锚: 418",
+        "truth[t1] 缺锚/违禁: 418、305、25"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 1,
+        "missing": [
+          "418"
+        ],
+        "forbidHits": []
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 2,
+        "consistent": true,
+        "steps": [
+          {
+            "from": 5,
+            "to": 2,
+            "reason": "truth 缺锚: 418"
+          }
+        ]
+      },
+      "perTurnTruth": [
+        {
+          "turn": 1,
+          "missing": [
+            "418",
+            "305",
+            "25"
+          ],
+          "forbidHits": []
+        }
+      ],
+      "turnVerdicts": [
+        "pass",
+        "pass"
+      ],
+      "traceId": "1bc701b82d90ca2def31f0236c91858b",
+      "carry": {
+        "from": 1,
+        "keys": [
+          "418"
+        ],
+        "results": [
+          {
+            "turn": 2,
+            "key": 418,
+            "status": "silent"
+          }
+        ],
+        "hasDrift": false
+      },
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : ask_user_que",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "[确认E5] 「E5」在库内对应 4 个车系，请确认要对比智能座舱口碑的是哪一款",
+          "value": "1. 银河E5（推荐） — 吉利银河E5，紧凑级纯电SUV，与零跑B10同级对位；最新月零售约4,436台",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ov",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_di",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_po",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_ev",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_tr",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : sentiment_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_revie",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "E5和B10的智能座舱口碑，加上风云T7的舆情，一起说说",
+        "把E5的智能座舱口碑展开讲讲"
+      ],
+      "tools": [
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "search_cars",
+        "search_cars",
+        "ask_user_question",
+        "resolve_series",
+        "resolve_series",
+        "query_reviews",
+        "query_reviews",
+        "sentiment_overview",
+        "query_reviews",
+        "query_reviews",
+        "sentiment_dimension",
+        "get_dimension_reviews",
+        "get_dimension_reviews",
+        "sentiment_posts",
+        "sentiment_events",
+        "search_reviews",
+        "search_reviews",
+        "sentiment_trend",
+        "sentiment_defects",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "search_reviews",
+        "search_reviews",
+        "submit_conclusion",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 94.4,
+        "tool_calls": 30,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 2014,
+      "replyPreview": "**一句话结论**：银河E5 的座舱在车主嘴里既受欢迎，又常被批评。车主夸它“好用顺手”，却批它“反应慢、不够聪明”：在车主口碑里，车机可用性和语音体验明显是加分项；但如果看车机和智能化这一类话题的讨",
+      "reply_full": "**一句话结论**：银河E5 的座舱在车主嘴里既受欢迎，又常被批评。车主夸它“好用顺手”，却批它“反应慢、不够聪明”：在车主口碑里，车机可用性和语音体验明显是加分项；但如果看车机和智能化这一类话题的讨论，它又显得最有争议——616 条相关讨论中 67.9% 是差评，好评率只有 32.1%；车主的不满大多集中在“启动等十几秒”和“功能不如预期”这两点上。\n\n## 一、先说它在全车里什么位置\n\n座舱不是银河E5 的招牌，也不是致命伤。它的招牌是空间（好评率极高）和外观；座舱恰好是少数净态度为负的维度之一。整体口碑评分仍然很高，说明多数车主是“能忍受、但不完全满意”的态度：**他们买这台车，主要不是为座舱买单，所以也就把座舱上的不理想当作可以接受的小遗憾。**\n\n有一个信号值得注意：口碑原文里提到“车机”的有 234 条、提到“语音”的 56 条、直接提到“卡”的只有 35 条。这说明**座舱话题热度不低，但真正描述“卡顿”的绝对量不大**——不满更多来自其他方面，纯流畅度问题相对少。\n\n## 二、车主真心夸的四件事\n\n这些夸赞具体到场景，比“流畅”两个字更有信息量：\n\n1. **语音是主要操作方式**：「车机反应很快，语音控制基本不用动手，导航音乐空调都是一句话的事」「语音控制反应也快，说一句调空调或者设导航，基本都能听懂」。\n2. **手机和车机之间的衔接做得细**：「我在手机上搜好的地址直接就能发到车机上，上车不用再输一遍」——这是容易被忽略、但用户感知极强的一处体验优势。\n3. **分屏让主驾和副驾互不干扰**：「老婆坐副驾刷视频，我开车用导航，两块任务互不干扰」。\n4. **场景模式能把这些功能组合起来**：「车机里的场景模式一键就能把座椅放倒，配合对外放电煮个茶烤个串」。\n\n一句话概括：**它的座舱赢在“日常高频动作很顺”，而不是“市面上最炫的配置”。**\n\n## 三、差评集中在三个问题\n\n**问题1：冷启动慢（最高频、最明显的痛点）**\n「车机刚启动那十几秒确实有点慢，倒车影像要等一会儿才出来，有时候赶时间急着倒车会有点急」「车机偶尔会卡一下，特别是刚启动那几十秒，倒车影像弹出来慢半拍」\n关键点：这个抱怨在 2026 款车主（610 星舰版、610 探索+版）里**依然出现**，说明它不是早期年款的偶发问题，而是没有随着年款更新彻底解决的常见现象。\n\n**问题2：功能“多”与“用得上”之间的落差**\n有车主反过来觉得功能太多：「车机功能对我来说有点多，很多用不上。平时就听听广播、看看倒车影像，其他那些在线视频、语音控制基本上不碰。屏幕反应偶尔会慢一下」。\n这条和第一条其实是同一个原因：**功能堆得多、开机要加载的东西多，于是启动就慢**；而且内容生态的深度（在线内容、应用）没跟上硬件配置，年轻用户觉得“不够智能”，年长用户觉得“太花哨”。两类人都没被完全照顾到。\n\n**问题3：边缘但会累积的小问题**\n语音识别偶尔失灵、OTA 节奏偏慢、辅助驾驶体验偏弱（在入门版型里，“辅助驾驶差”已经进入差评前列）。这些都不是高频问题，但会持续扣分，而且一旦和“你宣传的智能”对不上，就变成对品牌信任的伤害。\n\n## 四、一个容易被忽略的分层\n\n同一套车机，两类车主的评价几乎相反：\n- **首购或换电车的用户**更宽容：「这套车机在十万出头的价位里，属于那种用惯了就不想换回去的水平」；\n- **油车换购的年长用户**更挑剔：他们要的是“稳定的收音机+清晰的倒车影像”，多出来的功能反而成了负担。\n\n**银河E5 的座舱问题不是“做得不好”，而是“用户画像太宽，一套方案覆盖不了两端”。**\n\n## 五、如果要改，优先级如下（我的判断，非车主结论）\n\n1. **冷启动与倒车影像唤醒**——只有这一个痛点是跨年款、跨地区、跨人群反复出现的，投入产出比最高；它不增加功能，只让已有功能更早可用。\n2. **让功能默认更精简**——首屏只放高频项，在线内容和语音的深度能力放进第二层，减少“加载造成的慢”和“花哨带来的反感”。\n3. **OTA 期许管理**——车主对“智能”的期待是被宣传拉高的，一旦承诺就按节奏兑现，否则差评会转移到“智能化不足”这个标签上。\n\n## 六、数据缺口（如实说明）\n\n- 座舱硬件规格（芯片、屏幕、内存）本次未纳入对比，所以“卡顿是算力不够还是软件调度问题”无法判断；\n- “冷启动十几秒”是车主的主观描述，没有可复算的实测数据；\n- 年款和版型之间的座舱评分差异，本次没能取得可复算引用，只作定性参考，不用于排名。\n\n## 口径说明\n\n数据来自汽车之家车主口碑，1,187 条样本，覆盖 2024 年 7 月至 2026 年 9 月末；统计时点为 2026-10-07。好评率按“好评标签数 ÷（好评+差评）”计算，座舱话题对应口碑口径中的“智能化”维度。",
+      "first_error_turn": 1
+    },
+    {
+      "task": "multi-10",
+      "sessionId": "01a19642-92c2-7538-b223-3a9e57528463",
+      "dimension": "多轮",
+      "question": "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？",
+      "repeat": 3,
+      "score": 5,
+      "reasons": [
+        "truth 锚点全中(0)"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 0,
+        "missing": [],
+        "forbidHits": []
+      },
+      "deduction_trace": {
+        "base": 5,
+        "computed": 5,
+        "consistent": true,
+        "steps": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass",
+        "pass"
+      ],
+      "traceId": "906d1f0d9e5061f186151d22ebd17ce6",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_config",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_review_a",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_review",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_dimensio",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_config_d",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "Permission Required\ntool  : ask_user_que",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 2,
+          "method": "select",
+          "title": "[分析对象] 要继续分析哪款车？（可直接在下方输入车系名，如\"银河E5\"）",
+          "value": "1. 按车系名继续（推荐） — 你输入车系名，我核验对象身份后按 配置→口碑→销量 顺序把三维度补齐再给结论",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "分析银河E5的三维度（配置/口碑/销量），舒适性是否为结构性短板？",
+        "继续上次的分析"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_config",
+        "get_review_analysis",
+        "query_sales",
+        "query_reviews",
+        "get_dimension_reviews",
+        "get_trims",
+        "get_config_detail",
+        "query_sales",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "submit_conclusion",
+        "ask_user_question"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 92.8,
+        "tool_calls": 19,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 178,
+      "replyPreview": "我这边是新会话，看不到上次的分析记录（历史不跨会话继承）。请告诉我继续的对象，我核验车系身份后接着推进。收到。请把车系名发我（一个词就行，如「银河E5」）——我核验对象身份后，按 **配置 → 口碑 ",
+      "reply_full": "我这边是新会话，看不到上次的分析记录（历史不跨会话继承）。请告诉我继续的对象，我核验车系身份后接着推进。收到。请把车系名发我（一个词就行，如「银河E5」）——我核验对象身份后，按 **配置 → 口碑 → 销量** 的顺序把三维度补齐，再给结论。\n\n如果上次分析里有你特别关心的点（比如某个配置差异、某维度差评原因、某月销量波动），一并说一下，我优先攻那块。",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-11-01T08-16-56-061Z",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "013fd93c7076679336361c9eaf57f84b5e4ad6d2",
+    "set_composition": {
+      "dev": 18,
+      "frozen": 3,
+      "blind": 0,
+      "other": 0,
+      "total": 21
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 3.761904761904762,
+    "passCount": 11,
+    "trapBlockedCount": 3,
+    "trap_total": 3,
+    "anchored": {
+      "total": 21,
+      "pass": 11,
+      "pass_rate": 0.5238095238095238,
+      "avg": 3.76
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "repeat": {
+      "k": 3,
+      "k_total": 7,
+      "k_pass": 3,
+      "k_pass_rate": 0.42857142857142855,
+      "inconsistent": [
+        "config-07(分差0,verdictpass)",
+        "config-10(分差0,verdictpass)",
+        "reviews-03(分差2,verdictpass)",
+        "multi-07(分差0,verdictpass)"
+      ]
+    },
+    "pass_at_k": {
+      "k": 3,
+      "tasks": 7,
+      "pass": 4,
+      "rate": 0.5714285714285714,
+      "missed": [
+        "config-07",
+        "config-10",
+        "multi-07"
+      ]
+    },
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 21,
+      "covered": 21,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 9,
+      "fail": 1,
+      "failTasks": [
+        "multi-07"
+      ]
+    },
+    "regression": {
+      "baseline_run_id": "eval-2026-10-31T15-51-26-580Z",
+      "task_overlap": 7,
+      "pass_rate": {
+        "current": 0.5714,
+        "baseline": 0,
+        "delta": 0.5714
+      },
+      "anchored_pass_rate": {
+        "total": 7,
+        "current": 0.5714,
+        "baseline": 0,
+        "delta": 0.5714
+      },
+      "regressed_tasks": [],
+      "consecutive_failures": [
+        "config-07",
+        "config-10",
+        "multi-07"
+      ],
+      "alerts": [
+        "still_failing:config-07",
+        "still_failing:config-10",
+        "still_failing:multi-07"
+      ],
+      "alerted": true,
+      "baseline_path": "C:\\Users\\<you>\\Desktop\\Prism-Agent\\eval\\reports\\eval-2026-10-31T15-51-26-580Z.json"
+    }
+  },
+  "release_gate": {
+    "baseline": "eval-2026-10-31T15-51-26-580Z",
+    "candidate": "eval-2026-11-01T08-16-56-061Z",
+    "paired_n": 7,
+    "baseline_only": 56,
+    "candidate_only": 0,
+    "conditions": {
+      "veto_zero": {
+        "met": true,
+        "detail": "trap 1/1 拦截"
+      },
+      "wilcoxon_significant": {
+        "met": false,
+        "detail": "p=None, delta=0.5714285714285714, |delta|=0.5714285714285714",
+        "wilcoxon": {
+          "w": 0,
+          "p_value": null,
+          "n": 4,
+          "w_plus": 10,
+          "w_minus": 0,
+          "note": "n<10 用精确表"
+        },
+        "cliffs": {
+          "delta": 0.5714285714285714,
+          "abs": 0.5714285714285714,
+          "interpretation": "large",
+          "n": 49
+        }
+      },
+      "retention_ci_positive": {
+        "met": true,
+        "detail": "frozen n=1, ci_low=3.000",
+        "ci": {
+          "mean": 3,
+          "ci_low": 3,
+          "ci_high": 3,
+          "n": 1,
+          "confidence": 0.95
+        }
+      },
+      "cost_under_budget": {
+        "met": true,
+        "detail": "ci_high=84.7s < 预算 300.0s（duration 兜底口径）",
+        "ci": {
+          "mean": 60.41428571428571,
+          "ci_low": 36.18571428571429,
+          "ci_high": 84.72857142857143,
+          "n": 7,
+          "confidence": 0.95
+        },
+        "budget": 300
+      }
+    },
+    "pass_all": false,
+    "notes": [
+      "Wilcoxon n=4<10 无 p 值（精确表未实现），条件2 按不满足处理",
+      "成本口径=duration_s 兜底（n=7/7 题有值，token 台账缺）"
+    ],
+    "gate_file": "eval/reports/gate-eval-2026-11-01T08-16-56-061Z-r3.json",
+    "baseline_source": "auto"
+  }
+}

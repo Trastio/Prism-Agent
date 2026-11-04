@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>北极星看板 · 运营 · Prism-Agent Ops</title>
+<style>
+/* Prism-Agent Ops · 内嵌样式（自 prism-web/src/styles.css 抽取的令牌段 + 手写等价补齐） */
+:root{
+  --bg:#fafaf7; --surface:#ffffff; --panel:#f4f1ec; --grid:#f0ece5; --border:#e7e5e0;
+  --ink:#15140f; --ink-2:#5a564e; --ink-3:#7a7670;
+  --accent:#b85638; --accent-d:#a44f33; --accent-bg:#fdf4ef;
+  --pos:#2348b8;  /* 正面=蓝 */
+  --neg:#9c2a25;  /* 负面=红 */
+  --warn:#b58a1a; --info:#3a6ea5; --xt:#7C3AED;
+  --radius:16px; --radius-sm:10px; --radius-pill:999px;
+  --shadow-hair:0 1px 0 var(--grid);
+  --shadow-md:0 2px 8px rgba(21,20,15,.06);
+  --shadow-lg:0 12px 30px -26px rgba(0,0,0,.5);
+  --font-ui:Inter,"Noto Sans SC",system-ui,"Microsoft YaHei",sans-serif;
+  --font-display:"Bodoni Moda",Didot,Georgia,"Songti SC",SimSun,serif;
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;background:var(--bg);color:var(--ink);
+  font-family:var(--font-ui);font-size:14px;line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+button{font-family:inherit;color:inherit;cursor:pointer}
+h1,h2,h3{margin:0;font-weight:600}
+svg{display:block}
+[hidden]{display:none !important}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+/* ---- board 外壳 ---- */
+.board-bar{
+  display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;
+  padding:11px 24px;background:var(--bg);border-bottom:1px solid var(--border);
+}
+.bar-left{display:flex;align-items:center;gap:12px;min-width:0}
+.bar-brand{display:inline-flex;align-items:center;gap:7px;font-size:12px;letter-spacing:.04em;color:var(--ink-3);white-space:nowrap}
+.bar-brand .dot-mark{width:10px;height:10px;transform:rotate(45deg);background:var(--accent);border-radius:2px;flex:none}
+.bar-right{display:flex;align-items:center;gap:10px}
+.bar-meta{font-size:11.5px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.range-switch{display:inline-flex;align-items:center;gap:2px;padding:2px;background:var(--panel);border:1px solid var(--border);border-radius:var(--radius-pill)}
+.range-btn{height:24px;padding:0 10px;border:0;background:transparent;border-radius:var(--radius-pill);font-size:11.5px;color:var(--ink-2)}
+.range-btn.is-active{background:var(--surface);color:var(--ink);box-shadow:var(--shadow-hair)}
+.range-btn:hover{color:var(--ink)}
+.board-scroll{overflow-y:auto;min-height:0;padding:24px 24px 30px}
+.board{display:none;max-width:1240px;margin:0 auto}
+.board.is-active{display:block}
+.board-head{margin-bottom:18px}
+.eyebrow{
+  font-family:var(--font-display);font-size:11px;letter-spacing:.22em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:6px;
+}
+.board-title{font-size:23px;line-height:1.35;letter-spacing:-.01em}
+.board-desc{margin:6px 0 0;max-width:64ch;font-size:13px;color:var(--ink-2)}
+
+/* ---- 错误横幅（手写等价：MetricsView 错误行的横幅化） ---- */
+.err-banner{
+  display:flex;align-items:center;gap:10px;padding:11px 14px;margin-bottom:14px;
+  background:#fdf2f2;border:1px solid #eccdca;border-left:4px solid var(--neg);
+  border-radius:var(--radius-sm);font-size:13px;color:var(--neg);
+}
+
+/* ---- KPI ---- */
+.kpi-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px;margin-bottom:18px}
+.kpi{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px 15px;box-shadow:var(--shadow-hair)}
+.kpi-label{font-size:11.5px;color:var(--ink-3);letter-spacing:.02em}
+.kpi-value{margin-top:6px;font-size:28px;line-height:1.12;font-weight:600;font-variant-numeric:tabular-nums}
+.kpi-unit{margin-left:5px;font-size:12.5px;font-weight:400;color:var(--ink-3)}
+.kpi-sub{display:flex;gap:14px;margin-top:9px;font-size:11.5px;color:var(--ink-3);flex-wrap:wrap}
+.kpi-sub b{color:var(--ink-2);font-weight:600;font-variant-numeric:tabular-nums}
+.kpi-foot{display:flex;align-items:center;gap:8px;margin-top:8px;font-size:11.5px;color:var(--ink-3);flex-wrap:wrap}
+
+/* ---- 卡片 ---- */
+.card{
+  background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);
+  padding:17px 18px;box-shadow:var(--shadow-hair);
+}
+.card-head{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:13px}
+.card-title{font-size:13.5px;letter-spacing:.01em}
+.card-meta{font-size:11px;color:var(--ink-3);font-variant-numeric:tabular-nums;text-align:right;line-height:1.5}
+.charts-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(360px,1fr));gap:18px;margin-bottom:18px}
+.quad-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:16px}
+.quad-cell{border:1px solid var(--border);border-radius:var(--radius-sm);padding:12px 14px;cursor:pointer;transition:border-color .16s ease,background .16s ease}
+.quad-cell:hover{border-color:var(--accent)}
+.quad-cell.is-sel{border-color:var(--accent);background:var(--accent-bg)}
+.quad-num{font-size:26px;font-weight:600;font-variant-numeric:tabular-nums}
+.quad-desc{font-size:11.5px;color:var(--ink-3);margin-top:6px}
+
+/* ---- 图表 ---- */
+.chart{display:block;width:100%;height:auto}
+.chart-grid{stroke:var(--grid);stroke-width:1;stroke-dasharray:2 5}
+.chart-axis{fill:var(--ink-3);font-size:10.5px;font-family:var(--font-ui)}
+.chart-line{fill:none;stroke:var(--accent);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.chart-dot{fill:var(--surface);stroke:var(--accent);stroke-width:2.2}
+.chart-bar{fill:var(--pos);opacity:.30}
+.chart-bar.is-peak{opacity:1}
+.chart-line-xt{fill:none;stroke:var(--xt);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.chart-dot-xt{fill:var(--surface);stroke:var(--xt);stroke-width:2.2}
+/* 数值标签（2026-10-26）：白描边垫底，压线也读得清 */
+.chart-point-label{
+  fill:var(--ink-2);font-size:9.5px;font-family:var(--font-ui);font-variant-numeric:tabular-nums;
+  paint-order:stroke;stroke:var(--surface);stroke-width:2.5;stroke-linejoin:round;
+}
+.chart-point-label.is-xt{fill:var(--xt)}
+.chart-point-label.is-peak{fill:var(--pos);font-weight:600}
+.legend{display:flex;align-items:center;gap:16px;margin-top:10px;font-size:11.5px;color:var(--ink-3)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* ---- 图表交互外壳（滚轮缩放 / 拖拽平移 / 双击还原） ---- */
+.chart-shell{position:relative;aspect-ratio:560/180;user-select:none;cursor:grab;touch-action:none;overflow:hidden}
+.chart-shell.is-drag{cursor:grabbing}
+.chart-canvas{width:100%;height:100%}
+.chart-shell svg.chart{width:100%;height:100%}
+.chart-reset{
+  position:absolute;top:0;right:0;z-index:2;height:20px;padding:0 9px;
+  border:1px solid var(--border);border-radius:var(--radius-pill);background:var(--surface);
+  color:var(--ink-3);font-size:10.5px;opacity:0;transition:opacity .16s ease;
+}
+.chart-shell:hover .chart-reset{opacity:1}
+.chart-reset:hover{color:var(--ink)}
+
+/* ---- tag ---- */
+.tag{
+  display:inline-flex;align-items:center;height:22px;padding:0 9px;border-radius:6px;font-size:11px;
+  border:1px solid var(--border);color:var(--ink-2);background:var(--surface);white-space:nowrap;
+}
+.tag-pos{color:var(--pos);border-color:#ccd7f2;background:#eef2fc}
+.tag-neg{color:var(--neg);border-color:#eccdca;background:#fdf2f2}
+.tag-warn{color:var(--warn);border-color:#ecdcb0;background:#fdf8ea}
+.tag-xt{color:var(--xt);border-color:#e0d2fb;background:#f7f2ff}
+.tag-accent{color:var(--accent);border-color:#f0d8cd;background:var(--accent-bg)}
+
+/* ---- 表格 ---- */
+table{width:100%;border-collapse:collapse;font-size:12.5px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--border);white-space:normal}
+th{font-size:11.5px;font-weight:500;letter-spacing:.02em;color:var(--ink-3);background:var(--panel)}
+tbody tr:last-child td{border-bottom:0}
+tbody tr:hover{background:var(--panel)}
+.table-scroll{overflow-x:auto}
+tbody tr.row-click{cursor:pointer}
+.cell-preview{max-width:320px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cell-mono{font-family:var(--font-ui)}
+
+/* ---- 抽屉 ---- */
+.drawer-scrim{
+  position:fixed;inset:0;background:rgba(21,20,15,.18);opacity:0;pointer-events:none;
+  transition:opacity .2s ease;z-index:40;
+}
+.drawer-scrim.is-open{opacity:1;pointer-events:auto}
+.drawer{
+  position:fixed;top:0;right:0;height:100vh;width:400px;max-width:92vw;z-index:50;
+  background:var(--surface);border-left:1px solid var(--border);box-shadow:var(--shadow-lg);
+  transform:translateX(102%);transition:transform .24s cubic-bezier(.32,.72,0,1);
+  display:flex;flex-direction:column;
+}
+.drawer.is-open{transform:translateX(0)}
+.drawer-head{display:flex;align-items:center;gap:10px;padding:14px 18px;border-bottom:1px solid var(--border)}
+.drawer-title{flex:1;font-size:14px}
+.drawer-body{flex:1;overflow-y:auto;padding:16px 18px;display:flex;flex-direction:column;gap:14px}
+.drawer-kv{display:flex;flex-direction:column;gap:10px;margin:0}
+.drawer-kv dt{color:var(--ink-3);flex:none;width:110px}
+.drawer-kv dd{margin:0;color:var(--ink-2);word-break:break-all;font-variant-numeric:tabular-nums}
+.drawer-kv .row{display:flex;gap:12px;font-size:12px;line-height:1.6}
+.drawer-block{margin-top:14px}
+.concl-full{white-space:pre-wrap;font-size:12.5px;line-height:1.7;margin-top:6px}
+.tool-tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+
+/* ---- icon-btn ---- */
+.icon-btn{
+  display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;
+  border:1px solid transparent;border-radius:9px;background:transparent;color:var(--ink-2);
+  transition:background .16s ease,color .16s ease,border-color .16s ease;
+}
+.icon-btn:hover{background:var(--surface);color:var(--ink)}
+.icon-btn svg{width:15px;height:15px}
+
+/* ---- 页脚：数据质量角标 + 可折叠口径（2026-10-26：拆出页脚长段，不再一段密文） ---- */
+.foot-block{
+  margin-top:18px;padding-top:12px;border-top:1px solid var(--border);
+  display:flex;flex-direction:column;gap:10px;
+}
+.foot-quality{display:flex;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px;color:var(--ink-2)}
+.foot-quality-title{font-size:11.5px;letter-spacing:.04em;color:var(--ink-3)}
+.foot-quality-note{font-size:11.5px;color:var(--ink-3);max-width:80ch}
+.foot-details{font-size:12px;color:var(--ink-3)}
+.foot-summary{cursor:pointer;font-size:11.5px;color:var(--ink-2);width:fit-content;padding:2px 0}
+.foot-summary:hover{color:var(--ink)}
+.foot-list{
+  margin:9px 0 0;padding-left:16px;display:flex;flex-direction:column;gap:5px;
+  line-height:1.65;max-width:88ch;
+}
+.foot-list b{color:var(--ink-2);font-weight:600;margin-right:7px}
+
+/* ---- 响应式 ---- */
+@media (max-width:1180px){
+  .kpi-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:900px){
+  .kpi-grid{grid-template-columns:minmax(0,1fr)}
+  .board-bar{padding-left:16px;padding-right:16px}
+  .board-scroll{padding-left:16px;padding-right:16px}
+  .bar-right{width:100%}
+}
+.sys-health{margin:0;padding:7px 24px;font-size:12.5px;line-height:1.5;border-bottom:1px solid var(--border)}
+.sys-health.is-ok{color:var(--ink-3);background:var(--bg)}
+.sys-health.is-bad{color:#9c2a25;background:#fdf3f2}
+</style>
+</head>
+<body>
+
+<div id="sysHealth" class="sys-health" hidden></div>
+
+<header class="board-bar">
+  <div class="bar-left">
+    <span class="bar-brand"><span class="dot-mark"></span>北极星看板 · 运营</span>
+  </div>
+  <div class="bar-right">
+    <div class="range-switch" id="rangeSwitch" role="group" aria-label="趋势与四象限范围">
+      <button class="range-btn" data-days="1">24h</button>
+      <button class="range-btn" data-days="7">7天</button>
+      <button class="range-btn is-active" data-days="14">14天</button>
+    </div>
+    <span class="bar-meta">30s 自动刷新</span>
+    <button class="icon-btn" id="btnRefresh" title="手动刷新" aria-label="手动刷新">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12a9 9 0 1 1-2.64-6.36"/><path d="M21 3v6h-6"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="board-scroll">
+  <div class="board is-active">
+    <div class="err-banner" id="errBanner" hidden></div>
+
+    <div class="board-head">
+      <div class="eyebrow">NORTH STAR</div>
+      <h1 class="board-title">北极星指标</h1>
+      <p class="board-desc">自家产品的用户行为：活跃（DAU/WAU/黏性）、交付（过闸结论数/交付率）、深度（人均结论/每人轮数）、时延。口径见页脚。</p>
+    </div>
+
+    <div class="kpi-grid" id="kpiGrid">
+      <p class="board-desc">加载中…</p>
+    </div>
+
+    <div class="charts-grid">
+      <div class="card">
+        <div class="card-head"><div class="card-title">DAU 双线</div><div class="card-meta" id="dauMeta">近14天</div></div>
+        <div class="chart-shell" data-chart="dau" title="滚轮缩放 · 拖拽平移 · 双击还原">
+          <button class="chart-reset" type="button" hidden>还原</button>
+          <div id="dauChart" class="chart-canvas"><p class="board-desc">加载中…</p></div>
+        </div>
+        <div class="legend">
+          <span><i style="background:var(--accent)"></i>看板 DAU</span>
+          <span><i style="background:var(--xt)"></i>对话 DAU</span>
+          <span>滚轮缩放 · 拖拽平移</span>
+        </div>
+      </div>
+      <div class="card">
+        <div class="card-head"><div class="card-title">每日结论数</div><div class="card-meta" id="conclMeta">近14天</div></div>
+        <div class="chart-shell" data-chart="concl" title="滚轮缩放 · 拖拽平移 · 双击还原">
+          <button class="chart-reset" type="button" hidden>还原</button>
+          <div id="conclChart" class="chart-canvas"><p class="board-desc">加载中…</p></div>
+        </div>
+        <div class="legend">
+          <span><i style="background:var(--pos)"></i>每日交付结论（过闸，会话级）</span>
+          <span class="tag tag-warn" id="noDataTag" hidden>区间无数据</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-head"><div class="card-title">badcase 四象限</div><div class="card-meta" id="quadMeta"></div></div>
+      <div class="quad-grid" id="quadGrid"><p class="board-desc">加载中…</p></div>
+      <div class="table-scroll" id="quadTableWrap"><p class="board-desc">加载中…</p></div>
+    </div>
+
+    <!-- 用户反馈（2026-11-04）：主站右下角入口提交 → 此处只读明细（最近 100 条） -->
+    <div class="card">
+      <div class="card-head"><div class="card-title">用户反馈</div><div class="card-meta" id="fbMeta">加载中…</div></div>
+      <div class="table-scroll" id="fbTableWrap"><p class="board-desc">加载中…</p></div>
+    </div>
+
+    <!-- 页脚（2026-10-26：原「测试过滤角标 + 口径长文」挤在一段里 → 拆成质量行 + 折叠口径） -->
+    <div class="foot-block">
+      <div class="foot-quality" id="footQuality" hidden>
+        <span class="foot-quality-title">数据质量</span>
+        <span class="tag tag-warn" id="testBadge"></span>
+        <span class="foot-quality-note">测试过滤：开发期/遗留的非标准会话（session_id 非标准 UUID）不计入结论数、采纳率与四象限</span>
+      </div>
+      <details class="foot-details" id="footNote">
+        <summary class="foot-summary">口径与交互说明</summary>
+        <ul class="foot-list">
+          <li><b>时间起点</b>行为数据自 2026-10-06 起；结论埋点自 2026-10-13 起</li>
+          <li><b>活跃</b>DAU=近24h 去重；周活跃 WAU=近7天任意事件去重；黏性=24hDAU÷WAU</li>
+          <li><b>交付</b>周交付结论数=近7天有「过闸结论」的会话去重（conclusion_emitted=ok，会话级归一）；交付率=交付结论会话÷终轮会话</li>
+          <li><b>时延</b>轮时长=settled 配对其前最近 chat_start（&gt;15 分钟的跨天配对已排除）</li>
+          <li><b>反馈</b>点踩按会话归属终轮（同会话多次分别累计）</li>
+          <li><b>用户标识</b>local_id 为浏览器本地自报，清缓存会重计</li>
+          <li><b>图表交互</b>滚轮缩放 / 拖拽平移 / 双击还原</li>
+          <li><b>坏例子</b>处置流程见 eval/badcases.md（判断三问：谁说了算 / 可复现吗 / 红线级吗）</li>
+        </ul>
+      </details>
+    </div>
+  </div>
+</div>
+
+<div class="drawer-scrim" id="drawerScrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <button class="icon-btn" id="btnClose" aria-label="关闭">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18M6 6l12 12"/></svg>
+    </button>
+    <div class="drawer-title" id="drawerTitle">会话回放 · —</div>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
+
+<script>
+'use strict';
+/* 北极星看板单页（prism-ops:8020）——功能对照主站 MetricsView.tsx/BadCaseDrawer.tsx 移植（2026-10-13） */
+var REFRESH_MS = 30000;
+
+/* 统一 fetch：非 2xx 抛错 → 错误横幅（Step8 P2-1：错误不吞，UI 可见） */
+function jfetch(url, tag) {
+  return fetch(url).then(function (r) {
+    if (!r.ok) throw new Error(tag + ' ' + r.status);
+    return r.json();
+  });
+}
+
+function esc(s) {
+  return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) {
+    return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c];
+  });
+}
+
+/* last_ts 本地化展示（Step8 P2-6：入库全 UTC，与 trends 本地日分桶对齐观感） */
+function fmtLocal(ts) {
+  if (!ts) return '—';
+  var d = new Date(/Z|[+]/.test(ts) ? ts : ts + 'Z');
+  return isNaN(d.getTime())
+    ? ts.replace('T', ' ').slice(5, 16)
+    : d.toLocaleString('zh-CN', { month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit' });
+}
+
+function fmtMs(ms) {
+  if (ms == null) return '—';
+  return ms >= 60000 ? (ms / 60000).toFixed(1) + '分' : (ms / 1000).toFixed(0) + '秒';
+}
+function fmtRate(r) {
+  return r == null ? '—' : (r * 100).toFixed(1) + '%';
+}
+/* 会话 id 展示：标准 UUID 取前 8；非标准（时间戳/测试）取末尾段或截断 */
+function shortSid(sid) {
+  sid = String(sid == null ? '' : sid);
+  if (!sid) return '—';
+  if (/^[0-9a-f]{8}-/.test(sid)) return sid.slice(0, 8);
+  var tail = sid.split('_').pop();
+  if (/^[0-9a-f]{8}-/.test(tail)) return tail.slice(0, 8);
+  return sid.length > 12 ? sid.slice(0, 12) + '…' : sid;
+}
+/* 结论预览清 markdown 标记（表内单行预览用；抽屉全文保留原样） */
+function stripMd(s) {
+  return String(s == null ? '' : s)
+    .replace(/\*\*/g, '').replace(/`/g, '')
+    .replace(/^#{1,6}\s*/gm, '').replace(/^\s*[-*]\s+/gm, '')
+    .replace(/\s+/g, ' ').trim();
+}
+
+/* ---- KPI（4 聚合卡：广度 / 留存 / 产品北极星 / 使用强度） ---- */
+function renderStats(s) {
+  var ad = s.adoption || {};
+  var cards = [
+    { label: '活跃用户', value: s.total_dau, unit: '人',
+      sub: [['看板', s.dau], ['对话', s.chat_dau]], foot: '近24h 去重' },
+    { label: '周活跃', value: s.wau, unit: '人',
+      sub: [['黏性', fmtRate(s.stickiness)]], foot: '近7天 去重 · 黏性=24hDAU÷WAU' },
+    { label: '周交付结论数', value: s.weekly_conclusions, unit: '条',
+      sub: [['采纳率', fmtRate(ad.up_rate)], ['交付率', fmtRate(s.delivery_rate)]],
+      foot: '近7天 · 过闸结论（会话级）' },
+    { label: '每人轮数', value: s.per_user_turns == null ? '—' : s.per_user_turns,
+      sub: [['人均结论', s.per_user == null ? '—' : s.per_user], ['轮时长中位', fmtMs(s.latency ? s.latency.median_ms : null)]],
+      foot: '近7天 ÷ 周活跃 · P90 ' + fmtMs(s.latency ? s.latency.p90_ms : null) },
+  ];
+  document.getElementById('kpiGrid').innerHTML = cards.map(function (c) {
+    var unit = c.unit ? '<span class="kpi-unit">' + esc(c.unit) + '</span>' : '';
+    var subs = (c.sub || []).map(function (p) {
+      return '<span>' + esc(p[0]) + ' <b>' + esc(p[1]) + '</b></span>';
+    }).join('');
+    return '<div class="kpi"><div class="kpi-label">' + esc(c.label) + '</div>' +
+      '<div class="kpi-value">' + esc(c.value) + unit + '</div>' +
+      (subs ? '<div class="kpi-sub">' + subs + '</div>' : '') +
+      '<div class="kpi-foot">' + esc(c.foot) + '</div></div>';
+  }).join('');
+  renderTestBadge(s.test_filter);
+}
+
+/* 测试数据角标（透明：告诉管理者被剔除了多少非标准会话）
+ * 2026-10-26：角标与所在「数据质量」行一起显隐（未启用过滤时整行不占位） */
+function renderTestBadge(tf) {
+  var el = document.getElementById('testBadge');
+  var row = document.getElementById('footQuality');
+  if (!el) return;
+  if (!tf || !tf.enabled) {
+    el.hidden = true;
+    if (row) row.hidden = true;
+    return;
+  }
+  el.hidden = false;
+  if (row) row.hidden = false;
+  el.textContent = '已剔除 ' + (tf.excluded_sessions || 0) + ' 个非标准会话（近7天）';
+}
+
+/* ---- DAU 双线 SVG（照 MetricsView DauChart 数学；2026-10-26 补点位数值） ---- */
+function dauSvg(days) {
+  var W = 560, H = 180, L = 30, R = 10, T = 20, B = 34;   // H/T/B 调整：给点位上下的数值标签留空间（底部不压日期轴）
+  var iw = W - L - R, ih = H - T - B;
+  var max = Math.max.apply(null, [1].concat(days.map(function (d) { return Math.max(d.board_dau, d.chat_dau); })));
+  var x = function (i) { return L + (days.length <= 1 ? iw / 2 : (i / (days.length - 1)) * iw); };
+  var y = function (v) { return T + ih - (v / max) * ih; };
+  var line = function (key) {
+    return days.map(function (d, i) { return (i ? 'L' : 'M') + x(i).toFixed(1) + ',' + y(d[key]).toFixed(1); }).join('');
+  };
+  var out = '<svg class="chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="DAU 双线趋势">';
+  [0, 0.5, 1].forEach(function (p) {
+    out += '<line class="chart-grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + (T + ih - p * ih) + '" y2="' + (T + ih - p * ih) + '"/>';
+  });
+  [0, max].forEach(function (v) {
+    out += '<text class="chart-axis" x="' + (L - 6) + '" y="' + (T + ih - (v / max) * ih + 3) + '" text-anchor="end">' + Math.round(v) + '</text>';
+  });
+  out += '<path class="chart-line" d="' + line('board_dau') + '"/>';
+  out += '<path class="chart-line-xt" d="' + line('chat_dau') + '"/>';
+  days.forEach(function (d, i) {
+    out += '<circle class="chart-dot" cx="' + x(i) + '" cy="' + y(d.board_dau) + '" r="2.6"/>';
+    out += '<circle class="chart-dot-xt" cx="' + x(i) + '" cy="' + y(d.chat_dau) + '" r="2.6"/>';
+  });
+  /* 数值标签：看板 DAU 标点上方、对话 DAU 标点下方（两线贴近时不互相压字）；
+   * 贴底（近 0 值）的对话标签改放点上方，避免数字掉到 0 轴之外；两线同为 0 时只留一个「0」防叠印 */
+  var plotBottom = T + ih;
+  days.forEach(function (d, i) {
+    var by = y(d.board_dau), cy = y(d.chat_dau);
+    out += '<text class="chart-point-label" x="' + x(i).toFixed(1) + '" y="' + (by - 6).toFixed(1) +
+      '" text-anchor="middle">' + Math.round(d.board_dau) + '</text>';
+    if (cy + 11 > plotBottom) {
+      if (!(d.chat_dau === 0 && d.board_dau === 0)) {
+        out += '<text class="chart-point-label is-xt" x="' + x(i).toFixed(1) + '" y="' + (cy - 6).toFixed(1) +
+          '" text-anchor="middle">' + Math.round(d.chat_dau) + '</text>';
+      }
+    } else {
+      out += '<text class="chart-point-label is-xt" x="' + x(i).toFixed(1) + '" y="' + (cy + 11).toFixed(1) +
+        '" text-anchor="middle">' + Math.round(d.chat_dau) + '</text>';
+    }
+  });
+  out += '<text class="chart-axis" x="' + L + '" y="' + (H - 8) + '">' + esc((days[0] ? days[0].date : '').slice(5)) + '</text>';
+  out += '<text class="chart-axis" x="' + (W - R) + '" y="' + (H - 8) + '" text-anchor="end">' + esc((days[days.length - 1] ? days[days.length - 1].date : '').slice(5)) + '</text>';
+  return out + '</svg>';
+}
+
+/* ---- 结论柱图 SVG（照 MetricsView ConclChart 数学，峰值高亮；2026-10-26 补柱顶数值） ---- */
+function conclSvg(days) {
+  var W = 560, H = 180, L = 30, R = 10, T = 20, B = 34;   // 与 DAU 图同高，柱顶留数值空间
+  var iw = W - L - R, ih = H - T - B;
+  var max = Math.max.apply(null, [1].concat(days.map(function (d) { return d.conclusions; })));
+  var bw = Math.max(3, (iw / Math.max(1, days.length)) * 0.62);
+  var out = '<svg class="chart" viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="结论数柱状">';
+  [0, 0.5, 1].forEach(function (p) {
+    out += '<line class="chart-grid" x1="' + L + '" x2="' + (W - R) + '" y1="' + (T + ih - p * ih) + '" y2="' + (T + ih - p * ih) + '"/>';
+  });
+  [0, max].forEach(function (v) {
+    out += '<text class="chart-axis" x="' + (L - 6) + '" y="' + (T + ih - (v / max) * ih + 3) + '" text-anchor="end">' + Math.round(v) + '</text>';
+  });
+  days.forEach(function (d, i) {
+    var cx = L + (i + 0.5) * (iw / Math.max(1, days.length));
+    var h = (d.conclusions / max) * ih;
+    var isPeak = (d.conclusions === max && max > 0);
+    var peak = isPeak ? ' is-peak' : '';
+    out += '<rect class="chart-bar' + peak + '" x="' + (cx - bw / 2) + '" y="' + (T + ih - h) +
+      '" width="' + bw + '" height="' + Math.max(h, d.conclusions > 0 ? 2 : 0) + '" rx="2"/>';
+    /* 柱顶数值（0 值不标，避免底线一排出「0」） */
+    if (d.conclusions > 0) {
+      out += '<text class="chart-point-label' + (isPeak ? ' is-peak' : '') + '" x="' + cx.toFixed(1) + '" y="' +
+        (T + ih - h - 5).toFixed(1) + '" text-anchor="middle">' + Math.round(d.conclusions) + '</text>';
+    }
+  });
+  out += '<text class="chart-axis" x="' + L + '" y="' + (H - 8) + '">' + esc((days[0] ? days[0].date : '').slice(5)) + '</text>';
+  out += '<text class="chart-axis" x="' + (W - R) + '" y="' + (H - 8) + '" text-anchor="end">' + esc((days[days.length - 1] ? days[days.length - 1].date : '').slice(5)) + '</text>';
+  return out + '</svg>';
+}
+
+function renderCharts(days) {
+  document.getElementById('dauChart').innerHTML = dauSvg(days);
+  document.getElementById('conclChart').innerHTML = conclSvg(days);
+  var allZero = days.length > 0 && days.every(function (d) { return !d.total_dau && !d.conclusions; });
+  document.getElementById('noDataTag').hidden = !allZero;
+  // 轮询重建 SVG 后，恢复各图当前的缩放/平移视图（否则每 30s 会被重置）
+  [].forEach.call(document.querySelectorAll('.chart-shell'), applyChartView);
+}
+
+/* ---- 图表缩放 / 平移（viewBox 交互：滚轮缩放、拖拽平移、双击还原） ---- */
+var CHART_W = 560, CHART_H = 180;   // 2026-10-26：随 svg viewBox 高度 150→180（补数值标签空间）
+var chartViews = {};   // data-chart → {x,y,w,h}，跨轮询保持
+function chartView(key) {
+  if (!chartViews[key]) chartViews[key] = { x: 0, y: 0, w: CHART_W, h: CHART_H };
+  return chartViews[key];
+}
+/* 把当前视图写回 SVG 的 viewBox，并切换"还原"按钮显隐 */
+function applyChartView(shell) {
+  var svg = shell.querySelector('svg');
+  if (!svg) return;
+  var st = chartView(shell.getAttribute('data-chart'));
+  svg.setAttribute('viewBox', st.x.toFixed(1) + ' ' + st.y.toFixed(1) + ' ' + st.w.toFixed(1) + ' ' + st.h.toFixed(1));
+  var btn = shell.querySelector('.chart-reset');
+  if (btn) btn.hidden = !(st.w < CHART_W - 0.5 || st.h < CHART_H - 0.5 || st.x !== 0 || st.y !== 0);
+}
+function resetChartView(shell) {
+  chartViews[shell.getAttribute('data-chart')] = { x: 0, y: 0, w: CHART_W, h: CHART_H };
+  applyChartView(shell);
+}
+function setupChartShells() {
+  [].forEach.call(document.querySelectorAll('.chart-shell'), function (shell) {
+    // 滚轮缩放：以指针位置为中心
+    shell.addEventListener('wheel', function (e) {
+      e.preventDefault();
+      var svg = shell.querySelector('svg'); if (!svg) return;
+      var rect = svg.getBoundingClientRect(); if (!rect.width) return;
+      var st = chartView(shell.getAttribute('data-chart'));
+      var px = (e.clientX - rect.left) / rect.width * st.w + st.x;
+      var py = (e.clientY - rect.top) / rect.height * st.h + st.y;
+      var f = e.deltaY < 0 ? 0.82 : 1 / 0.82;
+      var nw = st.w * f, nh = st.h * f;
+      if (nw < CHART_W * 0.12 || nw > CHART_W * 4) return;
+      st.x = px - (px - st.x) * (nw / st.w);
+      st.y = py - (py - st.y) * (nh / st.h);
+      st.w = nw; st.h = nh;
+      applyChartView(shell);
+    }, { passive: false });
+
+    // 指针拖拽平移
+    shell.addEventListener('pointerdown', function (e) {
+      if (e.button !== 0 || (e.target.closest && e.target.closest('.chart-reset'))) return;
+      var svg = shell.querySelector('svg'); if (!svg) return;
+      var rect = svg.getBoundingClientRect(); if (!rect.width) return;
+      var st = chartView(shell.getAttribute('data-chart'));
+      var sx = e.clientX, sy = e.clientY, ox = st.x, oy = st.y;
+      shell.classList.add('is-drag');
+      try { shell.setPointerCapture(e.pointerId); } catch (err) { /* 忽略 */ }
+      function move(ev) {
+        st.x = ox - (ev.clientX - sx) / rect.width * st.w;
+        st.y = oy - (ev.clientY - sy) / rect.height * st.h;
+        applyChartView(shell);
+      }
+      function up() {
+        shell.classList.remove('is-drag');
+        shell.removeEventListener('pointermove', move);
+        shell.removeEventListener('pointerup', up);
+        shell.removeEventListener('pointercancel', up);
+      }
+      shell.addEventListener('pointermove', move);
+      shell.addEventListener('pointerup', up);
+      shell.addEventListener('pointercancel', up);
+    });
+
+    // 双击还原
+    shell.addEventListener('dblclick', function () { resetChartView(shell); });
+    var btn = shell.querySelector('.chart-reset');
+    if (btn) btn.addEventListener('click', function (e) { e.stopPropagation(); resetChartView(shell); });
+  });
+}
+
+/* ---- 四象限 + 终轮明细表（50 行，点格子可筛选明细） ---- */
+var QUAD_DEFS = [
+  { key: 'fail_with_down', title: 'fail + 点踩', desc: '双确认 · 最高优先处置', cls: 'tag-neg' },
+  { key: 'pass_with_down', title: 'pass + 点踩', desc: '假阴性 · 最有信息量（判分盲区或预期错位）', cls: 'tag-warn' },
+  { key: 'fail_clean', title: 'fail 无反馈', desc: '机器判负 · 可能判分过严或用户未细看', cls: 'tag-accent' },
+  { key: 'pass_clean', title: 'pass 无反馈', desc: '健康区', cls: 'tag-pos' },
+];
+var quadData = null;      // 最近一次 /badcases/quadrant 响应
+var quadFilter = null;    // 当前选中象限（null=全部）
+
+/* 会话终轮所属象限（与后端 q 聚合同判据：非 pass 归 fail 侧） */
+function quadKeyOf(it) {
+  var down = it.feedback && it.feedback.down > 0;
+  return (it.verdict === 'pass' ? 'pass' : 'fail') + (down ? '_with_down' : '_clean');
+}
+
+function renderQuad(q, days) {
+  q._days = days || q.window_days || 14;
+  quadData = q;
+  paintQuads();
+}
+
+function paintQuads() {
+  var q = quadData; if (!q) return;
+  document.getElementById('quadMeta').textContent = '近' + q._days + '天 · ' + q.total_sessions + ' 个会话 · 终轮归一';
+  document.getElementById('quadGrid').innerHTML = QUAD_DEFS.map(function (d) {
+    var n = q.quadrant ? (q.quadrant[d.key] || 0) : 0;
+    var sel = quadFilter === d.key ? ' is-sel' : '';
+    return '<div class="quad-cell' + sel + '" data-key="' + d.key + '" title="点击筛选下方明细（再点取消）">' +
+      '<div class="quad-num">' + n + '</div>' +
+      '<div style="margin-top:4px"><span class="tag ' + d.cls + '">' + esc(d.title) + '</span></div>' +
+      '<div class="quad-desc">' + esc(d.desc) + '</div></div>';
+  }).join('');
+  Array.prototype.forEach.call(document.getElementById('quadGrid').querySelectorAll('.quad-cell'), function (c) {
+    c.addEventListener('click', function () {
+      var k = c.getAttribute('data-key');
+      quadFilter = (quadFilter === k) ? null : k;
+      paintQuads();
+    });
+  });
+  paintQuadTable();
+}
+
+function paintQuadTable() {
+  var wrap = document.getElementById('quadTableWrap');
+  if (!quadData) return;
+  var items = (quadData.items || []).filter(function (it) {
+    return !quadFilter || quadKeyOf(it) === quadFilter;
+  });
+  if (items.length === 0) {
+    wrap.innerHTML = '<p class="board-desc">' +
+      (quadFilter ? '该象限近 ' + quadData._days + ' 天暂无会话（再点一次格子可取消筛选）。' : '近 ' + quadData._days + ' 天无终轮会话。') + '</p>';
+    return;
+  }
+  var rows = items.map(function (it) {
+    var verdictCls = it.verdict === 'pass' ? 'tag-pos' : 'tag-neg';
+    var fb = it.feedback && it.feedback.down > 0 ? '👎' + it.feedback.down
+      : (it.feedback && it.feedback.up > 0 ? '👍' + it.feedback.up : '—');
+    var retry = it.retry_heavy ? '<span class="tag tag-warn" style="margin-left:6px">重试多</span>' : '';
+    return '<tr class="row-click" data-sid="' + esc(it.session_id) + '" data-verdict="' + esc(it.verdict) + '" title="点击查看回放">' +
+      '<td>' + esc(fmtLocal(it.last_ts)) + '</td>' +
+      '<td class="cell-mono" title="' + esc(it.session_id) + '">' + esc(shortSid(it.session_id)) + '</td>' +
+      '<td><span class="tag ' + verdictCls + '">' + esc(it.verdict) + '</span></td>' +
+      '<td class="cell-preview">' + esc(stripMd(it.conclusion_preview) || '（无轨迹预览）') + '</td>' +
+      '<td>' + it.tool_count + '</td>' +
+      '<td>' + it.settled_count + retry + '</td>' +
+      '<td>' + fb + '</td></tr>';
+  }).join('');
+  wrap.innerHTML = '<table><thead><tr><th>最近活跃</th><th>会话</th><th>verdict</th><th>结论预览</th><th>工具</th><th>轮数</th><th>反馈</th></tr></thead><tbody>' + rows + '</tbody></table>';
+  Array.prototype.forEach.call(wrap.querySelectorAll('tr.row-click'), function (tr) {
+    tr.addEventListener('click', function () {
+      openDrawer(tr.getAttribute('data-sid'), tr.getAttribute('data-verdict'));
+    });
+  });
+}
+
+/* ---- 用户反馈（只读明细，最近 100 条；按时间倒序） ---- */
+function renderFeedback(d) {
+  var total = d.total || 0;
+  var items = d.items || [];
+  document.getElementById('fbMeta').textContent = '共 ' + total + ' 条 · 最近 ' + items.length + ' 条';
+  var wrap = document.getElementById('fbTableWrap');
+  if (!items.length) {
+    wrap.innerHTML = '<p class="board-desc">暂无用户反馈。主站右下角「反馈」入口提交后会出现在这里。</p>';
+    return;
+  }
+  var rows = items.map(function (it) {
+    var cls = it.kind === 'issue' ? 'tag-neg' : (it.kind === 'suggestion' ? 'tag-pos' : 'tag-xt');
+    return '<tr>' +
+      '<td>' + esc(fmtLocal(it.ts)) + '</td>' +
+      '<td>' + esc(it.username || '—') + '</td>' +
+      '<td><span class="tag ' + cls + '">' + esc(it.kind_label || it.kind) + '</span></td>' +
+      '<td class="cell-preview" title="' + esc(it.content) + '">' + esc(it.content) + '</td></tr>';
+  }).join('');
+  wrap.innerHTML = '<table><thead><tr><th>时间</th><th>用户</th><th>类型</th><th>内容</th></tr></thead><tbody>' + rows + '</tbody></table>';
+}
+
+/* ---- 回放抽屉（照 BadCaseDrawer：verdict 以 events 终轮为准） ---- */
+/* A6：URL 带 ?traj=<路径>（如 eval/trajectories/eval-trajectories.jsonl）时抽屉改读该轨迹源，
+   用于 eval 批跑 badcase 回放；缺省不带 = 生产轨迹，行为不变 */
+var TRAJ_QUERY = new URLSearchParams(location.search).get('traj') || '';
+var drawerReq = 0;
+function openDrawer(sid, verdict) {
+  document.getElementById('drawer').classList.add('is-open');
+  document.getElementById('drawerScrim').classList.add('is-open');
+  document.getElementById('drawer').setAttribute('aria-hidden', 'false');
+  document.getElementById('drawerTitle').textContent = '会话回放 · ' + (sid ? sid.slice(0, 8) : '—') + (TRAJ_QUERY ? '（自定义轨迹）' : '');
+  var body = document.getElementById('drawerBody');
+  body.innerHTML = '<p class="board-desc">加载中…</p>';
+  var my = ++drawerReq;
+  jfetch('/trajectory/' + encodeURIComponent(sid) + (TRAJ_QUERY ? '?traj=' + encodeURIComponent(TRAJ_QUERY) : ''), 'trajectory').then(function (data) {
+    if (my !== drawerReq) return;
+    var rows = data.trajectories || [];
+    if (!rows.length) {
+      body.innerHTML = '<p class="board-desc">无轨迹（旧格式 session id 或测试会话，.pi/sessions/trajectories.jsonl 无匹配）。</p>';
+      return;
+    }
+    var last = rows[rows.length - 1];
+    var toolCounts = {};
+    rows.forEach(function (t) {
+      (t.toolCalls || []).forEach(function (tc) {
+        var n = tc.name || '?';
+        toolCounts[n] = (toolCounts[n] || 0) + 1;
+      });
+    });
+    var v = verdict != null ? verdict : last.verdict;
+    var verdictCls = v === 'pass' ? 'tag-pos' : 'tag-neg';
+    var toolNames = Object.keys(toolCounts).sort(function (a, b) { return toolCounts[b] - toolCounts[a]; });
+    var toolTags = toolNames.length === 0
+      ? '<span class="board-desc">未调用工具</span>'
+      : toolNames.map(function (n) { return '<span class="tag tag-xt">' + esc(n) + ' ×' + toolCounts[n] + '</span>'; }).join('');
+    body.innerHTML =
+      '<dl class="drawer-kv">' +
+      '<div class="row"><dt>verdict（events 终轮）</dt><dd><span class="tag ' + verdictCls + '">' + esc(v != null ? v : '—') + '</span></dd></div>' +
+      '<div class="row"><dt>verdict_reason</dt><dd>' + esc(last.verdict_reason || '—') + '</dd></div>' +
+      '<div class="row"><dt>as_of</dt><dd>' + esc(last.as_of || '—') + '</dd></div>' +
+      '<div class="row"><dt>轨迹条数</dt><dd>' + rows.length + ' 条（含验证重试轮）</dd></div>' +
+      '</dl>' +
+      '<div class="drawer-block"><div class="kpi-label">终轮结论（final_conclusion）</div>' +
+      '<div class="concl-full">' + esc(last.final_conclusion || '（空）') + '</div></div>' +
+      '<div class="drawer-block"><div class="kpi-label">工具清单（跨轮累计）</div>' +
+      '<div class="tool-tags">' + toolTags + '</div></div>';
+  }).catch(function (e) {
+    if (my !== drawerReq) return;
+    body.innerHTML = '<p class="board-desc" style="color:var(--neg)">回放接口异常（' + esc(e.message) + '）。</p>';
+  });
+}
+function closeDrawer() {
+  drawerReq++;
+  document.getElementById('drawer').classList.remove('is-open');
+  document.getElementById('drawerScrim').classList.remove('is-open');
+  document.getElementById('drawer').setAttribute('aria-hidden', 'true');
+}
+document.getElementById('btnClose').addEventListener('click', closeDrawer);
+document.getElementById('drawerScrim').addEventListener('click', closeDrawer);
+document.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeDrawer(); });
+
+/* ---- 主加载：错误横幅 + 30s 轮询（document.hidden 跳过）+ 手动刷新 ---- */
+var currentDays = 14;   // 趋势图 + 四象限窗口（KPI 为固定口径快照，不随切换）
+
+function loadAll() {
+  var errs = [];
+  var banner = document.getElementById('errBanner');
+  document.getElementById('dauMeta').textContent = '近' + currentDays + '天';
+  document.getElementById('conclMeta').textContent = '近' + currentDays + '天';
+  var jobs = [
+    jfetch('/events/stats', 'stats').then(function (d) { renderStats(d); }).catch(function () { errs.push('stats'); }),
+    jfetch('/events/trends?days=' + currentDays, 'trends').then(function (d) { renderCharts(d.days || []); }).catch(function () { errs.push('trends'); }),
+    jfetch('/badcases/quadrant?days=' + currentDays, 'quad').then(function (d) { renderQuad(d, currentDays); }).catch(function () { errs.push('quad'); }),
+    jfetch('/feedback?limit=100', 'feedback').then(function (d) { renderFeedback(d); }).catch(function () { errs.push('feedback'); }),
+  ];
+  Promise.all(jobs).then(function () {
+    if (errs.length) {
+      banner.hidden = false;
+      banner.textContent = '接口异常：' + errs.join(' / ') + ' —— 30s 自动重试';
+    } else {
+      banner.hidden = true;
+    }
+  });
+}
+document.getElementById('btnRefresh').addEventListener('click', function () { loadAll(); });
+
+/* 时间范围切换器：改 trends + quadrant 窗口，KPI 快照口径不受影响 */
+Array.prototype.forEach.call(document.getElementById('rangeSwitch').querySelectorAll('.range-btn'), function (b) {
+  b.addEventListener('click', function () {
+    currentDays = parseInt(b.getAttribute('data-days'), 10) || 14;
+    Array.prototype.forEach.call(document.querySelectorAll('#rangeSwitch .range-btn'), function (x) {
+      x.classList.toggle('is-active', x === b);
+    });
+    loadAll();
+  });
+});
+
+setupChartShells();   // 图表缩放/平移事件（绑定一次；SVG 重建不影响）
+setInterval(function () { if (!document.hidden) loadAll(); }, REFRESH_MS);
+loadAll();
+
+// E3/E4（2026-11-02）：每日巡检汇总（异常置顶；缺失时静默）
+(function loadSysHealth() {
+  fetch('/health/report').then(function (r) { return r.ok ? r.json() : null; }).then(function (h) {
+    if (!h || h.status === 'missing') return;
+    var el = document.getElementById('sysHealth');
+    var bad = h.abnormal_count || 0;
+    el.className = 'sys-health ' + (bad ? 'is-bad' : 'is-ok');
+    if (bad) {
+      var names = (h.items || []).filter(function (i) { return i.status === 'abnormal'; })
+        .map(function (i) { return i.name + '（' + i.detail + '）'; }).join('；');
+      el.innerHTML = '<b>系统健康：异常 ' + bad + ' 项</b> · ' + names;
+    } else {
+      el.textContent = '系统健康：全部正常 · ' + ((h.generated_at || '').slice(11, 16)) + ' 巡检';
+    }
+    el.hidden = false;
+  }).catch(function () {});
+})();
+</script>
+</body>
+</html>

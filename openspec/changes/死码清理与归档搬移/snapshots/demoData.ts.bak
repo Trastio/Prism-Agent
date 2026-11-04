@@ -1,0 +1,32 @@
+/**
+ * 块0.5 D-2：演示数据外置（从生产组件移出，带 is_demo 标记）
+ * 一处统一开关/替换，不再与生产取数路径混写
+ */
+
+type HBarVariant = 'pos' | 'neg' | 'neutral' | 'accent' | 'warn';
+
+export const DEMO_MARKET_TRIMS: { key: string; value: number; max: number; variant: HBarVariant }[] = [
+  { key: '530 探索版', value: 2047, max: 2200, variant: 'pos' },
+  { key: '530 启航版', value: 1854, max: 2200, variant: 'pos' },
+  { key: '610 探索+版', value: 57, max: 2200, variant: 'neutral' },
+  { key: '610 远航版', value: 450, max: 2200, variant: 'pos' },
+  { key: '610 星舰版', value: 28, max: 2200, variant: 'neutral' },
+];
+
+export const DEMO_COMPETITORS = [
+  { series: '理想 L6', jul: 3379, aug: 9878, change: '+192%', dir: 'up' },
+  { series: '零跑 D19 增程', jul: 6386, aug: 2953, change: '-54%', dir: 'down' },
+  { series: '问界 M7', jul: 549, aug: 217, change: '-60%', dir: 'down' },
+  { series: '岚图 Free', jul: 858, aug: 571, change: '-33%', dir: 'down' },
+];
+
+export const DEMO_REVIEWS = [
+  { id: 'k_5789427', text: '颠簸', tag: 'con' },
+  { id: 'k_5833866', text: '隔音有点差点意思', tag: 'con' },
+  { id: 'k_5833242', text: '稍微会有一些胎噪存在', tag: 'con' },
+];
+
+export const DEMO_TREND = [28, 35, 30, 42, 38, 45, 50, 48, 55, 60, 52, 45];
+export const DEMO_TREND_LABELS = ['7/1','7/8','7/15','7/22','7/29','8/5','8/12','8/19','8/26','9/2','9/9','9/16'];
+
+export const IS_DEMO = true;

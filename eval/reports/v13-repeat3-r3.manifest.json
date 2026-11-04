@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "run_id": "v13-repeat3-r3",
+  "generated_at_utc": "2026-10-27T07:45:02.160Z",
+  "artifacts": [
+    {
+      "path": "eval/eval-report.json",
+      "bytes": 988725,
+      "sha256": "9c6cd1f935729f1a3f42defeb0b718631ed2ae34cb9f3db997e4d1c4e19f3cae",
+      "description": "批跑报告主副本（eval-report.json）"
+    },
+    {
+      "path": "eval/reports/v13-repeat3-r3.json",
+      "bytes": 988725,
+      "sha256": "9c6cd1f935729f1a3f42defeb0b718631ed2ae34cb9f3db997e4d1c4e19f3cae",
+      "description": "批跑报告归档副本"
+    }
+  ]
+}

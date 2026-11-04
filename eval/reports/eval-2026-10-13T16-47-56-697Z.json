@@ -1,0 +1,49 @@
+{
+  "run_id": "eval-2026-10-13T16-47-56-697Z",
+  "started_at": "2026-10-13T16:47:56.698Z",
+  "runner_version": "2.0.0-b1",
+  "tasks_git_hash": "1e432bd07d0e3d31f24e21d277bbe9aa31d894f1",
+  "snapshot_id": "snap-20261012-1222",
+  "agent_release": "0.3.0",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-13T16:48:10.194Z",
+  "results": [
+    {
+      "task": "sales-13",
+      "dimension": "销量",
+      "question": "银河E5的销量比风云T7的销量少多少？",
+      "score": 2,
+      "reasons": [
+        "缺 supported_by 证据行 ID"
+      ],
+      "tools": [
+        "resolve_series",
+        "resolve_series",
+        "query_sales",
+        "query_sales",
+        "get_sales_detail"
+      ],
+      "settled": true,
+      "error": null,
+      "replyLength": 622,
+      "replyPreview": "**这个差额算不出来——风云T7 目前还没有可比的销量数据。**\n\n| 对象 | 最新已结算月零售 | 终端成交价（当月均值） | 可比性 |\n|---|---|---|---|\n| 银河E5 | 2"
+    }
+  ],
+  "summary": {
+    "avg": 2,
+    "passCount": 0,
+    "trapBlockedCount": 0,
+    "set_filter": "all",
+    "truth": {
+      "checked": 0,
+      "fail": 0,
+      "failTasks": []
+    }
+  }
+}

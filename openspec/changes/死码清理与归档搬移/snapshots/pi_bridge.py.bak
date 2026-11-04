@@ -1,0 +1,80 @@
+"""
+Prism-Agent · pi_bridge（T-2.5b.2 框架）
+
+封装 pi-agent SDK：
+- createAgentSession
+- 注册 2.2.3 的 3 工具（query_sales/reviews/config）
+- 注入 2.2.4 tool_call 护栏
+- 注入 2.2.5 tool_result grounding
+- 注入 2.3.2 完成验证器（agent_settled）
+- 2.1.1 AGENTS.md/SYSTEM.md（before_agent_start）
+- 2.1.2 状态栏 hook → WebSocket
+- langfuse 埋点
+
+pi SDK 是 TypeScript（@earendil-works/pi-coding-agent），本 bridge 通过 Node 子进程调用。
+开发期：先用占位，M7 联调时接真实 SDK。
+"""
+
+# ---------------------------------------------------------------------------
+# scope → 工具白名单映射（spec §3.2）
+# ---------------------------------------------------------------------------
+SCOPE_TOOLS = {
+    'reviews': ['query_reviews', 'query_config'],
+    'sales': ['query_sales'],
+    'config': ['query_config'],
+    'sentiment': [
+        'sentiment_overview', 'sentiment_trend', 'sentiment_dimension',
+        'sentiment_posts', 'sentiment_competitive', 'sentiment_events',
+    ],
+    'agent': [
+        'query_sales', 'query_reviews', 'query_config',
+        'discover_tools',
+        'sentiment_overview', 'sentiment_trend', 'sentiment_dimension',
+        'sentiment_posts', 'sentiment_competitive', 'sentiment_events',
+    ],
+}
+
+
+def resolve_scope_tools(scope: dict) -> list[str]:
+    """根据 BI/Agent 模式 + 看板，返回工具白名单"""
+    mode = scope.get('mode', 'agent')
+    if mode == 'agent':
+        return SCOPE_TOOLS['agent']
+    board = scope.get('board', 'reviews')
+    return SCOPE_TOOLS.get(board, ['query_reviews'])
+
+
+# ---------------------------------------------------------------------------
+# pi 事件 → SSE 映射（spec §2.3）
+# ---------------------------------------------------------------------------
+def map_pi_event_to_sse(event: dict) -> dict:
+    """pi 事件转 SSE event.type"""
+    etype = event.get('type')
+    mapping = {
+        'message_update': 'text_delta',
+        'tool_execution_start': 'tool_call',
+        'tool_execution_end': 'tool_result',
+        'before_agent_start': 'status_update',
+        'agent_settled': 'claim_check',
+    }
+    return {'type': mapping.get(etype, etype), 'data': event}
+
+
+# ---------------------------------------------------------------------------
+# createAgentSession 框架（M7 联调时接真实 SDK）
+# ---------------------------------------------------------------------------
+async def create_session(session_id: str, scope: dict, model: str = 'deepseek-v4-flash'):
+    """
+    创建 pi 会话：
+    1. SessionManager.inMemory() 恢复或创建（M7: Redis-backed）
+    2. setActiveTools(resolve_scope_tools(scope))
+    3. before_agent_start 注入 SYSTEM.md（车系/覆盖率/as_of）
+    4. 注册 tool_call 护栏（cc-safety-net + 自建红线）
+    5. 注册 tool_result grounding（数值+名称）
+    6. 注册 agent_settled 完成验证器
+    7. langfuse 埋点
+
+    返回异步事件流。
+    """
+    # 占位：M7 联调时替换为真实 pi SDK 调用
+    raise NotImplementedError('pi SDK 集成在 M7 联调（需 Node 子进程调 @earendil-works/pi-coding-agent）')

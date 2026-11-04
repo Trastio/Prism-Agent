@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "run_id": "challenger-challenger-b1b-smoke2",
+  "generated_at_utc": "2026-10-27T13:12:45.473Z",
+  "artifacts": [
+    {
+      "path": "eval/eval-report.json",
+      "bytes": 7531,
+      "sha256": "b0c0b4e60f6a158cd25ab771e200e5f78ff1b6b4ecd6161c910b4b2e92ab8217",
+      "description": "批跑报告主副本（eval-report.json）"
+    },
+    {
+      "path": "eval/reports/challenger-challenger-b1b-smoke2.json",
+      "bytes": 7531,
+      "sha256": "b0c0b4e60f6a158cd25ab771e200e5f78ff1b6b4ecd6161c910b4b2e92ab8217",
+      "description": "批跑报告归档副本"
+    }
+  ]
+}

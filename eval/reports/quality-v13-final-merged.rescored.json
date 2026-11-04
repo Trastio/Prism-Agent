@@ -1,0 +1,1891 @@
+{
+ "report": "v13-final-merged",
+ "prompt_version": "v7",
+ "prompt_fingerprint": "9e3ee473",
+ "rounds": [
+  {
+   "mode": "calibrate",
+   "at": "2026-10-28T08:57:49.917Z",
+   "prompt_version": "v5",
+   "prompt_fingerprint": "1f1c63e0",
+   "judge_chain": "GLM/glm-5.3-flash > GLM/glm-4-flash",
+   "rho": null,
+   "pass": false,
+   "nulled": 1,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": null,
+     "mapped": null,
+     "judge_model": null,
+     "null_reason": "报告缺题/缺 reply_full"
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": 9,
+     "mapped": 3.8,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": 7,
+     "mapped": 2.9,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-28T14:37:02.150Z",
+   "prompt_version": "v5",
+   "prompt_fingerprint": "1f1c63e0",
+   "judge_chain": "GLM/glm-5.3-flash > GLM/glm-4-flash",
+   "rho": 0.672,
+   "pass": false,
+   "nulled": 0,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": 9,
+     "mapped": 3.8,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": 7,
+     "mapped": 2.9,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-28T14:50:56.766Z",
+   "prompt_version": "v6",
+   "prompt_fingerprint": "8b7c7620",
+   "judge_chain": "GLM/glm-5.3-flash > GLM/glm-4.7-flash > GLM/glm-4-flash",
+   "rho": 0.73,
+   "pass": true,
+   "nulled": 0,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": 7,
+     "mapped": 2.9,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-29T02:34:05.454Z",
+   "prompt_version": "v7",
+   "prompt_fingerprint": "9e3ee473",
+   "judge_chain": "GLM/glm-4-flash",
+   "rho": null,
+   "pass": false,
+   "nulled": 1,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": null,
+     "mapped": null,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": "解析失败（重试一次后仍非法 JSON）"
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-29T04:01:43.416Z",
+   "prompt_version": "v7",
+   "prompt_fingerprint": "9e3ee473",
+   "judge_chain": "GLM/glm-5.3-flash > GLM/glm-4.7-flash > GLM/glm-4-flash",
+   "rho": 0.551,
+   "pass": false,
+   "nulled": 0,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": 7,
+     "mapped": 2.9,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-29T04:24:53.623Z",
+   "prompt_version": "v7",
+   "prompt_fingerprint": "9e3ee473",
+   "judge_chain": "GLM/glm-5.3-flash > GLM/glm-4-flash",
+   "rho": 0.469,
+   "pass": false,
+   "nulled": 0,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": 7,
+     "mapped": 2.9,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-29T04:41:31.125Z",
+   "prompt_version": "v7",
+   "prompt_fingerprint": "9e3ee473",
+   "judge_chain": "GLM/glm-5.3",
+   "rho": null,
+   "pass": false,
+   "nulled": 1,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": null,
+     "mapped": null,
+     "judge_model": null,
+     "null_reason": "解析失败/API 耗尽"
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": 7,
+     "mapped": 2.9,
+     "judge_model": "GLM/glm-5.3",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-29T05:26:37.926Z",
+   "prompt_version": "v7",
+   "prompt_fingerprint": "9e3ee473",
+   "judge_chain": "GLM/glm-5.3-flash > GLM/glm-5.3 > GLM/glm-4-flash",
+   "rho": 0.926,
+   "pass": true,
+   "nulled": 1,
+   "rho_all_anchors": 0.551,
+   "alignment_gate_n": 7,
+   "alignment_exclusions": [
+    "multi-07"
+   ],
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": 10,
+     "mapped": null,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": "confidence 0.7 < 0.75"
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": 7,
+     "mapped": 2.9,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-29T05:29:52.842Z",
+   "prompt_version": "v7",
+   "prompt_fingerprint": "9e3ee473",
+   "judge_chain": "GLM/glm-5.3-flash > GLM/glm-5.3 > GLM/glm-4-flash",
+   "rho": 0.926,
+   "pass": true,
+   "nulled": 1,
+   "rho_all_anchors": 0.551,
+   "alignment_gate_n": 7,
+   "alignment_exclusions": [
+    "multi-07"
+   ],
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": 10,
+     "mapped": null,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": "confidence 0.7 < 0.75"
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": 7,
+     "mapped": 2.9,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-29T07:49:30.117Z",
+   "prompt_version": "v7",
+   "prompt_fingerprint": "9e3ee473",
+   "judge_chain": "GLM/glm-5.3-flash > GLM/glm-5.3 > GLM/glm-4.7-flash > GLM/glm-4-flash",
+   "rho": 0.926,
+   "pass": true,
+   "nulled": 1,
+   "rho_all_anchors": 0.551,
+   "alignment_gate_n": 7,
+   "alignment_exclusions": [
+    "multi-07"
+   ],
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": 10,
+     "mapped": null,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": "confidence 0.7 < 0.75"
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": 7,
+     "mapped": 2.9,
+     "judge_model": "GLM/glm-5.3-flash",
+     "null_reason": null
+    }
+   ]
+  }
+ ],
+ "by_judge": {
+  "GLM/glm-4-flash": {
+   "items": {
+    "cross-02#1": {
+     "task": "cross-02",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 1,
+      "d5": 2,
+      "d6": 2,
+      "confidence": 0.95,
+      "one_line_reason": "D4=1：超长；D5=2：无泄漏；D1=2：直接回答；D2=2：结构清晰；D3=2：口径交代完整；D6=2：结论明确"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D4=1：超长；D5=2：无泄漏；D1=2：直接回答；D2=2：结构清晰；D3=2：口径交代完整；D6=2：结论明确",
+     "judge_model": "GLM/glm-4-flash",
+     "repeat": 1
+    },
+    "config-05#1": {
+     "task": "config-05",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 1,
+      "d5": 2,
+      "d6": 2,
+      "confidence": 0.95,
+      "one_line_reason": "D4=1：超长；D5=2：无泄漏；D1=2：直接回答；D6=2：结论可操作"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D4=1：超长；D5=2：无泄漏；D1=2：直接回答；D6=2：结论可操作",
+     "judge_model": "GLM/glm-4-flash",
+     "repeat": 1
+    },
+    "sales-09#1": {
+     "task": "sales-09",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 2,
+      "d6": 2,
+      "confidence": 0.95,
+      "one_line_reason": "D1-D6均符合评分标准，结构清晰，回答直接"
+     },
+     "total": 12,
+     "mapped": 5,
+     "null_reason": null,
+     "one_line_reason": "D1-D6均符合评分标准，结构清晰，回答直接",
+     "judge_model": "GLM/glm-4-flash",
+     "repeat": 1
+    },
+    "reviews-04#1": {
+     "task": "reviews-04",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 2,
+      "d6": 2,
+      "confidence": 0.95,
+      "one_line_reason": "直接回答，结构清晰，口径明确，无泄漏，可操作性强"
+     },
+     "total": 12,
+     "mapped": 5,
+     "null_reason": null,
+     "one_line_reason": "直接回答，结构清晰，口径明确，无泄漏，可操作性强",
+     "judge_model": "GLM/glm-4-flash",
+     "repeat": 1
+    },
+    "sentiment-05#1": {
+     "task": "sentiment-05",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 1,
+      "d5": 2,
+      "d6": 2,
+      "confidence": 0.95,
+      "one_line_reason": "D5=2：无内部泄漏；D4=1：字数略超跨维度分析合理范围"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=2：无内部泄漏；D4=1：字数略超跨维度分析合理范围",
+     "judge_model": "GLM/glm-4-flash",
+     "repeat": 1
+    },
+    "multi-07#1": {
+     "task": "multi-07",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 1,
+      "d5": 2,
+      "d6": 2,
+      "confidence": 0.95,
+      "one_line_reason": "D4=1：超长；D5=2：无泄漏；D1=2：直接回答；D2=2：结构清晰；D3=2：口径说明完整"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D4=1：超长；D5=2：无泄漏；D1=2：直接回答；D2=2：结构清晰；D3=2：口径说明完整",
+     "judge_model": "GLM/glm-4-flash",
+     "repeat": 1
+    },
+    "skill-01#1": {
+     "task": "skill-01",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 1,
+      "d5": 2,
+      "d6": 2,
+      "confidence": 0.95,
+      "one_line_reason": "D4=1：超长；D5=2：无泄漏；D1=2：直接回答；D2=2：结构清晰；D3=2：口径说明详尽；D6=2：可操作性高"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D4=1：超长；D5=2：无泄漏；D1=2：直接回答；D2=2：结构清晰；D3=2：口径说明详尽；D6=2：可操作性高",
+     "judge_model": "GLM/glm-4-flash",
+     "repeat": 1
+    }
+   },
+   "usage": {
+    "prompt_tokens": 24675,
+    "completion_tokens": 2255,
+    "requests": 9
+   },
+   "prompt_fingerprint": "9e3ee473"
+  },
+  "GLM/glm-5.3-flash > GLM/glm-4.7-flash > GLM/glm-4-flash": {
+   "items": {},
+   "usage": {
+    "prompt_tokens": 20079,
+    "completion_tokens": 26033,
+    "requests": 8
+   },
+   "prompt_fingerprint": "9e3ee473"
+  },
+  "GLM/glm-5.3-flash > GLM/glm-4-flash": {
+   "items": {
+    "cross-02#1": {
+     "task": "cross-02",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：口径小节出现as_of、'销量为空'等内部表述（辅助位）；其余各维良好"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：口径小节出现as_of、'销量为空'等内部表述（辅助位）；其余各维良好",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "config-05#1": {
+     "task": "config-05",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：尾部'配置快照/差价口径v1.1'及'再跑一版/未采集到'为内部过程词汇，均处辅助位，正文主体干净"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：尾部'配置快照/差价口径v1.1'及'再跑一版/未采集到'为内部过程词汇，均处辅助位，正文主体干净",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "sales-09#1": {
+     "task": "sales-09",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：尾部数据说明出现as_of、库内等内部词汇，所幸均在辅助位置，主体干净"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：尾部数据说明出现as_of、库内等内部词汇，所幸均在辅助位置，主体干净",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "reviews-04#1": {
+     "task": "reviews-04",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 2,
+      "d6": 2,
+      "confidence": 0.85,
+      "one_line_reason": "开门见山交代数据边界并直答，时点/口径/样本量齐备，正文零泄漏，长度适中且下一步可执行"
+     },
+     "total": 12,
+     "mapped": 5,
+     "null_reason": null,
+     "one_line_reason": "开门见山交代数据边界并直答，时点/口径/样本量齐备，正文零泄漏，长度适中且下一步可执行",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "sentiment-05#1": {
+     "task": "sentiment-05",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.92,
+      "one_line_reason": "D5=0：节标题「声量总览」主体位置含 as_of/舆情库 内部词；其余各维表现良好"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：节标题「声量总览」主体位置含 as_of/舆情库 内部词；其余各维表现良好",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "multi-07#1": {
+     "task": "multi-07",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 2,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "无扣分：结论先行正对所问，时点/样本/对比口径齐备，三条产品含义可直接采用，长度与展开题匹配"
+     },
+     "total": 12,
+     "mapped": 5,
+     "null_reason": null,
+     "one_line_reason": "无扣分：结论先行正对所问，时点/样本/对比口径齐备，三条产品含义可直接采用，长度与展开题匹配",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "skill-01#1": {
+     "task": "skill-01",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.92,
+      "one_line_reason": "D5=0：开篇结论正文带内部词'库端'；口径小节另有TikHub/库数据等内部术语"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：开篇结论正文带内部词'库端'；口径小节另有TikHub/库数据等内部术语",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "social-01#1": {
+     "task": "social-01",
+     "dims": {
+      "d1": 2,
+      "d2": 1,
+      "d3": 2,
+      "d4": 0,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.88,
+      "one_line_reason": "标题'已过出口闸'等内部词入正文，D5=0；约4500字且整篇重复交付，D4=0"
+     },
+     "total": 7,
+     "mapped": 2.9,
+     "null_reason": null,
+     "one_line_reason": "标题'已过出口闸'等内部词入正文，D5=0；约4500字且整篇重复交付，D4=0",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    }
+   },
+   "usage": {
+    "prompt_tokens": 16495,
+    "completion_tokens": 26887,
+    "requests": 8
+   },
+   "prompt_fingerprint": "9e3ee473"
+  },
+  "GLM/glm-5.3": {
+   "items": {
+    "cross-02#1": {
+     "task": "cross-02",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：口径小节残留as_of系统词；结论先行、口径三项齐备、可直接汇报"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：口径小节残留as_of系统词；结论先行、口径三项齐备、可直接汇报",
+     "judge_model": "GLM/glm-5.3",
+     "repeat": 1
+    },
+    "config-05#1": {
+     "task": "config-05",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.88,
+      "one_line_reason": "D5=1：末行含'配置快照/口径v1.1'、说明区有'未采集到/再跑一版'过程性泄漏；其余各维均优"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：末行含'配置快照/口径v1.1'、说明区有'未采集到/再跑一版'过程性泄漏；其余各维均优",
+     "judge_model": "GLM/glm-5.3",
+     "repeat": 1
+    },
+    "sales-09#1": {
+     "task": "sales-09",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：口径小节带 as_of 与'库内'两处内部词，主体干净；结论先行、三口径齐全、可直接采用"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：口径小节带 as_of 与'库内'两处内部词，主体干净；结论先行、三口径齐全、可直接采用",
+     "judge_model": "GLM/glm-5.3",
+     "repeat": 1
+    },
+    "reviews-04#1": {
+     "task": "reviews-04",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.8,
+      "one_line_reason": "D5=0：开篇结论带内部词“库内”（主体位置）；其余各维优秀"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：开篇结论带内部词“库内”（主体位置）；其余各维优秀",
+     "judge_model": "GLM/glm-5.3",
+     "repeat": 1
+    },
+    "sentiment-05#1": {
+     "task": "sentiment-05",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=0：'声量总览（舆情库，as_of 2026-10-05）'标题带内部字段as_of属主体泄漏；其余六维表现优秀"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：'声量总览（舆情库，as_of 2026-10-05）'标题带内部字段as_of属主体泄漏；其余六维表现优秀",
+     "judge_model": "GLM/glm-5.3",
+     "repeat": 1
+    },
+    "skill-01#1": {
+     "task": "skill-01",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.88,
+      "one_line_reason": "D5=0：开篇结论含'库端'等内部词汇及导出ID，主体不干净；其余各维均优"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：开篇结论含'库端'等内部词汇及导出ID，主体不干净；其余各维均优",
+     "judge_model": "GLM/glm-5.3",
+     "repeat": 1
+    },
+    "social-01#1": {
+     "task": "social-01",
+     "dims": {
+      "d1": 2,
+      "d2": 1,
+      "d3": 2,
+      "d4": 0,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.93,
+      "one_line_reason": "D5=0：标题「已过出口闸」等系统词入主体；D4=0：全文重复两遍约5000字"
+     },
+     "total": 7,
+     "mapped": 2.9,
+     "null_reason": null,
+     "one_line_reason": "D5=0：标题「已过出口闸」等系统词入主体；D4=0：全文重复两遍约5000字",
+     "judge_model": "GLM/glm-5.3",
+     "repeat": 1
+    }
+   },
+   "usage": {
+    "prompt_tokens": 17275,
+    "completion_tokens": 33390,
+    "requests": 7
+   },
+   "prompt_fingerprint": "9e3ee473"
+  },
+  "GLM/glm-5.3-flash > GLM/glm-5.3 > GLM/glm-4-flash": {
+   "items": {
+    "cross-02#1": {
+     "task": "cross-02",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.92,
+      "one_line_reason": "D5=1：尾部口径小节出现内部字段词 as_of；其余维度均达标"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：尾部口径小节出现内部字段词 as_of；其余维度均达标",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "config-05#1": {
+     "task": "config-05",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.88,
+      "one_line_reason": "D5=1：泄漏全在尾部（快照、内部版本号v1.1等），主体干净"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：泄漏全在尾部（快照、内部版本号v1.1等），主体干净",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "sales-09#1": {
+     "task": "sales-09",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：as_of、库内等内部词汇出现在尾部口径小字，主体干净；其余维度无明显扣分"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：as_of、库内等内部词汇出现在尾部口径小字，主体干净；其余维度无明显扣分",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "sentiment-05#1": {
+     "task": "sentiment-05",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=0：节标题'声量总览（舆情库，as_of 2026-10-05）'在主体位置暴露 as_of/舆情库等内部词汇"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：节标题'声量总览（舆情库，as_of 2026-10-05）'在主体位置暴露 as_of/舆情库等内部词汇",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "multi-07#1": {
+     "task": "multi-07",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 2,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "结论先行、时点/样本口径/对比边界三项齐全，零泄漏，三条产品建议可直接落地"
+     },
+     "total": 12,
+     "mapped": 5,
+     "null_reason": null,
+     "one_line_reason": "结论先行、时点/样本口径/对比边界三项齐全，零泄漏，三条产品建议可直接落地",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "skill-01#1": {
+     "task": "skill-01",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.8,
+      "one_line_reason": "D5=0：开篇结论暴露内部词'库端'；其余口径完整、长度与结构合格"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：开篇结论暴露内部词'库端'；其余口径完整、长度与结构合格",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "social-01#1": {
+     "task": "social-01",
+     "dims": {
+      "d1": 2,
+      "d2": 1,
+      "d3": 2,
+      "d4": 0,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.88,
+      "one_line_reason": "D5=0：正文段自述'系统状态门/模板B/出口闸'等内部过程词；D4=0：整份内容重复交付两遍约4000字"
+     },
+     "total": 7,
+     "mapped": 2.9,
+     "null_reason": null,
+     "one_line_reason": "D5=0：正文段自述'系统状态门/模板B/出口闸'等内部过程词；D4=0：整份内容重复交付两遍约4000字",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    }
+   },
+   "usage": {
+    "prompt_tokens": 20112,
+    "completion_tokens": 33662,
+    "requests": 9
+   },
+   "prompt_fingerprint": "9e3ee473"
+  },
+  "GLM/glm-5.3-flash": {
+   "items": {
+    "config-05#1": {
+     "task": "config-05",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：尾部含'快照'、版本号v1.1等，说明栏带过程性表述，正文主体干净"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：尾部含'快照'、版本号v1.1等，说明栏带过程性表述，正文主体干净",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "config-05#2": {
+     "task": "config-05",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：口径小节含内部词“快照”；主体干净，结论先行、口径三项齐全、篇幅匹配"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：口径小节含内部词“快照”；主体干净，结论先行、口径三项齐全、篇幅匹配",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 2
+    },
+    "config-05#3": {
+     "task": "config-05",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：尾部口径句含“快照/已采集项”内部词汇（辅助位置）；结论直接、口径边界齐、长度合适"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：尾部口径句含“快照/已采集项”内部词汇（辅助位置）；结论直接、口径边界齐、长度合适",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 3
+    },
+    "config-06#2": {
+     "task": "config-06",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.85,
+      "one_line_reason": "D5=0：正文主段暴露内部词汇Prism；其余维度均佳、长度合适"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：正文主段暴露内部词汇Prism；其余维度均佳、长度合适",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 2
+    },
+    "config-06#3": {
+     "task": "config-06",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=0：正文主体散布 tp_avg、pro/con、快照、未落库、覆盖率ok等内部词汇"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：正文主体散布 tp_avg、pro/con、快照、未落库、覆盖率ok等内部词汇",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 3
+    },
+    "config-07#1": {
+     "task": "config-07",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：尾部as_of/快照、口径节'字段'等泄漏均在辅助位，正文干净；其余各维无硬伤"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：尾部as_of/快照、口径节'字段'等泄漏均在辅助位，正文干净；其余各维无硬伤",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "config-07#2": {
+     "task": "config-07",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.92,
+      "one_line_reason": "D5=1：仅尾部'数据时点'小字含'快照/取数'内部词，正文主体干净；其余各项均佳"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：仅尾部'数据时点'小字含'快照/取数'内部词，正文主体干净；其余各项均佳",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 2
+    },
+    "config-07#3": {
+     "task": "config-07",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：口径小节含'快照''身份核验''本轮未纳入'等内部词汇，主体干净"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：口径小节含'快照''身份核验''本轮未纳入'等内部词汇，主体干净",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 3
+    },
+    "config-09#1": {
+     "task": "config-09",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.85,
+      "one_line_reason": "D5=1：尾部'数据缺口'小节出现'在库里未采集'内部数据词汇，正文主体干净"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：尾部'数据缺口'小节出现'在库里未采集'内部数据词汇，正文主体干净",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "config-09#2": {
+     "task": "config-09",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：尾部数据说明含 as_of、快照、价目表v1.1 内部词，主体干净，其余维度达标"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：尾部数据说明含 as_of、快照、价目表v1.1 内部词，主体干净，其余维度达标",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 2
+    },
+    "config-09#3": {
+     "task": "config-09",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.92,
+      "one_line_reason": "D5=1：「库内配置快照」等内部词两处均落在尾部辅助位，主体干净；其余维度无扣分点"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：「库内配置快照」等内部词两处均落在尾部辅助位，主体干净；其余维度无扣分点",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 3
+    },
+    "config-10#2": {
+     "task": "config-10",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=0：开篇结论即用'库里取不到'，正文多处出现'抓取失败/快照/补进库'等内部词汇"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：开篇结论即用'库里取不到'，正文多处出现'抓取失败/快照/补进库'等内部词汇",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 2
+    },
+    "config-10#3": {
+     "task": "config-10",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.82,
+      "one_line_reason": "D5=0：正文主体出现'配置库/快照/未接入'等系统内部词；其余维度均达标"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：正文主体出现'配置库/快照/未接入'等系统内部词；其余维度均达标",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 3
+    },
+    "config-11#1": {
+     "task": "config-11",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.92,
+      "one_line_reason": "D5=0：开篇结论即出现'库内'，正文多处'字段'等内部词汇"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：开篇结论即出现'库内'，正文多处'字段'等内部词汇",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "config-11#2": {
+     "task": "config-11",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=0：开篇结论主体即出现'库内没有采集'内部表述，辅助位另有as_of/快照"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：开篇结论主体即出现'库内没有采集'内部表述，辅助位另有as_of/快照",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 2
+    },
+    "config-11#3": {
+     "task": "config-11",
+     "dims": {
+      "d1": 1,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.85,
+      "one_line_reason": "D5=0：开篇即用'库内没有采集/库数据/无此字段'等内部词；D1=1：用户未要求800V却按其筛选"
+     },
+     "total": 9,
+     "mapped": 3.8,
+     "null_reason": null,
+     "one_line_reason": "D5=0：开篇即用'库内没有采集/库数据/无此字段'等内部词；D1=1：用户未要求800V却按其筛选",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 3
+    },
+    "config-12#1": {
+     "task": "config-12",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.85,
+      "one_line_reason": "D5=0：表格主体与数据缺口节泄漏'未采集/库内/字段'等内部词，尾部另有as_of、快照"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：表格主体与数据缺口节泄漏'未采集/库内/字段'等内部词，尾部另有as_of、快照",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "config-12#2": {
+     "task": "config-12",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：尾部小字带“快照抓取”“口径v1.1”等内部词汇，正文主体干净"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：尾部小字带“快照抓取”“口径v1.1”等内部词汇，正文主体干净",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 2
+    }
+   },
+   "usage": {
+    "prompt_tokens": 33865,
+    "completion_tokens": 67870,
+    "requests": 20
+   },
+   "prompt_fingerprint": "9e3ee473"
+  },
+  "GLM/glm-5.3-flash > GLM/glm-5.3 > GLM/glm-4.7-flash > GLM/glm-4-flash": {
+   "items": {
+    "cross-02#1": {
+     "task": "cross-02",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：尾部口径小节出现as_of；结论先行、口径完整，其余达标"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：尾部口径小节出现as_of；结论先行、口径完整，其余达标",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "config-05#1": {
+     "task": "config-05",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：尾部小字含‘快照’‘差价口径v1.1’及‘再跑一版’过程自述，正文主体干净"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：尾部小字含‘快照’‘差价口径v1.1’及‘再跑一版’过程自述，正文主体干净",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "sales-09#1": {
+     "task": "sales-09",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：尾部口径句带 as_of、库内/系列等内部词，主体干净；其余维度无明显扣分"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：尾部口径句带 as_of、库内/系列等内部词，主体干净；其余维度无明显扣分",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "sentiment-05#1": {
+     "task": "sentiment-05",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.92,
+      "one_line_reason": "D5=0：正文标题即含 as_of/舆情库 内部词汇，属主体位置泄漏"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：正文标题即含 as_of/舆情库 内部词汇，属主体位置泄漏",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "multi-07#1": {
+     "task": "multi-07",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 2,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "结论先行直答展开请求，时点/样本口径/对比边界齐全，零泄漏，三条产品含义可直接落地"
+     },
+     "total": 12,
+     "mapped": 5,
+     "null_reason": null,
+     "one_line_reason": "结论先行直答展开请求，时点/样本口径/对比边界齐全，零泄漏，三条产品含义可直接落地",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "skill-01#1": {
+     "task": "skill-01",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.88,
+      "one_line_reason": "D5=0：开篇结论带内部词'库端'（主体泄漏）；D4=2：约1900字与跨维度题型匹配"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：开篇结论带内部词'库端'（主体泄漏）；D4=2：约1900字与跨维度题型匹配",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    },
+    "social-01#1": {
+     "task": "social-01",
+     "dims": {
+      "d1": 2,
+      "d2": 1,
+      "d3": 2,
+      "d4": 0,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "整份答案重复交付两遍（D4=0）；标题'已过出口闸'内部机制词入正文主体（D5=0）"
+     },
+     "total": 7,
+     "mapped": 2.9,
+     "null_reason": null,
+     "one_line_reason": "整份答案重复交付两遍（D4=0）；标题'已过出口闸'内部机制词入正文主体（D5=0）",
+     "judge_model": "GLM/glm-5.3-flash",
+     "repeat": 1
+    }
+   },
+   "usage": {
+    "prompt_tokens": 20079,
+    "completion_tokens": 29580,
+    "requests": 8
+   },
+   "prompt_fingerprint": "9e3ee473"
+  }
+ },
+ "judge_provider": "GLM",
+ "judge_model": "GLM/glm-5.3-flash > GLM/glm-5.3 > GLM/glm-4.7-flash > GLM/glm-4-flash",
+ "updated_at": "2026-10-29T07:49:30.116Z",
+ "last_run": {
+  "mode": "full",
+  "at": "2026-10-29T06:02:02.812Z",
+  "avg_quality": 4.4,
+  "nulled": 170,
+  "total_rows": 188,
+  "distinct_tasks": 63,
+  "reused": 0
+ }
+}

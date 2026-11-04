@@ -1,0 +1,99 @@
+{
+  "run_id": "eval-2026-10-26T01-11-16-331Z",
+  "started_at": "2026-10-26T01:11:16.332Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "ed7f0882df7a8cf06263d1954e8dc3bd15c87c6b",
+  "snapshot_id": "snap-20261012-1222",
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "ca7c4f7cec8662d8abd07d5f958c226a",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": null,
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-26T01:11:42.224Z",
+  "results": [
+    {
+      "task": "reviews-05",
+      "dimension": "口碑",
+      "question": "银河E5被吐槽最多的是哪方面？",
+      "repeat": 1,
+      "score": 1,
+      "reasons": [
+        "验证器否决: 数字结论未经出口闸提交（漏提交）",
+        "truth 锚点全中(1)"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 1,
+        "missing": [],
+        "forbidHits": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "418c54f2a50f608af9f20ffc18d81218",
+      "turnMessages": [
+        "银河E5被吐槽最多的是哪方面？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_reviews",
+        "query_reviews",
+        "get_dimension_reviews",
+        "search_reviews"
+      ],
+      "settled": true,
+      "verdict": "fail",
+      "error": null,
+      "cost": {
+        "duration_s": 24.2,
+        "tool_calls": 8,
+        "tokens": {
+          "input": 17532,
+          "output": 4148,
+          "cacheRead": 133504,
+          "totalTokens": 155184,
+          "cost_usd": 0.00399
+        },
+        "partial": false
+      },
+      "replyLength": 834,
+      "replyPreview": "**一句话结论：被吐槽最多的是「智能化」，其次「舒适（悬挂硬、噪音大）」。**\n\n**银河E5 口碑负评维度排行（样本 1187 条，截至 2026-09-30）**\n\n| 维度 | 负评条数 | 负",
+      "reply_full": "**一句话结论：被吐槽最多的是「智能化」，其次「舒适（悬挂硬、噪音大）」。**\n\n**银河E5 口碑负评维度排行（样本 1187 条，截至 2026-09-30）**\n\n| 维度 | 负评条数 | 负面占比 | 净态度 |\n|---|---|---|---|\n| **智能化** | **418** | **67.9%** | **−220（最低）** |\n| 舒适 | 313 | 62.2% | −123 |\n| 续航 | 228 | 53.5% | −30 |\n| 内饰 | 113 | 46.1% | +19 |\n| 性价比 | 75 | 26.6% | +132 |\n| 驾驶感受 | 61 | 22.4% | +150 |\n| 外观 | 43 | 15.9% | +184 |\n| 空间 | 33 | 6.2% | +465 |\n\n**智能化为什么被骂最狠（子话题）**\n- **智能化不足**：最集中的不满——\"入门纯电该有的配置它没有\"，辅助驾驶只在高配、抬头显示只顶配，\"都什么年代了电车还不上自动驾驶\"\n- **车机问题**：启动后十几秒卡顿、倒车影像延迟弹出、偶发卡顿\n- 具体用户体验：\"堵车开 L2 在城区完全不懂，还经常急刹，头都发懵\"\n\n**反面参照（优势项）**：空间大（360 条正评，负评 0）、外观好看（195 条）、车机流畅（111 条）——说明车机是\"两极分化\"而非全面拉胯。\n\n**口径与缺口**\n- 数据源：车主之家口碑标签聚合（模型 id 7650），样本 1187 条，覆盖 11 个版型、30 个省份；as_of 2026-10-17\n- 缺口：这是**站内口碑文本**的口径，不等于全网社媒舆情；若要看抖音/小红书上的真实车主吐槽分布和典型用户画像，我可以再跑一轮全网口碑调研，输出带溯源链接的报告。\n\n需要我继续下钻哪一块——比如「智能化不足」具体缺哪些配置（对配置表验证），还是拉全网社媒口碑看是否同一批槽点？",
+      "first_error_turn": 1
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-10-26T01-11-16-331Z",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "ed7f0882df7a8cf06263d1954e8dc3bd15c87c6b",
+    "set_composition": {
+      "dev": 0,
+      "frozen": 1,
+      "other": 0,
+      "total": 1
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 1,
+    "passCount": 0,
+    "trapBlockedCount": 0,
+    "set_filter": "all",
+    "truth": {
+      "checked": 1,
+      "fail": 0,
+      "failTasks": []
+    }
+  }
+}

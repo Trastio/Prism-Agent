@@ -1,0 +1,19 @@
+# prism-ops：北极星运营看板（8020，仅宿主机 loopback + SSH 隧道，零公网暴露）
+FROM python:3.11-slim
+
+ENV TZ=Asia/Shanghai \
+    PYTHONUNBUFFERED=1 \
+    PRISM_OPS_HOST=0.0.0.0
+
+WORKDIR /app/prism-ops
+
+RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple \
+    fastapi uvicorn[standard]
+
+COPY prism-ops/ ./
+
+# 只读数据源由 compose 挂载到 /app（_ROOT = prism-ops 的父目录）：
+#   /app/prism_events.db、/app/.pi/sessions/trajectories.jsonl
+EXPOSE 8020
+
+CMD ["python", "ops_server.py"]

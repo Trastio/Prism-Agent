@@ -1,0 +1,178 @@
+{
+  "run_id": "stack-recovery-probe",
+  "started_at": "2026-10-27T08:27:05.286Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "404c9f0058964e2ca05c2f90d163e454c1a3e405",
+  "snapshot_id": "snap-20261012-1222",
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "dc10c990e7af744474608d07479ad2b9",
+  "scoring_fingerprint": "a4e12be004d97cc8",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-27T08:27:23.902Z",
+  "results": [
+    {
+      "task": "sales-11",
+      "sessionId": "01a17c78-69dc-7276-b645-f019cd8a1997",
+      "dimension": "销量",
+      "question": "风云T7 9月的销量是多少",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "trap value_grounding 被拦截（正则）"
+      ],
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": "7dd2d3160065d4c7f62d9b119935f996",
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_sales_de",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "风云T7 9月的销量是多少"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "query_sales",
+        "query_sales",
+        "get_sales_detail"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 17.3,
+        "tool_calls": 7,
+        "tokens": {
+          "input": 1492,
+          "output": 2129,
+          "cacheRead": 76416,
+          "totalTokens": 80037,
+          "cost_usd": 0.001019
+        },
+        "partial": false
+      },
+      "replyLength": 386,
+      "replyPreview": "**风云T7 2026年9月的零售销量数据当前不可得**：9月月末销量记录已经生成，但零售量字段尚未结算（为空），因此无法给出具体台数。\n\n已查到和缺失的情况如下：\n\n| 项目 | 状态 |\n|---",
+      "reply_full": "**风云T7 2026年9月的零售销量数据当前不可得**：9月月末销量记录已经生成，但零售量字段尚未结算（为空），因此无法给出具体台数。\n\n已查到和缺失的情况如下：\n\n| 项目 | 状态 |\n|---|---|\n| 9月零售量 | **尚未结算**（该月明细已存在，但各版型销量为空） |\n| 9月末终端成交均价 | 约 **10.56 万元**（按 3 个在售版型统计） |\n| 同比或环比 | 库内无 2025 年及更早月份记录，**无法计算** |\n\n补充说明：9 月中旬还有一条记录，其零售量同样为空。这说明该车型 2026 年 9 月销量尚处于待结算阶段，并非“0 台”。如需台数口径结论，需要等 9 月销量数据在后续结算后入库；你也可以先查看 8 月或更早月份的销量作为参考，那部分我可以帮你取。\n\n数据时点：2026-9月末（as_of 2026-9月末）。",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "stack-recovery-probe",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "404c9f0058964e2ca05c2f90d163e454c1a3e405",
+    "set_composition": {
+      "dev": 0,
+      "frozen": 1,
+      "blind": 0,
+      "other": 0,
+      "total": 1
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 5,
+    "passCount": 1,
+    "trapBlockedCount": 1,
+    "trap_total": 1,
+    "anchored": {
+      "total": 1,
+      "pass": 1,
+      "pass_rate": 1,
+      "avg": 5
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 1,
+      "covered": 1,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 0,
+      "fail": 0,
+      "failTasks": []
+    },
+    "regression": {
+      "skip_reason": "scoring_changed"
+    }
+  }
+}

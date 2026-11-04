@@ -1,0 +1,962 @@
+{
+ "report": "eval-2026-10-26T15-23-07-811Z",
+ "prompt_version": "v5",
+ "prompt_fingerprint": "1f1c63e0",
+ "rounds": [
+  {
+   "mode": "calibrate",
+   "at": "2026-10-27T06:24:15.428Z",
+   "prompt_version": "v1",
+   "prompt_fingerprint": "c456c44a",
+   "judge": "GLM/glm-4.7-flash",
+   "rho": null,
+   "pass": false,
+   "nulled": 8,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "total": null,
+     "mapped": null,
+     "null_reason": "解析失败/API 耗尽"
+    },
+    {
+     "task": "config-05",
+     "total": null,
+     "mapped": null,
+     "null_reason": "解析失败/API 耗尽"
+    },
+    {
+     "task": "sales-09",
+     "total": null,
+     "mapped": null,
+     "null_reason": "解析失败/API 耗尽"
+    },
+    {
+     "task": "reviews-04",
+     "total": null,
+     "mapped": null,
+     "null_reason": "解析失败/API 耗尽"
+    },
+    {
+     "task": "sentiment-05",
+     "total": null,
+     "mapped": null,
+     "null_reason": "解析失败/API 耗尽"
+    },
+    {
+     "task": "multi-07",
+     "total": null,
+     "mapped": null,
+     "null_reason": "解析失败/API 耗尽"
+    },
+    {
+     "task": "skill-01",
+     "total": null,
+     "mapped": null,
+     "null_reason": "解析失败/API 耗尽"
+    },
+    {
+     "task": "social-01",
+     "total": null,
+     "mapped": null,
+     "null_reason": "解析失败/API 耗尽"
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-27T06:30:38.045Z",
+   "prompt_version": "v1",
+   "prompt_fingerprint": "c456c44a",
+   "judge_chain": "GLM/glm-4-flash",
+   "rho": -0.733,
+   "pass": false,
+   "nulled": 0,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "total": 6,
+     "mapped": 2.5,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "total": 7,
+     "mapped": 2.9,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-27T06:33:34.430Z",
+   "prompt_version": "v2",
+   "prompt_fingerprint": "80f86d81",
+   "judge_chain": "GLM/glm-4-flash",
+   "rho": -0.732,
+   "pass": false,
+   "nulled": 0,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "total": 9,
+     "mapped": 3.8,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "total": 9,
+     "mapped": 3.8,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "total": 9,
+     "mapped": 3.8,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-27T06:36:59.734Z",
+   "prompt_version": "v3",
+   "prompt_fingerprint": "03786cb8",
+   "judge_chain": "GLM/glm-4-flash",
+   "rho": -0.491,
+   "pass": false,
+   "nulled": 0,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "total": 9,
+     "mapped": 3.8,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "total": 9,
+     "mapped": 3.8,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-27T07:05:31.328Z",
+   "prompt_version": "v3",
+   "prompt_fingerprint": "03786cb8",
+   "judge_chain": "Kimi/kimi-k2.6",
+   "rho": -0.546,
+   "pass": false,
+   "nulled": 0,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "total": 7,
+     "mapped": 2.9,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-27T09:07:50.264Z",
+   "prompt_version": "v4",
+   "prompt_fingerprint": "4bcfbcdf",
+   "judge_chain": "GLM/glm-4-flash",
+   "rho": null,
+   "pass": false,
+   "nulled": 1,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "GLM/glm-4-flash",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": null,
+     "mapped": null,
+     "judge_model": null,
+     "null_reason": "解析失败/API 耗尽"
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-27T09:45:09.841Z",
+   "prompt_version": "v4",
+   "prompt_fingerprint": "4bcfbcdf",
+   "judge_chain": "Kimi/kimi-k2.6",
+   "rho": null,
+   "pass": false,
+   "nulled": 4,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": null,
+     "mapped": null,
+     "judge_model": null,
+     "null_reason": "解析失败/API 耗尽"
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": null,
+     "mapped": null,
+     "judge_model": null,
+     "null_reason": "解析失败/API 耗尽"
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": null,
+     "mapped": null,
+     "judge_model": null,
+     "null_reason": "解析失败/API 耗尽"
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": null,
+     "mapped": null,
+     "judge_model": null,
+     "null_reason": "解析失败（重试调用耗尽）"
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-27T09:55:22.256Z",
+   "prompt_version": "v4",
+   "prompt_fingerprint": "4bcfbcdf",
+   "judge_chain": "Kimi/kimi-k2.6",
+   "rho": -0.709,
+   "pass": false,
+   "nulled": 0,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": 7,
+     "mapped": 2.9,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-27T10:24:25.790Z",
+   "prompt_version": "v5",
+   "prompt_fingerprint": "1f1c63e0",
+   "judge_chain": "Kimi/kimi-k2.6",
+   "rho": null,
+   "pass": false,
+   "nulled": 1,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": 8,
+     "mapped": 3.3,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": null,
+     "mapped": null,
+     "judge_model": null,
+     "null_reason": "解析失败/API 耗尽"
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-27T10:28:46.506Z",
+   "prompt_version": "v5",
+   "prompt_fingerprint": "1f1c63e0",
+   "judge_chain": "Kimi/kimi-k2.6",
+   "rho": -0.761,
+   "pass": false,
+   "nulled": 0,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": 8,
+     "mapped": 3.3,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": 9,
+     "mapped": 3.8,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    }
+   ]
+  },
+  {
+   "mode": "calibrate",
+   "at": "2026-10-27T10:32:55.223Z",
+   "prompt_version": "v5",
+   "prompt_fingerprint": "1f1c63e0",
+   "judge_chain": "Kimi/kimi-k2.6",
+   "rho": 0.761,
+   "pass": true,
+   "nulled": 0,
+   "per_task": [
+    {
+     "task": "cross-02",
+     "repeat": 1,
+     "total": 12,
+     "mapped": 5,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "config-05",
+     "repeat": 1,
+     "total": 11,
+     "mapped": 4.6,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "sales-09",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "reviews-04",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "sentiment-05",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "multi-07",
+     "repeat": 1,
+     "total": 8,
+     "mapped": 3.3,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "skill-01",
+     "repeat": 1,
+     "total": 9,
+     "mapped": 3.8,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    },
+    {
+     "task": "social-01",
+     "repeat": 1,
+     "total": 10,
+     "mapped": 4.2,
+     "judge_model": "Kimi/kimi-k2.6",
+     "null_reason": null
+    }
+   ]
+  }
+ ],
+ "judge_provider": "Kimi",
+ "judge_model": "Kimi/kimi-k2.6",
+ "updated_at": "2026-10-27T10:32:55.221Z",
+ "by_judge": {
+  "Kimi/kimi-k2.6": {
+   "items": {
+    "cross-02#1": {
+     "task": "cross-02",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 2,
+      "d6": 2,
+      "confidence": 0.95,
+      "one_line_reason": "D1=2：开门见山给出双维度明确结论，结构清晰可直接汇报"
+     },
+     "total": 12,
+     "mapped": 5,
+     "null_reason": null,
+     "one_line_reason": "D1=2：开门见山给出双维度明确结论，结构清晰可直接汇报",
+     "judge_model": "Kimi/kimi-k2.6",
+     "repeat": 1
+    },
+    "config-05#1": {
+     "task": "config-05",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 1,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=1：尾部口径句带快照"
+     },
+     "total": 11,
+     "mapped": 4.6,
+     "null_reason": null,
+     "one_line_reason": "D5=1：尾部口径句带快照",
+     "judge_model": "Kimi/kimi-k2.6",
+     "repeat": 1
+    },
+    "sales-09#1": {
+     "task": "sales-09",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.95,
+      "one_line_reason": "D5=0：数据缺口段出现retail、对象身份核验工具、降级模式、别名表等多处系统内部泄漏"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：数据缺口段出现retail、对象身份核验工具、降级模式、别名表等多处系统内部泄漏",
+     "judge_model": "Kimi/kimi-k2.6",
+     "repeat": 1
+    },
+    "reviews-04#1": {
+     "task": "reviews-04",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D5=0：尾部及口径小节出现as_of、库内、字段、打标等多处内部词汇"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：尾部及口径小节出现as_of、库内、字段、打标等多处内部词汇",
+     "judge_model": "Kimi/kimi-k2.6",
+     "repeat": 1
+    },
+    "sentiment-05#1": {
+     "task": "sentiment-05",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.95,
+      "one_line_reason": "D5=0：as_of 出表头且口径节含 alias 映射表、降级模式等多处系统词泄漏"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：as_of 出表头且口径节含 alias 映射表、降级模式等多处系统词泄漏",
+     "judge_model": "Kimi/kimi-k2.6",
+     "repeat": 1
+    },
+    "multi-07#1": {
+     "task": "multi-07",
+     "dims": {
+      "d1": 1,
+      "d2": 2,
+      "d3": 2,
+      "d4": 1,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.9,
+      "one_line_reason": "D1=1：仅回答E5，完全遗漏B10与风云T7；D5=0：含可打标与as_of两处内部词"
+     },
+     "total": 8,
+     "mapped": 3.3,
+     "null_reason": null,
+     "one_line_reason": "D1=1：仅回答E5，完全遗漏B10与风云T7；D5=0：含可打标与as_of两处内部词",
+     "judge_model": "Kimi/kimi-k2.6",
+     "repeat": 1
+    },
+    "social-01#1": {
+     "task": "social-01",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 2,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.95,
+      "one_line_reason": "D5=0：主体出现series_id、retail_sum及过程性自述等多处内部泄漏"
+     },
+     "total": 10,
+     "mapped": 4.2,
+     "null_reason": null,
+     "one_line_reason": "D5=0：主体出现series_id、retail_sum及过程性自述等多处内部泄漏",
+     "judge_model": "Kimi/kimi-k2.6",
+     "repeat": 1
+    },
+    "skill-01#1": {
+     "task": "skill-01",
+     "dims": {
+      "d1": 2,
+      "d2": 2,
+      "d3": 2,
+      "d4": 1,
+      "d5": 0,
+      "d6": 2,
+      "confidence": 0.95,
+      "one_line_reason": "D5=0：首句过程性自述且含工作流、库内及内部ID多处泄漏；D4=1：约3200字偏长"
+     },
+     "total": 9,
+     "mapped": 3.8,
+     "null_reason": null,
+     "one_line_reason": "D5=0：首句过程性自述且含工作流、库内及内部ID多处泄漏；D4=1：约3200字偏长",
+     "judge_model": "Kimi/kimi-k2.6",
+     "repeat": 1
+    }
+   },
+   "usage": {
+    "prompt_tokens": 17693,
+    "completion_tokens": 39225,
+    "requests": 8
+   },
+   "prompt_fingerprint": "1f1c63e0"
+  }
+ }
+}

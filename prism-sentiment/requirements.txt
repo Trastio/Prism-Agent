@@ -1,0 +1,29 @@
+# ── 核心：Web 服务 + DB + 采集（C-1：固定版本防跨机漂移）──
+fastapi==0.135.2
+uvicorn==0.30.6
+sqlalchemy==2.0.43
+aiosqlite==0.22.1
+httpx==0.28.1
+pydantic==2.13.5
+sse-starlette==2.1.0
+python-dotenv==1.0.1
+tenacity==8.2.3
+
+# ── 分析 ──
+trafilatura==1.8.0
+simhash==2.1.2
+jieba==0.42.1
+networkx==3.0
+python-louvain==0.16
+beautifulsoup4==4.12.0
+cachetools==5.5.0
+
+# ── 测试 ──
+pytest==8.4.2
+pytest-asyncio==0.26.0
+
+# ── 可选：本地 ABSA 模型推理（F-16：不装则维度口碑不可用，见 LocalABSAModel.is_loaded）──
+# torch>=2.2.0
+# transformers>=4.40.0
+# peft>=0.10.0
+# unsloth

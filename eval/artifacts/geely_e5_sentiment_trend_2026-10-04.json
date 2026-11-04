@@ -1,0 +1,996 @@
+{
+ "request": "http://127.0.0.1:8002/sentiment-board/api/dashboard/trend/3f8825ef-7242-4c81-b4ec-1ddeadec889d?start=2026-06-01&end=2026-12-31",
+ "vehicle_id": "3f8825ef-7242-4c81-b4ec-1ddeadec889d",
+ "vehicle_name": "银河E5",
+ "fetched_at": "2026-10-05T20:44:53",
+ "payload": {
+  "data": [
+   {
+    "date": "2026-07-06",
+    "attention_index": 10278.7,
+    "discussion_volume": 2882,
+    "media_volume": 0,
+    "interaction_intensity": 29104.0,
+    "search_index": 12.9,
+    "search_detail": {
+     "xiaohongshu": 280.0
+    }
+   },
+   {
+    "date": "2026-07-07",
+    "attention_index": 3850.1,
+    "discussion_volume": 9,
+    "media_volume": 0,
+    "interaction_intensity": 46.0,
+    "search_index": 11.4,
+    "search_detail": {
+     "xiaohongshu": 246.0
+    }
+   },
+   {
+    "date": "2026-07-08",
+    "attention_index": 6689.6,
+    "discussion_volume": 147,
+    "media_volume": 0,
+    "interaction_intensity": 803.0,
+    "search_index": 12.3,
+    "search_detail": {
+     "xiaohongshu": 267.0
+    }
+   },
+   {
+    "date": "2026-07-09",
+    "attention_index": 8381.4,
+    "discussion_volume": 187,
+    "media_volume": 0,
+    "interaction_intensity": 4364.0,
+    "search_index": 12.8,
+    "search_detail": {
+     "xiaohongshu": 277.0
+    }
+   },
+   {
+    "date": "2026-07-11",
+    "attention_index": 6916.7,
+    "discussion_volume": 104,
+    "media_volume": 0,
+    "interaction_intensity": 1008.0,
+    "search_index": 10.2,
+    "search_detail": {
+     "xiaohongshu": 222.0
+    }
+   },
+   {
+    "date": "2026-07-12",
+    "attention_index": 6898.7,
+    "discussion_volume": 98,
+    "media_volume": 0,
+    "interaction_intensity": 990.0,
+    "search_index": 12.3,
+    "search_detail": {
+     "xiaohongshu": 267.0
+    }
+   },
+   {
+    "date": "2026-07-13",
+    "attention_index": 6938.3,
+    "discussion_volume": 9,
+    "media_volume": 0,
+    "interaction_intensity": 1030.0,
+    "search_index": 13.9,
+    "search_detail": {
+     "xiaohongshu": 301.0
+    }
+   },
+   {
+    "date": "2026-07-14",
+    "attention_index": 6326.1,
+    "discussion_volume": 70,
+    "media_volume": 0,
+    "interaction_intensity": 558.0,
+    "search_index": 15.7,
+    "search_detail": {
+     "xiaohongshu": 341.0
+    }
+   },
+   {
+    "date": "2026-07-15",
+    "attention_index": 4859.8,
+    "discussion_volume": 24,
+    "media_volume": 0,
+    "interaction_intensity": 128.0,
+    "search_index": 13.7,
+    "search_detail": {
+     "xiaohongshu": 296.0
+    }
+   },
+   {
+    "date": "2026-07-16",
+    "attention_index": 7624.6,
+    "discussion_volume": 254,
+    "media_volume": 0,
+    "interaction_intensity": 2047.0,
+    "search_index": 14.3,
+    "search_detail": {
+     "xiaohongshu": 309.0
+    }
+   },
+   {
+    "date": "2026-07-17",
+    "attention_index": 5973.8,
+    "discussion_volume": 47,
+    "media_volume": 0,
+    "interaction_intensity": 392.0,
+    "search_index": 13.8,
+    "search_detail": {
+     "xiaohongshu": 298.0
+    }
+   },
+   {
+    "date": "2026-07-18",
+    "attention_index": 6079.9,
+    "discussion_volume": 77,
+    "media_volume": 0,
+    "interaction_intensity": 436.0,
+    "search_index": 15.2,
+    "search_detail": {
+     "xiaohongshu": 330.0
+    }
+   },
+   {
+    "date": "2026-07-19",
+    "attention_index": 8343.8,
+    "discussion_volume": 33,
+    "media_volume": 0,
+    "interaction_intensity": 4203.0,
+    "search_index": 15.4,
+    "search_detail": {
+     "xiaohongshu": 333.0
+    }
+   },
+   {
+    "date": "2026-07-20",
+    "attention_index": 5902.6,
+    "discussion_volume": 48,
+    "media_volume": 0,
+    "interaction_intensity": 365.0,
+    "search_index": 14.3,
+    "search_detail": {
+     "xiaohongshu": 309.0
+    }
+   },
+   {
+    "date": "2026-07-21",
+    "attention_index": 5407.2,
+    "discussion_volume": 30,
+    "media_volume": 0,
+    "interaction_intensity": 222.0,
+    "search_index": 15.8,
+    "search_detail": {
+     "xiaohongshu": 343.0
+    }
+   },
+   {
+    "date": "2026-07-22",
+    "attention_index": 7815.2,
+    "discussion_volume": 31,
+    "media_volume": 0,
+    "interaction_intensity": 2477.0,
+    "search_index": 13.8,
+    "search_detail": {
+     "xiaohongshu": 298.0
+    }
+   },
+   {
+    "date": "2026-07-23",
+    "attention_index": 5501.3,
+    "discussion_volume": 39,
+    "media_volume": 0,
+    "interaction_intensity": 244.0,
+    "search_index": 13.2,
+    "search_detail": {
+     "xiaohongshu": 285.0
+    }
+   },
+   {
+    "date": "2026-07-24",
+    "attention_index": 6910.8,
+    "discussion_volume": 71,
+    "media_volume": 0,
+    "interaction_intensity": 1002.0,
+    "search_index": 14.0,
+    "search_detail": {
+     "xiaohongshu": 304.0
+    }
+   },
+   {
+    "date": "2026-07-25",
+    "attention_index": 5863.6,
+    "discussion_volume": 19,
+    "media_volume": 0,
+    "interaction_intensity": 351.0,
+    "search_index": 17.9,
+    "search_detail": {
+     "xiaohongshu": 388.0
+    }
+   },
+   {
+    "date": "2026-07-26",
+    "attention_index": 7416.4,
+    "discussion_volume": 102,
+    "media_volume": 0,
+    "interaction_intensity": 1662.0,
+    "search_index": 15.5,
+    "search_detail": {
+     "xiaohongshu": 336.0
+    }
+   },
+   {
+    "date": "2026-07-27",
+    "attention_index": 7034.4,
+    "discussion_volume": 156,
+    "media_volume": 0,
+    "interaction_intensity": 1134.0,
+    "search_index": 17.2,
+    "search_detail": {
+     "xiaohongshu": 373.0
+    }
+   },
+   {
+    "date": "2026-07-28",
+    "attention_index": 6093.6,
+    "discussion_volume": 35,
+    "media_volume": 0,
+    "interaction_intensity": 442.0,
+    "search_index": 12.6,
+    "search_detail": {
+     "xiaohongshu": 272.0
+    }
+   },
+   {
+    "date": "2026-07-29",
+    "attention_index": 6469.3,
+    "discussion_volume": 90,
+    "media_volume": 0,
+    "interaction_intensity": 644.0,
+    "search_index": 14.0,
+    "search_detail": {
+     "xiaohongshu": 304.0
+    }
+   },
+   {
+    "date": "2026-07-30",
+    "attention_index": 6202.5,
+    "discussion_volume": 73,
+    "media_volume": 0,
+    "interaction_intensity": 493.0,
+    "search_index": 9.6,
+    "search_detail": {
+     "xiaohongshu": 209.0
+    }
+   },
+   {
+    "date": "2026-07-31",
+    "attention_index": 4875.2,
+    "discussion_volume": 20,
+    "media_volume": 0,
+    "interaction_intensity": 130.0,
+    "search_index": 13.2,
+    "search_detail": {
+     "xiaohongshu": 285.0
+    }
+   },
+   {
+    "date": "2026-08-01",
+    "attention_index": 7026.4,
+    "discussion_volume": 111,
+    "media_volume": 0,
+    "interaction_intensity": 1125.0,
+    "search_index": 13.3,
+    "search_detail": {
+     "xiaohongshu": 288.0
+    }
+   },
+   {
+    "date": "2026-08-03",
+    "attention_index": 6354.4,
+    "discussion_volume": 55,
+    "media_volume": 0,
+    "interaction_intensity": 574.0,
+    "search_index": 16.0,
+    "search_detail": {
+     "xiaohongshu": 346.0
+    }
+   },
+   {
+    "date": "2026-08-04",
+    "attention_index": 8789.7,
+    "discussion_volume": 579,
+    "media_volume": 0,
+    "interaction_intensity": 6565.0,
+    "search_index": 14.0,
+    "search_detail": {
+     "xiaohongshu": 304.0
+    }
+   },
+   {
+    "date": "2026-08-05",
+    "attention_index": 5976.4,
+    "discussion_volume": 65,
+    "media_volume": 0,
+    "interaction_intensity": 393.0,
+    "search_index": 16.0,
+    "search_detail": {
+     "xiaohongshu": 346.0
+    }
+   },
+   {
+    "date": "2026-08-06",
+    "attention_index": 8003.7,
+    "discussion_volume": 189,
+    "media_volume": 0,
+    "interaction_intensity": 2991.0,
+    "search_index": 15.2,
+    "search_detail": {
+     "xiaohongshu": 330.0
+    }
+   },
+   {
+    "date": "2026-08-07",
+    "attention_index": 7794.8,
+    "discussion_volume": 418,
+    "media_volume": 0,
+    "interaction_intensity": 2427.0,
+    "search_index": 14.8,
+    "search_detail": {
+     "xiaohongshu": 320.0
+    }
+   },
+   {
+    "date": "2026-08-08",
+    "attention_index": 8022.9,
+    "discussion_volume": 544,
+    "media_volume": 0,
+    "interaction_intensity": 3049.0,
+    "search_index": 12.6,
+    "search_detail": {
+     "xiaohongshu": 272.0
+    }
+   },
+   {
+    "date": "2026-08-09",
+    "attention_index": 8402.2,
+    "discussion_volume": 201,
+    "media_volume": 0,
+    "interaction_intensity": 4456.0,
+    "search_index": 12.8,
+    "search_detail": {
+     "xiaohongshu": 277.0
+    }
+   },
+   {
+    "date": "2026-08-10",
+    "attention_index": 6220.6,
+    "discussion_volume": 73,
+    "media_volume": 0,
+    "interaction_intensity": 502.0,
+    "search_index": 15.4,
+    "search_detail": {
+     "xiaohongshu": 333.0
+    }
+   },
+   {
+    "date": "2026-08-11",
+    "attention_index": 8615.4,
+    "discussion_volume": 270,
+    "media_volume": 0,
+    "interaction_intensity": 5515.0,
+    "search_index": 14.4,
+    "search_detail": {
+     "xiaohongshu": 312.0
+    }
+   },
+   {
+    "date": "2026-08-12",
+    "attention_index": 6253.8,
+    "discussion_volume": 73,
+    "media_volume": 0,
+    "interaction_intensity": 519.0,
+    "search_index": 16.1,
+    "search_detail": {
+     "xiaohongshu": 349.0
+    }
+   },
+   {
+    "date": "2026-08-13",
+    "attention_index": 3828.6,
+    "discussion_volume": 0,
+    "media_volume": 0,
+    "interaction_intensity": 45.0,
+    "search_index": 12.8,
+    "search_detail": {
+     "xiaohongshu": 277.0
+    }
+   },
+   {
+    "date": "2026-08-14",
+    "attention_index": 6251.9,
+    "discussion_volume": 84,
+    "media_volume": 0,
+    "interaction_intensity": 518.0,
+    "search_index": 13.3,
+    "search_detail": {
+     "xiaohongshu": 288.0
+    }
+   },
+   {
+    "date": "2026-08-15",
+    "attention_index": 6752.3,
+    "discussion_volume": 135,
+    "media_volume": 0,
+    "interaction_intensity": 855.0,
+    "search_index": 13.3,
+    "search_detail": {
+     "xiaohongshu": 288.0
+    }
+   },
+   {
+    "date": "2026-08-16",
+    "attention_index": 5463.8,
+    "discussion_volume": 39,
+    "media_volume": 0,
+    "interaction_intensity": 235.0,
+    "search_index": 13.1,
+    "search_detail": {
+     "xiaohongshu": 283.0
+    }
+   },
+   {
+    "date": "2026-08-17",
+    "attention_index": 5575.9,
+    "discussion_volume": 16,
+    "media_volume": 0,
+    "interaction_intensity": 263.0,
+    "search_index": 13.9,
+    "search_detail": {
+     "xiaohongshu": 301.0
+    }
+   },
+   {
+    "date": "2026-08-18",
+    "attention_index": 6595.8,
+    "discussion_volume": 62,
+    "media_volume": 0,
+    "interaction_intensity": 731.0,
+    "search_index": 12.9,
+    "search_detail": {
+     "xiaohongshu": 280.0
+    }
+   },
+   {
+    "date": "2026-08-19",
+    "attention_index": 6466.1,
+    "discussion_volume": 93,
+    "media_volume": 0,
+    "interaction_intensity": 642.0,
+    "search_index": 12.8,
+    "search_detail": {
+     "xiaohongshu": 277.0
+    }
+   },
+   {
+    "date": "2026-08-20",
+    "attention_index": 8424.0,
+    "discussion_volume": 331,
+    "media_volume": 0,
+    "interaction_intensity": 4554.0,
+    "search_index": 12.8,
+    "search_detail": {
+     "xiaohongshu": 277.0
+    }
+   },
+   {
+    "date": "2026-08-21",
+    "attention_index": 5556.8,
+    "discussion_volume": 15,
+    "media_volume": 0,
+    "interaction_intensity": 258.0,
+    "search_index": 13.9,
+    "search_detail": {
+     "xiaohongshu": 301.0
+    }
+   },
+   {
+    "date": "2026-08-22",
+    "attention_index": 8393.0,
+    "discussion_volume": 133,
+    "media_volume": 0,
+    "interaction_intensity": 4415.0,
+    "search_index": 13.4,
+    "search_detail": {
+     "xiaohongshu": 291.0
+    }
+   },
+   {
+    "date": "2026-08-24",
+    "attention_index": 7186.1,
+    "discussion_volume": 136,
+    "media_volume": 0,
+    "interaction_intensity": 1320.0,
+    "search_index": 11.6,
+    "search_detail": {
+     "xiaohongshu": 251.0
+    }
+   },
+   {
+    "date": "2026-08-25",
+    "attention_index": 6289.7,
+    "discussion_volume": 77,
+    "media_volume": 0,
+    "interaction_intensity": 538.0,
+    "search_index": 14.1,
+    "search_detail": {
+     "xiaohongshu": 306.0
+    }
+   },
+   {
+    "date": "2026-08-26",
+    "attention_index": 6086.8,
+    "discussion_volume": 48,
+    "media_volume": 0,
+    "interaction_intensity": 439.0,
+    "search_index": 12.4,
+    "search_detail": {
+     "xiaohongshu": 269.0
+    }
+   },
+   {
+    "date": "2026-08-27",
+    "attention_index": 7250.6,
+    "discussion_volume": 34,
+    "media_volume": 0,
+    "interaction_intensity": 1408.0,
+    "search_index": 12.2,
+    "search_detail": {
+     "xiaohongshu": 264.0
+    }
+   },
+   {
+    "date": "2026-08-28",
+    "attention_index": 4317.5,
+    "discussion_volume": 7,
+    "media_volume": 0,
+    "interaction_intensity": 74.0,
+    "search_index": 10.7,
+    "search_detail": {
+     "xiaohongshu": 232.0
+    }
+   },
+   {
+    "date": "2026-08-30",
+    "attention_index": 6113.7,
+    "discussion_volume": 75,
+    "media_volume": 0,
+    "interaction_intensity": 451.0,
+    "search_index": 13.9,
+    "search_detail": {
+     "xiaohongshu": 301.0
+    }
+   },
+   {
+    "date": "2026-08-31",
+    "attention_index": 7232.7,
+    "discussion_volume": 177,
+    "media_volume": 0,
+    "interaction_intensity": 1383.0,
+    "search_index": 14.1,
+    "search_detail": {
+     "xiaohongshu": 306.0
+    }
+   },
+   {
+    "date": "2026-09-01",
+    "attention_index": 7009.4,
+    "discussion_volume": 125,
+    "media_volume": 0,
+    "interaction_intensity": 1106.0,
+    "search_index": 12.7,
+    "search_detail": {
+     "xiaohongshu": 275.0
+    }
+   },
+   {
+    "date": "2026-09-02",
+    "attention_index": 3332.2,
+    "discussion_volume": 5,
+    "media_volume": 0,
+    "interaction_intensity": 27.0,
+    "search_index": 11.1,
+    "search_detail": {
+     "xiaohongshu": 240.0
+    }
+   },
+   {
+    "date": "2026-09-03",
+    "attention_index": 8046.2,
+    "discussion_volume": 234,
+    "media_volume": 0,
+    "interaction_intensity": 3121.0,
+    "search_index": 13.2,
+    "search_detail": {
+     "xiaohongshu": 285.0
+    }
+   },
+   {
+    "date": "2026-09-04",
+    "attention_index": 6654.2,
+    "discussion_volume": 133,
+    "media_volume": 0,
+    "interaction_intensity": 775.0,
+    "search_index": 14.3,
+    "search_detail": {
+     "xiaohongshu": 309.0
+    }
+   },
+   {
+    "date": "2026-09-05",
+    "attention_index": 6385.2,
+    "discussion_volume": 90,
+    "media_volume": 0,
+    "interaction_intensity": 592.0,
+    "search_index": 12.0,
+    "search_detail": {
+     "douyin": 4083.0,
+     "xiaohongshu": 304.0
+    }
+   },
+   {
+    "date": "2026-09-06",
+    "attention_index": 6415.1,
+    "discussion_volume": 101,
+    "media_volume": 0,
+    "interaction_intensity": 610.0,
+    "search_index": 13.2,
+    "search_detail": {
+     "douyin": 4279.0,
+     "xiaohongshu": 343.0
+    }
+   },
+   {
+    "date": "2026-09-07",
+    "attention_index": 5393.6,
+    "discussion_volume": 30,
+    "media_volume": 0,
+    "interaction_intensity": 219.0,
+    "search_index": 11.9,
+    "search_detail": {
+     "douyin": 4111.0,
+     "xiaohongshu": 298.0
+    }
+   },
+   {
+    "date": "2026-09-08",
+    "attention_index": 5710.4,
+    "discussion_volume": 55,
+    "media_volume": 0,
+    "interaction_intensity": 301.0,
+    "search_index": 11.1,
+    "search_detail": {
+     "douyin": 4452.0,
+     "xiaohongshu": 243.0
+    }
+   },
+   {
+    "date": "2026-09-09",
+    "attention_index": 6787.8,
+    "discussion_volume": 135,
+    "media_volume": 0,
+    "interaction_intensity": 886.0,
+    "search_index": 10.7,
+    "search_detail": {
+     "douyin": 4210.0,
+     "xiaohongshu": 240.0
+    }
+   },
+   {
+    "date": "2026-09-10",
+    "attention_index": 7671.4,
+    "discussion_volume": 199,
+    "media_volume": 0,
+    "interaction_intensity": 2145.0,
+    "search_index": 9.9,
+    "search_detail": {
+     "douyin": 4067.0,
+     "xiaohongshu": 211.0
+    }
+   },
+   {
+    "date": "2026-09-11",
+    "attention_index": 8263.3,
+    "discussion_volume": 480,
+    "media_volume": 0,
+    "interaction_intensity": 3878.0,
+    "search_index": 15.2,
+    "search_detail": {
+     "douyin": 4259.0,
+     "xiaohongshu": 431.0
+    }
+   },
+   {
+    "date": "2026-09-12",
+    "attention_index": 7565.8,
+    "discussion_volume": 274,
+    "media_volume": 0,
+    "interaction_intensity": 1930.0,
+    "search_index": 14.1,
+    "search_detail": {
+     "douyin": 4313.0,
+     "xiaohongshu": 380.0
+    }
+   },
+   {
+    "date": "2026-09-13",
+    "attention_index": 5497.2,
+    "discussion_volume": 42,
+    "media_volume": 0,
+    "interaction_intensity": 243.0,
+    "search_index": 16.8,
+    "search_detail": {
+     "douyin": 5556.0,
+     "xiaohongshu": 433.0
+    }
+   },
+   {
+    "date": "2026-09-14",
+    "attention_index": 7675.1,
+    "discussion_volume": 124,
+    "media_volume": 0,
+    "interaction_intensity": 2153.0,
+    "search_index": 23.6,
+    "search_detail": {
+     "douyin": 11056.0,
+     "xiaohongshu": 433.0
+    }
+   },
+   {
+    "date": "2026-09-15",
+    "attention_index": 7844.6,
+    "discussion_volume": 222,
+    "media_volume": 0,
+    "interaction_intensity": 2551.0,
+    "search_index": 19.4,
+    "search_detail": {
+     "douyin": 8728.0,
+     "xiaohongshu": 375.0
+    }
+   },
+   {
+    "date": "2026-09-16",
+    "attention_index": 9322.4,
+    "discussion_volume": 940,
+    "media_volume": 0,
+    "interaction_intensity": 11185.0,
+    "search_index": 15.6,
+    "search_detail": {
+     "douyin": 6865.0,
+     "xiaohongshu": 312.0
+    }
+   },
+   {
+    "date": "2026-09-17",
+    "attention_index": 6907.8,
+    "discussion_volume": 150,
+    "media_volume": 0,
+    "interaction_intensity": 999.0,
+    "search_index": 20.8,
+    "search_detail": {
+     "douyin": 7374.0,
+     "xiaohongshu": 507.0
+    }
+   },
+   {
+    "date": "2026-09-18",
+    "attention_index": 5872.1,
+    "discussion_volume": 60,
+    "media_volume": 0,
+    "interaction_intensity": 354.0,
+    "search_index": 17.2,
+    "search_detail": {
+     "douyin": 7167.0,
+     "xiaohongshu": 365.0
+    }
+   },
+   {
+    "date": "2026-09-19",
+    "attention_index": 6161.2,
+    "discussion_volume": 73,
+    "media_volume": 0,
+    "interaction_intensity": 473.0,
+    "search_index": 18.3,
+    "search_detail": {
+     "douyin": 7225.0,
+     "xiaohongshu": 407.0
+    }
+   },
+   {
+    "date": "2026-09-20",
+    "attention_index": 7252.8,
+    "discussion_volume": 128,
+    "media_volume": 0,
+    "interaction_intensity": 1411.0,
+    "search_index": 18.0,
+    "search_detail": {
+     "douyin": 7033.0,
+     "xiaohongshu": 407.0
+    }
+   },
+   {
+    "date": "2026-09-21",
+    "attention_index": 6466.1,
+    "discussion_volume": 83,
+    "media_volume": 0,
+    "interaction_intensity": 642.0,
+    "search_index": 21.3,
+    "search_detail": {
+     "douyin": 7424.0,
+     "xiaohongshu": 529.0
+    }
+   },
+   {
+    "date": "2026-09-22",
+    "attention_index": 8560.6,
+    "discussion_volume": 343,
+    "media_volume": 0,
+    "interaction_intensity": 5221.0,
+    "search_index": 22.8,
+    "search_detail": {
+     "douyin": 9094.0,
+     "xiaohongshu": 502.0
+    }
+   },
+   {
+    "date": "2026-09-23",
+    "attention_index": 10352.9,
+    "discussion_volume": 1455,
+    "media_volume": 0,
+    "interaction_intensity": 31348.0,
+    "search_index": 100.0,
+    "search_detail": {
+     "douyin": 40686.0,
+     "xiaohongshu": 2166.0
+    }
+   },
+   {
+    "date": "2026-09-24",
+    "attention_index": 8807.0,
+    "discussion_volume": 356,
+    "media_volume": 0,
+    "interaction_intensity": 6680.0,
+    "search_index": 66.1,
+    "search_detail": {
+     "douyin": 26909.0,
+     "xiaohongshu": 1433.0
+    }
+   },
+   {
+    "date": "2026-09-25",
+    "attention_index": 8087.9,
+    "discussion_volume": 436,
+    "media_volume": 0,
+    "interaction_intensity": 3254.0,
+    "search_index": 36.9,
+    "search_detail": {
+     "douyin": 13800.0,
+     "xiaohongshu": 862.0
+    }
+   },
+   {
+    "date": "2026-09-26",
+    "attention_index": 8626.9,
+    "discussion_volume": 632,
+    "media_volume": 0,
+    "interaction_intensity": 5579.0,
+    "search_index": 45.7,
+    "search_detail": {
+     "douyin": 12655.0,
+     "xiaohongshu": 1307.0
+    }
+   },
+   {
+    "date": "2026-09-27",
+    "attention_index": 6576.5,
+    "discussion_volume": 78,
+    "media_volume": 0,
+    "interaction_intensity": 717.0,
+    "search_index": 46.6,
+    "search_detail": {
+     "douyin": 11826.0,
+     "xiaohongshu": 1391.0
+    }
+   },
+   {
+    "date": "2026-09-28",
+    "attention_index": 8877.7,
+    "discussion_volume": 729,
+    "media_volume": 0,
+    "interaction_intensity": 7169.0,
+    "search_index": 58.6,
+    "search_detail": {
+     "douyin": 10627.0,
+     "xiaohongshu": 1973.0
+    }
+   },
+   {
+    "date": "2026-09-29",
+    "attention_index": 8412.1,
+    "discussion_volume": 360,
+    "media_volume": 0,
+    "interaction_intensity": 4500.0,
+    "search_index": 46.0,
+    "search_detail": {
+     "douyin": 9930.0,
+     "xiaohongshu": 1465.0
+    }
+   },
+   {
+    "date": "2026-09-30",
+    "attention_index": 8819.8,
+    "discussion_volume": 669,
+    "media_volume": 0,
+    "interaction_intensity": 6766.0,
+    "search_index": 31.9,
+    "search_detail": {
+     "douyin": 8435.0,
+     "xiaohongshu": 931.0
+    }
+   },
+   {
+    "date": "2026-10-01",
+    "attention_index": 8292.0,
+    "discussion_volume": 472,
+    "media_volume": 0,
+    "interaction_intensity": 3991.0,
+    "search_index": 29.2,
+    "search_detail": {
+     "douyin": 8157.0,
+     "xiaohongshu": 830.0
+    }
+   },
+   {
+    "date": "2026-10-02",
+    "attention_index": 8706.3,
+    "discussion_volume": 190,
+    "media_volume": 0,
+    "interaction_intensity": 6040.0,
+    "search_index": 27.7,
+    "search_detail": {
+     "douyin": 8415.0,
+     "xiaohongshu": 751.0
+    }
+   },
+   {
+    "date": "2026-10-03",
+    "attention_index": 7103.3,
+    "discussion_volume": 138,
+    "media_volume": 0,
+    "interaction_intensity": 1215.0,
+    "search_index": 25.9,
+    "search_detail": {
+     "douyin": 8198.0,
+     "xiaohongshu": 685.0
+    }
+   },
+   {
+    "date": "2026-10-04",
+    "attention_index": 5411.6,
+    "discussion_volume": 42,
+    "media_volume": 0,
+    "interaction_intensity": 223.0,
+    "search_index": null,
+    "search_detail": null
+   }
+  ],
+  "lifecycle_phases": [],
+  "event_annotations": {}
+ }
+}

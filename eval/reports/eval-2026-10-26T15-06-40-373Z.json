@@ -1,0 +1,222 @@
+{
+  "run_id": "eval-2026-10-26T15-06-40-373Z",
+  "started_at": "2026-10-26T15:06:40.374Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+  "snapshot_id": null,
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "ca7c4f7cec8662d8abd07d5f958c226a",
+  "scoring_fingerprint": "c3f60b2e449a136a",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-26T15:07:34.591Z",
+  "results": [
+    {
+      "task": "cross-02",
+      "sessionId": "01a178bf-e53f-758d-81f1-183148e2c3f2",
+      "dimension": "跨维度",
+      "question": "银河E5 2026年销量同比表现如何？终端价是否真降价？",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "rubric[elements] 全要素命中"
+      ],
+      "rubric": {
+        "kind": "elements",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "same_trim",
+          "tp",
+          "month_end"
+        ],
+        "missing": [],
+        "missingRequired": [],
+        "forbidHits": [],
+        "note": "护栏全命中"
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "银河E5 2026年销量同比表现如何？终端价是否真降价？"
+      ],
+      "tools": [
+        "resolve_series",
+        "query_sales",
+        "query_sales",
+        "query_sales",
+        "query_sales"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 52.5,
+        "tool_calls": 11,
+        "tokens": {
+          "input": 9019,
+          "output": 6497,
+          "cacheRead": 111488,
+          "totalTokens": 127004,
+          "cost_usd": 0.003394
+        },
+        "partial": false
+      },
+      "replyLength": 1196,
+      "replyPreview": "**结论：银河E5 2026 年销量同比大幅下滑（1–8 月 −42.9%，8 月 −58.8%）；终端价确实降了，而且是“真降价”——同配置终端让利扩大约 1.37 万，并非官方调价。**\n\n## ",
+      "reply_full": "**结论：银河E5 2026 年销量同比大幅下滑（1–8 月 −42.9%，8 月 −58.8%）；终端价确实降了，而且是“真降价”——同配置终端让利扩大约 1.37 万，并非官方调价。**\n\n## 一、销量同比\n\n| 口径 | 2026 | 2025 | 同比 |\n|---|---|---|---|\n| 1–8 月累计 | 39,328 台 | 68,880 台 | **−42.9%** |\n| 8 月单月 | 4,436 台 | 10,774 台 | **−58.8%** |\n\n- 2026 年内走势：3 月 6,508 台是全月高点，之后逐月回落（6 月 7,218 台 → 8 月 4,436 台），8 月已是今年低点区间。\n- 2025 年同期月均在 8,600 台以上，2026 年月均仅约 4,900 台，已出现明显的水平差异。\n- 数据时点：**2026 年 9 月零售尚未结算**，同比口径只到 8 月，不能把 9 月算进来。\n\n## 二、终端价：确实降了\n\n**同配置对比（这是判断降价的正确口径）：**\n\n| 配置 | 2025 年 8 月 | 2026 年 8 月 | 变化 |\n|---|---|---|---|\n| 26款 530Km 启航版 终端成交均价 | 103,657 元 | 89,977 元 | **−13,680 元（−13.2%）** |\n| 官方指导价 | 109,800 元 | 109,800 元 | **未变** |\n\n其他同款也同步下探：530Km 探索版 −13.7%、610Km 远航版 −12.6%、610Km 探索+版 −15.4%、610Km 星舰版 −10.7%。\n\n**关键判断：这是终端优惠扩大造成的降价，并非官方降价。** 指导价一直保持 109,800 元，但终端折扣已从约 −5.6% 扩大至 −18.1%。\n\n**需要注意统计方式造成的错觉：** 车系整体均价只降了 4.8%（112,119 → 106,755 元），远小于同配置 13% 的降幅。原因是 2026 年结构发生明显变化：高价位的 610Km 版本销量占比大幅下滑（2025 年 8 月 610Km 占约 56%，2026 年 8 月仅约 12%），530Km 入门版成为主要销量来源；这使均价降幅被结构变化放大了。**看降价力度要看同配置对比，不要看车系均价。**\n\n## 三、数据边界\n\n- 终端价为用户成交均价口径，**不含置换补贴、金融贴息、地方消费券**等额外让利，实际优惠力度可能更大。\n- 市场上销量下滑的成因需要在市场侧判断，本轮数据只显示结果，不能将其归因到具体原因（如产品力或定价）；要确认原因，还需要补充：竞品同价位车型的销量、以及口碑侧的产品力变化。数据时点：2026-09（最新已结算月份为 2026 年 8 月）。",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-10-26T15-06-40-373Z",
+    "snapshot_ids": [],
+    "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+    "set_composition": {
+      "dev": 1,
+      "frozen": 0,
+      "other": 0,
+      "total": 1
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 5,
+    "passCount": 1,
+    "trapBlockedCount": 0,
+    "trap_total": 0,
+    "anchored": {
+      "total": 1,
+      "pass": 1,
+      "pass_rate": 1,
+      "avg": 5
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 1,
+      "covered": 1,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 0,
+      "fail": 0,
+      "failTasks": []
+    },
+    "regression": {
+      "skip_reason": "scoring_changed"
+    }
+  }
+}

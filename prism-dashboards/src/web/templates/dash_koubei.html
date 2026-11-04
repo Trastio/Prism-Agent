@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>口碑看板 · Autohome Agent</title>
+<!-- 共享设计系统 v2（与 docs/原型-市场看板-v2.html / docs/原型-配置看板-v2.html 同内容）：
+     统一页头 / 卡片头 .mhead / 数据表 .tbl（含 <thead> 表头行）等 -->
+<link rel="stylesheet" href="/dash/static/dashboard-v2.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- 2026-10：ECharts 本地化（原 jsdelivr CDN 在本机不可达 → 图表降级成表格撑爆页面） -->
+<script src="/dash/static/echarts.min.js"></script>
+<style>
+  :root {
+    --accent: #b85638;  --accent-d: #a44f33;  --accent-bg: #fdf4ef;
+    --pos: #2348b8;  --neg: #9c2a25;  --neu: #7a7670;  --info: #3a6ea5;
+    --positive-bg: #eef2fc;  --negative-bg: #fdf2f2;  --neutral-bg: #f5f5f5;
+    --bg: #fafaf7;  --card-bg: #ffffff;
+    --ink: #15140f;  --muted: #5a564e;  --muted-2: #6b665e;
+    --border: #e7e5e0;  --thead: #f4f1ec;  --grid: #f0ece5;
+    --radius: 12px;  --radius-sm: 8px;  --radius-lg: 16px;
+    --shadow: 0 1px 0 var(--grid);
+    --shadow-md: 0 2px 8px rgba(21,20,15,0.06);
+    /* 兼容旧变量名 */
+    --ink2: var(--muted);  --line: var(--border);  --bg-soft: var(--grid);
+    --warn: var(--neg);  --pro: var(--pos);  --con: var(--neg);
+    --blue: var(--info);  --good: var(--pos);  --red: var(--neg);  --green: var(--pos);
+  }
+  * { box-sizing: border-box; }
+  /* 页面局部组件（共享设计系统未覆盖的类）：筛选条 / 覆盖率条形 / 排序表头箭头。
+     标题层级一律走共享 .page-title / .mhead-title / .sec-title，此处不再定义裸 h1 / .panel h2。 */
+  /* P2#22：筛选走 URL（GET 表单）——刷新/分享/后退均可恢复，不再依赖 JS 显隐 */
+  .filters { display:flex; flex-wrap:wrap; gap:10px; align-items:center; }
+  .filters input[type=search] { font-size:14px; padding:7px 12px; border:1px solid var(--line); border-radius:8px; width:200px; }
+  .filters select { font-size:14px; padding:7px 10px; border:1px solid var(--line); border-radius:8px; background:#fff; }
+  .filters button { font-size:14px; padding:7px 16px; border-radius:8px; border:1px solid var(--accent); background:var(--accent); color:#fff; cursor:pointer; }
+  .filters a.reset { font-size:13px; color:var(--ink2); text-decoration:none; }
+  /* 质量面板标签：沿用既有 good/warn 语义色，非交互（cursor:default） */
+  .chip.q { cursor:default; border-radius:6px; }
+  .chip.q.good { background:#f0fdf4; color:var(--good); }
+  .chip.q.warn { background:#fffbeb; color:var(--warn); }
+  /* 数据表：主表用共享 .tbl（自带 <thead> 表头样式），此处只补排序链接、覆盖率条形与名称列换行 */
+  .tbl tbody td { white-space:nowrap; }
+  .tbl td.name { white-space:normal; min-width:130px; }
+  .tbl tbody tr.series:hover { background: var(--thead); }
+  .tbl th a { color:inherit; text-decoration:none; }
+  .tbl th a:hover { color:var(--accent); }
+  .tbl th.sorted a { color:var(--accent); font-weight:600; }
+  .tbl th.sorted a::after { content:" ↓"; font-size:11px; }
+  .bar-cell { min-width:170px; }
+  .bar { height:14px; background: var(--accent-bg); border-radius:4px; min-width:120px; }
+  .bar > i { display:block; height:100%; background:var(--accent); border-radius:4px; }
+  .cov-num { font-size:12px; color:var(--ink2); margin-top:2px; }
+  .scroll { overflow-x:auto; }
+  /* P2-27：窄屏响应式——表格横向滚动不溢出、筛选条换行 */
+  @media (max-width: 768px) {
+    .wrap { padding: 12px; }
+    .filters { flex-direction: column; align-items: stretch; gap: 6px; }
+  }
+  /* dashboard-v10 Task 2.3：全局键盘焦点可见样式（无障碍） */
+  :focus-visible { outline: 2px solid var(--blue, #3182ce); outline-offset: 2px; }
+</style>
+</head>
+<body>
+<nav class="nav" role="navigation" aria-label="主导航"><a class="on" href="/dash/koubei" aria-current="page">口碑</a><a href="/dash/config">配置</a><a href="/dash/market">市场</a></nav>
+<div class="wrap">
+  <!-- 页头：KOUBEI + 「口碑看板」 + 生成时间/数据源口径副标 + 右侧「当前筛选车系数」pill -->
+  <div class="page-head">
+    <div>
+      <div class="eyebrow">KOUBEI</div>
+      <div class="page-title">口碑看板</div>
+      <div class="page-sub">全部实测自本地 SQLite ｜ 筛选/排序在 URL（可分享、可刷新、可后退）</div>
+    </div>
+    <span class="spacer"></span>
+    <span class="pill">车系 {{ overall.series_n }}</span>
+  </div>
+
+  <!-- 顶部统计块：共享 .kpis / .kpi（数字统一 19px） -->
+  <div class="kpis">
+    <div class="kpi"><div class="n">{{ overall.series_n }}</div><div class="l">车系数（当前筛选）</div></div>
+    <div class="kpi"><div class="n">{{ overall.reviews }}</div><div class="l">口碑总数（当前筛选）</div></div>
+    <div class="kpi"><div class="n">{{ overall.tags }}</div><div class="l">标签总数（全部）</div></div>
+    <div class="kpi"><div class="n">{{ "%.1f"|format(overall.coverage*100) }}%</div><div class="l">标签覆盖率（当前筛选）</div></div>
+    <div class="kpi"><div class="n">{{ overall.max_fetched }}</div><div class="l">数据截至</div></div>
+  </div>
+
+  <!-- 筛选区：GET 表单（筛选进 URL）；method/action 与字段 name 保持不变（服务端/测试依赖） -->
+  <div class="card">
+    <div class="mhead">
+      <span class="mhead-title">多维筛选</span>
+      <span class="spacer"></span>
+      <span class="mhead-note">命中 {{ overall.series_n }} 个车系 · 价格未知 {{ unknown_price_n }} 系（可选「未知价格」单独查看）</span>
+    </div>
+    {# P2#21+#22：GET 表单提交 → 筛选进 URL；level/price 下拉防"打错一字 0 命中" #}
+    <form class="filters" method="get" action="/dash/koubei" role="search" aria-label="口碑车系筛选">
+      <label>搜索 <input type="search" name="q" value="{{ q }}" placeholder="搜索车系名…"></label>
+      <label>级别 <select name="level">
+        <option value="">全部级别</option>
+        {% for lv in levels %}<option value="{{ lv }}" {{ 'selected' if level == lv }}>{{ lv }}</option>{% endfor %}
+      </select></label>
+      <label>价格 <select name="price">
+        <option value="" {{ 'selected' if not price }}>全部价格</option>
+        {% for v, label in [("0-10", "10万以下"), ("10-15", "10-15万"), ("15-20", "15-20万"), ("20-30", "20-30万"), ("30-", "30万以上"), ("unknown", "未知价格")] %}
+        <option value="{{ v }}" {{ 'selected' if price == v }}>{{ label }}</option>
+        {% endfor %}
+      </select></label>
+      <button type="submit">筛选</button>
+      {% if filtered %}<a class="reset" href="/dash/koubei">重置</a>{% endif %}
+    </form>
+  </div>
+
+  {# P2#27：质量面板 PM 视角——覆盖率分布 + 陈旧车系计数（全库口径） #}
+  <div class="card">
+    <div class="mhead">
+      <span class="mhead-title">数据质量</span>
+      <span class="spacer"></span>
+      <span class="mhead-note">全库 {{ quality.cov_high + quality.cov_mid + quality.cov_low }} 系 · 覆盖率分布 / 陈旧计数</span>
+    </div>
+    <div class="chips">
+      <span class="chip q good">✓ 覆盖率 ≥80%：{{ quality.cov_high }} 系</span>
+      <span class="chip q {% if quality.cov_mid %}warn{% else %}good{% endif %}">覆盖率 50-80%：{{ quality.cov_mid }} 系</span>
+      <span class="chip q {% if quality.cov_low %}warn{% else %}good{% endif %}">⚠ 覆盖率 &lt;50%：{{ quality.cov_low }} 系</span>
+      <span class="chip q {% if quality.stale_n %}warn{% else %}good{% endif %}">{{ "⚠" if quality.stale_n else "✓" }} 陈旧车系（最新发帖 &gt;180 天）：{{ quality.stale_n }} 系</span>
+      <span class="chip q">覆盖率口径：已打标 / 有文本可提取</span>
+    </div>
+  </div>
+
+  {# 主表所在卡：车系口碑覆盖（共享 .tbl，表头必须在 <thead> 内） #}
+  <div class="card">
+    <div class="mhead">
+      <span class="mhead-title">车系口碑覆盖</span>
+      <span class="spacer"></span>
+      <span class="mhead-note">按 {{ sort }} 排序 · 点击列头切换排序 · 口径见页脚</span>
+    </div>
+    <div class="scroll">
+    <table class="tbl" aria-label="口碑车系列表">
+      <caption class="hint">按 {{ sort }} 排序，{{ overall.series_n }} 个车系</caption>
+      <thead><tr>
+        <th scope="col">车系</th><th scope="col">级别</th><th scope="col">价格区间</th>
+        {# P2#21：表头排序链接（保留当前筛选参数；当前排序高亮） #}
+        <th scope="col" class="{{ 'sorted' if sort == 'score' }}"><a href="{{ sort_urls.score }}" title="之家官方均分（SeriesSummary.average_score），非库内口碑现算分">官方均分</a><br><small class="hint">★=星级 ＋同级中位参照</small></th>
+        <th scope="col" class="{{ 'sorted' if sort == 'reviews' }}"><a href="{{ sort_urls.reviews }}">口碑数</a></th>
+        <th scope="col" class="bar-cell {{ 'sorted' if sort == 'coverage' }}"><a href="{{ sort_urls.coverage }}">标签覆盖率</a></th>
+        {# P0-4：采集覆盖率（库内已采 / 之家标注在售总数），与标签覆盖率分母口径不同 #}
+        <th scope="col" title="库内已采口碑数 / 之家标注在售口碑总数（SeriesSummary.onsell_review_count）">采集覆盖率</th>
+        <th scope="col">最新发帖</th><th scope="col">采集时间</th></tr></thead>
+      <tbody>
+      {% for r in rows %}
+      <tr class="series">
+        <td class="name"><a href="/dash/koubei/series/{{ r.model_id }}">{{ r.name }}</a></td>
+        <td>{{ r.level }}</td>
+        <td>{{ r.price }}</td>
+        <td>
+          {# P2-22：均分改星级展示（5 星制，半星四舍五入）+ 同级中位数参照（区分度） #}
+          {% if r.score %}
+            {% set ns = namespace(stars="") %}
+            {% set full = (r.score / 5 * 5)|round(0)|int %}
+            {% for i in range(5) %}{% if i < full %}★{% else %}☆{% endif %}{% endfor %}
+            <small class="hint">{{ "%.1f"|format(r.score) }}</small>
+            {% if r.level_median %}
+              {% if r.score > r.level_median %}<span class="pill" style="background:#dcfce7;color:#15803d" title="高于同级中位 {{ r.level_median }}">▲</span>
+              {% elif r.score < r.level_median %}<span class="pill warn" style="background:#fee2e2;color:#b91c1c" title="低于同级中位 {{ r.level_median }}">▼</span>
+              {% else %}<span class="hint" title="等于同级中位">＝</span>{% endif %}
+              <small class="hint">中位{{ r.level_median }}</small>
+            {% endif %}
+          {% else %}—{% endif %}
+        </td>
+        <td>{{ r.db_reviews }}</td>
+        <td class="bar-cell">
+          <div class="bar"><i style="width: {{ (r.coverage*100)|round(1) }}%"></i></div>
+          <div class="cov-num">{{ "%.1f"|format(r.coverage*100) }}%（{{ r.tagged }}/{{ r.taggable }}）{% if r.low_cov %}<span class="pill warn">低覆盖</span>{% endif %}</div>
+        </td>
+        {# P0-4：采集覆盖率（库内/之家标注）；缺失→"—"；<80% 黄牌 #}
+        <td>{% if r.collection_coverage %}{{ "%.1f"|format(r.collection_coverage*100) }}%{% if r.low_collection %} <span class="pill warn">低采集</span>{% endif %}{% else %}—{% endif %}</td>
+        <td>{{ r.last_post }}{% if r.stale %}<span class="pill warn">陈旧</span>{% endif %}</td>
+        <td>{{ r.last_fetched }}</td>
+      </tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    </div>
+    {% if not rows %}<div class="hint">当前筛选下没有车系，试试放宽条件（或<a href="/dash/koubei">重置筛选</a>）。</div>{% endif %}
+    <div class="hint">👆 点击车系名进入下钻页（版型 / 省份 / 维度）。</div>
+  </div>
+
+  <div class="foot">
+    · 标签覆盖率 = 已打标口碑数 / 有文本可提取口碑数（分母=可打标条数），与工具层守卫同源。<br>
+    · 采集覆盖率 = 库内已采口碑数 / 之家标注在售口碑总数（SeriesSummary.onsell_review_count），反映采集完整度；&lt;80% 标"低采集"。<br>
+    · 全库最新采集时间为 {{ overall.max_fetched }}。本看板只读，不触发采集或打标。
+  </div>
+</div>
+</body>
+</html>

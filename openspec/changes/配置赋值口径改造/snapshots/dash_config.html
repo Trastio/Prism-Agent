@@ -1,0 +1,785 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>配置看板 · Autohome Agent</title>
+<!-- 共享设计系统 v2（与 docs/原型-配置看板-v2.html 同内容）：统一页头 / 卡片头 .mhead / 数据表 .tbl（含表头行）等 -->
+<link rel="stylesheet" href="/dash/static/dashboard-v2.css">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+SC:wght@400;600;700&display=swap" rel="stylesheet">
+<!-- 2026-10：ECharts 本地化（原 jsdelivr CDN 在本机不可达 → 图表降级成表格撑爆页面） -->
+<script src="/dash/static/echarts.min.js"></script>
+<style>
+  :root {
+    --accent: #b85638;  --accent-d: #a44f33;  --accent-bg: #fdf4ef;
+    --pos: #2348b8;  --neg: #9c2a25;  --neu: #7a7670;  --info: #3a6ea5;
+    --positive-bg: #eef2fc;  --negative-bg: #fdf2f2;  --neutral-bg: #f5f5f5;
+    --bg: #fafaf7;  --card-bg: #ffffff;
+    --ink: #15140f;  --muted: #5a564e;  --muted-2: #6b665e;
+    --border: #e7e5e0;  --thead: #f4f1ec;  --grid: #f0ece5;
+    --radius: 12px;  --radius-sm: 8px;  --radius-lg: 16px;
+    --shadow: 0 1px 0 var(--grid);
+    --shadow-md: 0 2px 8px rgba(21,20,15,0.06);
+    /* 兼容旧变量名 */
+    --ink2: var(--muted);  --line: var(--border);  --bg-soft: var(--grid);
+    --warn: var(--neg);  --pro: var(--pos);  --con: var(--neg);
+    --blue: var(--info);  --good: var(--pos);  --red: var(--neg);  --green: var(--pos);
+  }
+  * { box-sizing: border-box; }
+  body { font-family: 'Inter', 'Noto Sans SC', sans-serif; background: var(--bg); color: var(--ink); margin: 0; padding: 0 0 40px; }
+  /* 组件库 */
+  .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 20px; box-shadow: var(--shadow-md); }
+  .kpi-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+  .kpi-value { font-size: 19px; font-weight: 700; font-feature-settings: 'tnum'; letter-spacing: -.01em; }
+  .alert-bar { background: var(--card-bg); border-left: 3px solid var(--accent); border-radius: var(--radius-sm); padding: 12px 16px; }
+  /* 已移除 2 条失效规则：.kalert / .kalert b（差异摘要条已改用共享 `.concl-plain`，
+     全页无 class="kalert" 元素；JS 注释里的 "kalert" 仅为原型名，非类引用）；见 git 历史。 */
+  .hint { color: var(--muted); font-size: 12px; }
+  .sec { margin-bottom: 36px; }
+  .sec-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: .18em; color: var(--muted); margin-bottom: 12px; }
+  /* 已移除 1 条失效规则：details.panel（页面无 <details class="panel">，折叠统一走共享 v2）；见 git 历史。 */
+  nav { background: #fff; border-bottom: 1px solid var(--line); padding: 10px 24px; display: flex; gap: 18px; align-items: center; }
+  /* 导航品牌字样已按要求移除，nav b 规则一并清理 */
+  nav a { color: var(--ink2); text-decoration: none; font-size: 14px; padding: 4px 10px; border-radius: 6px; }
+  nav a:hover { background: var(--thead); }
+  /* config-board-polish：冷蓝残留 → 暖色令牌（原 #eff6ff / #f8fafc / #f3f4f6 与
+     暖米白+#b85638 的设计语言冲突） */
+  nav a.on { color: var(--accent); background: var(--accent-bg); font-weight: 600; }
+  /* 已移除 1 条失效规则：.container（页面容器改用共享 `.wrap`，全页无 class="container"）；见 git 历史。 */
+  h1 { font-size: 22px; margin: 4px 0; }
+  /* 已移除 1 条失效规则：.sub（口径副标改由共享 `.page-sub` 承载，全页无 class="sub"）；见 git 历史。 */
+  /* 已移除 4 条失效规则：.cmp-layout / .cmp-aside /（980px 媒体查询中的二者）——旧双栏布局已被共享
+     `.grid2` 与横表取代，全页无 class="cmp-layout"/"cmp-aside"；见 git 历史。 */
+  /* 已移除 3 条失效规则：.panel / .panel h2 / .panel h2 small（旧卡片类已由共享 `.card` 取代，
+     全页无 class="panel"）；见 git 历史。 */
+  /* config-board-v2：卡片标题统一走共享 `.mhead-title`（15px）——不再定义
+     `.card h2/h2-mt/h3` 巨型字号规则，避免与 v2 形成两套标题样式。 */
+  /* 空的占位 pill 在未对比时不渲染（否则留出"空色块/竖条"痕迹，显脏） */
+  #hc-pill:empty, #hc-mode-badge:empty { display: none; }
+  .hint { color: var(--ink2); font-size: 13px; }
+  .hint-mt { margin-top: 6px; }
+  .hint-mb { margin-bottom: 8px; }
+  .hint-m0 { margin: 0; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: 8px; max-height: 260px; overflow: auto; padding: 4px; }
+  .opt { display: flex; gap: 8px; align-items: center; font-size: 13px; padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; cursor: pointer; user-select: none; }
+  .opt:hover { background: var(--thead); }
+  .opt input { accent-color: var(--accent); }
+  .btns { display: flex; gap: 10px; margin-top: 12px; align-items: center; }
+  .btns-wrap { flex-wrap: wrap; }
+  .btns-wrap-start { flex-wrap: wrap; align-items: flex-start; }
+  .btns-col { display: flex; flex-direction: column; gap: 6px; }
+  .btns-col-stretch { flex-direction: column; align-items: stretch; gap: 6px; }
+  .btns-mt { margin-top: 14px; }
+  button { font-size: 14px; padding: 8px 18px; border-radius: 8px; border: 1px solid var(--accent); background: var(--accent); color: #fff; cursor: pointer; }
+  button.ghost { background: #fff; color: var(--accent); }
+  .btns button.ghost.sm { font-size: 12px; padding: 4px 10px; }
+  /* §02 横表首列行内计价输入框：概念赋值兜底（蓝）/手填覆盖（绿）/未定价（灰）三态 */
+  .price-input { width: 92px; font-size: 12px; padding: 3px 6px; border: 1px solid var(--line); border-radius: 6px; margin-top: 3px; }
+  .price-input.concept { border-color: #93c5fd; background: #eff6ff; }   /* 概念兜底价（蓝） */
+  .price-input.manual { border-color: #86efac; background: #f0fdf4; }    /* 手填覆盖价（绿） */
+  .price-input.unset { color: #4b5563; }                                  /* 未定价（占位灰，AA 对比） */
+  button:disabled { opacity: .45; cursor: not-allowed; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  th { text-align: left; color: var(--ink2); font-weight: 500; padding: 6px 8px; border-bottom: 1px solid var(--line); white-space: nowrap; }
+  td { padding: 6px 8px; border-bottom: 1px solid var(--grid); vertical-align: top; }
+  td.k { color: var(--ink2); width: 220px; white-space: nowrap; }
+  td.diff { color: var(--accent); font-weight: 600; }
+  .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; }
+  .src { font-size: 12px; color: var(--muted); margin-top: 8px; }
+  .err { background: #fffbeb; color: var(--warn); border-radius: 8px; padding: 10px 14px; font-size: 13px; }
+  .err-inline { color: var(--warn); }
+  .hidden { display: none; }
+  .pill { display: inline-block; font-size: 11px; background: var(--accent-bg); color: var(--accent); border-radius: 4px; padding: 1px 8px; margin-left: 6px; }
+  /* P2#26：手填数据 vs 之家抓取数据的视觉隔离（同一页面两种来源一眼可分） */
+  .pill.manual { background: #fef3c7; color: #92400e; }
+  .pill.snap { background: var(--thead); color: var(--muted-2); }
+  /* P0-5：指导价未填 → 高亮警示（红底），区别于正常加配不加价等结论 */
+  .pill.warn { background: #fee2e2; color: #b91c1c; font-weight: 700; }
+  .pill.stale { background: #fde68a; }
+  .foot { font-size: 12px; color: var(--muted); line-height: 1.8; }
+  .cmp-cat { margin-bottom: 16px; }
+  .tabs { display: flex; gap: 4px; border-bottom: 1px solid var(--line); margin-bottom: 14px; }
+  .tabs a { padding: 8px 16px; font-size: 14px; color: var(--ink2); text-decoration: none; border-bottom: 2px solid transparent; border-radius: 6px 6px 0 0; }
+  .tabs a:hover { background: var(--thead); }
+  .tabs a.on { color: var(--accent); border-bottom-color: var(--accent); font-weight: 600; }
+  .tabs-scope { margin-right: 8px; white-space: nowrap; }
+  .delta-add { color: #15803d; font-weight: 600; }
+  .delta-remove { color: #b91c1c; font-weight: 600; }
+  .delta-flat { color: var(--ink2); font-weight: 600; }
+  .delta-missing { color: #c2410c; font-weight: 600; }  /* v8：数据缺失（橙，区别于无/取值不同） */
+  .legend { font-size: 12px; color: var(--ink2); background: var(--thead); padding: 6px 10px; border-radius: 6px; display: inline-block; }
+  .legend-mb { margin-bottom: 8px; }
+  .legend b { color: var(--ink); }
+  .diff-cell-hi { background: #fffbeb; }  /* v8：差异单元格高亮 */
+  .steps { margin: 0; padding-left: 20px; font-size: 13px; line-height: 2; color: var(--ink); }
+  .steps .step-done { color: #15803d; font-size: 12px; margin-left: 6px; }
+  /* dashboard-v10 Task 2.3：全局键盘焦点可见样式（无障碍） */
+  :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; }
+
+  /* ---- Task 3/4：统一表单控件类（抽取 87 处 inline-style） ---- */
+  .sel { padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; }
+  .sel-w300 { width: 300px; }
+  .sel-min160 { min-width: 160px; }
+  .sel-min200 { min-width: 200px; }
+  .sel-min240 { min-width: 240px; }
+  .inp { padding: 6px 10px; border: 1px solid var(--line); border-radius: 8px; }
+  .inp-w90 { width: 90px; }
+  .inp-w110 { width: 110px; }
+  .inp-flex { flex: 1; }
+  .inp-row { display: flex; gap: 6px; }
+
+  /* 表头 / 分类行 / 汇总行统一 */
+  .th-param { width: 220px; }
+  .th-small { font-weight: 400; }
+  .th-cat { width: 160px; }
+  .th-concept { width: 200px; }
+  .cat-row { background: var(--thead); font-weight: 600; padding: 8px; }
+  .total-row { background: #f0fdf4; font-weight: 600; }
+  .row-warn { background: #fffbeb; color: var(--warn); font-weight: 600; }
+  .h2-mt { margin-top: 14px; }
+  .h2-mb { margin-bottom: 8px; }
+  .panel-guide { background: var(--accent-bg); border-color: #f0d5c8; }
+
+  /* dashboard-v12 Task 2.1：主角车系 combobox 输入框宽度（替代 inline-style） */
+  .combo-inp { min-width: 280px; flex: 0 1 360px; }
+  /* dashboards-tri-polish Task 2.2：每列独立选车系+版型（替代 inline-style） */
+  /* config-board-v2：§01 每列一张 pick 卡（.pickers > .pick > .pick-lbl + .pick-row），
+     卡片外框/标签交给共享 v2 的 .pick / .pick-lbl，此处只保留下拉自适应宽度。 */
+  .pick-row .pick-series, .pick-row .pick-trim { flex: 1 1 90px; min-width: 90px; font-size: 12px; }
+
+  /* ---- config-horizontal-compare：之家式横向表 ---- */
+  /* 已移除 3 条失效规则：.hc-mode-bar / .hc-controls / .hc-legacy-divider（旧横表工具条与分隔符
+     已被共享 `.chips` + `.btns` + `<details>` 结构取代，全页无对应 class）；见 git 历史。 */
+  /* 已移除：跨车系组件相关 CSS（两车对比收敛）；见 git 历史。 */
+  .hc-table-wrap { overflow-x:auto; max-width:100%; }
+  #hc-table { border-collapse:collapse; min-width:100%; }
+  #hc-table th, #hc-table td { border:1px solid var(--line,#ddd); padding:6px 8px; white-space:nowrap; }
+  .hc-first-col { position:sticky; left:0; background:#fff; z-index:2; min-width:140px; }
+  #hc-table th.hc-first-col { z-index:3; }
+  .hc-concept-row { background:rgba(37,99,235,0.04); }
+  .hc-badge { font-size:10px; background:var(--accent,#2563eb); color:#fff; padding:1px 4px; border-radius:3px; margin-right:4px; }
+  .delta-cell { background:rgba(255,193,7,0.25); }
+#hc-table.no-highlight .delta-cell { background:transparent; }
+  .hc-missing { color:#999; font-style:italic; }
+  /* 已移除：列增删/移列控件相关 CSS（两车对比恒为 2 列）；见 git 历史。 */
+
+  /* ---- dashboards-design-system：横表视觉（之家式横向对比表） ---- */
+  /* 首列冻结 sticky left + 列头 sticky top —— 大表横向/纵向滚动时参数名/列头常驻 */
+  #hc-table { position: relative; }
+  #hc-table thead th, #hc-table tbody tr > th {
+    position: sticky; top: 0; z-index: 3;
+    background: var(--thead);  /* 列头底色，遮住滚动穿透 */
+  }
+  #hc-table .hc-first-col {
+    position: sticky; left: 0; z-index: 4;
+    background: var(--card-bg);  /* 首列冻结底色，遮住横向滚动穿透 */
+  }
+  #hc-table thead th.hc-first-col { z-index: 5; }  /* 左上角单元格最高层 */
+  /* 分组行底色（cat-row：车身/底盘/内饰… 大类分隔） */
+  #hc-table tbody tr.cat-row > td,
+  #hc-table tbody tr > td.cat-row {
+    background: var(--thead); font-weight: 700; color: var(--ink);
+  }
+  /* 六态语义色：标配/选配/无/缺采/有值 差异化标色（之家式横表口径） */
+  #hc-table td.hc-state-std { color: var(--pos); font-weight: 600; }       /* ● 标配 */
+  #hc-table td.hc-state-opt { color: var(--info); }                        /* ○ 选配 */
+  #hc-table td.hc-state-none { color: var(--muted-2); }                    /* - 无 */
+  #hc-table td.hc-state-missing { color: var(--neg); font-style: italic; } /* 缺采 */
+  #hc-table td.hc-state-value { color: var(--ink); font-weight: 500; }     /* 有值 */
+  /* 差异行底纹：行内任意列不同时整行淡底色，引导 PM 视线到差异 */
+  #hc-table tbody tr.hc-row-diff > td { background: rgba(184, 86, 56, 0.04); }
+  #hc-table tbody tr.hc-row-diff > td.hc-first-col { background: var(--card-bg); }  /* 首列保持白底 */
+  /* 概念行底色（is_concept 计价行） */
+  #hc-table tbody tr.hc-concept-row > td { background: rgba(35, 72, 184, 0.04); }
+  #hc-table tbody tr.hc-concept-row > td.hc-first-col { background: rgba(35, 72, 184, 0.04); }
+  /* tfoot「配置差价（两车）」汇总行（逐列相对第 1 列） */
+  #hc-table tfoot tr.hc-diff-row > td {
+    background: #fdf4ef; font-weight: 600; color: var(--accent);
+    border-top: 1px solid var(--accent);
+  }
+  #hc-table tfoot tr.hc-diff-row > td.hc-first-col { background: #fdf4ef; }
+</style>
+</head>
+<body>
+<nav class="nav"><a href="/dash/koubei">口碑</a><a class="on" href="/dash/config">配置</a><a href="/dash/market">市场</a></nav>
+<div class="wrap">
+  <!-- 页头：CONFIG + 「配置看板」 + 数据源副标 + 右侧「库内 N 个车系」pill -->
+  <div class="page-head">
+    <div>
+      <div class="eyebrow">CONFIG</div>
+      <div class="page-title">配置看板</div>
+      <div class="page-sub">数据源：config_snapshots 快照表（版型名 / 指导价实时调取之家 API）</div>
+    </div>
+    <span class="spacer"></span>
+    <span class="pill">库内 {{ selector|length }} 个车系</span>
+  </div>
+
+  <!-- 口径说明条（真实口径，非"静态原型稿"） -->
+  <div class="sec">
+    <div class="concl-plain">数据源：config_snapshots 快照表（版型名/指导价实时调取之家 API）｜ 本次耗时 {{ (elapsed ~ "s") if elapsed else "—" }}</div>
+  </div>
+
+  {# ======================= §01 选择版型（A/B 两车） ======================= #}
+  {# config-board-v2：首屏按 docs/原型-配置看板-v2.html §01 落地——「逐列选车系+版型」 + 差异摘要条；
+     隐藏数据源 #series-pool 供 A/B 两车列下拉复用（JS _seriesPoolOpts 依赖）。 #}
+  <section class="sec">
+    <div class="sec-title">§01 选择版型（A/B 两车）</div>
+    {# 常渲染——去掉 {% if trim_select %} 门控，首屏即可交互，JS fetch 后填充 #}
+    <div class="card">
+      <div class="mhead">
+        <span class="mhead-title">逐列选择车系 + 版型</span>
+        <span class="spacer"></span>
+        <span class="mhead-note">库内 {{ selector|length }} 个车系 · 两车对比 · 各选车系 + 版型</span>
+      </div>
+      <div id="series-pool" hidden>
+        {% for s in selector %}
+        <span data-id="{{ s.id }}" data-name="{{ s.name }}"></span>
+        {% endfor %}
+      </div>
+      <div id="trim-picks-dynamic" class="pickers"></div>
+      <div class="btns">
+        <button class="btn" type="button" onclick="applyTrim()">对比所选版型</button>
+      </div>
+    </div>
+
+    {# 差异摘要条：本次对比 N 列 · 相差 M 项差异 …（未对比时 hidden，由 JS 复用横表数据流填充） #}
+    <div id="diff-summary" class="concl-plain" hidden>💡 <span id="diff-summary-text"></span></div>
+
+    {% if err %}
+    <div class="guard bad">获取失败：{{ err }}</div>
+    {% endif %}
+  </section>
+
+  {# ======================= §02 配置对比（之家式横向表，主视图） ======================= #}
+  <section class="sec">
+    <div class="sec-title">§02 配置对比</div>
+    {# 常渲染——去门控；列头由 JS 写入真正的 <thead>，数据行填 <tbody>，配置差价（两车）入 <tfoot> #}
+    <div id="horizontal-compare" class="card">
+      <div class="mhead">
+        <span class="mhead-title">配置对比</span>
+        <span class="mhead-note">一行一配置项 × 一列一版型，一眼看出差异</span>
+        <span class="spacer"></span>
+        <span class="pill snap">之家式</span>
+        <span id="hc-pill" class="pill"></span>
+        <span id="hc-mode-badge" class="pill"></span>
+      </div>
+      <div class="chips hint-mb">
+        <label class="chip"><input type="checkbox" id="hc-highlight" checked> 高亮差异</label>
+        <label class="chip"><input type="checkbox" id="hc-hide-same"> 隐藏相同</label>
+        <label class="chip"><input type="checkbox" id="hc-hide-missing"> 隐藏暂无</label>
+        <span class="legend"><b>●</b>标配 ｜ <b>○</b>选配 ｜ <b>-</b>无 ｜ <b>缺采</b>未采集</span>
+      </div>
+      <div class="hc-table-wrap">
+        <table class="tbl" id="hc-table"><thead></thead><tbody></tbody><tfoot></tfoot></table>
+      </div>
+      <div id="hc-cross-disclosure" class="hint" style="display:none"></div>
+      <div id="hc-missing-disclosure" class="hint"></div>
+      <p class="hint">折价规则：① 一方具备（●标配/○选配/有值）、一方无（-）或该车系无此项 → 按 单价 × 1 计；② 双方都具备但取值不同且为纯数值（如 CLTC纯电续航 605 vs 420）→ 按 单价 × 数值差 计；③ 双方都具备的文本/布尔项（如 ● vs ○、不同文本）只展示不计价；④ 缺采不计价。概念配置行首列可就地填单价（蓝框=概念赋值兜底，绿框=手填覆盖，空框=未定价），末行「配置差价（两车）」按此口径逐列相对第 1 列汇总。手填单价仅在当次对比中临时生效（内存态，不落库），刷新页面即失效。</p>
+    </div>
+
+    {% if trim_view and trim_view.cfg_failed %}
+    <div class="guard warn">⚠ 取数失败：{% for m in trim_view.cfg_failed %}{{ sel_names.get(m, m) }}{% if not loop.last %}、{% endif %}{% endfor %} 配置页获取失败，下列差异表不含这些车型的数据（非"配置相同"）。</div>
+    {% endif %}
+  </section>
+
+  {# ======================= §03 单车系视图（未进入版型对比时的单车系/竞品/引导） ======================= #}
+  <section class="sec">
+    <div class="sec-title">§03 单车系视图</div>
+  {% if not trim_select %}{% if cmp %}
+  <div class="card">
+    <div class="mhead">
+      <span class="mhead-title">配置差异对比</span>
+      <span class="spacer"></span>
+      <span class="pill">{{ cmp.models|length }} 款 · {{ cmp.total_cats }} 类差异</span>
+      <span class="mhead-note">未进入版型对比时的默认视图</span>
+    </div>
+    {% if cmp.font_corrupted_n %}
+    <div class="guard warn">⚠ 之家数据存在字体加密丢字（{{ cmp.font_corrupted_n }} 处字段名/值残缺，建议核对原始配置页）</div>
+    {% endif %}
+    <table class="tbl">
+      <thead>
+        <tr><th class="th-param">参数</th>
+          {% for m in cmp.models %}<th>{{ m.name }}<br><small class="th-small">{{ m.id }}</small></th>{% endfor %}
+        </tr>
+      </thead>
+      <tbody>
+      {% for c in cmp.cats %}
+      <tr class="grp"><td colspan="{{ cmp.models|length + 1 }}" class="cat-row">{{ c.name }}（{{ c.rows|length }} 项差异）</td></tr>
+        {% for row in c.rows %}
+        <tr><td class="k">{{ row.param }}</td>
+          {% for v in row.vals %}<td class="diff">{{ v }}</td>{% endfor %}
+        </tr>
+        {% endfor %}
+      {% endfor %}
+      </tbody>
+    </table>
+    <div class="src">单元格为该车系各版本的取值集合（"/" 分隔）；仅展示车系之间存在差异的参数，系内版本差异相同或无值的 {{ cmp.skipped }} 项已略去。</div>
+  </div>
+  {% elif series_id %}
+  <div class="card">
+    <div class="mhead">
+      <span class="mhead-title">{{ series_name }} · 版型列表</span>
+      <span class="spacer"></span>
+      <span class="pill snap">之家快照</span>
+      <span class="pill">{{ trim_count }} 个版本</span>
+    </div>
+    <table class="tbl">
+      <thead><tr><th>版本名</th><th>指导价</th><th>spec_id</th></tr></thead>
+      <tbody>
+      {% for t in trims %}
+      <tr><td>{{ t.name }}</td><td>{{ (t.price ~ "万") if t.price else "—" }}</td><td>{{ t.spec_id }}</td></tr>
+      {% else %}
+      <tr><td colspan="3">无版本数据</td></tr>
+      {% endfor %}
+      </tbody>
+    </table>
+    <div class="src">spec_id 与口碑库同源。</div>
+  </div>
+
+  {% else %}
+  {# P2#24：未选车系时渲染显式引导面板（不默认选第一个车系、不渲染详情） #}
+  <div class="card">
+    <div class="mhead"><span class="mhead-title">从上方「逐列选择车系 + 版型」开始</span></div>
+    <p class="hint hint-m0">在上方「逐列选择车系 + 版型」区，A 车 / B 车各选车系与版型（两车对比），点「对比所选版型」生成之家式横向对比表；表内可手填配置项单价。</p>
+  </div>
+  {% endif %}{% endif %}
+  </section>
+
+  <div class="foot">
+    · 配置数据来自 config_snapshots 快照表（{{ snap_fetched_at if snap_fetched_at else "—" }} 更新）。<br>
+    · 版型名/指导价仍实时调取之家 API（不在快照里）。
+  </div>
+</div>
+
+<script>
+// P3#40：API 返回值插值统一过 _esc（escape & < > " '），杜绝 innerHTML 手拼的 XSS 面
+function _esc(s){
+  return String(s ?? "").replace(/[&<>"']/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+}
+// dashboards-interaction-polish：复选框多选 + 三按钮已删，picked()/refresh() 同步移除。
+// 车系列表改为 #series-pool 隐藏数据源，供 A/B 两车列下拉读取。
+function _seriesPoolOpts(){
+  return Array.from(document.querySelectorAll("#series-pool span"))
+    .map(el => ({id: el.dataset.id, name: el.dataset.name || el.dataset.id}));
+}
+function applyTrim(){
+  // dashboards-tri-polish：A/B 两车各选车系+版型，从 _pickCols 收集
+  // tri-polish 修复：先以 DOM 实际值兜底回写（防 change 事件缺失导致 sid 与界面不一致）
+  document.querySelectorAll("#trim-picks-dynamic .pick-row").forEach(row => {
+    const sSel = row.querySelector(".pick-series");
+    const tSel = row.querySelector(".pick-trim");
+    if (!sSel) return;
+    const i = +sSel.dataset.i;
+    _pickCols[i] = {mid: sSel.value || "", sid: (tSel && tSel.value) || ""};
+  });
+  const valid = (_pickCols || []).filter(c => c.mid && c.sid);
+  if (valid.length < 2) { alert("请为 A 车 / B 车各选好版型（需要 2 个版型）"); return; }
+  const q = new URLSearchParams();
+  q.set("trim", valid.map(c => `${c.mid}:${c.sid}`).join(","));
+  q.set("load", "1");
+  location.href = "/dash/config?" + q.toString();
+}
+// ---------- dashboards-tri-polish：A/B 两车各选车系+版型（两车对比，恒定 2 列） ----------
+let _pickCols = [];  // [{mid, sid}]，恒为 2 项
+
+function renderPickCols(initialCols){
+  if (initialCols) _pickCols = initialCols;
+  // 两车对比收敛：恒定渲染 2 列（不足补空列、超出截断），UI 上不再有增删列/移列控件
+  _pickCols = (_pickCols || []).slice(0, 2).map(c => c || {mid:"", sid:""});
+  while (_pickCols.length < 2) _pickCols.push({mid:"", sid:""});
+  const container = document.getElementById("trim-picks-dynamic");
+  if (!container) return;
+  container.innerHTML = "";
+  _pickCols.forEach((col, i) => {
+    // config-board-v2：每列一张 pick 卡（.pick > .pick-lbl + .pick-row），与原型 §01 一致；
+    // 仍保留 .pick-row / .pick-series / .pick-trim + data-i（applyTrim/事件委托依赖）；
+    // 标签改为 A 车 / B 车（两车对比语义）。
+    const row = document.createElement("div");
+    row.className = "pick";
+    row.innerHTML =
+      `<div class="pick-lbl">${i === 0 ? "A 车" : "B 车"}</div>` +
+      `<div class="pick-row">` +
+      `<select class="pick-series" data-i="${i}"></select>` +
+      `<select class="pick-trim" data-i="${i}" disabled><option value="">先选车系</option></select>` +
+      `</div>`;
+    container.appendChild(row);
+  });
+  // 填车系下拉（复用 #series-pool SSR 渲染的车系列表）
+  const opts = _seriesPoolOpts();
+  document.querySelectorAll(".pick-series").forEach(sel => {
+    sel.innerHTML = '<option value="">选车系</option>' +
+      opts.map(o => `<option value="${o.id}">${_esc(o.name)}</option>`).join("");
+    const i = +sel.dataset.i;
+    if (_pickCols[i] && _pickCols[i].mid) sel.value = _pickCols[i].mid;
+  });
+  // 已有 mid 的列填版型
+  _pickCols.forEach((col, i) => {
+    if (col.mid) fillPickTrim(i, col.mid, col.sid);
+  });
+}
+
+async function fillPickTrim(i, mid, selectedSid){
+  const sel = document.querySelector(`.pick-trim[data-i="${i}"]`);
+  if (!sel) return;
+  sel.innerHTML = '<option value="">加载中…</option>';
+  sel.disabled = true;
+  try {
+    const r = await fetch(`/dash/config/trims/${mid}`);
+    const data = await r.json();
+    if (!data.trims || !data.trims.length) {
+      sel.innerHTML = '<option value="">无版型</option>';
+      return;
+    }
+    // tri-polish 修复：默认选中第一个版型时浏览器不会触发 change，
+    // 会导致"界面有值、_pickCols.sid 为空"→ 点对比被判未选。此处显式落库。
+    const hasSel = selectedSid != null && selectedSid !== ""
+      && data.trims.some(t => String(t.spec_id) === String(selectedSid));
+    const effSid = hasSel ? String(selectedSid) : String(data.trims[0].spec_id || "");
+    sel.innerHTML = data.trims.map(t =>
+      `<option value="${t.spec_id}" ${String(t.spec_id)===effSid?"selected":""}>${_esc(t.name)}（${t.price||"指导价未知"}）</option>`).join("");
+    sel.disabled = false;
+    if (_pickCols[i]) _pickCols[i].sid = effSid;
+  } catch (e) {
+    sel.innerHTML = '<option value="">加载失败</option>';
+  }
+}
+// ---------- config-horizontal-compare：之家式横向表 ----------
+// applyTrim 是跳转式（改 location.href）→ 页面重载后 DOMContentLoaded 从 URL
+// ?trim=mid:sid,... 解析 _pickCols，再据此收集 selections 后 fetch。
+let _hcData = null;
+let _hcCols = [];
+
+async function fetchHorizontalCompare(selections){
+  const sel = selections.map(([mid, sid]) => `sel=${mid}:${sid}`).join("&");
+  const r = await fetch(`/dash/config/compare-horizontal?${sel}`);
+  if (!r.ok) return null;
+  return await r.json();
+}
+
+// ---------- config-board-prototype：§01 差异摘要条（原型 kalert）----------
+// 复用横表数据流（renderHorizontalCompare 传入的 data），不新造数据：
+// N 列 = data.cols.length；差异项 = 行内任意两列取值不同（与横表 hc-row-diff 同口径）；
+// 手填价变化时由 _refreshFooter 一并刷新本摘要条。
+function updateDiffSummary(data){
+  const bar = document.getElementById("diff-summary");
+  const txt = document.getElementById("diff-summary-text");
+  if (!bar || !txt) return;
+  if (!data || !data.cols || !data.cols.length){ bar.hidden = true; return; }
+  const nCols = data.cols.length;
+  const diffNames = [];
+  (data.groups || []).forEach(g => (g.rows || []).forEach(r => {
+    if (new Set(r.cells).size > 1) diffNames.push(r.name);
+  }));
+  const nDiff = diffNames.length;
+  const shown = diffNames.slice(0, 3).map(_esc).join("、");
+  const more = nDiff > 3 ? ` 等 ${nDiff} 项` : "";
+  const hiOn = document.getElementById("hc-highlight")?.checked;
+  txt.innerHTML =
+    `<b>本次对比 ${nCols} 列 · 相差 ${nDiff} 项差异</b>` +
+    (shown ? `：${shown}${more}` : "") +
+    `。高亮差异${hiOn ? "已开启" : "已关闭"}。`;
+  bar.hidden = false;
+}
+
+// ---------- §02 首列行内计价：纯前端内存态（不落库、不调任何写接口） ----------
+// {param: 数值}——手填单价仅当次对比临时生效，刷新页面即空；不写后端。
+let _manualPrices = {};
+
+// 概念行三态 class：manual(手填绿) / concept(概念兜底蓝) / unset(未定价)
+// 初值口径：price 为 null/undefined 或 0（且无手填）→ unset（未定价，输入框显示空串），
+// 不把 0 当"已定价为 0"（避免误导每项都已定价）；仅非 0 概念兜底价才显示 concept 蓝框。
+function _priceClass(param, price){
+  if (Object.prototype.hasOwnProperty.call(_manualPrices, param)) return "manual";
+  if (price !== null && price !== undefined && price !== 0) return "concept";
+  return "unset";
+}
+function _priceTitle(param, price){
+  if (Object.prototype.hasOwnProperty.call(_manualPrices, param)) return "手填覆盖（仅当次对比内存态，不落库）";
+  if (price !== null && price !== undefined && price !== 0) return "概念赋值兜底";
+  return "未定价—填入后仅当次对比有效";
+}
+// 按原生参数名取概念行（含 price 概念兜底价 / present 三态）
+function _rowByParam(param){
+  for (const g of ((_hcData && _hcData.groups) || []))
+    for (const r of (g.rows || []))
+      if (r.param === param) return r;
+  return null;
+}
+// 单价：内存态手填价优先 → 概念兜底价；都无 → null（未定价）
+function _unitPrice(row){
+  if (Object.prototype.hasOwnProperty.call(_manualPrices, row.param)) return _manualPrices[row.param];
+  return (row.price === null || row.price === undefined) ? null : row.price;
+}
+// 单元格纯数值解析：整串是数字才返回 Number（"605"/"3.3"），否则 null（●/○/-/缺采/文本）。
+function _numOf(v){
+  if (v === null || v === undefined) return null;
+  const s = String(v).trim();
+  return /^-?\d+(\.\d+)?$/.test(s) ? Number(s) : null;
+}
+// 差价口径（前端唯一实现）：列 k 相对列 1 = Σ_r 单价_r × Δ_r；
+// Δ 两类来源：
+//   ① presence 差异行（一方具备、一方无）→ Δ = present_r[k] − present_r[1]（±1，原折价规则）；
+//   ② 双方都具备且为纯数值、取值不同（如 CLTC纯电续航 605 vs 420）→ Δ = 数值_k − 数值_1；
+//      文本/布尔行（● vs ○、文本不同等）无法量化 → 只展示不计价。
+// present 为 null（缺采）的行整行跳过；取值相同 → 不计价；
+// 无任何可比行 → 显式「差价值不可用」，不虚构数字。
+function _computeDiffCells(data){
+  const rows = [];
+  ((data && data.groups) || []).forEach(g => (g.rows || []).forEach(r => { if (r.is_concept) rows.push(r); }));
+  const n = (data && data.cols ? data.cols : []).length;
+  const cells = [];
+  for (let k = 0; k < n; k++){
+    if (k === 0){ cells.push({available: true, text: "基准"}); continue; }
+    let amount = 0, priced_n = 0, total_n = 0, comparable = 0;
+    for (const r of rows){
+      const pres = r.present || [];
+      const p0 = pres[0], pk = pres[k];
+      if (p0 === null || p0 === undefined || pk === null || pk === undefined) continue;  // 缺采整行跳过
+      comparable += 1;
+      let delta;
+      if (p0 !== pk){
+        delta = pk - p0;                             // ① 有无差异 → ±1
+      } else if (p0 === 1){
+        const v0 = _numOf((r.cells || [])[0]), vk = _numOf((r.cells || [])[k]);
+        if (v0 === null || vk === null || v0 === vk) continue;  // 非数值行 / 取值相同 → 不计价
+        delta = vk - v0;                             // ② 数值型差异 → 数值差
+      } else {
+        continue;                                    // 双方都不具备 → 不计价
+      }
+      total_n += 1;
+      const p = _unitPrice(r);
+      if (p === null) continue;                      // 可定价但未定价 → 只记项数，不计金额
+      priced_n += 1;
+      amount += p * delta;
+    }
+    if (comparable === 0){
+      cells.push({available: false, text: "差价值不可用（该列概念配置无可比数据）"});
+      continue;
+    }
+    let text;
+    if (total_n === 0) text = "无差价项";
+    else if (priced_n === 0) text = `未定价（共 ${total_n} 项）`;
+    else {
+      const sign = amount >= 0 ? "+" : "-";
+      text = `列${k + 1} 比 列1 ${sign}¥${Math.round(Math.abs(amount)).toLocaleString("en-US")}（已定价 ${priced_n} / 共 ${total_n} 项）`;
+    }
+    cells.push({available: true, text});
+  }
+  return cells;
+}
+// 就地刷新 <tfoot> 配置差价行（不刷新页面）：手填单价 / 切换列后重算，不刷新页面。
+function _refreshFooter(){
+  if (!_hcData) return;
+  const tfoot = document.querySelector("#hc-table tfoot");
+  if (!tfoot) return;
+  // 配置差价（两车）：逐列相对第 1 列（presence 差异 ±1 + 数值型差异按数值差）
+  const diffTr = tfoot.querySelector(".hc-diff-row");
+  if (diffTr){
+    const cells = _computeDiffCells(_hcData);
+    diffTr.innerHTML = '<td class="hc-first-col">配置差价（两车）</td>' +
+      cells.map((c, i) => i === 0
+        ? `<td class="hc-first-col hint">${_esc(c.text)}</td>`
+        : `<td class="${c.available ? "diff" : "hint"}">${_esc(c.text)}</td>`).join("");
+  }
+  // §01 差异摘要条：手填价/切换列后一并刷新（复用前端重算结果）
+  updateDiffSummary(_hcData);
+}
+
+function renderHorizontalCompare(data){
+  _hcData = data;
+  _hcCols = data.cols;
+  const wrap = document.getElementById("horizontal-compare");
+  wrap.style.display = "";
+  document.getElementById("hc-pill").textContent =
+    `${data.cols.length} 列 · ${data.rows.length} 项` +
+    (data.cross_series ? ` · 跨车系（隐藏 ${data.hidden_n} 不可比项）` : "");
+  const badge = document.getElementById("hc-mode-badge");
+  badge.textContent = data.cross_series ? "跨车系模式" : "同车系模式";
+  const cd = document.getElementById("hc-cross-disclosure");
+  cd.style.display = data.cross_series ? "" : "none";
+  cd.textContent = data.cross_series
+    ? `${data.hidden_n} 项因能源类型不同不可比，已隐藏` : "";
+
+  // config-board-v2：列头写入真正的 <thead>（不再塞进 tbody 首行），数据行填 <tbody>，
+  // 配置差价（两车）入 <tfoot>，使 #hc-table 具备 thead/tbody/tfoot 三段结构。
+  // 两车对比：列头不再渲染删列/移列控件（恒为 A/B 两列）。
+  const thead = document.querySelector("#hc-table thead");
+  thead.innerHTML = "<tr>" + '<th class="hc-first-col">配置项</th>' +
+    data.cols.map(c =>
+      `<th>${_esc(c.series_name)}·${_esc(c.trim_name || c.spec_id)}<br><small>${_esc(c.energy)}</small></th>`
+    ).join("") + "</tr>";
+  const tb = document.querySelector("#hc-table tbody");
+  tb.innerHTML = "";
+
+  for (const grp of data.groups){
+    const catTr = document.createElement("tr");
+    catTr.innerHTML = `<td colspan="${data.cols.length + 1}" class="cat-row">${_esc(grp.name)}</td>`;
+    tb.appendChild(catTr);
+    for (const row of grp.rows){
+      const tr = document.createElement("tr");
+      if (row.is_concept) tr.className = "hc-concept-row";
+      // dashboards-design-system + 原型 §02：差异行底纹（行内任意两列不同 → hc-row-diff / diffrow）
+      const uniq = new Set(row.cells);
+      if (uniq.size > 1) tr.classList.add("hc-row-diff", "diffrow");
+      const cells = row.cells.map((v, i) => {
+        const cls = cellClass(v, row.cells, i);
+        return `<td class="${cls}">${_esc(v)}</td>`;
+      }).join("");
+      // §02 首列行内计价：概念配置行渲染 [计价] 配置项名 + 单价输入框（三态沿用原 §03 样式）
+      let keyTd = `<td class="k hc-first-col">${row.is_concept ? '<span class="hc-badge">计价</span>' : ''}${_esc(row.name)}`;
+      if (row.is_concept){
+        const cls = _priceClass(row.param, row.price);
+        // 初值：有手填 → 手填值；否则仅非 0 概念兜底价才显示数值，null/0 → 空串（未定价，不显示 0）
+        const pv = Object.prototype.hasOwnProperty.call(_manualPrices, row.param) ? _manualPrices[row.param]
+          : ((row.price === null || row.price === undefined || row.price === 0) ? "" : row.price);
+        const present = (row.present || []).join(",");
+        keyTd += `<div><input type="number" min="0" step="1" placeholder="单价(元)" class="price-input ${cls}"`
+          + ` value="${pv}" data-param="${_esc(row.param)}" data-present="${present}"`
+          + ` onchange="setRowPrice(this)" title="${_priceTitle(row.param, row.price)}"></div>`;
+      }
+      keyTd += `</td>`;
+      tr.innerHTML = keyTd + cells;
+      tb.appendChild(tr);
+    }
+  }
+  // 末行「配置差价（两车）」入 <tfoot>：逐列相对第 1 列（presence 差异 ±1 + 数值型差异按数值差）
+  const tfoot = document.querySelector("#hc-table tfoot");
+  tfoot.innerHTML = "";
+  const diffTr = document.createElement("tr");
+  diffTr.className = "hc-diff-row";
+  tfoot.appendChild(diffTr);
+  // 表格初次渲染完成后统一算一遍差价行（前端内存态单价口径）
+  _refreshFooter();
+  applyHcToggles();
+  // 按列披露缺采
+  const md = document.getElementById("hc-missing-disclosure");
+  const parts = data.cols.map(c => {
+    const m = data.missing[c.model_id] || {};
+    const n = m.concept_missing_n || 0;
+    return n > 0 ? `${_esc(c.series_name)}: ${n} 项缺采` : null;
+  }).filter(Boolean);
+  md.textContent = parts.length ? "缺采披露：" + parts.join("；") : "";
+  updateDiffSummary(data);  // config-board-prototype：同步填充 §01 差异摘要条
+}
+
+function cellClass(v, allCells, i){
+  // dashboards-design-system：六态语义色 + 差异单元格标色
+  // 六态：● 标配 / ○ 选配 / - 无 / 缺采 / 有值（数值/文本）
+  let stateCls = "";
+  if (v === "●") stateCls = "hc-state-std";
+  else if (v === "○") stateCls = "hc-state-opt";
+  else if (v === "-") stateCls = "hc-state-none";
+  else if (v === "缺采") stateCls = "hc-state-missing";
+  else if (v != null && v !== "") stateCls = "hc-state-value";
+  // 差异单元格标色（非整行）：该行任意两列不同 → 与行众数不同的标 delta
+  const uniq = new Set(allCells);
+  if (uniq.size <= 1) return stateCls;
+  if (v === "缺采") return stateCls;  // 缺采已有语义色，不叠 delta
+  const counts = {};
+  allCells.forEach(c => counts[c] = (counts[c] || 0) + 1);
+  const majority = Object.keys(counts).reduce((a, b) => counts[a] >= counts[b] ? a : b);
+  return v !== majority ? (stateCls + " delta-cell") : stateCls;
+}
+
+function applyHcToggles(){
+  if (!_hcData) return;
+  // highlight toggle（spec31 修复：关时移除差异单元格标色）
+  document.getElementById("hc-table").classList.toggle("no-highlight",
+    !document.getElementById("hc-highlight").checked);
+  const hideSame = document.getElementById("hc-hide-same").checked;
+  const hideMissing = document.getElementById("hc-hide-missing").checked;
+  const trs = document.querySelectorAll("#hc-table tbody tr");
+  trs.forEach(tr => {
+    if (tr.classList.contains("cat-row") || tr.querySelector("th")) return;
+    const cells = Array.from(tr.querySelectorAll("td")).slice(1);
+    if (!cells.length) return;
+    const vals = cells.map(c => c.textContent.trim());
+    const allSame = vals.every(v => v === vals[0]);
+    const allMissing = vals.every(v => v === "缺采" || v === "-");
+    if (hideSame && allSame){ tr.style.display = "none"; return; }
+    if (hideMissing && allMissing){ tr.style.display = "none"; return; }
+    tr.style.display = "";
+  });
+  updateDiffSummary(_hcData);  // config-board-prototype：高亮开关变化同步 §01 摘要条文案
+}
+
+async function applyHorizontalCompare(selections){
+  const wrap = document.getElementById("horizontal-compare");
+  if (!selections || selections.length < 2){
+    // 横表容器默认可见；不足 2 版型时显示空态提示而非空白
+    if (wrap && !document.querySelector("#hc-table tbody").children.length){
+      document.getElementById("hc-empty-hint")?.remove();
+      wrap.insertAdjacentHTML("beforeend",
+        '<p class="hint" id="hc-empty-hint">请为 A 车 / B 车各选好版型进行两车对比（上方两列选好车系与版型后，点「对比所选版型」）</p>');
+    }
+    return;
+  }
+  document.getElementById("hc-empty-hint")?.remove();
+  const data = await fetchHorizontalCompare(selections);
+  if (data && data.rows) renderHorizontalCompare(data);
+}
+
+// DOMContentLoaded：dashboards-tri-polish A/B 两车各选车系+版型
+(function(){
+  // 从 URL ?trim=mid:sid,... 回显初始列（两车对比：仅取前 2 个，多余忽略）
+  const params = new URLSearchParams(location.search);
+  const trim = params.get("trim") || "";
+  const initial = trim.split(",").filter(Boolean).map(s => {
+    const [mid, sid] = s.split(":");
+    return {mid: (mid||"").trim(), sid: (sid||"").trim()};
+  }).filter(c => c.mid).slice(0, 2);  // 两车对比：仅取前 2 个，多余列忽略
+  const container = document.getElementById("trim-picks-dynamic");
+  if (!container) return;  // 非 trim 模式，无动态容器
+  if (initial.length >= 2) renderPickCols(initial);
+  else renderPickCols([{mid:"",sid:""},{mid:"",sid:""}]);
+  // 横向表：仅 mid+sid 都齐的列才入对比
+  const selections = _pickCols
+    .filter(c => c.mid && c.sid)
+    .map(c => [c.mid, c.sid]);
+  applyHorizontalCompare(selections);
+  // 事件委托：车系 change → 填版型；版型 change → 记 sid
+  // （两车对比恒为 2 列，已无删列 / 加列按钮事件）
+  document.addEventListener("change", async (e) => {
+    if (e.target.classList.contains("pick-series")) {
+      const i = +e.target.dataset.i;
+      _pickCols[i] = {mid: e.target.value, sid: ""};
+      if (e.target.value) await fillPickTrim(i, e.target.value);
+    } else if (e.target.classList.contains("pick-trim")) {
+      const i = +e.target.dataset.i;
+      if (_pickCols[i]) _pickCols[i].sid = e.target.value;
+    }
+  });
+  // toggle 事件绑定
+  ["hc-hide-same", "hc-hide-missing", "hc-highlight"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.addEventListener("change", applyHcToggles);
+  });
+})();
+// ---------- §02 首列行内计价：概念配置行单价输入框 onchange ----------
+// 纯前端内存态（同步纯函数，不 fetch、不落库、不调任何写接口）：
+// 合法非负数字 → 记入 _manualPrices；空串 → 删除（回退概念兜底/未定价）；
+// 非法 → 标黄框 + 提示、不改状态。更新三态 class 并就地重算 tfoot 配置差价行。
+function setRowPrice(input){
+  const param = input.dataset.param;
+  const raw = (input.value || "").trim();
+  const row = _rowByParam(param) || {};
+  if (raw === ""){
+    delete _manualPrices[param];
+  } else {
+    const num = Number(raw);
+    if (!Number.isFinite(num) || num < 0){
+      input.style.borderColor = "#b45309";
+      input.title = "价格必须为非负数字";
+      return;   // 非法：不改状态
+    }
+    _manualPrices[param] = num;
+  }
+  input.style.borderColor = "";
+  input.title = _priceTitle(param, row.price);
+  input.classList.remove("manual", "concept", "unset");
+  input.classList.add(_priceClass(param, row.price));
+  _refreshFooter();   // 就地重算并刷新 tfoot 两行（价值分 + 差价），不刷新页面
+}
+</script>
+</body>
+</html>

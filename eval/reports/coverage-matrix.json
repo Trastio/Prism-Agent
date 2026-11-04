@@ -1,0 +1,231 @@
+{
+  "generated_at": "2026-10-31T15:47:26.978Z",
+  "report": "C:\\Users\\<you>\\Desktop\\Prism-Agent\\eval\\reports/",
+  "rows": 189,
+  "traj_rows": 1121,
+  "expected_total": 34,
+  "covered_total": 33,
+  "uncovered": [
+    "source_check"
+  ],
+  "detail": [
+    {
+      "tool": "query_reviews",
+      "tasks": 29,
+      "calls": 1105,
+      "covered": true
+    },
+    {
+      "tool": "query_sales",
+      "tasks": 41,
+      "calls": 1448,
+      "covered": true
+    },
+    {
+      "tool": "query_config",
+      "tasks": 23,
+      "calls": 454,
+      "covered": true
+    },
+    {
+      "tool": "sentiment_overview",
+      "tasks": 15,
+      "calls": 260,
+      "covered": true
+    },
+    {
+      "tool": "sentiment_trend",
+      "tasks": 9,
+      "calls": 75,
+      "covered": true
+    },
+    {
+      "tool": "sentiment_dimension",
+      "tasks": 13,
+      "calls": 145,
+      "covered": true
+    },
+    {
+      "tool": "sentiment_posts",
+      "tasks": 11,
+      "calls": 95,
+      "covered": true
+    },
+    {
+      "tool": "sentiment_competitive",
+      "tasks": 6,
+      "calls": 30,
+      "covered": true
+    },
+    {
+      "tool": "sentiment_events",
+      "tasks": 11,
+      "calls": 119,
+      "covered": true
+    },
+    {
+      "tool": "sentiment_defects",
+      "tasks": 11,
+      "calls": 91,
+      "covered": true
+    },
+    {
+      "tool": "search_cars",
+      "tasks": 30,
+      "calls": 575,
+      "covered": true
+    },
+    {
+      "tool": "get_model_detail",
+      "tasks": 4,
+      "calls": 57,
+      "covered": true
+    },
+    {
+      "tool": "get_similar_models",
+      "tasks": 1,
+      "calls": 17,
+      "covered": true
+    },
+    {
+      "tool": "get_trims",
+      "tasks": 26,
+      "calls": 620,
+      "covered": true
+    },
+    {
+      "tool": "get_config_detail",
+      "tasks": 14,
+      "calls": 273,
+      "covered": true
+    },
+    {
+      "tool": "compare_configs_valued",
+      "tasks": 10,
+      "calls": 201,
+      "covered": true
+    },
+    {
+      "tool": "get_review_analysis",
+      "tasks": 11,
+      "calls": 166,
+      "covered": true
+    },
+    {
+      "tool": "search_reviews",
+      "tasks": 11,
+      "calls": 278,
+      "covered": true
+    },
+    {
+      "tool": "get_dimension_reviews",
+      "tasks": 17,
+      "calls": 410,
+      "covered": true
+    },
+    {
+      "tool": "get_sales_detail",
+      "tasks": 24,
+      "calls": 315,
+      "covered": true
+    },
+    {
+      "tool": "score_models",
+      "tasks": 0,
+      "calls": 4,
+      "covered": true
+    },
+    {
+      "tool": "resolve_series",
+      "tasks": 61,
+      "calls": 2541,
+      "covered": true
+    },
+    {
+      "tool": "submit_conclusion",
+      "tasks": 60,
+      "calls": 3380,
+      "covered": true
+    },
+    {
+      "tool": "web_search",
+      "tasks": 4,
+      "calls": 26,
+      "covered": true
+    },
+    {
+      "tool": "fetch_content",
+      "tasks": 0,
+      "calls": 7,
+      "covered": true
+    },
+    {
+      "tool": "source_check",
+      "tasks": 0,
+      "calls": 0,
+      "covered": false
+    },
+    {
+      "tool": "get_search_content",
+      "tasks": 0,
+      "calls": 2,
+      "covered": true
+    },
+    {
+      "tool": "social_search",
+      "tasks": 12,
+      "calls": 731,
+      "covered": true
+    },
+    {
+      "tool": "social_post_comments",
+      "tasks": 8,
+      "calls": 246,
+      "covered": true
+    },
+    {
+      "tool": "social_user_profile",
+      "tasks": 1,
+      "calls": 24,
+      "covered": true
+    },
+    {
+      "tool": "social_user_posts",
+      "tasks": 0,
+      "calls": 4,
+      "covered": true
+    },
+    {
+      "tool": "ask_user_question",
+      "tasks": 9,
+      "calls": 87,
+      "covered": true
+    },
+    {
+      "tool": "load_skill",
+      "tasks": 10,
+      "calls": 114,
+      "covered": true
+    },
+    {
+      "tool": "export_document",
+      "tasks": 1,
+      "calls": 17,
+      "covered": true
+    }
+  ],
+  "tasks_without_business": [
+    {
+      "task": "trap-10",
+      "tools": []
+    },
+    {
+      "task": "trap-10",
+      "tools": []
+    },
+    {
+      "task": "trap-10",
+      "tools": []
+    }
+  ]
+}

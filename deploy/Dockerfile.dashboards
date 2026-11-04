@@ -1,0 +1,18 @@
+# prism-dashboards：口碑/配置/市场只读看板子服务（8010，由 prism-api /dash 反代）
+FROM python:3.11-slim
+
+ENV TZ=Asia/Shanghai \
+    PYTHONUNBUFFERED=1 \
+    DASH_HOST=0.0.0.0 \
+    DASH_PORT=8010
+
+WORKDIR /app/prism-dashboards
+
+COPY prism-dashboards/requirements.txt ./requirements.txt
+RUN pip install --no-cache-dir -i https://pypi.tuna.tsinghua.edu.cn/simple -r requirements.txt
+
+COPY prism-dashboards/ ./
+
+EXPOSE 8010
+
+CMD ["python", "app.py"]

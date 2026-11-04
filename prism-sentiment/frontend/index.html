@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>舆情看板</title>
+    <!-- vue 钉死具体版本：unpkg 浮动 tag 漂移到 3.5.43 后 app._instance mounted 即 null，踩坏锚点对话 -->
+    <script src="static/vendor/vue.global.prod.js?v=3.4.38"></script>
+    <!-- 资源改用相对路径：嵌入 Prism 时页面位于 /sentiment-board/，相对路径会被
+         浏览器按当前文档基址解析为 /sentiment-board/static/...（独立运行于 / 时
+         仍解析为 /static/...，行为不变），不再依赖 Prism 前端对 /static 的单独代理 -->
+    <script src="static/vendor/echarts.min.js?v=1"></script>
+    <script src="static/vendor/echarts-wordcloud.min.js?v=1"></script>
+    <link rel="stylesheet" href="static/css/style.css?v=27">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div id="app">
+    <!-- P1-6 切车加载遮罩 -->
+    <div v-if="loadingVehicle" class="loading-mask"></div>
+    <!-- Toast 错误反馈 -->
+    <div class="toast-container">
+        <div v-for="t in toasts" :key="t.id" :class="['toast', t.type]">{{ t.msg }}</div>
+    </div>
+    <!-- Chrome — brand + search + spacer + time + collect + pipeline dots + overflow -->
+    <div class="chrome">
+        <div class="chrome-brand">舆情看板</div>
+        <div class="search-combobox" id="vehicleCombobox">
+            <input type="text" id="vehicleSearch" placeholder="搜索或选择车型..." autocomplete="off"
+                   v-model="searchQuery" @input="onSearchInput" @focus="onSearchFocus"
+                   @blur="onSearchBlur">
+            <div class="combobox-dropdown" id="vehicleDropdown" v-if="searchResults.length">
+                <div v-for="v in searchResults" :key="v.id" class="combobox-item"
+                     @mousedown.prevent="selectVehicle(v)">{{ v.name }} ({{ v.brand }})</div>
+            </div>
+        </div>
+        <div class="chrome-spacer"></div>
+        <span v-if="sparseSince" class="chrome-warn" :title="'该车型自 ' + sparseSince + ' 起进入日常采集，此前区间数据稀疏，趋势对比请以近期为准'">⚠ 数据自 {{ sparseSince }} 起密集</span>
+        <span class="chrome-time" v-if="currentVehicleId">{{ rangeStart }} ~ {{ rangeEnd }}</span>
+        <div class="time-presets">
+            <button v-for="p in timePresets" :key="p.label" class="preset-btn"
+                    :class="{active: isPresetActive(p)}"
+                    @click="applyPreset(p)">{{ p.label }}</button>
+        </div>
+        <span class="chrome-sep"></span>
+        <div class="chrome-actions">
+            <button @click="openFleet" class="chrome-btn ghost" title="车队总览：一屏扫完所有车的健康度+异动+风险">车队</button>
+            <button @click="showWatchlist = true" :disabled="!currentVehicleId" class="chrome-btn ghost" title="手动关注清单">
+                ★ 关注<span v-if="watchItems.length" class="badge">{{ watchItems.length }}</span>
+            </button>
+            <!-- 手动更新入口已下线：舆情数据由后台定时任务自动采集，不开放用户自行触发 -->
+            <span v-if="pipelinePhase === 'collecting'" class="pipeline-dot pipeline-active" title="采集中"></span>
+            <span v-if="pipelinePhase === 'analyzing'" class="pipeline-dot pipeline-active" title="分析中"></span>
+            <span v-if="pipelinePhase === 'refreshing'" class="pipeline-dot pipeline-active" title="刷新互动数中"></span>
+            <span v-if="pipelinePhase === 'completed'" class="pipeline-dot pipeline-done" title="完成"></span>
+            <span v-if="pipelinePhase === 'error'" class="pipeline-dot pipeline-error" title="出错了"></span>
+            <div class="header-overflow">
+                <button class="icon-btn" @click="showOverflow = !showOverflow">⋮</button>
+                <div v-if="showOverflow" class="dropdown-menu" @click.stop>
+                    <button @click="showAllPosts = true; showOverflow = false" :disabled="!currentVehicleId" :class="{ 'btn-disabled': !currentVehicleId }">全部帖子</button>
+                    <button @click="showReportPanel = true; showOverflow = false" :disabled="!currentVehicleId" :class="{ 'btn-disabled': !currentVehicleId }">历史报告</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wrap">
+
+    <!-- Page header -->
+    <header class="pb" v-if="currentVehicleId">
+        <div class="header-row">
+            <div>
+                <!-- UI 优化：车名三处重复→此行只留“当前车型 · 品牌”，车名由标题承载 -->
+                <div class="eyebrow">当前车型 · {{ currentVehicleBrand }}</div>
+                <h1 class="title">舆情看板 · {{ currentVehicleName }}</h1>
+            </div>
+            <div class="meta">
+                <div>来源: <b>小红书 · 抖音 · 车质网</b>（微博/快手/新闻已停采，历史存量展示）</div>
+                <div>区间 <b class="num">{{ rangeStart }} ~ {{ rangeEnd }}</b></div>
+                <div v-if="lastCollectionTime">上次采集 <b class="num">{{ lastCollectionTime }}</b></div>
+            </div>
+        </div>
+    </header>
+
+    <!-- 采集进度面板（per-platform 可见性 + env_warning，让社媒跳过/失败不再静默）-->
+    <section v-if="showCollectPanel()" class="sec collect-panel">
+        <div v-if="collectionProgress.env_warning" class="env-warning">⚠ {{ collectionProgress.env_warning }}</div>
+        <div class="collect-step" v-if="collectionProgress.current_step">{{ collectionProgress.current_step }}</div>
+        <div class="pchips">
+            <span v-for="(p, id) in (collectionProgress.platforms || {})" :key="id"
+                  class="pchip" :class="'ph-' + p.phase">
+                <span class="ph-ic">{{ phaseIcon(p.phase) }}</span>
+                <b>{{ platformLabel(id) }}</b>
+                <span class="ph-cnt" v-if="p.posts_stored">{{ p.posts_stored }}</span>
+                <span class="ph-fail" v-if="p.fetch_failures && p.fetch_failures.length"
+                      :title="'失败关键词: ' + p.fetch_failures.join(', ')">
+                    失败 {{ p.fetch_failures.length }}
+                </span>
+            </span>
+        </div>
+    </section>
+
+    <!-- 1.1 · 热度全景 -->
+    <section v-if="currentVehicleId" class="sec">
+        <h2 class="sec-title">1.1 · 热度全景 <span class="sec-sub">高互动快照 · 整体口碑与声量</span></h2>
+        <div v-if="overview.sample_insufficient" class="sample-warn" title="窗内已分析帖不足 20，指标波动大、健康分仅供参考">
+            ⚠ 样本不足：窗内已分析 {{ overview.analyzed_posts || 0 }} 帖（< 20），指标仅供参考
+        </div>
+        <div class="panorama-grid">
+            <div class="panorama-kpis">
+                <div class="kpi-card card">
+                    <div class="kpi-label">健康分</div>
+                    <div class="kpi-value num" :style="{color: healthColor}">{{ overview.health_score != null ? overview.health_score : '--' }}<span class="sub"> / 100</span></div>
+                    <div class="kpi-desc">用户口碑综合情感分</div>
+                </div>
+                <div class="kpi-card card">
+                    <div class="kpi-label" title="统计口径：包含新闻、竞品及其他相关主体的帖子">舆情总量 ⓘ</div>
+                    <div class="kpi-value num">{{ overview.total_posts || 0 }}<span class="sub"> 帖</span></div>
+                    <div class="kpi-desc">{{ overview.analyzed_posts || 0 }} 已分析 · 均 {{ overview.comments_per_post != null ? overview.comments_per_post : '--' }} 评</div>
+                </div>
+                <div class="kpi-card card">
+                    <div class="kpi-label" title="统计口径：仅主车型帖，且排除官方账号、经销商与导流号">情感占比 ⓘ</div>
+                    <div class="kpi-value num">{{ positivePct }}<span class="sub">%</span></div>
+                    <div class="kpi-desc">正面率 · 负面 {{ negativePct }}% · 中性 {{ neutralPct }}%</div>
+                </div>
+                <div class="kpi-card card">
+                    <div class="kpi-label">声量节奏</div>
+                    <div class="kpi-value num" :class="weekChangeDirection"><span class="kpi-arrow">{{ weekChangeArrow }}</span> {{ weekChangeRate }}<span class="sub" v-if="overview.week_change_rate != null">%</span></div>
+                    <div class="kpi-desc" title="固定近7天vs上7天，不随用户选窗变动">周环比 · 峰值 {{ overview.peak_date || '--' }}</div>
+                </div>
+            </div>
+            <div class="panorama-donut card">
+                <div class="card-title">情感分布<span class="card-sub">用户口碑 · 已排除官方/经销商</span></div>
+                <div style="display:flex;gap:16px">
+                    <div style="flex:1">
+                        <div class="card-sub" style="text-align:center;margin-bottom:4px">帖级口碑</div>
+                        <div id="sentiment-donut" style="height:200px"></div>
+                    </div>
+                    <div style="flex:1">
+                        <div class="card-sub" style="text-align:center;margin-bottom:4px">评论级口碑</div>
+                        <div id="comment-sentiment-donut" style="height:200px"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2.1 · 声量与平台 -->
+    <section v-if="currentVehicleId" class="sec">
+        <h2 class="sec-title">2.1 · 声量与平台 <span class="sec-sub">搜索热度 · 声量 · 情感 · 词云 · 热帖</span></h2>
+        <div>
+            <!-- 2026-10-20：搜索热度拆为抖音/小红书双线（各自归一化），并在峰值周标注事件 -->
+            <div class="card">
+                <div class="card-title">搜索热度<span class="card-sub">{{ searchHeat }} · 抖音 / 小红书各自归一（各平台峰值=100）· 搜索行为，非讨论量</span></div>
+                <div id="attention-chart" class="chart-md"></div>
+                <div v-if="searchPeakNote" class="chart-note">📍 {{ searchPeakNote }}</div>
+            </div>
+        </div>
+        <div class="bottom-dual" style="margin-top:16px">
+            <div class="card">
+                <div class="card-title">平台声量分布<span class="card-sub">抖音 · 小红书 · 车质网</span></div>
+                <div id="platform-chart" style="height:220px;width:100%"></div>
+            </div>
+            <div class="card">
+                <div class="card-title">平台情感分布<span class="card-sub">分母=已分析帖 · 未分析单独标注</span></div>
+                <div class="psent-list">
+                    <div v-for="r in platformSentimentRows" :key="r.platform" class="psent-row">
+                        <div class="psent-head">
+                            <span class="psent-name">{{ r.name }}</span>
+                            <span class="psent-total">{{ r.count }} 帖</span>
+                        </div>
+                        <div class="psent-bar">
+                            <span class="ps-pos" :style="{ width: r.posPct + '%' }" :title="'正面 ' + r.positive + ' 帖'"></span>
+                            <span class="ps-neu" :style="{ width: r.neuPct + '%' }" :title="'中性 ' + r.neutral + ' 帖'"></span>
+                            <span class="ps-neg" :style="{ width: r.negPct + '%' }" :title="'负面 ' + r.negative + ' 帖'"></span>
+                        </div>
+                        <div class="psent-legend">
+                            <span class="lg-pos">正 {{ r.posPct }}%</span>
+                            <span class="lg-neu">中 {{ r.neuPct }}%</span>
+                            <span class="lg-neg">负 {{ r.negPct }}%</span>
+                            <span v-if="r.unknown" class="lg-unk">未分析 {{ r.unknown }}</span>
+                        </div>
+                    </div>
+                    <div v-if="!platformSentimentRows.length" class="empty chart-empty" style="height:180px">暂无平台情感数据</div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-dual" style="margin-top:16px">
+            <div class="card">
+                <div class="card-title">平台词云<span class="card-sub">各平台用户关注焦点</span></div>
+                <div class="hot-posts-tabs">
+                    <button v-for="t in [{k:'douyin',l:'抖音'},{k:'xiaohongshu',l:'小红书'},{k:'chezhiwang',l:'车质网'}]" :key="t.k"
+                        class="hot-posts-tab" :class="{active: wcTab === t.k}" @click="switchWcTab(t.k)">{{ t.l }}</button>
+                </div>
+                <div id="word-cloud-main" class="word-cloud" style="height:220px"></div>
+            </div>
+            <div class="card">
+                <div class="card-title">{{ hotPostsTab === 'chezhiwang' ? '投诉热点 TOP5' : '热帖 TOP5' }}<span class="card-sub">{{ hotPostsTab === 'chezhiwang' ? '车质网投诉帖 · 按互动量排序（投诉量/增速未入库）' : '按互动量排序' }}</span></div>
+                <div class="hot-posts-tabs">
+                    <button v-for="tab in hotPostsTabOptions" :key="tab.key" class="hot-posts-tab"
+                        :class="{active: hotPostsTab === tab.key}" @click="switchHotTab(tab.key)">{{ tab.label }}</button>
+                </div>
+                <div class="hot-posts-list">
+                    <div v-for="(p, idx) in filteredHotPosts" :key="p.id || idx" class="hot-post-item" @click="openPostDetail(p)">
+                        <div class="hot-post-rank">#{{ idx + 1 }}</div>
+                        <div class="hot-post-info">
+                            <div class="hot-post-title">{{ p.title || (p.content && p.content.substring(0, 50)) }}</div>
+                            <div class="hot-post-meta">
+                                <span class="hot-post-platform" :class="p.platform">{{ platformLabel(p.platform) }}</span>
+                                <span v-if="p.sentiment" class="hot-post-sentiment" :class="p.sentiment">{{ sentimentLabel(p.sentiment) }}</span>
+                                <span v-if="p.author_type === 'brand_official' || p.author_type === 'dealer'" class="hot-post-subject">{{ p.author_type === 'brand_official' ? '官' : '商' }}</span>
+                                <span v-if="p.subject_name" class="hot-post-subject">{{ p.subject_name }}</span>
+                                <span>▲ {{ p.likes || 0 }}</span>
+                                <span>💬 {{ p.comments || 0 }}</span>
+                                <span v-if="p.shares">→ {{ p.shares }}</span>
+                            </div>
+                        </div>
+                        <button class="watch-btn" :class="{ 'watched': isWatched(p.id) }" @click.stop="addWatch({
+                            title: p.title || (p.content || '').slice(0,40), source_type: 'hot_post',
+                            source_ref: p.id, post_count: 1, first_seen: todayStr(),
+                        })">★</button>
+                    </div>
+                    <div v-if="!filteredHotPosts.length" class="empty">暂无热帖</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2.2 · 风险信号 -->
+    <section v-if="currentVehicleId" class="sec">
+        <h2 class="sec-title">2.2 · 风险信号 <span class="sec-sub">已发酵负面 · 吐槽榜 / 翻车帖 / 护车帖</span></h2>
+        <!-- 风险横幅：一行读完档位+归因+三数 -->
+        <div class="card risk-banner" :class="'risk-banner-' + (negativeRadar.risk_level || 'none')">
+            <span class="risk-dot" :class="'risk-' + (negativeRadar.risk_level || 'none')"></span>
+            <div class="risk-banner-main">
+                <div class="risk-banner-title">风险档位 · {{ riskLevelLabel }}</div>
+                <div class="risk-banner-reasons">{{ riskReasonsText }}</div>
+            </div>
+            <div class="risk-banner-stats">
+                <div><small>负面声量</small><b class="num">{{ negativeRadar.negative_total ?? '--' }}</b></div>
+                <div><small>负面率</small><b class="num">{{ negRatePct }}{{ negRatePct === '--' ? '' : '%' }}</b></div>
+                <div><small>周环比</small><b class="num" :class="negWowClass">{{ negWowArrow }} {{ negativeRadar.negative_wow != null ? Math.abs(negativeRadar.negative_wow) + '%' : '—' }}</b></div>
+            </div>
+        </div>
+        <!-- change2 块A：风险区收敛为 横幅+吐槽榜+翻车/护车帖
+             （2026-10-21：负面维度图与情感趋势图随 2.1 一并下线） -->
+        <div>
+            <div class="card">
+                <div class="card-title">高影响吐槽榜 TOP10<span class="card-sub">负面帖 × 影响力分（▲×1 + 💬×5 + →×10）</span></div>
+                <div class="hot-posts-list">
+                    <div v-for="(p, idx) in (negativeRadar.top_complaints || [])" :key="p.id" class="hot-post-item" @click="openPostDetail(p)">
+                        <div class="hot-post-rank">#{{ idx + 1 }}</div>
+                        <div class="hot-post-info">
+                            <div class="hot-post-title">{{ p.title }}</div>
+                            <div class="hot-post-meta">
+                                <span class="hot-post-platform" :class="p.platform">{{ platformLabel(p.platform) }}</span>
+                                <span class="hot-post-sentiment negative">负面</span>
+                                <span v-if="p.author_type === 'brand_official' || p.author_type === 'dealer'" class="hot-post-subject">{{ p.author_type === 'brand_official' ? '官' : '商' }}</span>
+                                <span v-for="d in p.top_neg_dims" :key="d" class="tag-chip tag-theme" style="font-size:11px">{{ d }}</span>
+                                <span>▲ {{ p.likes }}</span>
+                                <span>💬 {{ p.comments }}</span>
+                                <span v-if="p.shares">→ {{ p.shares }}</span>
+                            </div>
+                        </div>
+                        <button class="watch-btn" :class="{ 'watched': isWatched(p.id) }" @click.stop="addWatch({
+                            title: p.title, source_type: 'complaint',
+                            source_ref: p.id, post_count: 1, first_seen: todayStr(),
+                        })">★</button>
+                    </div>
+                    <div v-if="!(negativeRadar.top_complaints || []).length" class="empty">区间内无负面帖</div>
+                </div>
+            </div>
+        </div>
+        <div class="bottom-dual" v-if="reversalFlipPosts.length || reversalDefendPosts.length" style="margin-top:16px">
+            <div class="card reversal-area" v-if="reversalFlipPosts.length">
+                <div class="card-title">翻车帖<span class="card-sub">帖子看着正面但评论区在吐槽 · 点击任一条查看原文</span></div>
+                <div class="reversal-list">
+                    <div v-for="p in reversalFlipPosts" :key="p.post_id" class="reversal-item" :class="'rv-' + p.direction"
+                         @click="openPostDetail({ id: p.post_id, title: p.title, platform: p.platform, sentiment: p.post_sentiment, content: p.summary, url: p.url, comments: p.comment_count, likes: p.likes })">
+                        <div class="reversal-head">
+                            <span class="reversal-badge" :class="'rb-' + p.direction">
+                                {{ reversalLabel(p.direction) }}
+                            </span>
+                            <span class="reversal-title">{{ stripHtml(p.title) }}</span>
+                            <span class="reversal-meta">{{ p.comment_count }} 评论</span>
+                        </div>
+                        <div class="reversal-body">
+                            <span v-for="t in (p.genuine_themes || []).slice(0, 3)" :key="t"
+                                  class="tag-chip tag-pain">#{{ t }}</span>
+                            <span v-if="p.is_argumentative" class="argue-flag">⚠ 评论区吵架</span>
+                        </div>
+                        <div v-if="p.top_comment" class="reversal-quote">💬 「{{ p.top_comment.content }}」▲{{ p.top_comment.likes }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="card reversal-area" v-if="reversalDefendPosts.length">
+                <div class="card-title">护车帖<span class="card-sub">帖子看着负面但车主在护车 · 点击任一条查看原文</span></div>
+                <div class="reversal-list">
+                    <div v-for="p in reversalDefendPosts" :key="p.post_id" class="reversal-item" :class="'rv-' + p.direction"
+                         @click="openPostDetail({ id: p.post_id, title: p.title, platform: p.platform, sentiment: p.post_sentiment, content: p.summary, url: p.url, comments: p.comment_count, likes: p.likes })">
+                        <div class="reversal-head">
+                            <span class="reversal-badge" :class="'rb-' + p.direction">
+                                {{ reversalLabel(p.direction) }}
+                            </span>
+                            <span class="reversal-title">{{ stripHtml(p.title) }}</span>
+                            <span class="reversal-meta">{{ p.comment_count }} 评论</span>
+                        </div>
+                        <div class="reversal-body">
+                            <span v-for="t in (p.genuine_themes || []).slice(0, 3)" :key="t"
+                                  class="tag-chip tag-good">#{{ t }}</span>
+                            <span v-if="p.is_argumentative" class="argue-flag">⚠ 评论区吵架</span>
+                        </div>
+                        <div v-if="p.top_comment" class="reversal-quote">💬 「{{ p.top_comment.content }}」▲{{ p.top_comment.likes }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 2.3 · 本周增量（窗 ≤7 天时显示，额外插入不替代常规组件；编号统一便于按序阅读） -->
+    <section v-if="currentVehicleId && isIncrementMode" class="sec">
+        <h2 class="sec-title">2.3 · 本周增量 <span class="sec-sub">7 天内新冒出的负面 · 事件 · 缺陷 · 发酵帖</span></h2>
+        <div v-if="incrementLoading" class="empty">增量视图加载中…</div>
+        <div v-else class="trend-dual">
+            <div class="card">
+                <div class="card-title">新增负面帖<span class="card-sub">窗内首次出现的负面声量</span></div>
+                <div class="kpi-value" :style="{color: (incrementOverview.new_negative_count || 0) > 0 ? 'var(--negative)' : 'var(--ink)'}">
+                    {{ incrementOverview.new_negative_count ?? 0 }}
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">新缺陷簇<span class="card-sub">本周新算出的缺陷话题</span></div>
+                <div class="kpi-value" :style="{color: (incrementOverview.new_defect_themes || 0) > 0 ? 'var(--negative)' : 'var(--ink)'}">
+                    {{ incrementOverview.new_defect_themes ?? 0 }}
+                </div>
+            </div>
+            <div class="card">
+                <!-- change2 块A 事件归一：新事件降为一行数字，明细只看「发酵话题追踪」 -->
+                <div class="card-title">新事件<span class="card-sub">本周 start_date 落窗的事件 · 明细见发酵话题追踪</span></div>
+                <div class="kpi-value" :style="{color: (incrementOverview.new_events || []).length > 0 ? 'var(--primary)' : 'var(--ink)'}">
+                    {{ (incrementOverview.new_events || []).length }}
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">发酵中帖<span class="card-sub">窗内互动 TOP5</span></div>
+                <div v-if="(incrementOverview.trending_posts || []).length" class="hot-posts-list" style="flex-direction:column">
+                    <div v-for="(p, idx) in incrementOverview.trending_posts" :key="p.id" class="hot-post-item" style="cursor:default">
+                        <div class="hot-post-rank">#{{ idx + 1 }}</div>
+                        <div class="hot-post-info">
+                            <div class="hot-post-title">{{ p.title }}</div>
+                            <div class="hot-post-meta">
+                                <span class="hot-post-platform" :class="p.platform">{{ platformLabel(p.platform) }}</span>
+                                <span>▲ {{ p.likes || 0 }}</span>
+                                <span>💬 {{ p.comments || 0 }}</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div v-else class="empty">窗内无帖</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3.1 · 发酵话题追踪（原「话题发酵」：剔除新闻事件，只保留社媒聚类） -->
+    <section v-if="currentVehicleId" class="sec">
+        <h2 class="sec-title">3.1 · 发酵话题追踪 <span class="sec-sub">{{ eventCount }} 个话题 · 社媒聚类 · 按当前热度排序 · 早期预警</span></h2>
+        <div class="bottom-dual">
+            <div class="card">
+                <div class="card-title">发酵话题<span class="card-sub">触发原因 = 聚类摘要 · 当前热度 = 窗内帖量 · 持续 = 起止跨度</span></div>
+                <div class="event-timeline-v6">
+                    <div v-for="e in filteredEventTimeline" :key="e.id" class="event-card-v6">
+                        <div class="event-card-tag">{{ e.event_tag }}</div>
+                        <div class="event-card-meta">
+                            <span class="event-card-source social">社媒</span>
+                            <span>当前热度 <b class="num">{{ e.post_count }}</b> 帖</span>
+                            <span>持续 <b class="num">{{ eventDurationDays(e) }}</b> 天</span>
+                            <span>{{ e.start_date }} ~ {{ e.end_date }}</span>
+                            <!-- UI 优化：★ 关注按钮并入 meta 行右对齐（原单独掉行） -->
+                            <button class="watch-btn" @click.stop="addWatch({
+                                title: e.event_tag, source_type: 'event',
+                                source_ref: String(e.id || ''), post_count: e.post_count || 0,
+                                first_seen: (e.start_date || todayStr()).slice(0,10),
+                            })">★</button>
+                        </div>
+                        <div v-if="e.summary" class="event-card-summary">触发原因：{{ e.summary }}</div>
+                        <div v-if="e.sentiment_distribution" class="event-card-sentiment">
+                            <span class="sentiment-pos" v-if="e.sentiment_distribution.positive">正 {{ e.sentiment_distribution.positive }}</span>
+                            <span class="sentiment-neg" v-if="e.sentiment_distribution.negative">负 {{ e.sentiment_distribution.negative }}</span>
+                            <span class="sentiment-neu" v-if="e.sentiment_distribution.neutral">中 {{ e.sentiment_distribution.neutral }}</span>
+                        </div>
+                    </div>
+                    <div v-if="!filteredEventTimeline.length" class="empty">暂无发酵话题</div>
+                </div>
+                <!-- 口径声明：发酵判据只落地了「帖量 + 情感 + 起止」，其余维度未入库，不臆造 -->
+                <div class="chart-note">传播路径（话题标签复用 / 跨平台扩散 / KOL 参与度）与互动增速尚未入库，当前仅按话题聚类结果与帖量排序</div>
+            </div>
+            <!-- change2 块A 并₃：观点标签TOP10 删除（与词云同源，留词云）；缺陷话题簇上移占位 -->
+            <div class="card">
+            <div class="card-title">缺陷话题簇<span class="card-sub">评论聚类 + LLM 判定 · 早期预警 · ⚠ = 高严重度</span></div>
+            <div v-if="defectLoading" class="empty">缺陷簇挖掘中…</div>
+            <div v-else-if="!defectThemes.length" class="empty">区间内无缺陷话题簇（评论不足或未达准入门槛）</div>
+            <div v-else class="defect-list">
+                <div v-for="(d, i) in defectThemes" :key="i" class="defect-card" :class="'sev-' + d.severity">
+                    <div class="defect-head">
+                        <span class="defect-name">{{ d.severity === 'high' ? '⚠ ' : '' }}{{ d.name }}</span>
+                        <span class="defect-sev" :class="'sev-' + d.severity">{{ severityLabel(d.severity) }}</span>
+                    </div>
+                    <div class="defect-meta">
+                        <span>{{ d.comments }} 条评论 · {{ d.posts.length }} 帖</span>
+                        <span>负面占比 {{ (d.neg_ratio * 100).toFixed(0) }}%</span>
+                    </div>
+                    <div v-if="d.suggestion" class="defect-suggestion">→ {{ d.suggestion }}</div>
+                    <div v-if="d.rep_comments && d.rep_comments.length" class="defect-reps">
+                        <div v-for="(rc, j) in d.rep_comments.slice(0, 3)" :key="j" class="defect-rep"
+                             @click="openPostDetail({ id: rc.post_id, title: rc.post_title, content: rc.content, url: rc.post_url, likes: rc.likes })"
+                             style="cursor:pointer">
+                            💬 「{{ rc.content }}」▲{{ rc.likes }}
+                        </div>
+                    </div>
+                    <button class="watch-btn" @click="addWatch({
+                        title: d.name, source_type: 'defect_cluster',
+                        source_ref: d.name, post_count: d.posts.length,
+                        first_seen: todayStr(),
+                    })">★ 关注</button>
+                </div>
+            </div>
+        </div>
+        </div><!-- /bottom-dual（change2 块A：观点标签卡位由缺陷簇顶替） -->
+    </section>
+
+    <!-- 3.2 · 舆情报告（原「内容洞察」已下线：词云并入 2.1 平台词云） -->
+    <section v-if="currentVehicleId" class="sec">
+        <h2 class="sec-title">3.2 · 舆情报告 <span class="sec-sub">按周期输出舆情总结 · 周报 / 月报</span></h2>
+        <div class="card report-area">
+            <div class="report-create-btns">
+                <button class="btn btn-primary" @click="createWeeklyReport" :disabled="!currentVehicleId || reportLoading">
+                    <span v-if="reportLoading && reportLoadingType === 'weekly_digest'" class="spinner"></span>
+                    生成周报
+                </button>
+                <button class="btn btn-primary" @click="createMonthlyReport" :disabled="!currentVehicleId || reportLoading">
+                    <span v-if="reportLoading && reportLoadingType === 'deep_report'" class="spinner"></span>
+                    生成月报
+                </button>
+            </div>
+            <div v-if="reportContent" class="report-content" v-html="renderedReport"></div>
+            <div v-if="!reportContent" class="empty report-empty">
+                <span>选择「周报」（近 7 天）或「月报」（近 30 天）生成舆情摘要</span>
+                <span class="report-empty-hint">生成后可在此预览，并在顶部「历史报告」中留档</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- 方法论 -->
+    <section v-if="currentVehicleId" class="sec">
+        <h2 class="sec-title">方法论 · Methodology</h2>
+        <div class="card meth-body">
+            <p><b>数据来源</b>：TikHub 接口（小红书 / 抖音 双平台社媒）+ 车质网投诉直采；微博 / 快手 / 新闻源自 2026-10 起停采（历史存量仍展示）。</p>
+            <p style="margin-top:8px"><b>分析管线</b>：帖子 → GLM-4-Flash API 一站式（sentiment / dim_sentiment / event_tags / opinion_tags / subject 标注）（维度轴由帖子侧承载）；评论 → 极性直出（正/中/负，DeepSeek v4-flash；2026-10-20 前为本地 Qwen3-4B，跨引擎趋势不作对比）；事件聚类 → LLM 标注 → jieba 关键词 → 共现图 → Louvain 社区检测 → LLM 命名。</p>
+            <p style="margin-top:8px"><b>健康分</b>：50 +（正面 − 负面）/ 总量 × 50，仅计算主车型帖（subject = self），并排除官方账号与经销商作者（author_type 过滤，2026-09-15 起）。</p>
+            <p style="margin-top:8px"><b>搜索热度</b>：抖音 / 小红书搜索指数各自按窗内峰值归一（各平台峰值 = 100）后同轴展示，仅反映搜索行为，非讨论量。</p>
+            <p style="margin-top:8px"><b>发酵话题追踪</b>：仅取社媒事件聚类（新闻事件已剔除），按窗内帖量排序；触发原因取聚类摘要，当前热度取窗内帖量、持续取起止跨度。传播路径（话题标签复用 / 跨平台扩散 / KOL 参与度）与互动增速尚未入库，不作推断。</p>
+        </div>
+    </section>
+
+    </div><!-- .wrap -->
+
+    <!-- 全部帖子 (overflow panel) -->
+    <section v-if="currentVehicleId && showAllPosts" class="sec">
+        <h2 class="sec-title">全部帖子 <button class="close-panel-btn" @click="showAllPosts = false">×</button></h2>
+        <div class="card">
+            <div class="table-filters">
+                <select v-model="postsFilter.sentiment" @change="loadPosts(1)">
+                    <option value="">全部情感</option>
+                    <option value="positive">正面</option>
+                    <option value="negative">负面</option>
+                    <option value="neutral">中性</option>
+                </select>
+                <select v-model="postsFilter.platform" @change="loadPosts(1)">
+                    <option value="">全部平台</option>
+                    <option value="xiaohongshu">小红书</option>
+                    <option value="douyin">抖音</option>
+                    <!-- UI 优化：已停采平台仅存历史存量，标注并禁用 -->
+                    <option value="news" disabled>新闻（已停采）</option>
+                    <option value="weibo" disabled>微博（已停采）</option>
+                    <option value="kuaishou" disabled>快手（已停采）</option>
+                </select>
+            </div>
+            <div class="post-cards-grid">
+                <div v-for="p in posts.items" :key="p.id" class="post-card" @click="openPostDetail(p)">
+                    <div class="post-card-header">
+                        <span class="post-card-platform" :class="p.platform">{{ platformLabel(p.platform) }}</span>
+                        <span v-if="p.sentiment" class="sentiment-badge" :class="'sentiment-' + p.sentiment">{{ sentimentLabel(p.sentiment) }}</span>
+                        <span class="post-card-date">{{ p.published_at?.substring(0, 10) }}</span>
+                    </div>
+                    <div class="post-card-title">{{ p.title || p.content?.substring(0, 80) }}</div>
+                    <div class="post-card-content" v-if="p.title && p.content">{{ p.content.substring(0, 100) }}...</div>
+                    <div class="post-card-tags" v-if="parseJson(p.opinion_tags, []).length">
+                        <span v-for="t in parseJson(p.opinion_tags, []).slice(0,3)" :key="t" class="tag-chip tag-opinion">{{ t }}</span>
+                    </div>
+                    <div class="post-card-footer">
+                        <span class="post-card-author">{{ p.author }}</span>
+                        <span class="post-card-engagement">
+                            <span v-if="p.likes">▲ {{ p.likes }}</span>
+                            <span v-if="p.comments">💬 {{ p.comments }}</span>
+                            <span v-if="p.shares">→ {{ p.shares }}</span>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div v-if="!posts.items.length" class="empty">暂无帖子</div>
+            <div class="pagination">
+                <button :disabled="posts.page <= 1" @click="loadPosts(posts.page - 1)">上一页</button>
+                <span>第 {{ posts.page }} 页 / 共 {{ Math.ceil(posts.total / posts.size) }} 页</span>
+                <button :disabled="posts.page * posts.size >= posts.total" @click="loadPosts(posts.page + 1)">下一页</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- 历史报告 (overflow panel) -->
+    <section v-if="currentVehicleId && showReportPanel" class="sec">
+        <h2 class="sec-title">历史报告 <button class="close-panel-btn" @click="showReportPanel = false">×</button></h2>
+        <div class="card">
+            <div class="report-actions">
+                <div class="report-create-btns">
+                    <button class="btn btn-primary" @click="createWeeklyReport" :disabled="!currentVehicleId || reportLoading">
+                        <span v-if="reportLoading && reportLoadingType === 'weekly_digest'" class="spinner"></span>
+                        生成周报
+                    </button>
+                    <button class="btn btn-primary" @click="createMonthlyReport" :disabled="!currentVehicleId || reportLoading">
+                        <span v-if="reportLoading && reportLoadingType === 'deep_report'" class="spinner"></span>
+                        生成月报
+                    </button>
+                </div>
+            </div>
+            <div class="report-list">
+                <div v-for="r in reports" :key="r.id" class="report-card" @click="toggleReport(r.id)">
+                    <div class="report-card-header">
+                        <span class="report-type" :class="r.type">{{ reportTypeLabel(r.type) }}</span>
+                        <span class="report-title">{{ r.title }}</span>
+                        <span class="report-date">{{ r.created_at?.substring(0, 10) }}</span>
+                    </div>
+                    <div class="report-preview" v-if="expandedReport !== r.id">{{ reportPreview(r.content) }}</div>
+                    <div class="report-content" v-if="expandedReport === r.id" v-html="renderMarkdown(r.content)"></div>
+                </div>
+            </div>
+            <div v-if="!reports.length" class="empty">暂无报告</div>
+        </div>
+    </section>
+
+    <!-- Post Detail Modal -->
+    <div v-if="postDetailOpen" class="modal-overlay" @click.self="postDetailOpen = false">
+        <div class="modal post-detail-modal">
+            <div class="post-detail-header">
+                <h3>{{ postDetail.title || (postDetail.content && postDetail.content.substring(0, 60)) }}</h3>
+                <button @click="postDetailOpen = false" class="dialog-close">&times;</button>
+            </div>
+            <div class="post-detail-meta">
+                <span class="post-card-platform" :class="postDetail.platform">{{ platformLabel(postDetail.platform) }}</span>
+                <span v-if="postDetail.author">{{ postDetail.author }}</span>
+                <span v-if="postDetail.published_at">{{ postDetail.published_at?.substring(0, 10) }}</span>
+                <span v-if="postDetail.subject_name" class="post-detail-subject">{{ postDetail.subject_name }}</span>
+                <a v-if="postDetail.url" :href="safeUrl(postDetail.url)" target="_blank" rel="noopener" class="post-detail-origin">查看原文 ↗</a>
+            </div>
+            <div class="post-detail-body" v-if="postDetail.content">{{ postDetail.content }}</div>
+            <div class="post-detail-stats">
+                <span>▲ {{ postDetail.likes || 0 }}</span>
+                <span>💬 {{ postDetail.comments || 0 }}</span>
+                <span>→ {{ postDetail.shares || 0 }}</span>
+                <span v-if="postDetail.engagement">热度 {{ postDetail.engagement }}</span>
+            </div>
+            <div v-if="postDetail.sentiment" class="post-detail-sentiment">
+                <span :class="'sentiment-badge sentiment-' + postDetail.sentiment">帖子情感: {{ sentimentLabel(postDetail.sentiment) }}</span>
+            </div>
+            <div v-if="parseJson(postDetail.event_tags, []).length || parseJson(postDetail.opinion_tags, []).length" class="post-detail-tags">
+                <span v-for="t in parseJson(postDetail.event_tags, [])" :key="'e'+t" class="tag-chip tag-event">{{ t }}</span>
+                <span v-for="t in parseJson(postDetail.opinion_tags, [])" :key="'o'+t" class="tag-chip tag-opinion">{{ t }}</span>
+            </div>
+            <div v-if="parsedDimSentiment(postDetail.dim_sentiment).length" class="post-detail-dims">
+                <div class="post-detail-section-title">维度情感</div>
+                <div v-for="d in parsedDimSentiment(postDetail.dim_sentiment)" :key="d.dim" class="dim-bar-row">
+                    <span class="dim-bar-label">{{ d.dim }}</span>
+                    <div class="dim-bar-track"><div class="dim-bar-fill" :style="{width: (Math.max(0, Math.min(1, d.score)) * 100) + '%'}"></div></div>
+                    <span class="dim-bar-score">{{ Number(d.score).toFixed(2) }}</span>
+                </div>
+            </div>
+            <div v-if="parsedCommentSummary(postDetail.comment_summary)" class="post-detail-summary">
+                <div class="post-detail-section-title">
+                    评论摘要
+                    <span v-if="parsedCommentSummary(postDetail.comment_summary).is_argumentative" class="argue-flag">⚠ 争议</span>
+                </div>
+                <div class="summary-themes" v-if="parsedCommentSummary(postDetail.comment_summary).genuine_themes?.length">
+                    <span v-for="t in parsedCommentSummary(postDetail.comment_summary).genuine_themes" :key="t" class="tag-chip tag-theme">{{ t }}</span>
+                </div>
+                <div class="summary-sentiment" v-if="parsedCommentSummary(postDetail.comment_summary).genuine_sentiment">
+                    评论区真实情感: <b>{{ sentimentLabel(parsedCommentSummary(postDetail.comment_summary).genuine_sentiment) }}</b>
+                </div>
+                <div class="summary-text" v-if="parsedCommentSummary(postDetail.comment_summary).summary">{{ parsedCommentSummary(postDetail.comment_summary).summary }}</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 添加车型 Modal -->
+    <div v-if="showAddModal" class="modal-overlay" @click.self="showAddModal = false">
+        <div class="modal">
+            <h3>添加车型</h3>
+            <form @submit.prevent="addVehicle">
+            <div style="position:relative">
+                <input v-model="newVehicle.name" placeholder="车型名称（输入后从下拉选真实车系）" class="input" @input="onNewVehicleNameInput" @keydown="onSuggestKeydown" @compositionstart="imeComposing=true" @compositionend="imeComposing=false">
+                <div v-if="suggestResults.length" style="position:absolute;top:100%;left:0;right:0;background:#fff;border:1px solid #e0e0e8;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.13);z-index:20;max-height:280px;overflow-y:auto;margin-top:2px">
+                    <div v-for="(s, idx) in suggestResults" :key="s.series_id" @click="selectSuggestion(s)" :style="{padding:'9px 12px',cursor:'pointer','border-bottom':'1px solid #f2f3f7', background: idx === suggestHighlight ? '#eef2ff' : ''}">
+                        <div><strong>{{ s.name }}</strong></div>
+                        <div style="font-size:12px;color:#888">{{ s.brand }} · {{ s.price_range }}</div>
+                    </div>
+                </div>
+            </div>
+            <input v-model="newVehicle.brand" placeholder="品牌 (可选, 自动识别)" class="input">
+            <input v-model="newVehicle.search_keywords" placeholder="搜索关键词 (默认=车型名称, 可自定义)" class="input">
+            <div class="modal-actions">
+                <button type="submit" class="btn btn-primary">添加</button>
+                <button type="button" @click="showAddModal = false" class="btn">取消</button>
+            </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- 我的关注清单 modal -->
+    <div v-if="showWatchlist" class="dialog-overlay" @click.self="showWatchlist = false"></div>
+    <div :class="['dialog-panel watchlist-panel', showWatchlist ? 'dialog-panel-open' : '']" :inert="!showWatchlist">
+        <div class="dialog-head">
+            <h3>我的关注 · {{ currentVehicleName }}</h3>
+            <button class="icon-btn" @click="showWatchlist = false">×</button>
+        </div>
+        <div class="watchlist-body">
+            <div v-if="!watchItems.length" class="empty">暂无关注项 · 在看板信号旁点「★ 关注」添加</div>
+            <div v-for="w in watchItems" :key="w.id" class="watch-item">
+                <div class="watch-item-title">{{ w.title }}</div>
+                <div class="watch-item-meta">
+                    <span class="watch-src">{{ sourceTypeLabel(w.source_type) }}</span>
+                    <span>涉及 {{ w.post_count }} 帖</span>
+                    <span>首发现 {{ w.first_seen }}</span>
+                </div>
+                <button class="btn btn-ghost" @click="removeWatch(w.id)">移除</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 车队总览 Modal（D14：一行一车列表，按健康分升序便于巡检） -->
+    <div v-if="showFleet" class="modal-overlay" @click.self="showFleet = false">
+        <div class="modal fleet-modal">
+            <div class="modal-head">
+                <h3>车队总览 <span class="fleet-sub">按健康分升序 · 差的在前</span></h3>
+                <button class="dialog-close" @click="showFleet = false">&times;</button>
+            </div>
+            <div v-if="fleetLoading" class="empty">加载中…</div>
+            <div v-else-if="!fleetOverview.length" class="empty">暂无车型</div>
+            <div v-else class="fleet-list">
+                <div class="fleet-row fleet-row-head">
+                    <span class="fleet-name">车型</span>
+                    <span class="fleet-health">健康分</span>
+                    <span class="fleet-change">本周异动</span>
+                    <span class="fleet-risk">风险</span>
+                    <span class="fleet-sample">样本</span>
+                </div>
+                <div v-for="v in fleetOverview" :key="v.id" class="fleet-row"
+                     :class="{'fleet-row-active': v.id === currentVehicleId}"
+                     @click="selectVehicleFromFleet(v)">
+                    <span class="fleet-name">{{ v.name }}<small v-if="v.brand"> · {{ v.brand }}</small></span>
+                    <span :class="'fleet-health fleet-health-' + (v.health_score >= 70 ? 'good' : v.health_score >= 50 ? 'mid' : 'bad')">
+                        {{ v.health_score != null ? v.health_score : '--' }}
+                    </span>
+                    <span class="fleet-change"
+                          :class="v.week_change_rate > 0 ? 'up' : v.week_change_rate < 0 ? 'down' : ''">
+                        {{ v.week_change_rate != null ? (v.week_change_rate > 0 ? '↑' : v.week_change_rate < 0 ? '↓' : '·') + Math.abs(v.week_change_rate) + '%' : '--' }}
+                    </span>
+                    <span :class="'fleet-risk fleet-risk-' + (v.risk_level || 'none')">{{ riskLevelLabelFor(v.risk_level) }}</span>
+                    <span class="fleet-sample" :title="'近30天已分析帖 ' + v.analyzed_total + ' / 本周 ' + v.week_total + ' 帖'">{{ v.analyzed_total }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+<script src="static/js/app.js?v=51"></script>
+</body>
+</html>

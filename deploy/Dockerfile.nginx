@@ -1,0 +1,28 @@
+# 第一阶段：构建 prism-web 静态资源（build 产出 dist，非常驻容器）
+FROM node:20-bookworm-slim AS web
+
+WORKDIR /app/prism-web
+
+COPY prism-web/package.json prism-web/package-lock.json* ./
+RUN npm config set registry https://registry.npmmirror.com \
+ && npm install --no-audit --no-fund
+
+COPY prism-web/ ./
+# tracker.ts 跨目录引用项目根的 src/shared/redaction（tsc 需要它，漏拷=构建失败）
+COPY src/ /app/src/
+RUN npm run build
+
+# 第二阶段：Nginx 反代 + 静态托管
+FROM nginx:alpine
+
+ENV TZ=Asia/Shanghai
+
+COPY deploy/nginx/nginx.conf /etc/nginx/nginx.conf
+# 反代 location 清单（HTTP/HTTPS 共用）；tls.d 为空目录=纯 HTTP 模式
+COPY deploy/nginx/locations.inc /etc/nginx/locations.inc
+RUN mkdir -p /etc/nginx/tls.d /etc/nginx/certs
+COPY --from=web /app/prism-web/dist /usr/share/nginx/html
+
+EXPOSE 80 443
+
+CMD ["nginx", "-g", "daemon off;"]

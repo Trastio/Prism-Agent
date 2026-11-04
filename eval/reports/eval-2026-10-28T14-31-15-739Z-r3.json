@@ -1,0 +1,489 @@
+{
+  "run_id": "eval-2026-10-28T14-31-15-739Z",
+  "started_at": "2026-10-28T14:31:15.740Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "2f45771a700e732d726362eeb1419b4b04c01387",
+  "snapshot_id": "snap-20261012-1222",
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "dc10c990e7af744474608d07479ad2b9",
+  "scoring_fingerprint": "e6b3878b27dd9649",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-28T14:33:23.601Z",
+  "results": [
+    {
+      "task": "sales-09",
+      "sessionId": "01a182ec-41d0-7311-84db-41a96d6ca23b",
+      "dimension": "销量",
+      "question": "奇瑞目前卖的最好的电车是哪一个？",
+      "repeat": 1,
+      "score": 2,
+      "reasons": [
+        "truth 锚点全中(1)",
+        "rubric[ranking] 缺要素: 奇瑞 QQ3 EV"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 1,
+        "missing": [],
+        "forbidHits": []
+      },
+      "rubric": {
+        "kind": "ranking",
+        "checked": true,
+        "pass": false,
+        "cap": 2,
+        "present": [
+          "风云A",
+          "iCAR V"
+        ],
+        "missing": [
+          "奇瑞 QQ3 EV"
+        ],
+        "note": "金标 top3 落前5: 2/3"
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "奇瑞目前卖的最好的电车是哪一个？"
+      ],
+      "tools": [
+        "search_cars",
+        "search_cars",
+        "resolve_series",
+        "query_sales",
+        "query_sales"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 65.8,
+        "tool_calls": 13,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 896,
+      "replyPreview": "**结论：奇瑞目前卖得最好的纯电车是 QQ3 EV（A0 级纯电小车）——2026 年 8 月终端零售 12,129 辆，在奇瑞纯电阵营里位居第一。**\n\n| 排名 | 车系 | 级别 / 类型 | ",
+      "reply_full": "**结论：奇瑞目前卖得最好的纯电车是 QQ3 EV（A0 级纯电小车）——2026 年 8 月终端零售 12,129 辆，在奇瑞纯电阵营里位居第一。**\n\n| 排名 | 车系 | 级别 / 类型 | 指导价 | 最新月零售 | 月份 |\n|---|---|---|---|---|---|\n| 1 | **QQ3 EV** | A0 纯电 | 5.89–7.89 万 | **12,129** | 2026-08 |\n| 2 | 风云A9 | B 纯电 | 10.99–12.99 万 | 5,796 | 2026-08 |\n| 3 | iCAR V23 | A 纯电 | 10.98–17.48 万 | 2,479 | 2026-08 |\n| 4 | QQ冰淇淋 | A00 纯电 | 3.69–4.99 万 | 860 | 2026-08 |\n| 5 | 智界R7 纯电 | C 纯电 | 25.98–31.98 万 | 601 | 2026-08 |\n\n补充几点：\n\n- **即使把增程和插混车型都算进来，QQ3 EV 仍然是奇瑞新能源中销量最高的车型**。第二高的是智界V9 增程，8,213 辆；不过该车型同时使用了华为智选品牌标签。\n- QQ3 EV 从 2026 年 4 月起持续增长：7,026 辆、7,738 辆、9,823 辆、9,954 辆、12,129 辆；终端成交均价约 6.87 万。可见**奇瑞纯电电车的销量主力是由 6 万级小车贡献的**，10 万以上纯电车型（风云A9、iCAR）的销量规模也只有它的 20%–50%。\n- 数据说明（数据缺口）：库内另有一个“新QQ3 EV”系列，2026 年 9 月末零售为空，疑似是改款或新老序列并存；因此本次采用 8 月数据。销量为终端零售口径，**不含批发与出口**，奇瑞海外销量未计入。\n- 数据口径时点（as_of）：2026-9月末；统计范围为市场侧，不对产品力做归因。\n\n需要我做下一步吗？比如对比 QQ3 EV 和风云A9 的车主口碑、看看 QQ3 EV 的优势都集中在哪些维度，或者拆解它的版型销量结构。",
+      "first_error_turn": 1
+    },
+    {
+      "task": "sales-09",
+      "sessionId": "01a182ed-23c0-7311-84db-41aba46ac3ee",
+      "dimension": "销量",
+      "question": "奇瑞目前卖的最好的电车是哪一个？",
+      "repeat": 2,
+      "score": 5,
+      "reasons": [
+        "truth 锚点全中(1)",
+        "rubric[ranking] 全要素命中"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 1,
+        "missing": [],
+        "forbidHits": []
+      },
+      "rubric": {
+        "kind": "ranking",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "奇瑞 QQ3 EV",
+          "风云A",
+          "iCAR V"
+        ],
+        "missing": [],
+        "note": "首选=硬锚"
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "奇瑞目前卖的最好的电车是哪一个？"
+      ],
+      "tools": [
+        "search_cars",
+        "search_cars",
+        "resolve_series",
+        "query_sales",
+        "submit_conclusion"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 26.4,
+        "tool_calls": 6,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 695,
+      "replyPreview": "**结论：奇瑞旗下纯电车（BEV）目前卖得最好的是「奇瑞 QQ3 EV」，2026 年 8 月零售 12,129 辆**（数据时点：2026-9 月末，市场口径）。\n\n### 奇瑞纯电（BEV）销量 ",
+      "reply_full": "**结论：奇瑞旗下纯电车（BEV）目前卖得最好的是「奇瑞 QQ3 EV」，2026 年 8 月零售 12,129 辆**（数据时点：2026-9 月末，市场口径）。\n\n### 奇瑞纯电（BEV）销量 TOP5\n\n| 排名 | 车系 | 2026-08 零售 | 指导价 | 级别 |\n|---|---|---|---|---|\n| 1 | **奇瑞 QQ3 EV** | **12,129** | 5.89–7.89 万 | A0 |\n| 2 | 风云A9 | 5,796 | 10.99–12.99 万 | B |\n| 3 | iCAR V23 | 2,479 | 10.98–17.48 万 | A |\n| 4 | QQ冰淇淋 | 860 | 3.69–4.99 万 | A00 |\n| 5 | 智界R7 纯电 | 601 | 25.98–31.98 万 | C |\n\n补充两点：\n- **QQ3 EV 走势**：2026 年 4 月 7,026 辆 → 8 月 12,129 辆，连续 4 个月环比上涨，均价约 6.87 万（终端成交价口径）。它是奇瑞唯一月销过万的纯电车型，靠入门 A0 级低价走量。\n- **如果按「新能源整体」（含插混、增程）算**：第一仍是 QQ3 EV（12,129），第二名变成**智界V9 增程**（8,213 辆，38.98–51.98 万），风云A9 退到第三。\n\n数据缺口：本次 `resolve_series` 的别名表缺失（降级模式），未返回 series_id，车系身份以销量库车系名落地核验；若需严格版型/年款级对比，需补充完整车系名再核。",
+      "first_error_turn": null
+    },
+    {
+      "task": "sales-09",
+      "sessionId": "01a182ed-8b0f-7311-84db-41aca29c66df",
+      "dimension": "销量",
+      "question": "奇瑞目前卖的最好的电车是哪一个？",
+      "repeat": 3,
+      "score": 5,
+      "reasons": [
+        "truth 锚点全中(1)",
+        "rubric[ranking] 全要素命中"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 1,
+        "missing": [],
+        "forbidHits": []
+      },
+      "rubric": {
+        "kind": "ranking",
+        "checked": true,
+        "pass": true,
+        "cap": null,
+        "present": [
+          "奇瑞 QQ3 EV",
+          "风云A",
+          "iCAR V"
+        ],
+        "missing": [],
+        "note": "首选=硬锚"
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : search_cars\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : query_sales\n",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "奇瑞目前卖的最好的电车是哪一个？"
+      ],
+      "tools": [
+        "search_cars",
+        "search_cars",
+        "resolve_series",
+        "query_sales",
+        "query_sales"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 35.5,
+        "tool_calls": 8,
+        "tokens": null,
+        "partial": true,
+        "note": "session jsonl 无 usage 事件 → duration 兜底"
+      },
+      "replyLength": 995,
+      "replyPreview": "**结论：奇瑞 QQ3 EV** —— 纯电阵营里卖得最好的车系，最新零售月（2026年8月）**12,129 辆**，远超第二名风云A9（5,796 辆）。\n\n### 奇瑞纯电零售 TOP 5（最新",
+      "reply_full": "**结论：奇瑞 QQ3 EV** —— 纯电阵营里卖得最好的车系，最新零售月（2026年8月）**12,129 辆**，远超第二名风云A9（5,796 辆）。\n\n### 奇瑞纯电零售 TOP 5（最新月，2026-08）\n\n| 排名 | 车系 | 级别 | 零售量 | 指导价区间 |\n|---|---|---|---|---|\n| 1 | **奇瑞 QQ3 EV** | A0 | **12,129** | 5.89–7.89 万 |\n| 2 | 风云A9 | B | 5,796 | 10.99–12.99 万 |\n| 3 | iCAR V23 | A | 2,479 | 10.98–17.48 万 |\n| 4 | QQ冰淇淋 | A00 | 860 | 3.69–4.99 万 |\n| 5 | 智界R7 纯电 | C | 601 | 25.98–31.98 万 |\n\n（数据口径：零售量取自 2026年8月末行，as_of 2026-9月末；智界、星途等子品牌按集团口径一并计入。）\n\n### QQ3 EV 内部结构（2026年8月，合计 12,129 辆，与车系合计一致）\n\n| 配置 | 零售 | 终端价 |\n|---|---|---|\n| 26款 310km 热爱版 | 3,774 | 5.89 万 |\n| 26款 420km 分享版 | 3,218 | 7.89 万 |\n| 26款 420km 热爱版 | 2,574 | 6.89 万 |\n| 26款 310km 分享版 | 2,563 | 6.79 万 |\n\n两点值得注意：\n- **走量靠低配但不极端**：5.89 万的热爱版（310km）单版最多，420km 两个配置合计 5,792 辆，说明\"续航加一万\"的升级需求很实在，长短续航几乎是五五开。\n- **终端无优惠**：终端价与指导价基本持平（tp≈msrp），A0 级小车上量靠的是定价本身击穿，不是靠放价。\n\n口径声明：\n- 仅取了最新单月快照，未做连续多期趋势校验；\n- 库内还有一个\"新QQ3 EV\"条目（无零售数据），疑似同一车系名称变体，未做别名归一，故按\"奇瑞 QQ3 EV\"计；\n- 以上为市场侧事实，不对产品力做归因。\n\n需要的话，我可以再拉 QQ3 EV 的月度趋势、口碑维度（真实车主 pro/con）或与吉利星愿/比亚迪海豚做同级对比。",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-10-28T14-31-15-739Z",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "2f45771a700e732d726362eeb1419b4b04c01387",
+    "set_composition": {
+      "dev": 3,
+      "frozen": 0,
+      "blind": 0,
+      "other": 0,
+      "total": 3
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 4,
+    "passCount": 2,
+    "trapBlockedCount": 0,
+    "trap_total": 0,
+    "anchored": {
+      "total": 3,
+      "pass": 2,
+      "pass_rate": 0.6666666666666666,
+      "avg": 4
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "repeat": {
+      "k": 3,
+      "k_total": 1,
+      "k_pass": 0,
+      "k_pass_rate": 0,
+      "inconsistent": [
+        "sales-09(分差3,verdictpass)"
+      ]
+    },
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 3,
+      "covered": 3,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 3,
+      "fail": 0,
+      "failTasks": []
+    },
+    "regression": {
+      "skip_reason": "scoring_changed"
+    }
+  }
+}

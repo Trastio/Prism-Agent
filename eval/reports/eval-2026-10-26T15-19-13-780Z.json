@@ -1,0 +1,279 @@
+{
+  "run_id": "eval-2026-10-26T15-19-13-780Z",
+  "started_at": "2026-10-26T15:19:13.781Z",
+  "runner_version": "2.1.0-b2",
+  "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+  "snapshot_id": "snap-20261012-1222",
+  "snapshot_drift": null,
+  "agent_release": "0.3.0",
+  "prompt_files_hash": "dc10c990e7af744474608d07479ad2b9",
+  "scoring_fingerprint": "659013b54d6168e6",
+  "set_filter": "all",
+  "env": {
+    "PRISM_API_BASE": "http://127.0.0.1:8003",
+    "PRISM_EVAL_WEB": null,
+    "PRISM_WEB_FIXTURE_DIR": null,
+    "PRISM_FAKE_TODAY": null,
+    "node": "v25.2.1"
+  },
+  "timestamp": "2026-10-26T15:20:36.075Z",
+  "results": [
+    {
+      "task": "config-12",
+      "sessionId": "01a178cb-6930-76e1-883d-188d68ef134e",
+      "dimension": "配置",
+      "question": "比较一下银河E5、零跑B10、风云T7以及MG 4X的配置",
+      "repeat": 1,
+      "score": 5,
+      "reasons": [
+        "truth 锚点全中(4)"
+      ],
+      "truth": {
+        "checked": true,
+        "anchorsCount": 4,
+        "missing": [],
+        "forbidHits": []
+      },
+      "perTurnTruth": [],
+      "turnVerdicts": [
+        "pass"
+      ],
+      "traceId": null,
+      "ui": [
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : load_skill\ni",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : resolve_seri",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_trims\nin",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : compare_conf",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : get_config_d",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        },
+        {
+          "turn": 1,
+          "method": "select",
+          "title": "Permission Required\ntool  : submit_concl",
+          "value": "Yes",
+          "cancelled": false,
+          "matched": false
+        }
+      ],
+      "turnMessages": [
+        "比较一下银河E5、零跑B10、风云T7以及MG 4X的配置"
+      ],
+      "tools": [
+        "load_skill",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series",
+        "resolve_series"
+      ],
+      "settled": true,
+      "trajFound": true,
+      "verdict": "pass",
+      "error": null,
+      "cost": {
+        "duration_s": 78.8,
+        "tool_calls": 17,
+        "tokens": {
+          "input": 43718,
+          "output": 24387,
+          "cacheRead": 343424,
+          "totalTokens": 411529,
+          "cost_usd": 0.01391
+        },
+        "partial": false
+      },
+      "replyLength": 1863,
+      "replyPreview": "**四车顶配横向比（未指定版型，按默认口径各取在售最高配）：银河E5 配置最全，零跑B10 行政版最“素”，风云T7 与 MG 4X 居中。**\n\n对比版型：银河E5 2027款 635 智充激光版（",
+      "reply_full": "**四车顶配横向比（未指定版型，按默认口径各取在售最高配）：银河E5 配置最全，零跑B10 行政版最“素”，风云T7 与 MG 4X 居中。**\n\n对比版型：银河E5 2027款 635 智充激光版（14.78万）｜零跑B10 2027款 540行政版（14.98万）｜风云T7 2026款 600km 智享版（11.89万）｜MG 4X 2026款 610 智享版（11.68万）\n\n### 核心差异（● 有 / — 无）\n| 项目 | 银河E5 635智充激光版 | 零跑B10 540行政版 | 风云T7 600km智享版 | MG 4X 610智享版 |\n|---|---|---|---|---|\n| 指导价 | 14.78万 | 14.98万 | 11.89万 | 11.68万 |\n| CLTC 续航(km) | 635 | 540 | 600 | 610 |\n| 800V 高压平台 | ● | — | — | — |\n| 高速NOA | ● | — | ● | ● |\n| 城市NOA | ● | — | — | — |\n| HUD | ● | — | — | — |\n| 中控屏 | 15.4\" | 17.3\" | 15.6\" | 15.6\" |\n| 液晶仪表 | 10.2\" | 8.8\" | 8.8\" | 10.25\" |\n| 扬声器 | 23 | 6 | 8 | 8 |\n| 前排电动调节 | ● | — | ● | ● |\n| 前排座椅按摩/记忆 | ●/● | —/— | —/— | ●/● |\n| 方向盘加热 | ● | — | — | ● |\n| 天窗/天幕 | 可开启全景 | — | 可开启全景 | 可开启全景 |\n| 电动尾门 | ● | — | ● | ● |\n| 侧窗多层隔音玻璃 | ● | — | — | — |\n| 后排隐私玻璃 | ○选装 | — | — | ● |\n| 车顶行李架 | ● | — | — | ● |\n| 车载冰箱 | ● | — | — | — |\n| 氛围灯 | 256色 | — | 多色 | 256色 |\n| 前排侧气帘 | ● | — | ● | ● |\n| 后排侧气囊 | — | — | ● | — |\n| 对外放电 | 6kW | — | 6.6kW | 6.6kW |\n| 手机无线充电 | 前排 | — | 前排 | 前排 |\n| 外后视镜加热/折叠 | ●/● | —/— | ●/● | ●/● |\n| 内置行车记录仪 | ● | ● | — | ● |\n| 语音分区唤醒 | 四区域 | 双区域 | 双区域 | 四区域 |\n| 记忆/代客泊车 | ● | — | — | — |\n| 声纹识别 | — | ● | — | — |\n\n- **同项（四车一致）**：360°全景影像+透明底盘、自动/遥控泊车、哨兵模式、热泵空调、感应雨刷、无钥匙启动、仿皮座椅、前排侧气囊、单电机两驱。\n- **银河E5 独有**：800V 高压平台、城市NOA、HUD、车载冰箱、23 扬声器、隔音玻璃——智能化与座舱舒适明显一档领先，续航也是四车最长。\n- **零跑B10 540行政版**：屏幕最大（17.3\"）且独有声纹识别，但无高速NOA、无电动座椅、无天窗/气帘/电动尾门，配置取向偏单位/运营用车，做减法明显。\n- **风云T7 / MG 4X**：价格低 2.9–3.1 万，高速NOA、电动座椅、全景天窗、对外放电都保留；风云T7 侧重被动安全（后排侧气囊）与便利（无钥匙进入），MG 4X 侧重舒适（前排按摩/记忆、方向盘加热、隐私玻璃）。\n- 此外还有若干小额差异（悬架软硬调节、前备箱、车外扬声器、车联网制式、USB 数量、后排出风口、轮毂材质等）整体偏向银河E5，需要可展开逐项。\n\n### 口径与缺口说明\n- 各车取**在售最新年款中指导价最高版型**做能力对标；银河E5 上一代 2024款公务版（17.98万）未纳入。\n- 零跑B10 顶价版为 540行政版，若你想比的是消费端顶配（610 激光雷达版，12.58万），或想看各自走量版型的性价比对比，我可以再跑一版。\n- 若按配置差价口径折算金额（配置差 → 拉平指导价），结论方向与上表一致，需要金额版本可展开。\n- 库内部分配置项未采集（各车 15–27 项不等），上表仅含已采集口径；as_of：2026-10-26（配置快照采集于 2026-10-01）。",
+      "first_error_turn": null
+    }
+  ],
+  "conditional_skipped": [],
+  "acceptance_boundary": {
+    "run_id": "eval-2026-10-26T15-19-13-780Z",
+    "snapshot_ids": [
+      "snap-20261012-1222"
+    ],
+    "tasks_git_hash": "aeded93b188c07c594df5e7e201ba13f9bb5da84",
+    "set_composition": {
+      "dev": 0,
+      "frozen": 1,
+      "other": 0,
+      "total": 1
+    },
+    "conditional_skipped": 0,
+    "statement": "仅适用于该快照与该题集构成；dev 集变更后不可与历史基线直接对比；多轮/条件题的增减会改变分母口径。"
+  },
+  "summary": {
+    "avg": 5,
+    "passCount": 1,
+    "trapBlockedCount": 0,
+    "trap_total": 0,
+    "anchored": {
+      "total": 1,
+      "pass": 1,
+      "pass_rate": 1,
+      "avg": 5
+    },
+    "observational": {
+      "total": 0,
+      "pass": 0,
+      "pass_rate": null,
+      "avg": null
+    },
+    "set_filter": "all",
+    "run_valid": true,
+    "trajectory_coverage": {
+      "considered": 1,
+      "covered": 1,
+      "rate": 1,
+      "min": 1,
+      "missing": []
+    },
+    "truth": {
+      "checked": 1,
+      "fail": 0,
+      "failTasks": []
+    },
+    "regression": {
+      "baseline_run_id": "eval-2026-10-26T15-13-55-025Z",
+      "task_overlap": 1,
+      "pass_rate": {
+        "current": 1,
+        "baseline": 0,
+        "delta": 1
+      },
+      "anchored_pass_rate": {
+        "total": 1,
+        "current": 1,
+        "baseline": 0,
+        "delta": 1
+      },
+      "regressed_tasks": [],
+      "consecutive_failures": [],
+      "alerts": [],
+      "alerted": false
+    }
+  }
+}

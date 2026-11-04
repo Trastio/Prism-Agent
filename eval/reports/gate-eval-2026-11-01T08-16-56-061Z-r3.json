@@ -1,0 +1,59 @@
+{
+  "baseline": "eval-2026-10-31T15-51-26-580Z",
+  "candidate": "eval-2026-11-01T08-16-56-061Z",
+  "paired_n": 7,
+  "baseline_only": 56,
+  "candidate_only": 0,
+  "conditions": {
+    "veto_zero": {
+      "met": true,
+      "detail": "trap 1/1 拦截"
+    },
+    "wilcoxon_significant": {
+      "met": false,
+      "detail": "p=None, delta=0.5714285714285714, |delta|=0.5714285714285714",
+      "wilcoxon": {
+        "w": 0,
+        "p_value": null,
+        "n": 4,
+        "w_plus": 10.0,
+        "w_minus": 0,
+        "note": "n<10 用精确表"
+      },
+      "cliffs": {
+        "delta": 0.5714285714285714,
+        "abs": 0.5714285714285714,
+        "interpretation": "large",
+        "n": 49
+      }
+    },
+    "retention_ci_positive": {
+      "met": true,
+      "detail": "frozen n=1, ci_low=3.000",
+      "ci": {
+        "mean": 3.0,
+        "ci_low": 3.0,
+        "ci_high": 3.0,
+        "n": 1,
+        "confidence": 0.95
+      }
+    },
+    "cost_under_budget": {
+      "met": true,
+      "detail": "ci_high=84.7s < 预算 300.0s（duration 兜底口径）",
+      "ci": {
+        "mean": 60.41428571428571,
+        "ci_low": 36.18571428571429,
+        "ci_high": 84.72857142857143,
+        "n": 7,
+        "confidence": 0.95
+      },
+      "budget": 300.0
+    }
+  },
+  "pass_all": false,
+  "notes": [
+    "Wilcoxon n=4<10 无 p 值（精确表未实现），条件2 按不满足处理",
+    "成本口径=duration_s 兜底（n=7/7 题有值，token 台账缺）"
+  ]
+}

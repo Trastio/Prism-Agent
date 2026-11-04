@@ -1,0 +1,60 @@
+{
+  "generated_at": "2026-11-01T14:21:31.293Z",
+  "window_days": 90,
+  "counts": {
+    "down_only": 2,
+    "fail_silent": 3
+  },
+  "rows": [
+    {
+      "session_id": "s1",
+      "feedback": "down",
+      "feedback_ts": "2026-10-06T12:00:00",
+      "verdict": null,
+      "verdict_reason": "",
+      "question": "",
+      "quadrant": "down_only",
+      "priority": 3
+    },
+    {
+      "session_id": "sess1",
+      "feedback": "down",
+      "feedback_ts": "2026-10-06T10:05:00",
+      "verdict": null,
+      "verdict_reason": "",
+      "question": "",
+      "quadrant": "down_only",
+      "priority": 3
+    },
+    {
+      "session_id": "01a14aed-b376-771d-9764-d46fa9f95e4a",
+      "feedback": null,
+      "feedback_ts": null,
+      "verdict": "fail",
+      "verdict_reason": "数字结论未经出口闸提交（漏提交）",
+      "question": "宋Pro新能源这台车，车主口碑整体怎么样？好评和差评主要集中在哪里？",
+      "quadrant": "fail_silent",
+      "priority": 4
+    },
+    {
+      "session_id": "01a13800-5a4d-7372-b866-7d169f8f61b8",
+      "feedback": null,
+      "feedback_ts": null,
+      "verdict": "fail",
+      "verdict_reason": "凭空编造数字（不在会话台账）: 100, 319",
+      "question": "保时捷911的配置怎么样",
+      "quadrant": "fail_silent",
+      "priority": 4
+    },
+    {
+      "session_id": "01a1737c-4a8d-77a2-8c2e-329664750b54",
+      "feedback": null,
+      "feedback_ts": null,
+      "verdict": "fail",
+      "verdict_reason": "数字结论未经出口闸提交（漏提交）",
+      "question": "帮我调研风云T7的典型用户画像。",
+      "quadrant": "fail_silent",
+      "priority": 4
+    }
+  ]
+}

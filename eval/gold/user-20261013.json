@@ -1,0 +1,1315 @@
+[
+  {
+    "excel_row": 2,
+    "new_id": "sales-03",
+    "dimension": "sales",
+    "qtype": "正向",
+    "question": "目前银河E5最高配占比多少？",
+    "gold": {
+      "numbers": {
+        "E5_2026_8月末_总零售": 4436,
+        "销量库在售最高配": "26款 610Km 星舰版(msrp 145800)",
+        "星舰版_retail": 28,
+        "星舰版占比": "0.63%(28/4436, mix=0.0063)",
+        "配置库最高配": "2027款 635 智充激光版(78132, 14.78万)",
+        "2027款在销量库行数": 0
+      },
+      "supported_by": [
+        "sales_trim:银河E5/2026/8",
+        "config_snapshots:7650/78132"
+      ]
+    },
+    "expected_evidence": "①销量库最高配=26款星舰版，占比0.63%（2026-8月末口径）②配置库已有2027款635智充激光版但销量库无其任何行→2027款销量占比不可算，如实声明③as_of=2026-8月末（库内零售最新有值月）",
+    "as_of": "2026-10-11（CAM 9月末批导入日；库内零售实际最新有值月=2026-8月末，2026-9月末行 retail 全 NULL）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "核心数字：28/4436=0.63%（±0.02pp容差）；必须锚定2026-8月末；必须声明2027款无销量行（不得编其占比）；带 supported_by。",
+    "expectation_diffs": [
+      {
+        "row": 2,
+        "类型": "补充（无需改写月份锚）",
+        "原文": "①应指出目前最高配是2027款 635 智充激光版 ②应指出最新的8月数据",
+        "改写/补写": "保留（用户\"最新8月数据\"判断正确——库内零售最新有值月=2026-8月末；explore.md 的\"E5→9月末10377\"系跨年聚合误读，10377 实为 2025年9月历史值）。补充：2027款 635 智充激光版 在配置库存在(14.78万)但销量库无行，其\"占比\"只能按在售最高配 26款星舰版 0.63% 回答并声明缺口"
+      }
+    ],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 3,
+    "new_id": "sales-04",
+    "dimension": "sales",
+    "qtype": "缺口",
+    "question": "风云T7的销量是多少",
+    "gold": {
+      "numbers": {
+        "库内T7零售合计": "NULL（全库无值）",
+        "T7现有行": "仅 2026-9月中+9月末 各3版型行(共6行)，retail 全 NULL",
+        "tp_9月末": [
+          94900,
+          105900,
+          115900
+        ],
+        "launch_date": "2026/08/26"
+      },
+      "supported_by": [
+        "sales_trim:风云T7/2026/9"
+      ]
+    },
+    "expected_evidence": "fail-closed：如实声明库内无风云T7零售数据（仅9月中/末价格行）；不得给出任何\"销量\"数字；可补充：8/26上市、口径说明；web补充需标URL+不可复算",
+    "as_of": "2026-10-11（CAM 9月末批导入日；库内零售实际最新有值月=2026-8月末，2026-9月末行 retail 全 NULL）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "通过=声明缺口+不编数；否决=给出任何具体销量数字（号称库内数字即否决；web数字须带URL+不可复算标注）。",
+    "expectation_diffs": [
+      {
+        "row": 3,
+        "类型": "改写",
+        "原文": "①需要把各版型数据加总，得到最新8月份的销量",
+        "改写/补写": "库内风云T7 无任何月度零售值（8月末无行，9月中/末行 retail 全 NULL，仅有 tp/msrp）→ 无法加总；期望改为：如实声明库内零售缺口+给出已有的9月价格行证据+可选 web 补充（标不可复算）"
+      }
+    ],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 4,
+    "new_id": "sales-05",
+    "dimension": "sales",
+    "qtype": "正向",
+    "question": "零跑B10最新年款的销量如何",
+    "gold": {
+      "numbers": {
+        "最新年款": "2027款(27款，2026-7月末起有销量)",
+        "2026_8月末_27款合计": 5218,
+        "当月全系总零售": 6790,
+        "27款占比": "76.8%",
+        "27款当月最高配型": "27款 540Km 悦享版 2204",
+        "25款残留": 1572
+      },
+      "supported_by": [
+        "sales_trim:零跑 B10/2026/8"
+      ]
+    },
+    "expected_evidence": "①最新年款=2027款（27款）②2026-8月末27款各版型加总=5218（占全系76.8%）③as_of声明",
+    "as_of": "2026-10-11（CAM 9月末批导入日；库内零售实际最新有值月=2026-8月末，2026-9月末行 retail 全 NULL）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "核心数字：5218（±0）；年款识别=2027款；月锚=2026-8月末；占比76.8%（±1pp）。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 5,
+    "new_id": "sales-06",
+    "dimension": "sales",
+    "qtype": "正向",
+    "question": "MG 4X的最低配销量如何",
+    "gold": {
+      "numbers": {
+        "最低配": "26款 510Km 半固态自由版(msrp 99800, 全系最低)",
+        "retail_2026_8月末": 408,
+        "占比": "11.91%(408/3427)",
+        "tp": 91563,
+        "全系当月": 3427
+      },
+      "supported_by": [
+        "sales_trim:MG 4X/2026/8"
+      ]
+    },
+    "expected_evidence": "①最低配=2026款 510 半固态自由版（用户期望核验通过）②2026-8月末该版型零售408，占全系11.91%",
+    "as_of": "2026-10-11（CAM 9月末批导入日；库内零售实际最新有值月=2026-8月末，2026-9月末行 retail 全 NULL）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "核心数字：408（±0）；版型名匹配\"半固态自由版\"；月锚=2026-8月末。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 6,
+    "new_id": "sales-07",
+    "dimension": "sales",
+    "qtype": "正向",
+    "question": "银河E5卖的最好的是哪一款？",
+    "gold": {
+      "numbers": {
+        "最畅销版型": "26款 530Km 探索版",
+        "retail_2026_8月末": 2047,
+        "占比": "46.15%",
+        "is_main": "是"
+      },
+      "supported_by": [
+        "sales_trim:银河E5/2026/8"
+      ]
+    },
+    "expected_evidence": "在售版型中销量最高=26款 530Km 探索版 2047辆（46.15%），2026-8月末口径",
+    "as_of": "2026-10-11（CAM 9月末批导入日；库内零售实际最新有值月=2026-8月末，2026-9月末行 retail 全 NULL）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "核心数字：2047/46.15%（±0.5pp）；版型名精确；月锚声明。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 7,
+    "new_id": "sales-08",
+    "dimension": "sales",
+    "qtype": "筛选",
+    "question": "轴距2700左右卖得最好的BEV是哪个车？",
+    "gold": {
+      "numbers": {
+        "筛选口径": "wheelbase 众数∈[2650,2750]（2700±50）+ energy=纯电动 + latest_retail(2026-8月末)降序",
+        "top3": [
+          [
+            "吉利星愿",
+            39386,
+            "wb2650/A0"
+          ],
+          [
+            "比亚迪 海豚",
+            16879,
+            "wb2700/A0"
+          ],
+          [
+            "启源Q05 纯电",
+            13928,
+            "wb2735/A"
+          ]
+        ],
+        "后续": [
+          "MG4 EV 12924(wb2750)",
+          "奇瑞 QQ3 EV 12129(wb2700)",
+          "比亚迪 元PLUS 7032(wb2720)"
+        ],
+        "区间敏感性": "若收窄至±30（[2670,2730]），星愿(2650)/启源Q05(2735)出界——口径声明是必要判分点"
+      },
+      "supported_by": [
+        "sales_trim:吉利星愿/2026/8",
+        "sales_trim:比亚迪 海豚/2026/8",
+        "sales_trim:启源Q05 纯电/2026/8"
+      ]
+    },
+    "expected_evidence": "①声明轴距区间口径（如2700±50）与时间（2026-8月末零售）②区间内BEV按零售降序：星愿39386>海豚16879>启源Q05 13928",
+    "as_of": "2026-10-11（CAM 9月末批导入日；库内零售实际最新有值月=2026-8月末，2026-9月末行 retail 全 NULL）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "top3容差：金标top3包含agent首选即过；必须声明区间+时间口径；区间敏感性见 gold.numbers.区间敏感性。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 8,
+    "new_id": "sales-09",
+    "dimension": "sales",
+    "qtype": "筛选",
+    "question": "奇瑞目前卖的最好的电车是哪一个？",
+    "gold": {
+      "numbers": {
+        "口径": "奇瑞集团（端点 brand=子品牌 OR manufacturer 集团 contains，2026-10-13 拍板B）+ BEV（用户期望\"纯电车\"）+ latest_retail(2026-8月末)",
+        "top3": [
+          [
+            "奇瑞 QQ3 EV",
+            12129,
+            "纯电"
+          ],
+          [
+            "风云A9",
+            5796,
+            "纯电"
+          ],
+          [
+            "iCAR V23",
+            2479,
+            "纯电"
+          ]
+        ],
+        "严格BEV同top3": true,
+        "口径备注": "主会话直查坐实：风云A9 energy_type=纯电动；BEV top3 与集团 NEV 口径的分歧点=智界V9 增程 8,213（仅 NEV 口径插到第2）；manufacturer contains 含合资 奇瑞捷豹路虎（其车型全为传统能源，对本题无影响）"
+      },
+      "supported_by": [
+        "sales_trim:奇瑞 QQ3 EV/2026/8",
+        "sales_trim:风云A9/2026/8",
+        "sales_trim:iCAR V23/2026/8"
+      ]
+    },
+    "expected_evidence": "①声明\"奇瑞\"集团口径（子品牌 OR manufacturer；brand 列是子品牌粒度：风云/QQ/iCAR/捷途/星途/智界/凯翼）②纯电(BEV)口径（用户期望\"纯电车\"）③首选 QQ3 EV 12,129（BEV/NEV 两口径同为第一）",
+    "as_of": "2026-10-11（CAM 9月末批导入日；库内零售实际最新有值月=2026-8月末，2026-9月末行 retail 全 NULL）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "首选必须=奇瑞 QQ3 EV 12,129（两口径同第一，硬锚）；口径声明=必要判分点（集团 vs 单品牌；BEV 期望口径）；BEV top3=QQ3 EV/风云A9/iCAR V23；答 NEV 口径且显式声明=降级通过（智界V9 8,213 会插第2，属口径差异非事实错误）；未声明口径直接列数=半过",
+    "expectation_diffs": [],
+    "fail_closed": [
+      "已解决(2026-10-13)：拍板B——端点 brand 参数扩为 子品牌 OR 集团 manufacturer contains；BEV 口径坐实（风云A9=纯电动）；交叉验证锚=brand=奇瑞+energy=BEV → top3 QQ3 EV 12,129/风云A9 5,796/iCAR V23 2,479"
+    ]
+  },
+  {
+    "excel_row": 9,
+    "new_id": "sales-10",
+    "dimension": "sales",
+    "qtype": "筛选",
+    "question": "目前A级别卖的最好的燃油车",
+    "gold": {
+      "numbers": {
+        "口径": "level=A 精确(不含A0/A00) + energy∈{传统能源,油电混合} + latest_retail(2026-8月末)",
+        "top3": [
+          [
+            "荣放 双擎",
+            10568,
+            "油电混合"
+          ],
+          [
+            "星越L",
+            9100,
+            "传统能源"
+          ],
+          [
+            "博越L",
+            9067,
+            "传统能源"
+          ]
+        ],
+        "第4": "速腾 8856"
+      },
+      "supported_by": [
+        "sales_trim:荣放 双擎/2026/8",
+        "sales_trim:星越L/2026/8",
+        "sales_trim:博越L/2026/8"
+      ]
+    },
+    "expected_evidence": "①燃油=传统能源+油电混合（用户语义锚）②A级精确 ③top3：荣放双擎10568/星越L 9100/博越L 9067（2026-8月末）",
+    "as_of": "2026-10-11（CAM 9月末批导入日；库内零售实际最新有值月=2026-8月末，2026-9月末行 retail 全 NULL）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "top3容差；能源映射正确性为判分点（漏油电混合=口径错）。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 10,
+    "new_id": "sales-11",
+    "dimension": "sales",
+    "qtype": "缺口",
+    "question": "风云T7 9月的销量是多少",
+    "gold": {
+      "numbers": {
+        "2026_9月中行": "3版型 retail NULL",
+        "2026_9月末行": "3版型 retail NULL",
+        "tp_9月末": [
+          94900,
+          105900,
+          115900
+        ],
+        "8月行": "不存在",
+        "库内结论": "9月零售空，且T7全库无零售"
+      },
+      "supported_by": [
+        "sales_trim:风云T7/2026/9"
+      ]
+    },
+    "expected_evidence": "fail-closed：库内有9月中/9月末行但零售字段全空（仅价格tp有值）；T7无8月行；不得编9月销量；web补充（上市首月交付量）须标URL+不可复算",
+    "as_of": "2026-10-11（CAM 9月末批导入日；库内零售实际最新有值月=2026-8月末，2026-9月末行 retail 全 NULL）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "通过=声明\"9月零售空/库内无T7零售\"+不编数；web补充合规（URL+不可复算）加分；否决=给库内数字。",
+    "expectation_diffs": [
+      {
+        "row": 10,
+        "类型": "改写",
+        "原文": "①数据库中没有9月销量，只有8月的 ②只能通过网址搜索工具进行搜索",
+        "改写/补写": "与库不符双向：库内恰有 9月中/9月末 行（tp 94900-115900）但 retail 全 NULL；且 T7 无任何 8月行（8/26上市）。期望改为：如实声明 9月零售字段空+T7全库无零售值；如需数字走 web 并标 URL+不可复算"
+      }
+    ],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 11,
+    "new_id": "sales-12",
+    "dimension": "sales",
+    "qtype": "缺口",
+    "question": "银河E5 10月的最新销量是多少",
+    "gold": {
+      "numbers": {
+        "2026_10月行": "不存在",
+        "2026_9月末行": "5版型 retail 全 NULL",
+        "最新有值月": "2026-8月末 4436"
+      },
+      "supported_by": [
+        "sales_trim:银河E5/2026/8"
+      ]
+    },
+    "expected_evidence": "fail-closed：库内无2026年10月数据（最新月=9月末且零售空）；最新可得=2026-8月末4436；web补充10月销量须标URL+不可复算",
+    "as_of": "2026-10-11（CAM 9月末批导入日；库内零售实际最新有值月=2026-8月末，2026-9月末行 retail 全 NULL）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "通过=声明无10月数据+给出最新可得8月末4436；否决=编10月数字冒充库内。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 12,
+    "new_id": "sales-13",
+    "dimension": "sales",
+    "qtype": "陷阱",
+    "question": "银河E5的销量比风云T7的销量少多少？",
+    "gold": {
+      "numbers": {
+        "E5_2026_8月末": 4436,
+        "T7_库内零售": "NULL",
+        "差值": "不可算"
+      },
+      "supported_by": [
+        "sales_trim:银河E5/2026/8",
+        "sales_trim:风云T7/2026/9"
+      ]
+    },
+    "expected_evidence": "陷阱-前提不成立：T7库内无任何零售值→差值不可算；须指出用户前提（E5比T7少）在库内证据下不成立/不可比；E5为2026-8月末口径",
+    "as_of": "2026-10-11（CAM 9月末批导入日；库内零售实际最新有值月=2026-8月末，2026-9月末行 retail 全 NULL）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "通过=识别前提不成立+不给差值数字+说明T7无零售；否决=给出任何差值数字。",
+    "expectation_diffs": [
+      {
+        "row": 12,
+        "类型": "改写",
+        "原文": "①8月份银河E5的销量比T7的销量高，风云T7是8月底上市的",
+        "改写/补写": "库内 T7 无 8月行、无任何零售值——\"E5比T7高\"不可从库内得出。期望改为：识别比较前提不成立（T7零售缺失），fail-closed 不给差值；可给 E5 单边 4436@2026-8月末 + T7 缺口说明"
+      }
+    ],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 13,
+    "new_id": "sales-14",
+    "dimension": "sales",
+    "qtype": "正向",
+    "question": "比较一下银河E5、零跑B10、风云T7以及MG 4X的销量",
+    "gold": {
+      "numbers": {
+        "口径": "各车系最新有值月末行零售合计（2026-8月末）",
+        "排序": [
+          [
+            "零跑B10",
+            6790
+          ],
+          [
+            "银河E5",
+            4436
+          ],
+          [
+            "MG 4X",
+            3427
+          ],
+          [
+            "风云T7",
+            "无零售(仅9月价格行)"
+          ]
+        ],
+        "注意": "T7需单独声明缺口，不得给0或编数；MG4X无9月末值，同为8月末口径可横向比"
+      },
+      "supported_by": [
+        "sales_trim:零跑 B10/2026/8",
+        "sales_trim:银河E5/2026/8",
+        "sales_trim:MG 4X/2026/8",
+        "sales_trim:风云T7/2026/9"
+      ]
+    },
+    "expected_evidence": "四车横向：B10 6790 > E5 4436 > MG4X 3427 > T7 无零售（声明）；统一2026-8月末口径+as_of",
+    "as_of": "2026-10-11（CAM 9月末批导入日；库内零售实际最新有值月=2026-8月末，2026-9月末行 retail 全 NULL）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "三个数字精确（±0）；T7处理=缺口声明（给0算错）；口径统一声明。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 14,
+    "new_id": "config-03",
+    "dimension": "config",
+    "qtype": "陷阱",
+    "question": "风云T7最高配没有PTC",
+    "gold": {
+      "numbers": {
+        "T7最高配": "2026款 600km 智享版(77784, 11.89万)",
+        "config内PTC字段": "不存在（全部类目/项目/值检索无PTC）",
+        "最近项_热泵空调": "全系●(3/3版型)",
+        "电池预加热": "全系●",
+        "web_direction": "T7 有 PTC（用户域断言；eval 时由 agent web 工具佐证，金标只锁方向不锁来源）"
+      },
+      "supported_by": [
+        "config_snapshots:8660/77784"
+      ]
+    },
+    "expected_evidence": "混合（库缺口+web佐证）：①config_snapshots 无 PTC 字段须如实声明，不得下库内有/无断言 ②库内无此数据属红线#9 合法 web 补充场景，web 检索佐证方向（T7 有 PTC）③web 结论标 URL+不可复算 ④据此纠正\"最高配没有PTC\"命题；web 无佐证时如实\"无法核验\"也算合格",
+    "as_of": "2026-10-01（config_snapshots fetched_at；QQ3 EV 为 2026-10-07）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "通过=声明库内无PTC字段+web佐证T7有PTC(URL+不可复算)并纠正命题；通过=web亦无果但如实声明无法核验(不得附和/反驳)；半过=仅声明字段缺失未尝试web；否决=直接附和\"没有PTC\"或编造库内PTC数据。web不可用时按 social 条件题规则不计分母",
+    "expectation_diffs": [],
+    "fail_closed": [
+      "已裁决(2026-10-13 用户)：保留PTC原题不走改题——汽车之家无PTC字段但web可搜得T7有PTC，按混合语义出金标"
+    ]
+  },
+  {
+    "excel_row": 15,
+    "new_id": "config-04",
+    "dimension": "config",
+    "qtype": "陷阱",
+    "question": "银河E5全系标配PTC",
+    "gold": {
+      "numbers": {
+        "E5_specs": "12版型(2024-2027款)",
+        "config内PTC字段": "不存在",
+        "最近项_热泵空调": "全系●(12/12)",
+        "方向盘加热": "仅2027款635智充激光版●(1/12)",
+        "web_direction": "E5 无 PTC（用户原期望方向；eval 时由 agent web 工具佐证）"
+      },
+      "supported_by": [
+        "config_snapshots:7650/78132"
+      ]
+    },
+    "expected_evidence": "混合（库缺口+web佐证）：①同config-03声明无PTC字段 ②web 佐证 E5 无 PTC 方向 ③URL+不可复算 ④纠正\"全系标配PTC\"命题；web 无佐证时如实\"无法核验\"亦合格",
+    "as_of": "2026-10-01（config_snapshots fetched_at；QQ3 EV 为 2026-10-07）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "通过=声明库内无PTC字段+web佐证E5无PTC(URL+不可复算)并纠正命题；通过=web无果但如实声明无法核验；半过=仅声明字段缺失未尝试web；否决=直接附和\"全系标配\"或断言\"全系没有\"而无据。web不可用时按 social 条件题规则不计分母",
+    "expectation_diffs": [],
+    "fail_closed": [
+      "已裁决(2026-10-13 用户)：同config-03保留原题，混合语义"
+    ]
+  },
+  {
+    "excel_row": 16,
+    "new_id": "config-05",
+    "dimension": "config",
+    "qtype": "正向",
+    "question": "风云T7的配置比银河E5好么？",
+    "gold": {
+      "numbers": {
+        "对比对象": "E5 2027款 635 智充激光版(14.78万) vs T7 2026款 600km 智享版(11.89万)",
+        "E5胜出项示例": {
+          "CLTC": "635 vs 600",
+          "电机功率kW": "245 vs 178",
+          "扬声器": "23喇叭2000W vs 8喇叭SONY",
+          "激光雷达": "1个 vs 无",
+          "辅助驾驶": "千里浩瀚H5 城市+高速 vs 猎鹰500 仅高速",
+          "座椅": "加热/通风/按摩 vs 加热/通风",
+          "其他": "车载冰箱/记忆泊车/悬架软硬调节/前排隔音玻璃/快充460kW"
+        },
+        "T7胜出项示例": {
+          "车机芯片": "高通骁龙8775 vs 龍鹰6E",
+          "快充时间": "20分钟(30-80%) vs 未标",
+          "对外放电": "6.6kW AC vs 6kW"
+        }
+      },
+      "supported_by": [
+        "config_snapshots:7650/78132",
+        "config_snapshots:8660/77784"
+      ]
+    },
+    "expected_evidence": "①各取最高配逐项对比不漏项②分维度结论（E5动力/续航/音响/智驾硬件强；T7车机芯片/快充速度优）③T7为8/26新上市，配置完备性需声明④不下\"全面更好\"越界结论",
+    "as_of": "2026-10-01（config_snapshots fetched_at；QQ3 EV 为 2026-10-07）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "范式判分：对象正确（最高配）+维度对比+E5/T7各有胜出项+T7完备性声明；价格差2.89万应作为性价比语境提及。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 17,
+    "new_id": "config-06",
+    "dimension": "config",
+    "qtype": "筛选",
+    "question": "MG 4X的性价比如何？",
+    "gold": {
+      "numbers": {
+        "MG4X定位": "A级BEV 9.98-11.68万，510半固态电池版 9.98-10.98万",
+        "同级A级BEV候选(2026-8月末零售)": [
+          "MG4 EV 12924",
+          "启源Q05 纯电 13928",
+          "比亚迪 元PLUS 7032",
+          "零跑 B10 6790",
+          "零跑 B01 5468",
+          "银河E5 4436",
+          "MG 4X 3427"
+        ],
+        "MG4X当月零售": 3427
+      },
+      "supported_by": [
+        "sales_trim:MG 4X/2026/8",
+        "config_snapshots:8564/76775"
+      ]
+    },
+    "expected_evidence": "开放题：①声明比较范围口径（A级BEV或轴距2735±50 BEV）②圈定候选对比价格/配置/销量③半固态电池为差异化卖点④结论限于所定口径",
+    "as_of": "2026-10-11（CAM 9月末批导入日；库内零售实际最新有值月=2026-8月末，2026-9月末行 retail 全 NULL）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "范式判分：口径声明+候选圈定+至少3维度对比+不越界；无唯一正确答案。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 18,
+    "new_id": "config-07",
+    "dimension": "config",
+    "qtype": "筛选",
+    "question": "12万元左右哪个BEV车型的配置最好",
+    "gold": {
+      "numbers": {
+        "口径": "价格区间[11,13]万重叠 + BEV + latest_retail(2026-8月末)降序",
+        "候选top": [
+          "比亚迪 元UP 22084",
+          "比亚迪 海豚 16879",
+          "启源Q05 纯电 13928",
+          "埃安 i60 纯电 8599",
+          "深蓝S05 纯电 8582",
+          "小鹏MONA M03 8411",
+          "铂智3X 7793",
+          "比亚迪 海狮05 EV 7338",
+          "比亚迪 元PLUS 7032"
+        ],
+        "config覆盖": "元PLUS/MONA M03/海狮05 EV/B10 有配置快照；元UP/海豚/启源Q05/i60/深蓝S05/铂智3X 无——配置对比需声明覆盖缺口"
+      },
+      "supported_by": [
+        "sales_trim:比亚迪 元UP/2026/8",
+        "sales_trim:比亚迪 海豚/2026/8",
+        "sales_trim:启源Q05 纯电/2026/8"
+      ]
+    },
+    "expected_evidence": "①筛选口径声明（12万左右→±1万重叠）②候选圈定③有配置数据的候选内做配置对比，无数据的声明缺口④结论+口径",
+    "as_of": "2026-10-11（CAM 9月末批导入日；库内零售实际最新有值月=2026-8月末，2026-9月末行 retail 全 NULL）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "top3容差（销量序）+配置对比方法判分；配置覆盖缺口声明为必要点。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 19,
+    "new_id": "config-08",
+    "dimension": "config",
+    "qtype": "正向",
+    "question": "海狮06的配置如何",
+    "gold": {
+      "numbers": {
+        "消歧": "同车系(8087)含 EV 8版型 + DM-i 7版型；销量库拆两串",
+        "EV阶梯": "14.38万(2025款520领航)→15.38(605领航Pro)→15.99(2026款605领航)→16.38→16.89(710远航/605旗舰)→17.99(710远航旗舰)→19.98(710领航闪充)",
+        "DM-i阶梯": "12.99(2026款205领航)→13.98(2025款132领航)→13.99→14.68→14.99(310远航)→15.68→15.99(310旗舰)",
+        "销量2026_8月末": {
+          "EV": 8918,
+          "DM-i": 4517
+        }
+      },
+      "supported_by": [
+        "config_snapshots:8087/77915",
+        "config_snapshots:8087/77710",
+        "sales_trim:比亚迪 海狮06 EV/2026/8",
+        "sales_trim:比亚迪 海狮06 DM-i/2026/8"
+      ]
+    },
+    "expected_evidence": "①查询海狮06配置②EV/DM-i 消歧（配置同车系15版型、销量两串）③分动力给出配置阶梯④as_of",
+    "as_of": "2026-10-01（config_snapshots fetched_at；QQ3 EV 为 2026-10-07）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "消歧为必要判分点（不区分EV/DM-i=口径错）；阶梯覆盖两端价+版型数；数字抽验（EV顶配19.98万/DM-i入门12.99万）。",
+    "expectation_diffs": [
+      {
+        "row": 19,
+        "类型": "补写A列",
+        "原文": "①查询海狮06的配置，做出配置阶梯，同时需要区分海狮06 纯电和DMI",
+        "改写/补写": "①resolve_series 核验海狮06(8087) ②消歧：配置库同车系15版型含EV(8)/DM-i(7)，销量库拆\"比亚迪 海狮06 EV/DM-i\"两串，分别取数 ③EV与DM-i各出配置阶梯（价格升序，标注年款） ④as_of=2026-10-01；注意2025款与2026款并存需标注"
+      }
+    ],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 20,
+    "new_id": "config-09",
+    "dimension": "config",
+    "qtype": "正向",
+    "question": "银河E5比零跑B10多哪些配置",
+    "gold": {
+      "numbers": {
+        "对比对象": "E5 2027款 635 智充激光版(14.78万) vs B10 2027款 540行政版(14.98万)",
+        "E5多出": [
+          "座椅加热/通风/按摩+头枕扬声器",
+          "方向盘加热",
+          "副驾腿托+双座椅记忆",
+          "二排靠背调节",
+          "可开启全景天窗+电动遮阳帘",
+          "前排多层隔音玻璃",
+          "车载冰箱",
+          "23喇叭2000W(7.1.4)",
+          "50W无线充电",
+          "对外放电6kW",
+          "激光雷达1个+地平线J6M",
+          "千里浩瀚H5城市+高速",
+          "记忆泊车/匝道自动驶出",
+          "悬架软硬调节",
+          "快充460kW+神盾短刀电池70.01kWh"
+        ],
+        "B10多出": [
+          "高通骁龙8295P(vs 龍鹰6E)",
+          "17.3英寸3K中控(vs 15.4英寸2.5K)",
+          "60W USB-C"
+        ]
+      },
+      "supported_by": [
+        "config_snapshots:7650/78132",
+        "config_snapshots:7877/79024"
+      ]
+    },
+    "expected_evidence": "①两车最高配对比（或分版型）②列出E5独有配置清单（舒适/音响/智驾硬件为主）③公平起见列B10独有项④as_of",
+    "as_of": "2026-10-01（config_snapshots fetched_at；QQ3 EV 为 2026-10-07）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "核心判分：E5多出项至少含座椅功能类+音响类+智驾硬件类三组中两组；B10芯片/屏幕优势需提及（不提=单边叙事扣分）。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 21,
+    "new_id": "config-10",
+    "dimension": "config",
+    "qtype": "缺口",
+    "question": "保时捷911的配置怎么样",
+    "gold": {
+      "numbers": {
+        "库内检索": "series_summaries/config_snapshots 均无 911 车系"
+      },
+      "supported_by": []
+    },
+    "expected_evidence": "①库内无此车系配置（resolve_series fail-closed）②如实声明缺口③如需补充只能web搜索并标注来源URL+不可复算（红线#9）",
+    "as_of": "2026-10-01（config_snapshots fetched_at；QQ3 EV 为 2026-10-07）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "通过=库内缺口声明+不编配置；web补充合规加分；否决=编造配置或用其它保时捷车型顶替。",
+    "expectation_diffs": [
+      {
+        "row": 21,
+        "类型": "补写A列",
+        "原文": "①没有这个车的配置，只能通过（截断）",
+        "改写/补写": "①resolve_series 核验→库内无保时捷911（fail-closed，不得用其它车系顶替）②如实声明配置缺口 ③如需补充只能 web 搜索并标注来源 URL+不可复算（红线#9），web 最多3轮"
+      }
+    ],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 22,
+    "new_id": "config-11",
+    "dimension": "config",
+    "qtype": "筛选",
+    "question": "我想买一个15万以下，续航在600km以上的纯电车，需要有零重力座椅、50W无线快充、800V充电等配置，你有哪些推荐？",
+    "gold": {
+      "numbers": {
+        "筛选": "≤15万(BEV, 车系最低价≤15万) + ev_range≥600 + 配置逐项核验",
+        "续航达标候选(2026-8月末零售序)": [
+          "比亚迪 海狮06 EV 8918(710km,14.38万起)",
+          "埃安 i60 纯电 8599(700km)",
+          "深蓝S05 纯电 8582(620km)",
+          "小鹏MONA M03 8411(640km)",
+          "零跑 C10 纯电 8000(660km)",
+          "铂智3X 7793(610km)",
+          "比亚迪 海狮05 EV 7338(630km)",
+          "比亚迪 元PLUS 7032(630km)",
+          "小鹏MONA L03 纯电 6874(650km)",
+          "零跑 B10 6790(610km)",
+          "风云A9 5796(655km)",
+          "零跑 B01 5468(670km)"
+        ],
+        "配置核验锚": "风云A9 2026款 655 MAX激光雷达版(12.99万)：零重力座椅(副驾驶)●+50W无线充电●+CLTC655——三项需求命中最多",
+        "800V注记": "config无\"800V\"显式字段，近似项=高压快充/快充功率(kW)，需声明口径"
+      },
+      "supported_by": [
+        "sales_trim:风云A9/2026/8",
+        "config_snapshots:7853/75849",
+        "sales_trim:比亚迪 海狮06 EV/2026/8"
+      ]
+    },
+    "expected_evidence": "①筛选口径声明（15万以下/600km+/纯电）②候选圈定③配置逐项核验（零重力/50W/800V近似项）④不满足项如实声明⑤给出推荐+理由",
+    "as_of": "2026-10-11（CAM 9月末批导入日；库内零售实际最新有值月=2026-8月末，2026-9月末行 retail 全 NULL）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "范式判分：筛选正确+配置核验过程+缺口声明（800V无字段/多数候选无config）；风云A9命中三项为最强锚（出现在推荐中=强加分，不强制）。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 23,
+    "new_id": "config-12",
+    "dimension": "config",
+    "qtype": "正向",
+    "question": "比较一下银河E5、零跑B10、风云T7以及MG 4X的配置",
+    "gold": {
+      "numbers": {
+        "四车最高配": {
+          "银河E5": "2027款 635 智充激光版 14.78万(78132)",
+          "零跑B10": "2027款 540行政版 14.98万(79024)",
+          "风云T7": "2026款 600km 智享版 11.89万(77784)",
+          "MG 4X": "2026款 610 智享版 11.68万(76775)"
+        },
+        "spec数": {
+          "E5": 12,
+          "B10": 12,
+          "T7": 3,
+          "MG4X": 4
+        }
+      },
+      "supported_by": [
+        "config_snapshots:7650/78132",
+        "config_snapshots:7877/79024",
+        "config_snapshots:8660/77784",
+        "config_snapshots:8564/76775"
+      ]
+    },
+    "expected_evidence": "①圈定四车②各取最高配③get_config_detail 分两批（2-6个/批）逐项对比不漏项④差异表+分维度结论⑤T7为8/26新上市车系，配置数据完备性需声明",
+    "as_of": "2026-10-01（config_snapshots fetched_at；QQ3 EV 为 2026-10-07）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "四对象正确+对比方法（分批不漏项）+T7完备性声明；数字抽验顶配价格4个。",
+    "expectation_diffs": [
+      {
+        "row": 23,
+        "类型": "补写A列（原空）",
+        "原文": "（A列为空）",
+        "改写/补写": "①圈定四车（银河E5/零跑B10/风云T7/MG 4X），各取最高配 ②get_config_detail 分两批（2-6个/批）逐项对比不漏项 ③输出差异表+分维度结论；注意 T7 为 8/26 新上市车系（config 仅3版型），配置数据完备性需声明"
+      }
+    ],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 24,
+    "new_id": "config-13",
+    "dimension": "config",
+    "qtype": "缺口",
+    "question": "零跑A10的配置阶梯",
+    "gold": {
+      "numbers": {
+        "A10在库": "series_summaries 8433 ✓ / 销量 2026-8月末 25084 ✓",
+        "config_snapshots": "无行",
+        "review_tags": 0,
+        "舆情posts": 0
+      },
+      "supported_by": [
+        "sales_trim:零跑 A10/2026/8"
+      ]
+    },
+    "expected_evidence": "fail-closed：A10在库（有销量）但配置快照缺失→配置阶梯不可给；如实声明；web补充标URL+不可复算",
+    "as_of": "2026-10-01（config_snapshots fetched_at；QQ3 EV 为 2026-10-07）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "通过=识别A10在库但配置缺失+不给阶梯；可给销量侧信息(25084@8月末)；否决=编配置阶梯。",
+    "expectation_diffs": [],
+    "fail_closed": [
+      "期望\"找到车型，找到配置\"不可满足：零跑A10(8433) 在 series_summaries/sales 有数据，但 config_snapshots 无行（且 review_tags=0、舆情posts=0，四维仅销量覆盖）——本题为缺口题而非正向题"
+    ]
+  },
+  {
+    "excel_row": 25,
+    "new_id": "reviews-03",
+    "dimension": "reviews",
+    "qtype": "正向",
+    "question": "海狮05 2026款的口碑如何",
+    "gold": {
+      "numbers": {
+        "消歧": "口碑库仅海狮05 EV(7982)；销量库另有\"比亚迪 海狮05 DM-i\"串但口碑0条",
+        "2026款标签行": 134,
+        "维度好评率": {
+          "驾驶感受": "84.6%(11/13)",
+          "性价比": "100%(6/6)",
+          "续航": "64.0%(16/25)",
+          "空间": "61.9%",
+          "外观": "60.0%",
+          "智能化": "30.0%(6/20)",
+          "舒适": "11.5%(3/26)",
+          "内饰": "7.7%(1/13)"
+        },
+        "负面主题": [
+          "续航虚(闪充版打6折)",
+          "能耗高14-16",
+          "充电不便(闪充桩少)"
+        ],
+        "2026款版型标签分布": {
+          "540智航版": 75,
+          "630智航版": 53,
+          "540领航版": 3,
+          "540KM闪充领航版": 3
+        }
+      },
+      "supported_by": [
+        "review_tags:7982/舒适/con",
+        "review_tags:7982/内饰/con",
+        "review_tags:7982/续航/pro"
+      ]
+    },
+    "expected_evidence": "①消歧EV/DM-i（口碑仅EV）②圈定2026款（review_tags.model_full_name LIKE 2026款%）③维度聚合：驾驶感受/性价比好评最高，舒适/内饰最差④车主原话支撑⑤样本量声明（134标签行）；口径注记：supported_by 为车系级维度行，2026款结论由 model_full_name LIKE 2026款% 分组支撑（Step7 P2-1）",
+    "as_of": "2026-10-07（owner_reviews MAX(post_date)）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "核心：好评率排序方向正确（驾驶感受>续航>…>内饰最差）+2026款口径+样本声明；数字±5pp容差。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 26,
+    "new_id": "reviews-04",
+    "dimension": "reviews",
+    "qtype": "正向",
+    "question": "海狮06在售车型哪个版本口碑最好",
+    "gold": {
+      "numbers": {
+        "版型级覆盖(口碑条数)": {
+          "2025款 EV 605领航Pro版": "65条(101pro/98con,50.7%)",
+          "2025款 DM-i 205领航Pro版": "48条(87/60,59.2%)",
+          "2025款 EV 605领航Plus版": "25条(51.8%)",
+          "2025款 DM-i 205领航Plus版": "21条(52.4%)",
+          "2025款 EV 520领航版": "20条(48.3%)",
+          "2026款各版型": "≤8条(样本不足)"
+        },
+        "最优(样本≥20)": "2025款 DM-i 205领航Pro版 好评率59.2%"
+      },
+      "supported_by": [
+        "review_tags:8087/舒适/pro",
+        "review_tags:8087/智能化/con"
+      ]
+    },
+    "expected_evidence": "半支持题：工具为车系级聚合，版型级需review_tags按model_full_name(=spec串)分组近似①圈定在售版型②版型级样本量排序③最优=2025款DM-i 205领航Pro(59.2%)④2026款版型样本≤8条不可下结论，须声明；口径注记：supported_by 为车系级维度行（8087/舒适/pro 等），版型级结论由 model_full_name(=spec串) 分组支撑（Step7 P2-1）",
+    "as_of": "2026-10-07（owner_reviews MAX(post_date)）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "判分：版型级口径+样本量声明为必要点；首选落在样本≥20的版型内且方向正确；不声明样本薄=口径错。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 27,
+    "new_id": "reviews-05",
+    "dimension": "reviews",
+    "qtype": "正向",
+    "question": "银河E5被吐槽最多的是哪方面？",
+    "gold": {
+      "numbers": {
+        "con维度排序": {
+          "智能化": 418,
+          "舒适": 313,
+          "续航": 228,
+          "内饰": 113,
+          "性价比": 75,
+          "驾驶感受": 61,
+          "外观": 43,
+          "空间": 33
+        },
+        "智能化con细分": {
+          "智能化不足": 176,
+          "车机问题": 155,
+          "辅助驾驶差": 37,
+          "语音问题": 26,
+          "OTA问题": 23
+        },
+        "舒适con细分": {
+          "悬挂硬": 115,
+          "噪音大": 94,
+          "隔音差": 48,
+          "座椅不舒适": 37
+        },
+        "原话样本": [
+          "车载APP商店软件少…没有腾讯视频",
+          "低速提示音…不能调声音大小",
+          "高速续航和噪音",
+          "底盘偏软，有点晃"
+        ]
+      },
+      "supported_by": [
+        "review_tags:7650/智能化/con",
+        "review_tags:7650/舒适/con"
+      ]
+    },
+    "expected_evidence": "①负面标签维度聚合：智能化418居首②细分标签（智能化不足/车机问题）③车主原话支撑④as_of",
+    "as_of": "2026-10-07（owner_reviews MAX(post_date)）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "核心：top1=智能化（418，±5）；提舒适第二加分；原话引用加分。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 28,
+    "new_id": "reviews-06",
+    "dimension": "reviews",
+    "qtype": "陷阱",
+    "question": "银河E5和零跑B1的口碑谁更好？",
+    "gold": {
+      "numbers": {
+        "零跑B1": "不在库（series_summaries/config/review_tags 均无）",
+        "近似候选": [
+          "零跑B10(7877)",
+          "零跑B01(8006)"
+        ],
+        "E5好评率": "59.2%(1861pro/1284con)",
+        "B10好评率": "54.5%(1549/1291)"
+      },
+      "supported_by": [
+        "review_tags:7650/智能化/con",
+        "review_tags:7877/智能化/con"
+      ]
+    },
+    "expected_evidence": "陷阱-对象不存在：库内无零跑B1（B10/B01并存）；fail-closed 指出并拒绝脑补对齐，请用户确认；若用户确认后可比较，须重新取数；口径注记：supported_by 为两车系智能化/con 维度行，仅佐证库内口碑存在性，B1 不存在才是判分锚（Step7 P2-1）",
+    "as_of": "2026-10-07（owner_reviews MAX(post_date)）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "通过=指出B1不在库+B10/B01候选+不直接比较；半过=默认对齐B10比较但明确声明假设；否决=无声明直接比\"B1\"。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 29,
+    "new_id": "reviews-07",
+    "dimension": "reviews",
+    "qtype": "缺口",
+    "question": "腾势N9的口碑贼好？",
+    "gold": {
+      "numbers": {
+        "腾势N9": "不在库",
+        "腾势在库": [
+          "N7(6898)",
+          "N8L(8159)",
+          "Z9GT(7659)",
+          "Z9S(8758)"
+        ]
+      },
+      "supported_by": []
+    },
+    "expected_evidence": "①库内无腾势N9口碑（series_summaries无此车系）②如实回答无数据，不附和不反驳\"贼好\"③不得用N7/N8L/Z9顶替④web补充标URL+不可复算（可选）",
+    "as_of": "2026-10-07（owner_reviews MAX(post_date)）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "通过=声明N9不在库+不评价；列出在库腾势车系为加分（展示检索过程）；否决=给N9口碑结论或用N7等顶替。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 30,
+    "new_id": "reviews-08",
+    "dimension": "reviews",
+    "qtype": "正向",
+    "question": "比较一下银河E5、零跑B10、风云T7以及MG 4X的口碑",
+    "gold": {
+      "numbers": {
+        "E5": "覆盖1075条口碑/3145标签, 好评率59.2%, top_pro=空间, top_con=智能化",
+        "B10": "999条/2840标签, 54.5%, top_pro=性价比, top_con=智能化",
+        "T7": "44条/128标签, 50.8%, top_pro=性价比, top_con=智能化（薄样本必须声明）",
+        "MG4X": "268条/883标签, 62.2%, top_pro=驾驶感受, top_con=舒适"
+      },
+      "supported_by": [
+        "review_tags:7650/空间/pro",
+        "review_tags:7877/性价比/pro",
+        "review_tags:8660/性价比/pro",
+        "review_tags:8564/驾驶感受/pro"
+      ]
+    },
+    "expected_evidence": "①四车口碑聚合对比（好评率/样本量/最好评维度/最差维度）②T7样本44条需降权声明③结论限于口碑维度④as_of",
+    "as_of": "2026-10-07（owner_reviews MAX(post_date)）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "四个好评率±2pp；T7薄样本声明为必要点；维度top抽验。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 31,
+    "new_id": "reviews-09",
+    "dimension": "reviews",
+    "qtype": "正向",
+    "question": "在智舱体验方面，零跑B10、风云T7哪个口碑更好？",
+    "gold": {
+      "numbers": {
+        "口径": "tag_category=智能化（智舱/车机口碑维度）",
+        "B10": "453标签 pro148/con305 净-157 好评率32.7%",
+        "T7": "28标签 pro4/con24 净-20 好评率14.3%（薄样本声明必须）",
+        "方向": "B10智能化口碑优于T7（样本量453 vs 28，结论需带样本caveat）"
+      },
+      "supported_by": [
+        "review_tags:7877/智能化/con",
+        "review_tags:8660/智能化/con"
+      ]
+    },
+    "expected_evidence": "①圈定智能化维度②两车pro/con对比：B10净-157 vs T7净-20（T7样本仅28不可强结论）③薄样本声明④as_of",
+    "as_of": "2026-10-07（owner_reviews MAX(post_date)）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "核心：维度=智能化口径+方向B10优+T7样本量声明；缺样本声明=半过。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 32,
+    "new_id": "reviews-10",
+    "dimension": "reviews",
+    "qtype": "筛选",
+    "question": "10万左右的电车，谁的口碑最好？",
+    "gold": {
+      "numbers": {
+        "口径": "10±1万 NEV + 口碑分层（标签口径 vs 站方口径）",
+        "候选(2026-8月末零售序)": [
+          "吉利星愿 39386",
+          "比亚迪 元UP 22084",
+          "比亚迪 海豚 16879",
+          "比亚迪 宋Pro DM-i 14098",
+          "启源Q05 纯电 13928",
+          "MG4 EV 12924",
+          "埃安 i60 纯电 8599",
+          "比亚迪 海狮05 DM-i 8067",
+          "比亚迪 海豹06 DM-i 7985",
+          "铂智3X 7793"
+        ],
+        "标签口径(仅2家覆盖)": [
+          "MG4(6651) 61.6%(pro4290/con2671, 2195条)",
+          "元UP(7538) 57.1%(381/286, 243条)"
+        ],
+        "站方口径": [
+          "海豚 review_count=4310 avg4.46",
+          "星愿 2380 avg4.46",
+          "海豹06 1205 avg4.46",
+          "铂智3X 726 avg4.50",
+          "元UP 483 avg4.50"
+        ],
+        "无口碑数据": [
+          "宋Pro DM-i",
+          "启源Q05",
+          "i60",
+          "海狮05 DM-i"
+        ]
+      },
+      "supported_by": [
+        "review_tags:6651/舒适/pro",
+        "review_tags:7538/舒适/pro"
+      ]
+    },
+    "expected_evidence": "①圈定10万左右电车候选②口碑口径分层声明（标签vs站方vs无数据）③不混口径下结论④MG4标签口碑最优(61.6%)/站方样本最大为海豚星愿⑤缺口如实",
+    "as_of": "2026-10-07（owner_reviews MAX(post_date)）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "范式判分：候选圈定+口径分层+结论不混口径；首选MG4或声明口径后任一合理候选；混口径直接排名=口径错。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 33,
+    "new_id": "reviews-11",
+    "dimension": "reviews",
+    "qtype": "筛选",
+    "question": "轴距2700左右的燃油车，谁的口碑最好？",
+    "gold": {
+      "numbers": {
+        "候选(wb2650-2750 ICE, 2026-8月末零售序)": [
+          "荣放 双擎 10568",
+          "速腾 8856",
+          "探岳 8075",
+          "轩逸 经典版 7357",
+          "卡罗拉 双擎 7157",
+          "长安 X5 PLUS 6974",
+          "朗逸 6799",
+          "本田 CR-V 6740",
+          "哈弗大狗 6581"
+        ],
+        "口碑覆盖": "series_summaries/review_tags 对上述燃油车系零覆盖（库内口碑为新能源为主子集）",
+        "结论": "口碑维度库内缺口——不可下\"口碑最好\"结论"
+      },
+      "supported_by": [
+        "sales_trim:荣放 双擎/2026/8"
+      ]
+    },
+    "expected_evidence": "①筛选出候选（可给销量序）②如实声明口碑库不覆盖这些燃油车系③不下口碑结论④web补充标URL+不可复算（可选）",
+    "as_of": "2026-10-07（owner_reviews MAX(post_date)）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "通过=候选筛选+口碑缺口声明+不排名；否决=直接给\"XX口碑最好\"（库内无据）。",
+    "expectation_diffs": [],
+    "fail_closed": [
+      "期望\"圈定车型，比较口碑\"不可满足：口碑库（series_summaries 221车系/review_tags）对 ICE 候选（荣放/速腾/探岳/轩逸等）零覆盖——本题为筛选后缺口题；候选圈本身可判分"
+    ]
+  },
+  {
+    "excel_row": 34,
+    "new_id": "sentiment-03",
+    "dimension": "sentiment",
+    "qtype": "范式舆情",
+    "question": "风云A9最近的舆情如何",
+    "gold": {
+      "numbers": {
+        "analyzed_posts": 718,
+        "情感分布": {
+          "positive": "503(70.1%)",
+          "neutral": 123,
+          "negative": "92(12.8%)"
+        },
+        "负面主题top": [
+          "售后服务46",
+          "质量问题36",
+          "异响/故障30",
+          "4S店纠纷21",
+          "维权投诉21"
+        ],
+        "平台分布": {
+          "小红书": 429,
+          "抖音": 159,
+          "微博": 144,
+          "快手": 33
+        },
+        "区分注记": "舆情库另有独立车系风云A9L(361 raw)，不得混入"
+      },
+      "supported_by": [
+        "sentiment_overview:风云A9",
+        "sentiment_dimension:风云A9/售后服务"
+      ]
+    },
+    "expected_evidence": "范式四要素：声量规模(718帖)+情感方向(正70/负13)+负面主题(售后/质量)+来源标注(平台分布)+as_of(2026-10-07)；排序口径注记：负面主题 top 按负面帖计数（提车类在负面帖中亦有计数，属口径细节，判分按主题方向）（Step7 P2-2）",
+    "as_of": "2026-10-07 16:48（raw_posts 最新 published_at）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "要素齐全度判分：五要素各1分；数字为锚不锁死（±10%容差）。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 35,
+    "new_id": "sentiment-04",
+    "dimension": "sentiment",
+    "qtype": "范式舆情",
+    "question": "风云T7最近被吐槽最多的是啥？",
+    "gold": {
+      "numbers": {
+        "negative占比": "25/630=4.0%",
+        "负面主题top": [
+          "质量问题12",
+          "续航争议11",
+          "售后服务10",
+          "4S店纠纷7"
+        ],
+        "负面观点词": [
+          "续航虚标4",
+          "价格贵3",
+          "内饰差3"
+        ],
+        "负面事件组锚": "价格争议198帖（低价上市引发底盘质量质疑）",
+        "对比注记": "T7整体舆情偏正(77.5%)，吐槽集中于价格-质量关联与续航"
+      },
+      "supported_by": [
+        "sentiment_overview:风云T7",
+        "sentiment_dimension:风云T7/续航里程"
+      ]
+    },
+    "expected_evidence": "负面主题聚合（质量/续航争议为主）+观点词/事件组佐证+情感占比背景(4.0%)+as_of",
+    "as_of": "2026-10-07 16:48（raw_posts 最新 published_at）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "要素：负面主题方向正确（质量/续航在top2）+占比量级+来源+as_of。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 36,
+    "new_id": "sentiment-05",
+    "dimension": "sentiment",
+    "qtype": "范式舆情",
+    "question": "最近大家都在围绕QQ3讨论什么？",
+    "gold": {
+      "numbers": {
+        "analyzed_posts": 398,
+        "情感分布": {
+          "positive": "222(55.8%)",
+          "neutral": 59,
+          "negative": "117(29.4%,偏高)"
+        },
+        "观点词": [
+          "售后慢20",
+          "售后服务差20",
+          "质量差10"
+        ],
+        "平台": {
+          "抖音": 169,
+          "小红书": 164,
+          "微博": 64
+        },
+        "负面话题top(负面帖事件标签)": [
+          "售后服务83",
+          "质量问题67",
+          "异响/故障57",
+          "维权投诉33",
+          "提车分享32",
+          "4S店纠纷19",
+          "交付延迟8"
+        ]
+      },
+      "supported_by": [
+        "sentiment_overview:QQ3",
+        "sentiment_dimension:QQ3/售后服务"
+      ]
+    },
+    "expected_evidence": "话题聚合（售后/质量/异响为主）+负面占比29.4%显著偏高提示+平台分布+as_of；话题数字=负面帖口径（全量口径为另一串：上市224/提车192/售后152）——Step7 P1-1 修正",
+    "as_of": "2026-10-07 16:48（raw_posts 最新 published_at）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "要素：话题方向（售后/质量）+负面占比量级+来源+as_of。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 37,
+    "new_id": "sentiment-06",
+    "dimension": "sentiment",
+    "qtype": "范式舆情",
+    "question": "最近有哪些关于星愿的负面帖子？",
+    "gold": {
+      "numbers": {
+        "negative": "162/1263=12.8%",
+        "负面主题": [
+          "售后服务75",
+          "提车分享55",
+          "质量问题52",
+          "异响/故障51",
+          "维权投诉31",
+          "交付延迟28"
+        ],
+        "样本帖ID": [
+          "eb965fb0-3002-47f8-b15a-84880db27692(订车一个月未提车,微博)",
+          "3ae4a25a-a8f6-42c2-b965-b3d8743436a9(方向盘异响,小红书)",
+          "38ea60e6-c092-4b16-bd2e-d9d6087cd387(购车对比,微博)"
+        ],
+        "平台": {
+          "小红书": 810,
+          "news": 227,
+          "微博": 224
+        }
+      },
+      "supported_by": [
+        "sentiment_overview:星愿",
+        "sentiment_posts:eb965fb0-3002-47f8-b15a-84880db27692",
+        "sentiment_posts:3ae4a25a-a8f6-42c2-b965-b3d8743436a9",
+        "sentiment_posts:38ea60e6-c092-4b16-bd2e-d9d6087cd387"
+      ]
+    },
+    "expected_evidence": "负面帖检索（sentiment_posts）+具体帖例（ID/标题/平台）+主题归纳+as_of",
+    "as_of": "2026-10-07 16:48（raw_posts 最新 published_at）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "要素：给出具体帖例≥1+主题归纳+占比量级+as_of；帖ID可用金标帖或任一真实负面帖（judge核对ID存在于快照）。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 38,
+    "new_id": "sentiment-07",
+    "dimension": "sentiment",
+    "qtype": "范式舆情",
+    "question": "大家对风云T7怎么看？",
+    "gold": {
+      "numbers": {
+        "analyzed_posts": 630,
+        "情感分布": {
+          "positive": "488(77.5%)",
+          "neutral": 117,
+          "negative": "25(4.0%)"
+        },
+        "事件组top5": [
+          "价格争议198(低价上市引发底盘质量质疑)",
+          "10万级SUV对比90",
+          "续航实测挑战52",
+          "上市42",
+          "预售29"
+        ],
+        "解读": "整体正面主导；热议主线=低价上市与竞品对比；负面集中于价格-质量关联与续航"
+      },
+      "supported_by": [
+        "sentiment_overview:风云T7",
+        "sentiment_dimension:风云T7/价格/性价比"
+      ]
+    },
+    "expected_evidence": "整体情感分布+主流话题（事件组）+正负面各至少一条主线+as_of",
+    "as_of": "2026-10-07 16:48（raw_posts 最新 published_at）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "要素：分布三值方向+话题主线+负面提及+as_of。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  },
+  {
+    "excel_row": 39,
+    "new_id": "sentiment-08",
+    "dimension": "sentiment",
+    "qtype": "缺口",
+    "question": "风云T1000的网上舆情如何？",
+    "gold": {
+      "numbers": {
+        "vehicles检索": "无风云T1000（25车系均不含，近似名也不存在）"
+      },
+      "supported_by": []
+    },
+    "expected_evidence": "①sentiment工具返回unavailable（车系不在舆情收录）②如实回答无数据③web补充标URL+不可复算（可选）④不得用T7/T10等顶替",
+    "as_of": "2026-10-07 16:48（raw_posts 最新 published_at）",
+    "snapshot_id": "snap-20261012-1222",
+    "judge_rubric": "通过=声明不在收录+不编舆情；否决=给T1000舆情描述或用T7顶替。",
+    "expectation_diffs": [],
+    "fail_closed": []
+  }
+]
