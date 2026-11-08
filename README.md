@@ -3,7 +3,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-6366f1.svg)](LICENSE)
 [![Eval pass@1](https://img.shields.io/badge/金标评估_pass%401-95.2%25_（63题）-34d399.svg)](eval/reports/index-eval-2026-11-01T09-30-39-689Z.md)
 [![Tests](https://img.shields.io/badge/pytest-1173_用例-22d3ee.svg)](#测试)
-[![Status](https://img.shields.io/badge/status-已上线（ECS）-fb923c.svg)](设计图总览/Prism-Agent-上线方案-v1.md)
+![Status](https://img.shields.io/badge/status-已上线（ECS）-fb923c.svg)
 
 > **English Overview** — Prism-Agent is a production-deployed LLM data agent for automotive product managers. It answers business questions across four dimensions (spec / owner reviews / sales / social sentiment) with one non-negotiable guarantee: **every number must be verifiable**. Instead of trusting the model's self-discipline, it enforces an *evidence gate* (`submit_conclusion` → CLAIM validation) and execution-layer guardrails (allowlists, fail-closed checks), and it is backed by a frozen 63-task golden eval set with adversarial trap questions (pass@1 = 95.2%, avg 4.78/5). Built on the [pi](https://github.com/badlogic/pi-mono) agent runtime: Python/FastAPI backends, React workbench, Langfuse observability, fully reproducible eval pipeline.
 
@@ -68,7 +68,7 @@ LLM 的自律不可靠，所以防线全部放在**执行层**，提示词只负
 
 - **数据层**：SQLite（`sales_trim` 月末零售 / `owner_reviews`+`review_tags` / 配置快照 / 舆情帖）。评估用**只读快照 + 哈希指纹**，保证判分可复现。
 - **观测层**：Langfuse 全轨迹（每次工具调用/判分理由挂 trace），prism-ops 独立端口承载北极星指标与 badcase 回放。
-- **部署**：单机 ECS + Nginx，六个服务由 `prism.py` 一键拉起（见 [设计图总览/一键启动设计方案](设计图总览/Prism-Agent-一键启动-设计方案.md)）。
+- **部署**：单机 ECS + Nginx，六个服务由 `prism.py` 一键拉起。
 
 ## 五、评估体系：不是 demo，是量产工程
 
@@ -83,7 +83,7 @@ LLM 的自律不可靠，所以防线全部放在**执行层**，提示词只负
 
 ## 六、工程过程：openspec 十步流程
 
-所有功能走统一 change 流程（探索 → 方案 → 十步施工 → 隔离子代理审查 → 真实对话 E2E → 门禁 → 归档），全过程文档在 [`openspec/changes/`](openspec/changes/)（30+ 个已归档 change）与 [`设计图总览/`](设计图总览/)（评估体系完整方案、出口闸根治方案、上线方案等 14 份设计方案）。审查采用**施工与审查分离**：审查子代理只拿代码不给设计结论，防确认偏误。
+所有功能走统一 change 流程（探索 → 方案 → 十步施工 → 隔离子代理审查 → 真实对话 E2E → 门禁 → 归档），全过程文档在 [`openspec/changes/`](openspec/changes/)（30+ 个已归档 change）。审查采用**施工与审查分离**：审查子代理只拿代码不给设计结论，防确认偏误。
 
 ## 七、仓库结构
 
@@ -98,7 +98,6 @@ LLM 的自律不可靠，所以防线全部放在**执行层**，提示词只负
 ├─ eval/               评估栈：题库 · 金标 · 判分器 · 冻结快照 · 报告
 ├─ openspec/           change 工程过程文档（十步流程档案）
 ├─ deploy/             Nginx/ECS 部署与运维脚本（敏感值已脱敏）
-├─ 设计图总览/          14 份设计方案（评估体系 · 出口闸 · 上线…）
 ├─ tests/ · src/ · shared/   护栏与信封层测试、共享类型
 ├─ AGENTS.md · SYSTEM.md · PRISM_*.md   分层提示词
 └─ prism.py            一键启动器（六服务编排）
