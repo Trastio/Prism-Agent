@@ -11,6 +11,8 @@
 
 [![产品演示视频](docs/media/poster.jpg)](docs/media/demo.mp4)
 
+<video src="docs/media/demo.mp4" controls muted preload="metadata" poster="docs/media/poster.jpg" width="720"></video>
+
 ---
 
 ## 一、为什么做这个
